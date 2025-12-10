@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Opportunity Finder | Magic Folder</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- CORE STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366f1; --primary-dark: #4f46e5; --primary-glow: rgba(99, 102, 241, 0.4);
+            --bg: #0f172a; --bg-card: #1e293b; --bg-card-hover: #334155;
+            --text: #f8fafc; --text-muted: #94a3b8;
+            --border: #334155; --success: #10b981; --error: #ef4444;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; width: 100%; }
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.4s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* --- UI ELEMENTS --- */
+        header { padding: 24px 0; border-bottom: 1px solid var(--border); margin-bottom: 40px; background: rgba(15, 23, 42, 0.95); position: sticky; top: 0; z-index: 100; }
+        .logo { display: flex; align-items: center; gap: 10px; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 24px; }
+        .logo-icon { color: var(--primary); }
+        h1 { font-family: 'Manrope', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 24px; }
+        h2 { font-family: 'Manrope', sans-serif; font-size: 2rem; margin-bottom: 16px; }
+        .gradient-text { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .subtitle { color: var(--text-muted); font-size: 1.15rem; margin-bottom: 40px; max-width: 600px; }
+        
+        .btn { padding: 16px 32px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; font-size: 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 20px var(--primary-glow); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+        .btn-ghost:hover { border-color: var(--text); color: var(--text); background: var(--bg-card); }
+        .btn.loading { opacity: 0.7; pointer-events: none; }
+        
+        .grid-selector { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin: 30px 0; }
+        .selection-card { background: var(--bg-card); border: 2px solid var(--border); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.2s ease; position: relative; display: flex; flex-direction: column; gap: 16px; height: 100%; }
+        .selection-card:hover { border-color: var(--primary); background: var(--bg-card-hover); transform: translateY(-4px); }
+        .selection-card.selected { border-color: var(--primary); background: rgba(99, 102, 241, 0.08); box-shadow: 0 0 0 1px var(--primary); }
+        .icon-box { width: 48px; height: 48px; background: rgba(255,255,255,0.05); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+        .selection-card.selected .icon-box { background: var(--primary); color: white; }
+        .check-mark { position: absolute; top: 16px; right: 16px; color: var(--primary); opacity: 0; transform: scale(0.5); transition: all 0.2s; }
+        .selection-card.selected .check-mark { opacity: 1; transform: scale(1); }
+
+        .input-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; font-weight: 500; color: var(--text-muted); }
+        select, input { width: 100%; padding: 16px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); border-radius: 12px; font-size: 1rem; outline: none; }
+        select:focus, input:focus { border-color: var(--primary); }
+        .error-msg { color: var(--error); font-size: 0.9rem; margin-top: 8px; display: none; }
+        
+        .range-wrap { margin-top: 20px; padding: 24px; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); }
+        .range-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .range-val { color: var(--primary); font-weight: 800; background: rgba(99, 102, 241, 0.1); padding: 4px 12px; border-radius: 100px; }
+        input[type=range] { width: 100%; height: 6px; background: var(--border); border-radius: 4px; appearance: none; }
+        input[type=range]::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); cursor: pointer; border: 2px solid var(--bg-card); }
+
+        /* --- RESULTS --- */
+        .results-header { text-align: center; margin-bottom: 40px; padding: 48px; background: linear-gradient(180deg, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0) 100%); border-radius: 24px; border: 1px solid rgba(99, 102, 241, 0.2); }
+        .big-number { font-size: 4.5rem; font-weight: 800; color: var(--success); line-height: 1; margin: 10px 0; }
+        
+        /* UPDATED RESULT CARD */
+        .rec-card { background: var(--bg-card); padding: 28px; border-radius: 16px; border: 1px solid var(--border); border-left: 6px solid var(--primary); margin-bottom: 24px; }
+        .rec-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+        .rec-methodology { background: rgba(15, 23, 42, 0.5); padding: 16px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.9rem; color: var(--text-muted); display: flex; gap: 12px; }
+        .rec-methodology i { flex-shrink: 0; margin-top: 2px; color: var(--primary); }
+        
+        @media (max-width: 600px) {
+            .rec-top { flex-direction: column; gap: 16px; }
+            .rec-top > div:last-child { width: 100%; display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo"><i data-lucide="folder-check" class="logo-icon"></i> Magic Folder</div>
+    </div>
+</header>
+
+<main class="container">
+    
+    <div id="step-1" class="fade-in">
+        <h1>Find the hidden time-sinks <br><span class="gradient-text">in your business.</span></h1>
+        <p class="subtitle">Identify bottlenecks and see exactly how our AI Agents can solve them.</p>
+        <div style="max-width: 440px;">
+            <div class="input-group">
+                <label>Industry Sector</label>
+                <select id="industry">
+                    <option value="">Select Industry...</option>
+                    <option value="tech">Technology / SaaS</option>
+                    <option value="agency">Agency / Professional Services</option>
+                    <option value="finance">Finance / Real Estate / Insurance</option>
+                    <option value="healthcare">Healthcare / Legal</option>
+                    <option value="retail">Retail / E-commerce</option>
+                    <option value="other">Other</option>
+                </select>
+                <div id="err-industry" class="error-msg">Please select an industry.</div>
+            </div>
+            <div class="input-group">
+                <label>Company Size</label>
+                <select id="size">
+                    <option value="">Select Size...</option>
+                    <option value="1-10">1-10 Employees</option>
+                    <option value="11-50">11-50 Employees</option>
+                    <option value="51-200">51-200 Employees</option>
+                    <option value="200+">200+ Employees</option>
+                </select>
+                <div id="err-size" class="error-msg">Please select a company size.</div>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="validateStep1()">Identify Bottlenecks <i data-lucide="arrow-right"></i></button>
+        </div>
+    </div>
+
+    <div id="step-2" class="hidden fade-in">
+        <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 20px;">
+            <div><h2>What hurts the most?</h2><p class="subtitle" style="margin:0;">Select all that apply (Min 1)</p></div>
+            <div style="text-align: right; color: var(--text-muted);">Selected: <span id="count-display" style="color: var(--primary); font-weight: bold;">0</span></div>
+        </div>
+        <div class="grid-selector" id="card-grid"></div>
+        <div id="err-grid" class="error-msg" style="text-align: center;">Please select at least one bottleneck.</div>
+        <div style="display: flex; gap: 12px; margin-top: 32px;">
+            <button class="btn btn-ghost" onclick="goToStep(1)">Back</button>
+            <button class="btn btn-primary" style="flex: 1;" onclick="validateStep2()">Continue <i data-lucide="arrow-right"></i></button>
+        </div>
+    </div>
+
+    <div id="step-3" class="hidden fade-in">
+        <h2>Let's quantify the impact</h2>
+        <p class="subtitle">Use the sliders to estimate your current volume.</p>
+        <div id="question-container"></div>
+        <div style="display: flex; gap: 12px; margin-top: 40px;">
+            <button class="btn btn-ghost" onclick="goToStep(2)">Back</button>
+            <button class="btn btn-primary" style="flex: 1;" onclick="calculateResults()">Calculate ROI <i data-lucide="bar-chart-2"></i></button>
+        </div>
+    </div>
+
+    <div id="step-4" class="hidden fade-in">
+        <div class="results-header">
+            <h3 style="color: var(--text-muted); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Potential Annual Savings</h3>
+            <div class="big-number" id="roi-display">$0</div>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">By reclaiming <strong style="color: var(--text);"><span id="hours-display">0</span> hours</strong> of productivity.</p>
+        </div>
+
+        <h2 style="margin-bottom: 20px;">How We Solve It</h2>
+        <div id="rec-container"></div>
+
+        <div style="background: var(--bg-card); padding: 40px; border-radius: 16px; margin-top: 50px; text-align: center; border: 1px solid var(--border);">
+            <div style="width: 50px; height: 50px; background: rgba(99, 102, 241, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary);"><i data-lucide="mail"></i></div>
+            <h3>Get the Full Action Plan</h3>
+            <p style="color: var(--text-muted); margin-bottom: 24px; max-width: 400px; margin: 0 auto 24px auto;">We'll email you this ROI breakdown and a technical roadmap for these specific agents.</p>
+            <div style="max-width: 420px; margin: 0 auto; display: flex; gap: 10px; flex-direction: column;">
+                <input type="text" id="user-name" placeholder="Full Name">
+                <input type="email" id="user-email" placeholder="work@company.com">
+                <button class="btn btn-primary" id="send-btn" onclick="sendReport()">Send Full Report</button>
+                <div id="send-status" style="margin-top: 10px; font-size: 0.9rem;"></div>
+            </div>
+        </div>
+        <button class="btn btn-ghost" onclick="location.reload()" style="margin: 40px auto 0 auto; display: flex;">Start Over</button>
+    </div>
+
+</main>
+
+<script>
+    /* --- DATA: SOLUTIONS WITH METHODOLOGY --- */
+    // Added 'methodology' field to explain the "How"
+    const solutions = [
+        { 
+            id: 'invoices', title: 'Invoice Processing', 
+            desc: 'Extracting data from PDFs to accounting.', 
+            icon: 'receipt', product: 'Finance AI Agent', 
+            q: 'Invoices processed per month?', unit: 'invoices', timePerUnit: 0.25,
+            methodology: "Our agent uses computer vision (OCR) to read PDF invoices with 99.5% accuracy, matches them to POs in your ERP, and flags anomalies for human review."
+        },
+        { 
+            id: 'support', title: 'Customer Support', 
+            desc: 'Resolving repetitive FAQ tickets.', 
+            icon: 'message-circle', product: 'Support Triage Bot', 
+            q: 'Support tickets per week?', unit: 'tickets', timePerUnit: 0.15,
+            methodology: "We deploy an NLP model trained on your past 6 months of tickets. It resolves Tier-1 requests instantly and drafts suggested replies for complex Tier-2 issues."
+        },
+        { 
+            id: 'leads', title: 'Lead Enrichment', 
+            desc: 'Finding emails and LinkedIn info.', 
+            icon: 'search', product: 'Sales Enrichment Agent', 
+            q: 'Leads researched per week?', unit: 'leads', timePerUnit: 0.15,
+            methodology: "The agent connects to 4+ data sources (LinkedIn, Apollo, Clearbit) to aggregate prospect data and score leads based on your ICP before your team ever touches them."
+        },
+        { 
+            id: 'reporting', title: 'Weekly Reporting', 
+            desc: 'Consolidating data into reports.', 
+            icon: 'pie-chart', product: 'Auto-Reporting Pipeline', 
+            q: 'Hours on reports per week?', unit: 'hours', isDirectTime: true,
+            methodology: "We build a data pipeline that pulls live metrics from your CRM and Ads manager, formats them into a branded slide deck, and Slack's it to you every Monday at 8 AM."
+        },
+        { 
+            id: 'onboarding', title: 'Employee Onboarding', 
+            desc: 'Account setup and doc sending.', 
+            icon: 'users', product: 'HR Onboarding Workflow', 
+            q: 'New hires per year?', unit: 'hires', timePerUnit: 5,
+            methodology: "Triggered by an offer letter signature, this agent auto-provisions email/Slack accounts, sends localized contracts, and schedules intro meetings."
+        },
+        { 
+            id: 'social', title: 'Social Media', 
+            desc: 'Writing captions and scheduling.', 
+            icon: 'share-2', product: 'Content Marketing AI', 
+            q: 'Social posts per week?', unit: 'posts', timePerUnit: 0.5,
+            methodology: "You upload raw ideas/voice notes; the agent generates captions in your brand voice, finds trending hashtags, and schedules posts across LinkedIn and X."
+        },
+        { 
+            id: 'meetings', title: 'Meeting Follow-up', 
+            desc: 'Summarizing notes & action items.', 
+            icon: 'mic', product: 'Meeting Intelligence Bot', 
+            q: 'Meetings per week?', unit: 'meetings', timePerUnit: 0.25,
+            methodology: "The agent transcribes the call, identifies action items by owner, updates the CRM deals based on sentiment, and emails a summary to all attendees."
+        },
+        { 
+            id: 'contracts', title: 'Contract Review', 
+            desc: 'Scanning NDAs for risks.', 
+            icon: 'file-check', product: 'Legal Review Agent', 
+            q: 'Contracts reviewed per month?', unit: 'docs', timePerUnit: 0.5,
+            methodology: "The AI scans documents against your custom 'Playbook' of acceptable terms, highlighting risky clauses and suggesting redlines in seconds."
+        },
+        { 
+            id: 'email', title: 'Inbox Triage', 
+            desc: 'Sorting shared inboxes.', 
+            icon: 'mail', product: 'Inbox Dispatcher', 
+            q: 'Hours sorting email per week?', unit: 'hours', isDirectTime: true,
+            methodology: "We train a classifier on your historical email labels. It automatically archives spam, labels invoices, and forwards urgent client emails to Slack."
+        },
+        { 
+            id: 'data-entry', title: 'Manual Data Entry', 
+            desc: 'Typing forms into CRMs.', 
+            icon: 'keyboard', product: 'OCR & Data Entry Bot', 
+            q: 'Hours on data entry per week?', unit: 'hours', isDirectTime: true,
+            methodology: "Using robotic process automation (RPA), the agent mimics keystrokes to transfer data between legacy systems that don't have APIs, running 24/7."
+        },
+        { 
+            id: 'scheduling', title: 'Scheduling', 
+            desc: 'Coordinate meeting times.', 
+            icon: 'calendar', product: 'Smart Scheduler', 
+            q: 'Appts booked per month?', unit: 'appts', timePerUnit: 0.15,
+            methodology: "The agent negotiates times via email natural language, handles time zone math, and sends calendar invites without you ever opening your calendar."
+        },
+        { 
+            id: 'inventory', title: 'Inventory Sync', 
+            desc: 'Updating stock levels.', 
+            icon: 'box', product: 'Inventory Sync Automation', 
+            q: 'Hours updating stock per week?', unit: 'hours', isDirectTime: true,
+            methodology: "A watcher agent monitors sales on Shopify/Amazon and instantly updates your ERP inventory levels to prevent overselling."
+        }
+    ];
+
+    let state = { selectedIds: new Set(), inputs: {}, results: {} };
+    // REPLACE THIS WITH YOUR MAKE.COM WEBHOOK URL
+    const WEBHOOK_URL = "https://hook.us1.make.com/YOUR_WEBHOOK_ID_HERE"; 
+
+    function renderIcons() { if(typeof lucide!=='undefined') lucide.createIcons(); }
+    window.addEventListener('DOMContentLoaded', () => { renderCards(); renderIcons(); });
+
+    function validateStep1() {
+        const ind = document.getElementById('industry').value;
+        const size = document.getElementById('size').value;
+        let valid = true;
+        document.getElementById('err-industry').style.display = ind ? 'none' : 'block';
+        document.getElementById('err-size').style.display = size ? 'none' : 'block';
+        if (ind && size) goToStep(2);
+    }
+
+    function renderCards() {
+        const grid = document.getElementById('card-grid');
+        grid.innerHTML = solutions.map(sol => `
+            <div class="selection-card" onclick="toggleCard('${sol.id}', this)">
+                <div class="check-mark"><i data-lucide="check-circle-2"></i></div>
+                <div class="icon-box"><i data-lucide="${sol.icon}"></i></div>
+                <h3>${sol.title}</h3>
+                <p style="font-size:0.9rem; color:var(--text-muted);">${sol.desc}</p>
+            </div>
+        `).join('');
+        renderIcons();
+    }
+
+    function toggleCard(id, el) {
+        if (state.selectedIds.has(id)) { state.selectedIds.delete(id); el.classList.remove('selected'); } 
+        else { state.selectedIds.add(id); el.classList.add('selected'); }
+        document.getElementById('count-display').textContent = state.selectedIds.size;
+        if (state.selectedIds.size > 0) document.getElementById('err-grid').style.display = 'none';
+    }
+
+    function validateStep2() {
+        if (state.selectedIds.size === 0) { document.getElementById('err-grid').style.display = 'block'; return; }
+        generateQuestions();
+    }
+
+    function generateQuestions() {
+        const container = document.getElementById('question-container');
+        const selectedSols = solutions.filter(s => state.selectedIds.has(s.id));
+        container.innerHTML = selectedSols.map(sol => `
+            <div class="range-wrap">
+                <div class="range-header">
+                    <label style="margin:0; font-weight:600;">${sol.q}</label>
+                    <span class="range-val" id="val-${sol.id}">0 ${sol.unit}</span>
+                </div>
+                <input type="range" min="0" max="100" value="0" oninput="updateVal('${sol.id}', this.value, '${sol.unit}')">
+            </div>
+        `).join('');
+        goToStep(3);
+    }
+
+    function updateVal(id, val, unit) {
+        state.inputs[id] = parseInt(val);
+        document.getElementById(`val-${id}`).textContent = `${val} ${unit}`;
+    }
+
+    function calculateResults() {
+        let totalHoursYear = 0;
+        let activeSols = [];
+
+        solutions.filter(s => state.selectedIds.has(s.id)).forEach(sol => {
+            const val = state.inputs[sol.id] || 0;
+            let weeklyHours = 0;
+            if (sol.isDirectTime) {
+                weeklyHours = val;
+            } else {
+                let multiplier = 1; 
+                if (sol.unit === 'hires') multiplier = 1/52; 
+                if (['invoices', 'docs', 'appts'].includes(sol.unit)) multiplier = 1/4; 
+                weeklyHours = (val * multiplier) * sol.timePerUnit;
+            }
+            const yearlyHours = weeklyHours * 50; 
+            totalHoursYear += yearlyHours;
+            if (yearlyHours > 0) {
+                activeSols.push({ ...sol, savings: Math.round(yearlyHours) });
+            }
+        });
+
+        const roi = totalHoursYear * 45; // $45/hr avg
+        state.results = { totalHours: Math.round(totalHoursYear), totalMoney: Math.round(roi), details: activeSols };
+
+        document.getElementById('roi-display').textContent = '$' + state.results.totalMoney.toLocaleString();
+        document.getElementById('hours-display').textContent = state.results.totalHours.toLocaleString();
+        
+        activeSols.sort((a,b) => b.savings - a.savings);
+        
+        // RENDER METHODOLOGY CARDS
+        const container = document.getElementById('rec-container');
+        if (activeSols.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:var(--text-muted);">Adjust sliders to see results.</p>';
+        } else {
+            container.innerHTML = activeSols.slice(0, 3).map(s => `
+                <div class="rec-card">
+                    <div class="rec-top">
+                        <div>
+                            <h3 style="margin-bottom:6px;">${s.product}</h3>
+                            <p style="color:var(--text-muted); font-size:0.9rem;">${s.desc}</p>
+                        </div>
+                        <div style="text-align:right; min-width:120px;">
+                            <div style="font-weight:800; font-size:1.5rem; color:var(--success); line-height: 1;">${s.savings} hrs</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); margin-top: 4px;">saved / year</div>
+                        </div>
+                    </div>
+                    <div class="rec-methodology">
+                        <i data-lucide="zap" style="width:18px; height:18px;"></i>
+                        <span><strong>How it works:</strong> ${s.methodology}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        goToStep(4);
+    }
+
+    function sendReport() {
+        const name = document.getElementById('user-name').value;
+        const email = document.getElementById('user-email').value;
+        const statusDiv = document.getElementById('send-status');
+        const btn = document.getElementById('send-btn');
+
+        if(!email || !name) {
+            statusDiv.innerHTML = '<span style="color:var(--error)">Please enter name and email.</span>';
+            return;
+        }
+
+        btn.innerText = "Sending...";
+        btn.classList.add('loading');
+
+        // PREPARE PAYLOAD FOR WEBHOOK
+        const payload = {
+            contact_name: name,
+            contact_email: email,
+            industry: document.getElementById('industry').value,
+            company_size: document.getElementById('size').value,
+            total_savings_usd: state.results.totalMoney,
+            total_hours_saved: state.results.totalHours,
+            top_opportunities: state.results.details.map(d => ({
+                product: d.product,
+                hours: d.savings,
+                methodology: d.methodology
+            }))
+        };
+
+        // SIMULATED SEND (Replace with fetch to your actual webhook)
+        console.log("Sending to Webhook:", payload);
+        
+        // UNCOMMENT THIS TO ACTUALLY SEND
+        /*
+        fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(response => {
+             btn.innerText = "Report Sent!";
+             statusDiv.innerHTML = '<span style="color:var(--success)">Check your inbox in 2 minutes!</span>';
+        }).catch(err => {
+             btn.innerText = "Try Again";
+             statusDiv.innerText = "Error sending report.";
+        });
+        */
+       
+       // REMOVE THIS TIMEOUT WHEN YOU ADD THE REAL FETCH
+        setTimeout(() => {
+            btn.innerText = "Report Sent!";
+            statusDiv.innerHTML = '<span style="color:var(--success)">Simulated Send: Check console for data packet.</span>';
+            btn.classList.remove('loading');
+        }, 1500);
+    }
+
+    function goToStep(step) {
+        document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`step-${step}`).classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        renderIcons();
+    }
+</script>
+</body>
+</html>
