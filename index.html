@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Opportunity Finder | Magic Folder</title>
+    <title>Automation Opportunity Assessment | Magic Folder</title>
     
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -40,10 +40,13 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* TYPOGRAPHY */
-        h1 { font-family: 'Manrope', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 24px; }
+        h1 { font-family: 'Manrope', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.15; margin-bottom: 24px; }
         h2 { font-family: 'Manrope', sans-serif; font-size: 2rem; margin-bottom: 16px; }
         .gradient-text { background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .subtitle { color: var(--text-muted); font-size: 1.15rem; margin-bottom: 40px; max-width: 600px; }
+        
+        /* NEW: Badge Style for "Fast & Easy" */
+        .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 100px; font-size: 0.85rem; font-weight: 600; color: #818cf8; margin-bottom: 24px; }
 
         /* BUTTONS */
         .btn { padding: 16px 32px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; font-size: 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
@@ -79,7 +82,6 @@
         .results-header { text-align: center; margin-bottom: 30px; padding: 48px; background: linear-gradient(180deg, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0) 100%); border-radius: 24px; border: 1px solid rgba(99, 102, 241, 0.2); }
         .big-number { font-size: 4.5rem; font-weight: 800; color: var(--success); line-height: 1; margin: 10px 0; }
         
-        /* New Settings Bar */
         .settings-toggle { text-align: center; margin-bottom: 40px; }
         .settings-btn { background: transparent; border: none; color: var(--primary); cursor: pointer; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
         .settings-panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; max-width: 600px; margin: 0 auto; }
@@ -110,8 +112,10 @@
 <main class="container">
     
     <div id="step-1" class="fade-in">
-        <h1>Find the hidden time-sinks <br><span class="gradient-text">in your business.</span></h1>
-        <p class="subtitle">Identify bottlenecks and see exactly how our AI Agents can solve them.</p>
+        <div class="badge"><i data-lucide="zap" style="width: 14px;"></i> Rapid Assessment • 2 Minutes</div>
+        <h1>Analyze Your Operational <br><span class="gradient-text">Efficiency Potential</span></h1>
+        <p class="subtitle">Identify high-value automation targets in your business processes and quantify the ROI of deploying AI Agents.</p>
+        
         <div style="max-width: 440px;">
             <div class="input-group">
                 <label>Industry Sector</label>
@@ -137,17 +141,17 @@
                 </select>
                 <div id="err-size" class="error-msg">Please select a company size.</div>
             </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="validateStep1()">Identify Bottlenecks <i data-lucide="arrow-right"></i></button>
+            <button class="btn btn-primary" style="width: 100%;" onclick="validateStep1()">Start Assessment <i data-lucide="arrow-right"></i></button>
         </div>
     </div>
 
     <div id="step-2" class="hidden fade-in">
         <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 20px;">
-            <div><h2>What hurts the most?</h2><p class="subtitle" style="margin:0;">Select all that apply (Min 1)</p></div>
+            <div><h2>Select Operational Bottlenecks</h2><p class="subtitle" style="margin:0;">Which workflows currently consume disproportionate resources?</p></div>
             <div style="text-align: right; color: var(--text-muted);">Selected: <span id="count-display" style="color: var(--primary); font-weight: bold;">0</span></div>
         </div>
         <div class="grid-selector" id="card-grid"></div>
-        <div id="err-grid" class="error-msg" style="text-align: center;">Please select at least one bottleneck.</div>
+        <div id="err-grid" class="error-msg" style="text-align: center;">Please select at least one process area.</div>
         <div style="display: flex; gap: 12px; margin-top: 32px;">
             <button class="btn btn-ghost" onclick="navigate(1)">Back</button>
             <button class="btn btn-primary" style="flex: 1;" onclick="validateStep2()">Continue <i data-lucide="arrow-right"></i></button>
@@ -155,31 +159,31 @@
     </div>
 
     <div id="step-3" class="hidden fade-in">
-        <h2>Let's quantify the impact</h2>
-        <p class="subtitle">Use the sliders to estimate your current volume.</p>
+        <h2>Quantify Process Volume</h2>
+        <p class="subtitle">Estimate the current manual volume for the selected workflows.</p>
         <div id="question-container"></div>
         <div style="display: flex; gap: 12px; margin-top: 40px;">
             <button class="btn btn-ghost" onclick="navigate(2)">Back</button>
-            <button class="btn btn-primary" style="flex: 1;" onclick="calculateResults()">Calculate ROI <i data-lucide="bar-chart-2"></i></button>
+            <button class="btn btn-primary" style="flex: 1;" onclick="calculateResults()">Calculate Efficiency Gains <i data-lucide="bar-chart-2"></i></button>
         </div>
     </div>
 
     <div id="step-4" class="hidden fade-in">
         <div class="results-header">
-            <h3 style="color: var(--text-muted); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Potential Annual Savings</h3>
+            <h3 style="color: var(--text-muted); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Projected Annual Efficiency Gains</h3>
             <div class="big-number" id="roi-display">$0</div>
-            <p style="color: var(--text-muted); font-size: 1.1rem;">By reclaiming <strong style="color: var(--text);"><span id="hours-display">0</span> hours</strong> of productivity.</p>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">Value generated by reallocating <strong style="color: var(--text);"><span id="hours-display">0</span> hours</strong> of manual labor.</p>
         </div>
 
         <div class="settings-toggle">
             <button class="settings-btn" onclick="toggleSettings()">
-                <i data-lucide="sliders-horizontal" style="width: 16px;"></i> Customize Calculation
+                <i data-lucide="sliders-horizontal" style="width: 16px;"></i> Adjust ROI Assumptions
             </button>
         </div>
         <div class="settings-panel" id="settings-panel">
             <div class="settings-card">
                 <div>
-                    <h4 style="margin-bottom: 4px;">Average Hourly Cost</h4>
+                    <h4 style="margin-bottom: 4px;">Blended Hourly Cost</h4>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">Fully burdened cost per employee/hour.</p>
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -188,21 +192,21 @@
                 </div>
             </div>
             <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">
-                Formula: (Weekly Hours Saved × 50 Weeks) × Hourly Cost
+                Calculation: (Weekly Hours Saved × 50 Weeks) × Hourly Cost
             </p>
         </div>
 
-        <h2 style="margin-bottom: 20px;">How We Solve It</h2>
+        <h2 style="margin-bottom: 20px;">Recommended Solution Architecture</h2>
         <div id="rec-container"></div>
 
         <div style="background: var(--bg-card); padding: 40px; border-radius: 16px; margin-top: 50px; text-align: center; border: 1px solid var(--border);">
-            <div style="width: 50px; height: 50px; background: rgba(99, 102, 241, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary);"><i data-lucide="mail"></i></div>
-            <h3>Get the Full Action Plan</h3>
-            <p style="color: var(--text-muted); margin-bottom: 24px; max-width: 400px; margin: 0 auto 24px auto;">We'll email you this ROI breakdown and a technical roadmap for these specific agents.</p>
+            <div style="width: 50px; height: 50px; background: rgba(99, 102, 241, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary);"><i data-lucide="file-text"></i></div>
+            <h3>Request Implementation Roadmap</h3>
+            <p style="color: var(--text-muted); margin-bottom: 24px; max-width: 400px; margin: 0 auto 24px auto;">Receive a detailed technical breakdown and deployment timeline for these specific agents.</p>
             <div style="max-width: 420px; margin: 0 auto; display: flex; gap: 10px; flex-direction: column;">
                 <input type="text" id="user-name" placeholder="Full Name">
                 <input type="email" id="user-email" placeholder="work@company.com">
-                <button class="btn btn-primary" id="send-btn" onclick="sendReport()">Send Full Report</button>
+                <button class="btn btn-primary" id="send-btn" onclick="sendReport()">Send Roadmap Request</button>
                 <div id="send-status" style="margin-top: 10px; font-size: 0.9rem;"></div>
             </div>
         </div>
@@ -221,18 +225,18 @@
 
     // --- DATA ---
     const solutions = [
-        { id: 'invoices', title: 'Invoice Processing', desc: 'Extracting data from PDFs to accounting.', icon: 'receipt', product: 'Finance AI Agent', q: 'Invoices processed per month?', unit: 'invoices', timePerUnit: 0.25, methodology: "Our agent uses computer vision (OCR) to read PDF invoices with 99.5% accuracy, matches them to POs in your ERP, and flags anomalies for human review." },
-        { id: 'support', title: 'Customer Support', desc: 'Resolving repetitive FAQ tickets.', icon: 'message-circle', product: 'Support Triage Bot', q: 'Support tickets per week?', unit: 'tickets', timePerUnit: 0.15, methodology: "We deploy an NLP model trained on your past 6 months of tickets. It resolves Tier-1 requests instantly and drafts suggested replies for complex Tier-2 issues." },
-        { id: 'leads', title: 'Lead Enrichment', desc: 'Finding emails and LinkedIn info.', icon: 'search', product: 'Sales Enrichment Agent', q: 'Leads researched per week?', unit: 'leads', timePerUnit: 0.15, methodology: "The agent connects to 4+ data sources (LinkedIn, Apollo, Clearbit) to aggregate prospect data and score leads based on your ICP before your team ever touches them." },
-        { id: 'reporting', title: 'Weekly Reporting', desc: 'Consolidating data into reports.', icon: 'pie-chart', product: 'Auto-Reporting Pipeline', q: 'Hours on reports per week?', unit: 'hours', isDirectTime: true, methodology: "We build a data pipeline that pulls live metrics from your CRM and Ads manager, formats them into a branded slide deck, and Slack's it to you every Monday at 8 AM." },
-        { id: 'onboarding', title: 'Employee Onboarding', desc: 'Account setup and doc sending.', icon: 'users', product: 'HR Onboarding Workflow', q: 'New hires per year?', unit: 'hires', timePerUnit: 5, methodology: "Triggered by an offer letter signature, this agent auto-provisions email/Slack accounts, sends localized contracts, and schedules intro meetings." },
-        { id: 'social', title: 'Social Media', desc: 'Writing captions and scheduling.', icon: 'share-2', product: 'Content Marketing AI', q: 'Social posts per week?', unit: 'posts', timePerUnit: 0.5, methodology: "You upload raw ideas/voice notes; the agent generates captions in your brand voice, finds trending hashtags, and schedules posts across LinkedIn and X." },
-        { id: 'meetings', title: 'Meeting Follow-up', desc: 'Summarizing notes & action items.', icon: 'mic', product: 'Meeting Intelligence Bot', q: 'Meetings per week?', unit: 'meetings', timePerUnit: 0.25, methodology: "The agent transcribes the call, identifies action items by owner, updates the CRM deals based on sentiment, and emails a summary to all attendees." },
-        { id: 'contracts', title: 'Contract Review', desc: 'Scanning NDAs for risks.', icon: 'file-check', product: 'Legal Review Agent', q: 'Contracts reviewed per month?', unit: 'docs', timePerUnit: 0.5, methodology: "The AI scans documents against your custom 'Playbook' of acceptable terms, highlighting risky clauses and suggesting redlines in seconds." },
-        { id: 'email', title: 'Inbox Triage', desc: 'Sorting shared inboxes.', icon: 'mail', product: 'Inbox Dispatcher', q: 'Hours sorting email per week?', unit: 'hours', isDirectTime: true, methodology: "We train a classifier on your historical email labels. It automatically archives spam, labels invoices, and forwards urgent client emails to Slack." },
-        { id: 'data-entry', title: 'Manual Data Entry', desc: 'Typing forms into CRMs.', icon: 'keyboard', product: 'OCR & Data Entry Bot', q: 'Hours on data entry per week?', unit: 'hours', isDirectTime: true, methodology: "Using robotic process automation (RPA), the agent mimics keystrokes to transfer data between legacy systems that don't have APIs, running 24/7." },
-        { id: 'scheduling', title: 'Scheduling', desc: 'Coordinate meeting times.', icon: 'calendar', product: 'Smart Scheduler', q: 'Appts booked per month?', unit: 'appts', timePerUnit: 0.15, methodology: "The agent negotiates times via email natural language, handles time zone math, and sends calendar invites without you ever opening your calendar." },
-        { id: 'inventory', title: 'Inventory Sync', desc: 'Updating stock levels.', icon: 'box', product: 'Inventory Sync Automation', q: 'Hours updating stock per week?', unit: 'hours', isDirectTime: true, methodology: "A watcher agent monitors sales on Shopify/Amazon and instantly updates your ERP inventory levels to prevent overselling." }
+        { id: 'invoices', title: 'Invoice Processing', desc: 'Automated data extraction & ERP reconciliation.', icon: 'receipt', product: 'Finance Agent', q: 'Monthly invoice volume?', unit: 'invoices', timePerUnit: 0.25, methodology: "Computer vision (OCR) extraction with 99.5% accuracy, automated PO matching, and anomaly flagging for human review." },
+        { id: 'support', title: 'Customer Support', desc: 'Tier-1 resolution & ticket triage.', icon: 'message-circle', product: 'Support Triage Bot', q: 'Weekly ticket volume?', unit: 'tickets', timePerUnit: 0.15, methodology: "NLP model trained on historical tickets to instantly resolve Tier-1 requests and draft context-aware replies for complex issues." },
+        { id: 'leads', title: 'Prospect Enrichment', desc: 'Data aggregation & lead scoring.', icon: 'search', product: 'Sales Enrichment Agent', q: 'Leads researched per week?', unit: 'leads', timePerUnit: 0.15, methodology: "Multi-source data aggregation (LinkedIn, Apollo, Clearbit) to score and qualify leads against ICP criteria before routing to sales." },
+        { id: 'reporting', title: 'Executive Reporting', desc: 'Automated data consolidation & visualization.', icon: 'pie-chart', product: 'Auto-Reporting Pipeline', q: 'Hours spent reporting weekly?', unit: 'hours', isDirectTime: true, methodology: "Automated pipelines pull live metrics from CRM/Ad platforms, formatting them into branded slide decks delivered via Slack/Email." },
+        { id: 'onboarding', title: 'Employee Onboarding', desc: 'Provisioning & documentation workflow.', icon: 'users', product: 'HR Workflow Agent', q: 'Annual new hires?', unit: 'hires', timePerUnit: 5, methodology: "Trigger-based orchestration that provisions accounts, generates localized contracts, and schedules onboarding sessions upon offer signature." },
+        { id: 'social', title: 'Content Distribution', desc: 'Multi-channel scheduling & formatting.', icon: 'share-2', product: 'Content Ops Agent', q: 'Weekly posts managed?', unit: 'posts', timePerUnit: 0.5, methodology: "Transforms raw inputs into brand-aligned captions, optimizes for platform-specific algorithms, and handles cross-channel scheduling." },
+        { id: 'meetings', title: 'Meeting Intelligence', desc: 'Transcription, summarization & CRM entry.', icon: 'mic', product: 'Meeting Agent', q: 'Weekly meetings?', unit: 'meetings', timePerUnit: 0.25, methodology: "Real-time transcription with sentiment analysis, automated CRM field updates, and action-item distribution to attendees." },
+        { id: 'contracts', title: 'Legal Review', desc: 'Risk detection & clause analysis.', icon: 'file-check', product: 'Legal Review Agent', q: 'Monthly contracts reviewed?', unit: 'docs', timePerUnit: 0.5, methodology: "Semantic analysis against a custom legal playbook to instantly highlight risky clauses and suggest standard redlines." },
+        { id: 'email', title: 'Inbox Management', desc: 'Classification & routing.', icon: 'mail', product: 'Inbox Dispatcher', q: 'Weekly hours on triage?', unit: 'hours', isDirectTime: true, methodology: "Machine learning classifier that filters noise, routes inquiries to specific departments, and drafts priority responses." },
+        { id: 'data-entry', title: 'Legacy Data Entry', desc: 'Cross-system data synchronization.', icon: 'keyboard', product: 'RPA Connector', q: 'Weekly hours on data entry?', unit: 'hours', isDirectTime: true, methodology: "Robotic Process Automation (RPA) that mimics user interactions to bridge legacy systems lacking modern API connectivity." },
+        { id: 'scheduling', title: 'Complex Scheduling', desc: 'Calendar coordination & negotiation.', icon: 'calendar', product: 'Scheduling Agent', q: 'Monthly appointments booked?', unit: 'appts', timePerUnit: 0.15, methodology: "Natural language negotiation of time slots, handling timezone conversion and calendar invites autonomously." },
+        { id: 'inventory', title: 'Inventory Sync', desc: 'Multi-channel stock management.', icon: 'box', product: 'Inventory Automator', q: 'Weekly hours on updates?', unit: 'hours', isDirectTime: true, methodology: "Real-time monitoring of sales channels to instantly synchronize ERP inventory levels and prevent stock discrepancies." }
     ];
 
     let state = { selectedIds: new Set(), inputs: {}, results: {} };
@@ -247,9 +251,7 @@
     }
     window.addEventListener('popstate', (e) => navigate(e.state && e.state.step ? e.state.step : 1, false));
     window.addEventListener('DOMContentLoaded', () => {
-        // Date update
         document.getElementById('year').textContent = new Date().getFullYear();
-        // Navigation init
         const initialStep = parseInt(window.location.hash.replace('#step-', '')) || 1;
         navigate(initialStep, false);
         renderCards();
@@ -310,7 +312,6 @@
 
     // --- CALCULATION LOGIC ---
     function calculateResults() {
-        // Just triggers the UI update, logic is shared
         recalcFinancials();
         navigate(4);
     }
@@ -338,10 +339,8 @@
             }
         });
 
-        // Apply Rate
         const totalMoney = totalHoursYear * rate;
         
-        // Update State
         state.results = { 
             totalHours: Math.round(totalHoursYear), 
             totalMoney: Math.round(totalMoney), 
@@ -349,7 +348,6 @@
             usedRate: rate
         };
 
-        // Update DOM
         document.getElementById('roi-display').textContent = '$' + state.results.totalMoney.toLocaleString();
         document.getElementById('hours-display').textContent = state.results.totalHours.toLocaleString();
         
@@ -377,7 +375,7 @@
                     </div>
                     <div class="rec-methodology">
                         <i data-lucide="zap" style="width:18px; height:18px;"></i>
-                        <span><strong>How it works:</strong> ${s.methodology}</span>
+                        <span><strong>Methodology:</strong> ${s.methodology}</span>
                     </div>
                 </div>
             `).join('');
@@ -414,19 +412,18 @@
             top_opportunities: state.results.details
         };
 
-        // Send to Webhook
         fetch(WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         }).then(() => {
-             btn.innerText = "Report Sent!";
+             btn.innerText = "Request Sent!";
              btn.classList.remove('loading');
              btn.disabled = true;
-             statusDiv.innerHTML = '<span style="color:var(--success)">Success! Check your inbox shortly.</span>';
+             statusDiv.innerHTML = '<span style="color:var(--success)">Success! We will be in touch shortly.</span>';
         }).catch(err => {
              btn.classList.remove('loading');
-             statusDiv.innerHTML = '<span style="color:var(--error)">Error sending report. Please try again.</span>';
+             statusDiv.innerHTML = '<span style="color:var(--error)">Error sending request. Please try again.</span>';
              console.error(err);
         });
     }
