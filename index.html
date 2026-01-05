@@ -339,16 +339,16 @@
     // --- CONFIGURATION ---
     const ACCESS_KEY = "bc681f98-9bcc-4060-8029-c1afc057d00a"; 
 
-    // --- CATEGORIZED DATA ---
+    // --- CATEGORIZED DATA (Updated for Platform Agnosticism) ---
     const solutions = [
         // --- CATEGORY: GROWTH & SALES ---
         { 
             id: 'enrichment', category: 'Growth & Sales',
             title: 'Auto-Qualify Leads', 
-            desc: 'Enrich new signups with LinkedIn data and score them before sales sees them.', 
+            desc: 'Enrich new signups with verified data and score them before sales sees them.', 
             icon: 'target', product: 'Lead Enrichment Agent', 
             q: 'New leads per week?', unit: 'leads', timePerUnit: 0.25, 
-            methodology: "Triggers on form fill. Pulls Clearbit/Apollo data to score intent. High scores route to Slack; low scores go to nurture." 
+            methodology: "Triggers on form fill. Pulls enrichment data (Apollo/Clearbit) to score intent. Routes high scores to **chat tools (Slack/Teams)** and low scores to nurture." 
         },
         { 
             id: 'cx', category: 'Growth & Sales',
@@ -356,49 +356,49 @@
             desc: 'Instantly answer "Where is my order?" and FAQ tickets without human agents.', 
             icon: 'message-circle', product: 'Support Triage Bot', 
             q: 'Weekly support tickets?', unit: 'tickets', timePerUnit: 0.15, 
-            methodology: "RAG system answers Tier-1 questions via knowledge base. Checks order status via API and replies instantly." 
+            methodology: "RAG system answers Tier-1 questions via knowledge base. Checks order status via API and replies instantly via **Helpdesk (Zendesk/Intercom/etc)**." 
         },
         { 
             id: 'meetings', category: 'Growth & Sales',
             title: 'Meeting Data Entry', 
-            desc: 'Transcribe sales calls and automatically update HubSpot/Salesforce fields.', 
+            desc: 'Transcribe sales calls and automatically update your CRM fields.', 
             icon: 'mic', product: 'CRM Data Agent', 
             q: 'Weekly meetings?', unit: 'meetings', timePerUnit: 0.25, 
-            methodology: "Bot joins calls, extracts next steps and deal sentiment, and pushes structured data directly into specific CRM fields." 
+            methodology: "Bot joins calls, extracts next steps and deal sentiment, and pushes structured data directly into **your CRM (HubSpot, Salesforce, etc.)**." 
         },
         { 
             id: 'content', category: 'Growth & Sales',
             title: 'Social Repurposing', 
-            desc: 'Turn one blog post into 10 optimized posts for LinkedIn and Twitter.', 
+            desc: 'Turn one blog post into optimized posts for multiple social channels.', 
             icon: 'share-2', product: 'Content Ops Agent', 
             q: 'Weekly posts managed?', unit: 'posts', timePerUnit: 0.5, 
-            methodology: "Ingests long-form content. LLM generates platform-specific variations, selects hashtags, and schedules posts via API." 
+            methodology: "Ingests long-form content. AI generates variations (tone/length), selects hashtags, and schedules posts to **social platforms (LinkedIn, X, etc.)**." 
         },
 
         // --- CATEGORY: FINANCE & OPS ---
         { 
             id: 'finance', category: 'Finance & Ops',
             title: 'Automate Invoicing', 
-            desc: 'Extract data from PDF invoices and sync to QuickBooks/NetSuite automatically.', 
+            desc: 'Extract data from PDF invoices and sync to your accounting system automatically.', 
             icon: 'receipt', product: 'AP Automation Agent', 
             q: 'Monthly invoices?', unit: 'invoices', timePerUnit: 0.33, 
-            methodology: "OCR extracts line items from PDFs. Logic matches against POs. Only anomalies are flagged for human review." 
+            methodology: "OCR extracts line items from PDFs. Logic matches against POs in **your ERP (NetSuite, QBO, SAP)**. Only anomalies are flagged for human review." 
         },
         { 
             id: 'onboarding', category: 'Finance & Ops',
             title: 'Instant Onboarding', 
-            desc: 'Provision Slack, Email, and Software accounts the moment an offer is signed.', 
+            desc: 'Provision collaboration tools and software accounts the moment an offer is signed.', 
             icon: 'users', product: 'IT Onboarding Flow', 
             q: 'New hires per year?', unit: 'hires', timePerUnit: 4.0, 
-            methodology: "HRIS webhook triggers API calls to Okta/Azure AD to provision licenses, order hardware, and send welcome emails." 
+            methodology: "HRIS triggers API calls to your **Identity Provider (Okta/Entra ID)** to provision licenses and access to cloud tools automatically." 
         },
         { 
             id: 'inventory', category: 'Finance & Ops',
             title: 'Sync Inventory', 
-            desc: 'Keep stock levels perfectly synced between Shopify, Amazon, and your warehouse.', 
+            desc: 'Keep stock levels perfectly synced between e-commerce channels and your warehouse.', 
             icon: 'package', product: 'Inventory Sync Agent', 
             q: 'Hours spent updating?', unit: 'hours', isDirectTime: true, 
-            methodology: "Real-time webhooks listen for sales on any channel and instantly recalculate/push stock levels to all other platforms." 
+            methodology: "Real-time webhooks listen for sales on **any channel (Shopify/Amazon/Woo)** and instantly recalculate/push stock levels to prevent overselling." 
         },
         { 
             id: 'compliance', category: 'Finance & Ops',
@@ -406,7 +406,7 @@
             desc: 'Scan legal docs to instantly flag risky clauses and non-standard terms.', 
             icon: 'file-search', product: 'Legal Review Bot', 
             q: 'Contracts per month?', unit: 'docs', timePerUnit: 0.75, 
-            methodology: "Semantic analysis compares contracts against your playbook. Generates a 'Red Flag Report' for legal counsel." 
+            methodology: "Semantic analysis compares incoming contracts against your playbook. Generates a 'Red Flag Report' for legal counsel to review." 
         },
 
         // --- CATEGORY: DATA & ADMIN ---
@@ -416,7 +416,7 @@
             desc: 'Stop typing. Extract tables and text from PDFs into Excel or SQL automatically.', 
             icon: 'database', product: 'Data Extraction Agent', 
             q: 'Files processed weekly?', unit: 'files', timePerUnit: 0.2, 
-            methodology: "Vision models identify tables in unstructured documents, validate data types, and push clean rows to your database." 
+            methodology: "Vision models identify tables in unstructured documents (PDFs/Images), validate data types, and push clean rows to **your database or spreadsheets**." 
         },
         { 
             id: 'bi', category: 'Data & Admin',
@@ -424,15 +424,15 @@
             desc: 'Stop manual copy-pasting. Pull data from all your tools into one dashboard.', 
             icon: 'bar-chart-3', product: 'BI Data Pipeline', 
             q: 'Hours reporting weekly?', unit: 'hours', isDirectTime: true, 
-            methodology: "Serverless pipeline fetches daily metrics from APIs (Ads, CRM, Stripe), normalizes data, and pushes to a dashboard." 
+            methodology: "Serverless pipeline fetches daily metrics from **marketing, sales, and finance tools**, normalizes data, and pushes to a data warehouse." 
         },
         { 
             id: 'rfp', category: 'Data & Admin',
             title: 'Auto-Fill RFPs', 
-            desc: 'Draft answers for security questionnaires using your past audits.', 
+            desc: 'Draft answers for security questionnaires using your past documentation.', 
             icon: 'clipboard-list', product: 'RFP Assistant', 
             q: 'RFPs per month?', unit: 'docs', timePerUnit: 3.0, 
-            methodology: "Vector database indexes past security audits. Auto-populates vendor spreadsheets with high accuracy for review." 
+            methodology: "Vector database indexes past **security documentation (SOC2/ISO)**. Auto-populates vendor spreadsheets with high accuracy for review." 
         },
         { 
             id: 'email', category: 'Data & Admin',
@@ -440,7 +440,7 @@
             desc: 'Read general support emails and route them to the right person based on content.', 
             icon: 'mail', product: 'Inbox Dispatcher', 
             q: 'Emails triaged daily?', unit: 'emails', timePerUnit: 0.05, 
-            methodology: "AI analyzes sentiment and intent of incoming emails, tagging and forwarding them to the correct department." 
+            methodology: "AI analyzes sentiment and intent of incoming emails, tagging and forwarding them to the **correct department (Sales vs Support vs Billing)**." 
         }
     ];
 
