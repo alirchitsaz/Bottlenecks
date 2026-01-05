@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automation Opportunity Assessment</title>
+    <title>Business Automation Audit | Magic Folder</title>
     
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -18,645 +18,442 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- DESIGN SYSTEM --- */
+        /* --- CORE DESIGN --- */
         :root {
-            --primary: #4338ca; 
-            --primary-hover: #3730a3;
-            --secondary: #0f172a; 
+            --primary: #1e40af; /* Traditional Blue - Trustworthy */
+            --primary-hover: #1e3a8a;
+            --accent: #f59e0b; /* Amber for ROI highlights */
             --bg-page: #f8fafc;
             --bg-card: #ffffff;
-            --border-color: #e2e8f0;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --radius: 12px;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --border: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --radius: 8px; /* Sharper corners for professional feel */
         }
 
-        /* --- RESET & BASE --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-page); 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-        }
-
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--secondary); font-weight: 700; }
-        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.02em; }
-        h2 { font-size: 1.75rem; margin-bottom: 0.5rem; }
-        p { color: var(--text-muted); }
-        .emphasis { color: var(--primary); font-weight: 600; }
-        .category-header {
-            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
-            color: var(--text-muted); font-weight: 700; margin: 32px 0 16px 0;
-            border-bottom: 1px solid var(--border-color); padding-bottom: 8px;
-        }
-
-        /* --- LAYOUT --- */
-        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; width: 100%; }
-        header { 
-            padding: 20px 0; background: var(--bg-card); 
-            border-bottom: 1px solid var(--border-color);
-            position: sticky; top: 0; z-index: 50;
-        }
-        .nav-content { display: flex; align-items: center; justify-content: space-between; }
-        .logo { 
-            display: flex; align-items: center; gap: 10px; 
-            font-family: 'Playfair Display', serif; font-weight: 700; 
-            font-size: 1.25rem; color: var(--secondary); 
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
-        main { flex: 1; padding: 60px 0; display: flex; flex-direction: column; justify-content: center; }
-        .hidden { display: none !important; }
-        .fade-in { animation: enter 0.4s ease forwards; }
-        @keyframes enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        body { background: var(--bg-page); color: var(--text-dark); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        
+        /* HEADER */
+        header { background: #fff; border-bottom: 1px solid var(--border); padding: 20px 0; }
+        .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.4rem; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
 
-        /* --- COMPONENTS --- */
+        /* TYPOGRAPHY */
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; line-height: 1.1; margin-bottom: 16px; color: var(--text-dark); }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 12px; }
+        p { color: var(--text-gray); font-size: 1.05rem; }
+        .highlight { color: var(--primary); font-weight: 600; }
+
+        /* BUTTONS */
         .btn { 
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 14px 28px; border-radius: 50px; 
-            font-weight: 600; font-size: 1rem; cursor: pointer; border: none; 
-            transition: all 0.2s ease;
+            padding: 16px 32px; border-radius: 4px; border: none; cursor: pointer;
+            font-weight: 600; font-size: 1rem; transition: all 0.2s;
         }
-        .btn-primary { 
-            background: var(--primary); color: #fff; 
-            box-shadow: 0 4px 12px rgba(67, 56, 202, 0.3);
-        }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2); }
         .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
-        .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); }
-        .btn-ghost:hover { border-color: var(--text-main); color: var(--text-main); background: var(--bg-card); }
-        .btn.loading { opacity: 0.7; pointer-events: none; cursor: wait; }
+        .btn-ghost { background: transparent; color: var(--text-gray); border: 1px solid var(--border); }
+        .btn-ghost:hover { border-color: var(--text-dark); color: var(--text-dark); background: #fff; }
 
-        select, input {
-            width: 100%; padding: 14px 16px; 
-            border: 1px solid var(--border-color); border-radius: var(--radius);
-            font-size: 1rem; background: var(--bg-card); color: var(--text-main);
-            outline: none; transition: border-color 0.2s;
+        /* SELECTION GRID (STEP 1) */
+        .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 32px; }
+        .persona-card {
+            background: white; border: 1px solid var(--border); padding: 24px; border-radius: var(--radius);
+            cursor: pointer; transition: all 0.2s; text-align: left;
         }
-        select:focus, input:focus { border-color: var(--primary); ring: 2px solid var(--primary); }
+        .persona-card:hover { border-color: var(--primary); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); transform: translateY(-2px); }
+        .persona-card.selected { border-color: var(--primary); background: #eff6ff; ring: 1px solid var(--primary); }
+        .persona-icon { color: var(--primary); margin-bottom: 12px; }
+
+        /* PROBLEM LIST (STEP 2) */
+        .problem-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+        .problem-card {
+            display: flex; align-items: center; gap: 16px; padding: 16px; background: white;
+            border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: all 0.2s;
+        }
+        .problem-card:hover { border-color: var(--primary); background: #f8fafc; }
+        .problem-card.selected { border-color: var(--primary); background: #eff6ff; }
+        .check-circle { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; color: white; transition: all 0.2s; flex-shrink: 0; }
+        .problem-card.selected .check-circle { background: var(--primary); border-color: var(--primary); }
+
+        /* SLIDERS (STEP 3) */
+        .slider-group { background: white; padding: 20px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; }
+        .slider-header { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 500; }
+        input[type=range] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+
+        /* RESULTS */
+        .result-box { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; text-align: center; margin-bottom: 30px; }
+        .big-money { font-size: 3.5rem; font-weight: 800; color: var(--primary); line-height: 1; font-family: 'Inter', sans-serif; letter-spacing: -1px; }
+        .rec-card { border-left: 4px solid var(--primary); background: white; padding: 20px; margin-bottom: 16px; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+
+        /* FORM */
+        .lead-form input { width: 100%; padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 1rem; }
         
-        /* --- CARDS --- */
-        .grid-selector { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
-            gap: 16px; margin-bottom: 24px;
-        }
-        .selection-card { 
-            background: var(--bg-card); border: 1px solid var(--border-color); 
-            border-radius: var(--radius); padding: 20px; cursor: pointer; 
-            transition: all 0.2s; position: relative; display: flex; gap: 16px; align-items: flex-start;
-            box-shadow: var(--shadow-sm);
-        }
-        .selection-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-        .selection-card.selected { border-color: var(--primary); background: #eef2ff; box-shadow: 0 0 0 1px var(--primary); }
-        
-        .card-icon { 
-            min-width: 40px; height: 40px; background: #f1f5f9; border-radius: 8px; 
-            display: flex; align-items: center; justify-content: center; color: var(--text-muted); 
-        }
-        .selection-card.selected .card-icon { background: var(--primary); color: white; }
+        .hidden { display: none; }
+        .fade-in { animation: fadeIn 0.4s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- SLIDERS --- */
-        .range-card { 
-            background: var(--bg-card); padding: 24px; border-radius: var(--radius); 
-            border: 1px solid var(--border-color); margin-bottom: 16px; 
-        }
-        input[type=range] { 
-            width: 100%; height: 6px; background: #e2e8f0; 
-            border-radius: 4px; appearance: none; margin-top: 16px;
-        }
-        input[type=range]::-webkit-slider-thumb { 
-            appearance: none; width: 20px; height: 20px; border-radius: 50%; 
-            background: var(--primary); cursor: pointer; box-shadow: 0 0 0 4px rgba(67, 56, 202, 0.1); 
-            transition: transform 0.1s;
-        }
-        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
-
-        /* --- RESULTS --- */
-        .roi-hero {
-            text-align: center; padding: 48px 24px; background: var(--bg-card);
-            border-radius: 20px; border: 1px solid var(--border-color);
-            margin-bottom: 40px; box-shadow: var(--shadow-md);
-        }
-        .big-number { 
-            font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 800; 
-            color: var(--primary); letter-spacing: -2px; margin: 8px 0; 
-            font-family: 'Inter', sans-serif;
-        }
-        .rec-item {
-            background: var(--bg-card); border-radius: var(--radius);
-            border: 1px solid var(--border-color); overflow: hidden;
-            margin-bottom: 24px; box-shadow: var(--shadow-sm);
-        }
-        .rec-header {
-            padding: 24px; display: flex; justify-content: space-between; align-items: flex-start;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .rec-body {
-            padding: 16px 24px; background: #f8fafc; font-size: 0.85rem;
-            color: var(--text-muted); display: grid; gap: 8px;
-        }
-
-        /* --- TOOLTIP --- */
-        .tooltip-wrap { position: relative; display: inline-flex; align-items: center; gap: 6px; cursor: help; }
-        .tooltip-icon { color: var(--text-muted); transition: color 0.2s; }
-        .tooltip-wrap:hover .tooltip-icon { color: var(--primary); }
-        .tooltip-content {
-            visibility: hidden; opacity: 0; width: 240px; background-color: var(--secondary); color: #fff;
-            text-align: center; border-radius: 8px; padding: 12px; position: absolute; z-index: 100; 
-            bottom: 140%; left: 50%; transform: translateX(-50%); font-size: 0.8rem; box-shadow: var(--shadow-md);
-            transition: all 0.2s ease;
-        }
-        .tooltip-content::after {
-            content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px;
-            border-width: 6px; border-style: solid; border-color: var(--secondary) transparent transparent transparent;
-        }
-        .tooltip-wrap:hover .tooltip-content { visibility: visible; opacity: 1; bottom: 125%; }
-
-        @media (max-width: 640px) {
-            .rec-header { flex-direction: column; gap: 16px; }
-            .btn { width: 100%; }
-            .selection-card { flex-direction: column; gap: 12px; }
-        }
+        /* Mobile */
+        @media (max-width: 600px) { h1 { font-size: 2rem; } .big-money { font-size: 2.5rem; } }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="container nav-content">
-        <div class="logo">
-            <i data-lucide="sparkles" style="color: var(--primary); width: 22px;"></i>
-            Magic Folder
-        </div>
+    <div class="container">
+        <div class="logo"><i data-lucide="layers"></i> Magic Folder</div>
     </div>
 </header>
 
-<main class="container">
-    
+<main class="container" style="flex: 1; padding: 40px 0;">
+
     <div id="step-1" class="fade-in">
         <div style="max-width: 600px;">
-            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: #eef2ff; color: var(--primary); border-radius: 100px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px;">
-                <i data-lucide="zap" size="14"></i> 2-Minute Assessment
-            </div>
-            <h1>Where is your team <br><span class="emphasis">wasting time?</span></h1>
-            <p style="font-size: 1.15rem; margin: 24px 0 40px 0;">
-                Find out exactly how much manual work is costing you, and discover which tasks can be fully automated today.
-            </p>
-            
-            <div style="max-width: 400px; display: flex; flex-direction: column; gap: 20px;">
-                <div>
-                    <label>Your Sector</label>
-                    <select id="industry">
-                        <option value="">Select Sector...</option>
-                        <option value="tech">Technology / SaaS</option>
-                        <option value="financial">Financial Services</option>
-                        <option value="healthcare">Healthcare / MedTech</option>
-                        <option value="professional">Professional Services</option>
-                        <option value="logistics">Logistics / Supply Chain</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Team Size</label>
-                    <select id="size">
-                        <option value="">Select Headcount...</option>
-                        <option value="1-50">1-50 Employees</option>
-                        <option value="51-200">51-200 Employees</option>
-                        <option value="201-1000">201-1,000 Employees</option>
-                        <option value="1000+">Enterprise (1,000+)</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary" onclick="validateStep1()">
-                    Start Assessment <i data-lucide="arrow-right" size="18"></i>
-                </button>
-                <div id="err-1" style="color:#ef4444; font-size:0.9rem; display:none;">Please complete all fields.</div>
-            </div>
+            <h1>Let's find the hidden profit in your business.</h1>
+            <p>We don't do generic advice. Select your profession so we can analyze the specific workflows that drain your time and money.</p>
         </div>
+        
+        <div class="persona-grid" id="persona-grid">
+            </div>
     </div>
 
     <div id="step-2" class="hidden fade-in">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto 40px auto;">
-            <h2>Select your bottlenecks</h2>
-            <p>Which of these areas slow your team down the most? Select all that apply.</p>
+        <div style="max-width: 600px;">
+            <h2 id="s2-title">What slows you down?</h2>
+            <p id="s2-subtitle">Select the tasks that you or your team handle manually today.</p>
         </div>
-
-        <div id="cards-container"></div>
-        
-        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-            <button class="btn btn-ghost" onclick="navigate(1)">Back</button>
-            <button class="btn btn-primary" style="min-width: 160px;" onclick="validateStep2()">
-                Continue <i data-lucide="arrow-right" size="18"></i>
-            </button>
+        <div class="problem-list" id="problem-list"></div>
+        <div style="margin-top: 30px; display: flex; gap: 10px;">
+            <button class="btn btn-ghost" onclick="setStep(1)">Back</button>
+            <button class="btn btn-primary" onclick="validateStep2()">Next Step <i data-lucide="arrow-right"></i></button>
         </div>
-        <div id="err-2" style="color:#ef4444; text-align:center; margin-top:16px; display:none;">Select at least one area.</div>
+        <div id="err-2" style="color:red; margin-top:10px; display:none;">Please select at least one item.</div>
     </div>
 
     <div id="step-3" class="hidden fade-in">
-        <div style="max-width: 600px; margin: 0 auto;">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <h2>Quantify the drag</h2>
-                <p>Estimate your volume. We use conservative manual-effort benchmarks to calculate savings.</p>
+        <div style="max-width: 600px;">
+            <h2>Just a few estimates.</h2>
+            <p>Use your best guess. We'll use industry standard benchmarks to calculate the rest.</p>
+        </div>
+        <div id="slider-container" style="margin-top: 24px;"></div>
+        
+        <div style="background: #eff6ff; padding: 20px; border-radius: var(--radius); margin-top: 24px; display: flex; align-items: center; gap: 15px;">
+            <div style="background:white; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary); font-weight:bold;">$</div>
+            <div style="flex:1;">
+                <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:4px;">Average Hourly Value</label>
+                <div style="font-size:0.85rem; color:var(--text-gray); margin-bottom:8px;">What is one hour of your (or your staff's) time worth?</div>
+                <input type="number" id="hourly-rate" value="100" style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; width: 100px;">
             </div>
-            
-            <div id="question-container"></div>
+        </div>
 
-            <div style="background: #f8fafc; border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-top: 24px; display: flex; align-items: flex-start; gap: 16px;">
-                <div style="min-width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
-                    <i data-lucide="dollar-sign" size="16"></i>
-                </div>
-                
-                <div style="flex: 1;">
-                    <div class="tooltip-wrap">
-                        <label style="margin: 0; font-size: 0.9rem; font-weight: 600; cursor: pointer;">Fully Burdened Hourly Cost</label>
-                        <i data-lucide="info" size="14" class="tooltip-icon"></i>
-                        <div class="tooltip-content">
-                            <strong>What is this?</strong><br>
-                            The total cost of an employee hour. Includes base salary, taxes, benefits, and equipment (typically 1.3x base pay).
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
-                        <span style="color: var(--text-muted); font-size: 1.1rem;">$</span>
-                        <input type="number" id="hourly-rate" value="55" style="width: 100px; padding: 8px; font-weight: 600;" onchange="updateHourlyCalc()">
-                    </div>
-                </div>
-            </div>
-
-            <div style="display: flex; gap: 12px; margin-top: 32px;">
-                <button class="btn btn-ghost" onclick="navigate(2)">Back</button>
-                <button class="btn btn-primary" style="flex: 1;" onclick="calculateResults()">
-                    Calculate ROI <i data-lucide="bar-chart-2" size="18"></i>
-                </button>
-            </div>
+        <div style="margin-top: 30px; display: flex; gap: 10px;">
+            <button class="btn btn-ghost" onclick="setStep(2)">Back</button>
+            <button class="btn btn-primary" onclick="calculateAndShow()">Calculate Profit <i data-lucide="calculator"></i></button>
         </div>
     </div>
 
     <div id="step-4" class="hidden fade-in">
-        <div class="roi-hero">
-            <h3 style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 16px;">Projected Annual Savings</h3>
-            <div class="big-number" id="roi-display">$0</div>
-            <p style="font-size: 1.1rem; max-width: 500px; margin: 0 auto;">
-                Value generated by reallocating <strong style="color: var(--text-main);"><span id="hours-display">0</span> hours</strong> of manual labor to automated agents.
-            </p>
+        <div class="result-box">
+            <p style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; font-weight: 700; color: var(--text-gray);">Annual Profit Reclaimed</p>
+            <div class="big-money" id="final-amount">$0</div>
+            <p style="margin-top: 10px;">By automating <strong id="final-hours">0</strong> hours of busy work.</p>
         </div>
 
-        <h3 style="margin-bottom: 24px;">Your Automation Roadmap</h3>
-        <div id="rec-container"></div>
+        <h3 style="margin-bottom: 20px;">Your Efficiency Roadmap</h3>
+        <div id="recommendations"></div>
 
-        <div style="background: var(--secondary); color: white; border-radius: 20px; padding: 48px 32px; text-align: center; margin-top: 48px; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: -50%; left: -10%; width: 250px; height: 250px; background: var(--primary); filter: blur(90px); opacity: 0.6;"></div>
-            
-            <div style="position: relative; z-index: 2; max-width: 480px; margin: 0 auto;">
-                <h3 style="color: white; margin-bottom: 12px; font-size: 1.5rem;">See exactly how to automate this</h3>
-                <p style="color: #cbd5e1; margin-bottom: 32px; font-size: 1rem;">
-                    We will send you a breakdown of these specific solutions, including the tools we use (Make, OpenAI, etc.) and a deployment timeline.
-                </p>
-                
-                <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
-                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-                    <input type="text" id="user-name" placeholder="First Name" style="border: none; padding: 16px;">
-                    <input type="email" id="user-email" placeholder="Work Email" style="border: none; padding: 16px;">
-                    <button class="btn btn-primary" id="send-btn" onclick="sendReport()" style="width: 100%; justify-content: center; background: white; color: var(--secondary); margin-top: 8px;">
-                        Send Me The Blueprint
-                    </button>
-                </div>
-                <div id="send-status" style="margin-top: 16px; font-size: 0.9rem; min-height: 20px;"></div>
+        <div style="background: #1e293b; color: white; padding: 40px; border-radius: var(--radius); text-align: center; margin-top: 40px;">
+            <h3 style="color:white; margin-bottom: 10px;">Get Your Custom Strategy</h3>
+            <p style="color: #94a3b8; margin-bottom: 24px;">We've analyzed your inputs. Enter your details to receive the full PDF report detailing exactly <strong>how</strong> to build these automations.</p>
+            <div class="lead-form" style="max-width: 400px; margin: 0 auto;">
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                <input type="text" id="name" placeholder="Full Name">
+                <input type="email" id="email" placeholder="Business Email">
+                <button class="btn btn-primary" style="width: 100%; justify-content: center;" id="send-btn" onclick="sendData()">Send Me The Report</button>
             </div>
+            <div id="status-msg" style="margin-top: 15px; min-height: 20px; font-size: 0.9rem;"></div>
         </div>
-
-        <button class="btn btn-ghost" onclick="location.reload()" style="margin: 40px auto 0 auto; display: flex;">Start New Assessment</button>
+        
+        <button class="btn btn-ghost" onclick="location.reload()" style="margin: 30px auto; display: flex;">Start Over</button>
     </div>
 
 </main>
 
-<footer>
-    &copy; <span id="year"></span> Magic Folder. Built for modern operations.
-</footer>
-
 <script>
     // --- CONFIGURATION ---
-    const ACCESS_KEY = "bc681f98-9bcc-4060-8029-c1afc057d00a"; 
+    const ACCESS_KEY = "bc681f98-9bcc-4060-8029-c1afc057d00a"; // Your Web3Forms Key
 
-    // --- CATEGORIZED DATA (Updated for Platform Agnosticism) ---
-    const solutions = [
-        // --- CATEGORY: GROWTH & SALES ---
-        { 
-            id: 'enrichment', category: 'Growth & Sales',
-            title: 'Auto-Qualify Leads', 
-            desc: 'Enrich new signups with verified data and score them before sales sees them.', 
-            icon: 'target', product: 'Lead Enrichment Agent', 
-            q: 'New leads per week?', unit: 'leads', timePerUnit: 0.25, timeLabel: '15 mins',
-            methodology: "Triggers on form fill. Pulls enrichment data (Apollo/Clearbit) to score intent. Routes high scores to **chat tools (Slack/Teams)** and low scores to nurture." 
+    // --- THE BRAIN: Industry Specific Logic ---
+    const DATA = {
+        'legal': {
+            label: 'Law Firm / Legal',
+            icon: 'scale',
+            desc: 'Attorneys, Paralegals, Firms',
+            rateDefault: 250,
+            problems: [
+                { id: 'intake', label: 'Client Intake & Scheduling', desc: 'Chasing leads, scheduling consults, collecting initial details manually.', timePer: 0.5, unit: 'new clients', q: 'New clients per month?' },
+                { id: 'docs', label: 'Document Drafting', desc: 'Copy-pasting data into standard contracts, NDAs, or court filings.', timePer: 1.5, unit: 'docs drafted', q: 'Documents drafted per week?' },
+                { id: 'review', label: 'Contract Review', desc: 'Reading long documents to find specific clauses or risks.', timePer: 2.0, unit: 'docs reviewed', q: 'Documents reviewed per week?' },
+                { id: 'billing', label: 'Invoicing & Collections', desc: 'Manually creating invoices and emailing clients to pay.', timePer: 0.25, unit: 'invoices', q: 'Invoices sent per month?' }
+            ]
         },
-        { 
-            id: 'cx', category: 'Growth & Sales',
-            title: 'Auto-Resolve Support', 
-            desc: 'Instantly answer "Where is my order?" and FAQ tickets without human agents.', 
-            icon: 'message-circle', product: 'Support Triage Bot', 
-            q: 'Weekly support tickets?', unit: 'tickets', timePerUnit: 0.15, timeLabel: '9 mins',
-            methodology: "RAG system answers Tier-1 questions via knowledge base. Checks order status via API and replies instantly via **Helpdesk (Zendesk/Intercom/etc)**." 
+        'trade': {
+            label: 'Trades & Field Services',
+            icon: 'hammer',
+            desc: 'Plumbers, HVAC, Electricians, GCs',
+            rateDefault: 120,
+            problems: [
+                { id: 'calls', label: 'Missed Calls / Reception', desc: 'Phone ringing while you are on a job site. Losing leads to voicemail.', timePer: 0.25, unit: 'missed calls', q: 'Missed calls per week?' },
+                { id: 'quotes', label: 'Quoting & Estimating', desc: 'Typing up estimates at night after a full day of work.', timePer: 0.75, unit: 'quotes', q: 'Quotes sent per week?' },
+                { id: 'followup', label: 'Lead Follow-Up', desc: 'Chasing people who got a quote but never replied.', timePer: 0.2, unit: 'follow-ups', q: 'Follow-ups needed per week?' },
+                { id: 'reviews', label: 'Review Management', desc: 'Asking for Google Reviews and replying to them.', timePer: 0.1, unit: 'jobs', q: 'Jobs completed per week?' }
+            ]
         },
-        { 
-            id: 'meetings', category: 'Growth & Sales',
-            title: 'Meeting Data Entry', 
-            desc: 'Transcribe sales calls and automatically update your CRM fields.', 
-            icon: 'mic', product: 'CRM Data Agent', 
-            q: 'Weekly meetings?', unit: 'meetings', timePerUnit: 0.25, timeLabel: '15 mins',
-            methodology: "Bot joins calls, extracts next steps and deal sentiment, and pushes structured data directly into **your CRM (HubSpot, Salesforce, etc.)**." 
+        'realestate': {
+            label: 'Real Estate',
+            icon: 'home',
+            desc: 'Agents, Brokers, Property Managers',
+            rateDefault: 150,
+            problems: [
+                { id: 'qualify', label: 'Lead Qualification', desc: 'Texting/Calling leads to see if they are serious or just looking.', timePer: 0.3, unit: 'leads', q: 'New leads per week?' },
+                { id: 'showings', label: 'Showing Coordination', desc: 'Back-and-forth texts to schedule times with sellers and buyers.', timePer: 0.5, unit: 'showings', q: 'Showings scheduled per week?' },
+                { id: 'marketing', label: 'Listing Marketing', desc: 'Writing descriptions, posting to social media, creating flyers.', timePer: 2.0, unit: 'listings', q: 'New listings per month?' },
+                { id: 'paperwork', label: 'Transaction Docs', desc: 'Prepping DocuSign envelopes and chasing signatures.', timePer: 1.0, unit: 'deals', q: 'Deals in progress per month?' }
+            ]
         },
-        { 
-            id: 'content', category: 'Growth & Sales',
-            title: 'Social Repurposing', 
-            desc: 'Turn one blog post into optimized posts for multiple social channels.', 
-            icon: 'share-2', product: 'Content Ops Agent', 
-            q: 'Weekly posts managed?', unit: 'posts', timePerUnit: 0.5, timeLabel: '30 mins',
-            methodology: "Ingests long-form content. AI generates variations (tone/length), selects hashtags, and schedules posts to **social platforms (LinkedIn, X, etc.)**." 
+        'consultant': {
+            label: 'Consultant / Agency',
+            icon: 'briefcase',
+            desc: 'Marketing, Accounting, Coaching',
+            rateDefault: 175,
+            problems: [
+                { id: 'reporting', label: 'Client Reporting', desc: 'Pulling data and making PDFs to show clients what you did.', timePer: 2.0, unit: 'reports', q: 'Reports generated per month?' },
+                { id: 'meeting', label: 'Meeting Notes & CRM', desc: 'Taking notes and updating HubSpot/Salesforce manually.', timePer: 0.5, unit: 'meetings', q: 'Meetings per week?' },
+                { id: 'email', label: 'Inbox Triage', desc: 'Reading and routing emails, answering basic FAQs.', timePer: 0.1, unit: 'emails', q: 'Emails received per day?' }
+            ]
         },
-
-        // --- CATEGORY: FINANCE & OPS ---
-        { 
-            id: 'finance', category: 'Finance & Ops',
-            title: 'Automate Invoicing', 
-            desc: 'Extract data from PDF invoices and sync to your accounting system automatically.', 
-            icon: 'receipt', product: 'AP Automation Agent', 
-            q: 'Monthly invoices?', unit: 'invoices', timePerUnit: 0.33, timeLabel: '20 mins',
-            methodology: "OCR extracts line items from PDFs. Logic matches against POs in **your ERP (NetSuite, QBO, SAP)**. Only anomalies are flagged for human review." 
-        },
-        { 
-            id: 'onboarding', category: 'Finance & Ops',
-            title: 'Instant Onboarding', 
-            desc: 'Provision collaboration tools and software accounts the moment an offer is signed.', 
-            icon: 'users', product: 'IT Onboarding Flow', 
-            q: 'New hires per year?', unit: 'hires', timePerUnit: 4.0, timeLabel: '4 hours',
-            methodology: "HRIS triggers API calls to your **Identity Provider (Okta/Entra ID)** to provision licenses and access to cloud tools automatically." 
-        },
-        { 
-            id: 'inventory', category: 'Finance & Ops',
-            title: 'Sync Inventory', 
-            desc: 'Keep stock levels perfectly synced between e-commerce channels and your warehouse.', 
-            icon: 'package', product: 'Inventory Sync Agent', 
-            q: 'Hours spent updating?', unit: 'hours', isDirectTime: true, timeLabel: '1 hour',
-            methodology: "Real-time webhooks listen for sales on **any channel (Shopify/Amazon/Woo)** and instantly recalculate/push stock levels to prevent overselling." 
-        },
-        { 
-            id: 'compliance', category: 'Finance & Ops',
-            title: 'Contract Scanning', 
-            desc: 'Scan legal docs to instantly flag risky clauses and non-standard terms.', 
-            icon: 'file-search', product: 'Legal Review Bot', 
-            q: 'Contracts per month?', unit: 'docs', timePerUnit: 0.75, timeLabel: '45 mins',
-            methodology: "Semantic analysis compares incoming contracts against your playbook. Generates a 'Red Flag Report' for legal counsel to review." 
-        },
-
-        // --- CATEGORY: DATA & ADMIN ---
-        { 
-            id: 'extraction', category: 'Data & Admin',
-            title: 'Digitize PDFs & Forms', 
-            desc: 'Stop typing. Extract tables and text from PDFs into Excel or SQL automatically.', 
-            icon: 'database', product: 'Data Extraction Agent', 
-            q: 'Files processed weekly?', unit: 'files', timePerUnit: 0.2, timeLabel: '12 mins',
-            methodology: "Vision models identify tables in unstructured documents (PDFs/Images), validate data types, and push clean rows to **your database or spreadsheets**." 
-        },
-        { 
-            id: 'bi', category: 'Data & Admin',
-            title: 'Auto-Reporting', 
-            desc: 'Stop manual copy-pasting. Pull data from all your tools into one dashboard.', 
-            icon: 'bar-chart-3', product: 'BI Data Pipeline', 
-            q: 'Hours reporting weekly?', unit: 'hours', isDirectTime: true, timeLabel: '1 hour',
-            methodology: "Serverless pipeline fetches daily metrics from **marketing, sales, and finance tools**, normalizes data, and pushes to a data warehouse." 
-        },
-        { 
-            id: 'rfp', category: 'Data & Admin',
-            title: 'Auto-Fill RFPs', 
-            desc: 'Draft answers for security questionnaires using your past documentation.', 
-            icon: 'clipboard-list', product: 'RFP Assistant', 
-            q: 'RFPs per month?', unit: 'docs', timePerUnit: 2.0, timeLabel: '2 hours',
-            methodology: "Vector database indexes past **security documentation (SOC2/ISO)**. Auto-populates vendor spreadsheets with high accuracy for review." 
-        },
-        { 
-            id: 'email', category: 'Data & Admin',
-            title: 'Smart Inbox Routing', 
-            desc: 'Read general support emails and route them to the right person based on content.', 
-            icon: 'mail', product: 'Inbox Dispatcher', 
-            q: 'Emails triaged daily?', unit: 'emails', timePerUnit: 0.05, timeLabel: '3 mins',
-            methodology: "AI analyzes sentiment and intent of incoming emails, tagging and forwarding them to the **correct department (Sales vs Support vs Billing)**." 
+        'other': {
+            label: 'General Business',
+            icon: 'building',
+            desc: 'Retail, Admin, Other',
+            rateDefault: 60,
+            problems: [
+                { id: 'data', label: 'Data Entry', desc: 'Moving data from PDF/Email into Excel or software.', timePer: 0.2, unit: 'entries', q: 'Items entered per day?' },
+                { id: 'support', label: 'Customer Support', desc: 'Answering common questions repeatedly.', timePer: 0.15, unit: 'tickets', q: 'Requests per day?' },
+                { id: 'content', label: 'Content Writing', desc: 'Writing emails, posts, or internal updates.', timePer: 0.5, unit: 'pieces', q: 'Items written per week?' }
+            ]
         }
-    ];
+    };
 
-    let state = { selectedIds: new Set(), inputs: {}, results: {} };
+    // --- STATE MANAGEMENT ---
+    let state = {
+        industry: null,
+        selection: new Set(),
+        inputs: {}
+    };
 
-    // --- CORE NAVIGATION ---
-    function navigate(step) {
-        document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
-        document.getElementById(`step-${step}`).classList.remove('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if(typeof lucide !== 'undefined') lucide.createIcons();
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('year').textContent = new Date().getFullYear();
-        renderCategoriesAndCards();
+    // --- INIT ---
+    document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
+        renderPersonas();
     });
 
-    // --- LOGIC ---
-    function validateStep1() {
-        const ind = document.getElementById('industry').value;
-        const size = document.getElementById('size').value;
-        if (!ind || !size) { document.getElementById('err-1').style.display = 'block'; return; }
-        document.getElementById('err-1').style.display = 'none';
-        navigate(2);
+    function setStep(num) {
+        document.querySelectorAll('main > div').forEach(d => d.classList.add('hidden'));
+        document.getElementById(`step-${num}`).classList.remove('hidden');
+        window.scrollTo({top:0, behavior:'smooth'});
     }
 
-    function renderCategoriesAndCards() {
-        const container = document.getElementById('cards-container');
-        const categories = [...new Set(solutions.map(s => s.category))];
-        
-        container.innerHTML = categories.map(cat => {
-            const catSols = solutions.filter(s => s.category === cat);
-            return `
-                <div class="category-header">${cat}</div>
-                <div class="grid-selector">
-                    ${catSols.map(sol => `
-                        <div class="selection-card" onclick="toggleCard('${sol.id}', this)">
-                            <div class="card-icon"><i data-lucide="${sol.icon}"></i></div>
-                            <div>
-                                <h3 style="font-size: 1rem; margin-bottom: 4px; font-weight: 600;">${sol.title}</h3>
-                                <p style="font-size: 0.85rem; line-height: 1.4;">${sol.desc}</p>
-                            </div>
-                            <div style="position: absolute; top: 16px; right: 16px; color: var(--primary); opacity: 0; transition: opacity 0.2s;" class="check-icon"><i data-lucide="check-circle-2" size="20"></i></div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }).join('');
-    }
-
-    function toggleCard(id, el) {
-        const check = el.querySelector('.check-icon');
-        if (state.selectedIds.has(id)) { state.selectedIds.delete(id); el.classList.remove('selected'); check.style.opacity = '0'; } 
-        else { state.selectedIds.add(id); el.classList.add('selected'); check.style.opacity = '1'; }
-        document.getElementById('err-2').style.display = 'none';
-    }
-
-    function validateStep2() {
-        if (state.selectedIds.size === 0) { document.getElementById('err-2').style.display = 'block'; return; }
-        generateQuestions();
-        navigate(3);
-    }
-
-    function generateQuestions() {
-        const container = document.getElementById('question-container');
-        const selectedSols = solutions.filter(s => state.selectedIds.has(s.id));
-        container.innerHTML = selectedSols.map(sol => {
-            const timeInfo = sol.isDirectTime ? 'Direct Hours' : `Est. manual effort: <strong>${sol.timeLabel}</strong> per ${sol.unit.slice(0,-1)}`;
-            return `
-            <div class="range-card">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <label style="margin:0; font-weight: 600; font-size: 1rem;">${sol.q}</label>
-                    <span style="font-weight: 700; color: var(--primary); background: #eef2ff; padding: 4px 12px; border-radius: 20px; font-size: 0.9rem;" id="val-${sol.id}">0</span>
-                </div>
-                <input type="range" min="0" max="100" value="0" step="1" oninput="updateVal('${sol.id}', this.value)" style="width: 100%;">
-                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">${timeInfo}</div>
-            </div>
-        `}).join('');
-    }
-
-    function updateVal(id, val) {
-        state.inputs[id] = parseInt(val);
-        document.getElementById(`val-${id}`).textContent = val;
-    }
-
-    function updateHourlyCalc() { } 
-
-    function calculateResults() {
-        const hourlyRate = parseFloat(document.getElementById('hourly-rate').value) || 55;
-        let totalHoursYear = 0;
-        let activeSols = [];
-
-        solutions.filter(s => state.selectedIds.has(s.id)).forEach(sol => {
-            const val = state.inputs[sol.id] || 0;
-            if(val === 0) return;
-            let yearlyHours = 0;
-            
-            if (sol.isDirectTime) { 
-                yearlyHours = val * 50; 
-            } else {
-                let annualizedVolume = 0;
-                if (sol.unit === 'hires') annualizedVolume = val;
-                else if (['rfp','compliance','invoices'].includes(sol.id)) annualizedVolume = val * 12; 
-                else if (sol.unit === 'emails') annualizedVolume = val * 250;
-                else annualizedVolume = val * 52; 
-                yearlyHours = annualizedVolume * sol.timePerUnit;
-            }
-            activeSols.push({ ...sol, savings: Math.round(yearlyHours) });
-            totalHoursYear += yearlyHours;
-        });
-
-        state.results = { hours: Math.round(totalHoursYear), money: Math.round(totalHoursYear * hourlyRate), details: activeSols, rate: hourlyRate };
-        document.getElementById('roi-display').textContent = '$' + state.results.money.toLocaleString();
-        document.getElementById('hours-display').textContent = state.results.hours.toLocaleString();
-        renderRecommendations(state.results.details);
-        navigate(4);
-    }
-
-    function renderRecommendations(details) {
-        details.sort((a,b) => b.savings - a.savings);
-        const container = document.getElementById('rec-container');
-        container.innerHTML = details.slice(0, 3).map(s => `
-            <div class="rec-item">
-                <div class="rec-header">
-                    <div>
-                        <div style="text-transform: uppercase; font-size: 0.75rem; color: var(--primary); font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px;">Recommended Solution</div>
-                        <h3 style="font-size: 1.25rem; margin-bottom: 8px; font-weight: 600;">${s.product}</h3>
-                        <p style="margin: 0; font-size:0.95rem;">${s.desc}</p>
-                    </div>
-                    <div style="text-align: right; min-width: 100px;">
-                        <div style="font-weight: 800; font-size: 1.5rem; color: var(--text-main);">${s.savings}h</div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted);">saved / year</div>
-                    </div>
-                </div>
-                <div class="rec-body">
-                    <div style="display:flex; align-items:flex-start; gap:8px;">
-                        <i data-lucide="cpu" style="width: 16px; height: 16px; flex-shrink: 0; color: var(--primary); margin-top:2px;"></i>
-                        <span>${s.methodology}</span>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:8px; margin-top:4px; padding-top:8px; border-top:1px dashed var(--border-color); color:var(--text-main); font-size:0.8rem;">
-                        <i data-lucide="calculator" style="width: 14px; height: 14px; color: var(--text-muted);"></i>
-                        <span><strong>Manual Benchmark:</strong> ~${s.timeLabel} per task</span>
-                    </div>
-                </div>
+    // --- STEP 1: PERSONA ---
+    function renderPersonas() {
+        const grid = document.getElementById('persona-grid');
+        grid.innerHTML = Object.keys(DATA).map(key => `
+            <div class="persona-card" onclick="selectPersona('${key}')">
+                <div class="persona-icon"><i data-lucide="${DATA[key].icon}" size="32"></i></div>
+                <h3 style="font-weight:700; margin-bottom:4px;">${DATA[key].label}</h3>
+                <p style="font-size:0.9rem; margin:0;">${DATA[key].desc}</p>
             </div>
         `).join('');
         lucide.createIcons();
     }
 
-    function sendReport() {
-        const name = document.getElementById('user-name').value;
-        const email = document.getElementById('user-email').value;
-        const btn = document.getElementById('send-btn');
-        const status = document.getElementById('send-status');
+    function selectPersona(key) {
+        state.industry = key;
+        // Pre-fill default rate
+        document.getElementById('hourly-rate').value = DATA[key].rateDefault;
+        renderProblems(key);
+        setStep(2);
+    }
 
-        if (!name || !email) {
-            status.innerHTML = '<span style="color: #ef4444;">Please enter your name and email.</span>';
+    // --- STEP 2: PROBLEMS ---
+    function renderProblems(key) {
+        const list = document.getElementById('problem-list');
+        const data = DATA[key];
+        
+        // Update Title dynamically
+        document.getElementById('s2-title').textContent = `Common Bottlenecks for ${data.label}`;
+        
+        list.innerHTML = data.problems.map(p => `
+            <div class="problem-card" onclick="toggleProblem('${p.id}', this)">
+                <div class="check-circle"><i data-lucide="check" size="14"></i></div>
+                <div>
+                    <div style="font-weight:600; font-size:1.05rem;">${p.label}</div>
+                    <div style="color:var(--text-gray); font-size:0.9rem;">${p.desc}</div>
+                </div>
+            </div>
+        `).join('');
+        lucide.createIcons();
+        state.selection.clear(); // Reset on industry change
+    }
+
+    function toggleProblem(id, el) {
+        if(state.selection.has(id)) {
+            state.selection.delete(id);
+            el.classList.remove('selected');
+        } else {
+            state.selection.add(id);
+            el.classList.add('selected');
+        }
+    }
+
+    function validateStep2() {
+        if(state.selection.size === 0) {
+            document.getElementById('err-2').style.display = 'block';
+            return;
+        }
+        document.getElementById('err-2').style.display = 'none';
+        renderSliders();
+        setStep(3);
+    }
+
+    // --- STEP 3: SLIDERS ---
+    function renderSliders() {
+        const container = document.getElementById('slider-container');
+        const activeProbs = DATA[state.industry].problems.filter(p => state.selection.has(p.id));
+        
+        container.innerHTML = activeProbs.map(p => `
+            <div class="slider-group">
+                <div class="slider-header">
+                    <span>${p.q}</span>
+                    <span class="highlight" id="disp-${p.id}">0</span>
+                </div>
+                <input type="range" min="0" max="100" value="0" oninput="updateInput('${p.id}', this.value)">
+                <div style="font-size:0.8rem; color:var(--text-gray); margin-top:5px; text-align:right;">${p.unit}</div>
+            </div>
+        `).join('');
+    }
+
+    function updateInput(id, val) {
+        state.inputs[id] = parseInt(val);
+        document.getElementById(`disp-${id}`).textContent = val;
+    }
+
+    // --- CALCULATE ---
+    function calculateAndShow() {
+        const rate = parseFloat(document.getElementById('hourly-rate').value) || 0;
+        let totalHours = 0;
+        let breakdown = [];
+
+        const activeProbs = DATA[state.industry].problems.filter(p => state.selection.has(p.id));
+
+        activeProbs.forEach(p => {
+            const val = state.inputs[p.id] || 0;
+            // Normalize everything to Annual Hours
+            let annualUnits = 0;
+            if(p.q.includes('week')) annualUnits = val * 50;
+            else if(p.q.includes('month')) annualUnits = val * 12;
+            else if(p.q.includes('day')) annualUnits = val * 250;
+            
+            const hours = annualUnits * p.timePer;
+            totalHours += hours;
+            breakdown.push({ label: p.label, hours: Math.round(hours), money: Math.round(hours * rate) });
+        });
+
+        const totalMoney = totalHours * rate;
+
+        // Render Results
+        document.getElementById('final-amount').textContent = '$' + Math.round(totalMoney).toLocaleString();
+        document.getElementById('final-hours').textContent = Math.round(totalHours).toLocaleString();
+
+        const recContainer = document.getElementById('recommendations');
+        recContainer.innerHTML = breakdown.sort((a,b)=>b.money - a.money).map(b => `
+            <div class="rec-card">
+                <div style="font-weight:700; font-size:1.1rem; margin-bottom:4px;">${b.label}</div>
+                <div style="display:flex; justify-content:space-between; font-size:0.9rem; color:var(--text-gray);">
+                    <span>Wasting ~${b.hours} hrs/yr</span>
+                    <span style="color:var(--primary); font-weight:600;">$${b.money.toLocaleString()} cost</span>
+                </div>
+            </div>
+        `).join('');
+
+        setStep(4);
+    }
+
+    // --- SEND REPORT ---
+    function sendData() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const btn = document.getElementById('send-btn');
+        const status = document.getElementById('status-msg');
+
+        if(!name || !email) {
+            status.innerHTML = '<span style="color:red">Please enter name and email.</span>';
             return;
         }
 
-        btn.innerText = "Sending...";
-        btn.classList.add('loading');
-        status.innerHTML = '';
+        btn.innerText = "Generating Report...";
+        btn.disabled = true;
 
-        const summary = `
-New Lead (Magic Folder):
-------------------------
-Name: ${name}
-Email: ${email}
-Industry: ${document.getElementById('industry').value}
-Size: ${document.getElementById('size').value}
-
-Results:
-- Est. Savings: $${state.results.money.toLocaleString()}
-- Hours Saved: ${state.results.hours}
-- Rate Used: $${state.results.rate}
-
-Top Opportunities:
-${state.results.details.map(d => `- ${d.product}: ${d.savings} hours (Based on ${d.timeLabel} manual work/unit)`).join('\n')}
-        `;
-
-        const json = JSON.stringify({
+        // Construct a clean summary for the email
+        const industryLabel = DATA[state.industry].label;
+        const savingsMoney = document.getElementById('final-amount').textContent;
+        const savingsHours = document.getElementById('final-hours').textContent;
+        
+        // This JSON is what Web3Forms sends to your email
+        const payload = {
             access_key: ACCESS_KEY,
+            subject: `New Audit: ${industryLabel} (${savingsMoney})`,
             name: name,
             email: email,
-            subject: "New Lead: " + name,
-            message: summary,
+            message: `
+ इंडस्ट्री: ${industryLabel}
+ Estimated Savings: ${savingsMoney}
+ Hours Reclaimed: ${savingsHours}
+ Hourly Rate Used: $${document.getElementById('hourly-rate').value}
+
+ BREAKDOWN:
+ ${Array.from(document.querySelectorAll('.rec-card')).map(card => card.innerText.replace(/\n/g, ' - ')).join('\n')}
+            `,
             botcheck: document.querySelector('input[name="botcheck"]').checked
-        });
+        };
 
         fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: json
+            body: JSON.stringify(payload)
         })
         .then(async (response) => {
             if (response.status == 200) {
-                btn.innerText = "Check Your Email!";
-                btn.disabled = true;
-                btn.classList.remove('loading');
-                btn.style.backgroundColor = "#10b981"; 
-                status.innerHTML = '<span style="color: #10b981; font-weight:600;">Success! We have received your request.</span>';
+                btn.innerText = "Report Sent!";
+                btn.style.background = "#10b981";
+                status.innerHTML = `<span style="color:#10b981">Success! We are generating your custom ${industryLabel} roadmap now. Check your email in 5 minutes.</span>`;
             } else {
-                status.innerHTML = "Error sending. Please try again.";
-                btn.classList.remove('loading');
+                btn.innerText = "Try Again";
+                btn.disabled = false;
+                status.innerHTML = "Error sending data.";
             }
         })
         .catch(error => {
             console.log(error);
             btn.innerText = "Try Again";
-            btn.classList.remove('loading');
-            status.innerHTML = "Something went wrong. Please try again.";
+            btn.disabled = false;
+            status.innerHTML = "Connection error.";
         });
     }
 </script>
+
 </body>
 </html>
