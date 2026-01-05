@@ -20,22 +20,15 @@
     <style>
         /* --- DESIGN SYSTEM --- */
         :root {
-            /* Brand Colors: Deep Navy & Electric Indigo */
             --primary: #4338ca; 
             --primary-hover: #3730a3;
-            --secondary: #1e1b4b; /* Almost black navy */
-            
-            /* Surfaces */
+            --secondary: #1e1b4b; 
             --bg-page: #f8fafc;
             --bg-card: #ffffff;
             --border-color: #e2e8f0;
-            
-            /* Text */
             --text-main: #0f172a;
             --text-muted: #64748b;
             --text-on-primary: #ffffff;
-
-            /* Utility */
             --radius: 12px;
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -79,14 +72,11 @@
         
         main { flex: 1; padding: 60px 0; display: flex; flex-direction: column; justify-content: center; }
         
-        /* --- ANIMATIONS --- */
         .hidden { display: none !important; }
         .fade-in { animation: enter 0.5s ease forwards; }
         @keyframes enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- COMPONENTS --- */
-        
-        /* Buttons */
         .btn { 
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             padding: 14px 28px; border-radius: 50px; 
@@ -102,7 +92,6 @@
         .btn-ghost:hover { border-color: var(--text-main); color: var(--text-main); background: var(--bg-card); }
         .btn.loading { opacity: 0.7; pointer-events: none; cursor: wait; }
 
-        /* Inputs */
         select, input[type="text"], input[type="email"], input[type="number"] {
             width: 100%; padding: 14px 16px; 
             border: 1px solid var(--border-color); border-radius: var(--radius);
@@ -112,7 +101,7 @@
         select:focus, input:focus { border-color: var(--primary); ring: 2px solid var(--primary); }
         label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--secondary); }
         
-        /* Cards */
+        /* --- CARDS & GRID --- */
         .grid-selector { 
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 20px; margin-top: 32px; 
@@ -138,7 +127,6 @@
         }
         .selection-card.selected .icon-box { background: var(--primary); color: white; }
         
-        /* Range Sliders */
         .range-card { 
             background: var(--bg-card); padding: 24px; border-radius: var(--radius); 
             border: 1px solid var(--border-color); margin-bottom: 16px; 
@@ -154,7 +142,7 @@
         }
         input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
 
-        /* Results & Dashboard */
+        /* --- RESULTS --- */
         .roi-hero {
             text-align: center; padding: 48px 24px; background: var(--bg-card);
             border-radius: 20px; border: 1px solid var(--border-color);
@@ -165,7 +153,6 @@
             color: var(--primary); letter-spacing: -2px; margin: 8px 0; 
             font-family: 'Inter', sans-serif;
         }
-        
         .rec-item {
             background: var(--bg-card); border-radius: var(--radius);
             border: 1px solid var(--border-color); overflow: hidden;
@@ -180,14 +167,31 @@
             color: var(--text-muted); display: flex; gap: 12px;
         }
 
-        /* Footer */
+        /* --- TOOLTIP STYLES (NEW) --- */
+        .tooltip-wrap { position: relative; display: inline-flex; align-items: center; gap: 6px; cursor: help; }
+        .tooltip-icon { color: var(--text-muted); transition: color 0.2s; }
+        .tooltip-wrap:hover .tooltip-icon { color: var(--primary); }
+
+        .tooltip-content {
+            visibility: hidden; opacity: 0;
+            width: 240px; background-color: var(--secondary); color: #fff;
+            text-align: center; border-radius: 8px; padding: 12px;
+            position: absolute; z-index: 100; bottom: 140%; left: 50%; 
+            transform: translateX(-50%); font-size: 0.8rem; font-weight: 400; line-height: 1.4;
+            box-shadow: var(--shadow-lg); transition: all 0.2s ease;
+        }
+        .tooltip-content::after {
+            content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px;
+            border-width: 6px; border-style: solid; border-color: var(--secondary) transparent transparent transparent;
+        }
+        .tooltip-wrap:hover .tooltip-content { visibility: visible; opacity: 1; bottom: 125%; }
+
+        /* Footer & Mobile */
         footer { 
             text-align: center; padding: 32px; color: var(--text-muted); 
             font-size: 0.85rem; border-top: 1px solid var(--border-color); 
             margin-top: auto; background: var(--bg-card);
         }
-
-        /* Mobile Adjustments */
         @media (max-width: 640px) {
             .rec-header { flex-direction: column; gap: 16px; }
             .btn { width: 100%; }
@@ -274,18 +278,26 @@
             
             <div id="question-container"></div>
 
-            <div style="background: #f8fafc; border: 1px solid var(--border-color); padding: 16px; border-radius: 8px; margin-top: 24px; display: flex; align-items: center; gap: 12px;">
+            <div style="background: #f8fafc; border: 1px solid var(--border-color); padding: 16px; border-radius: 8px; margin-top: 24px; display: flex; align-items: flex-start; gap: 12px;">
                 <div style="min-width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
                     <i data-lucide="dollar-sign" size="16"></i>
                 </div>
+                
                 <div style="flex: 1;">
-                    <label style="margin: 0; font-size: 0.85rem;">Average Burdened Hourly Cost</label>
-                    <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="tooltip-wrap">
+                        <label style="margin: 0; font-size: 0.85rem; cursor: pointer;">Average Burdened Hourly Cost</label>
+                        <i data-lucide="info" size="14" class="tooltip-icon"></i>
+                        <div class="tooltip-content">
+                            <strong>What is this?</strong><br>
+                            The fully loaded cost of an employee. Includes base salary + taxes, benefits, insurance, and equipment (typically 1.25x - 1.4x base pay).
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
                         <span style="color: var(--text-muted);">$</span>
                         <input type="number" id="hourly-rate" value="55" style="width: 80px; padding: 6px;" onchange="updateHourlyCalc()">
                     </div>
                 </div>
-            </div>
+                </div>
 
             <div style="display: flex; gap: 12px; margin-top: 32px;">
                 <button class="btn btn-ghost" onclick="navigate(2)">Back</button>
@@ -318,6 +330,8 @@
                 </p>
                 
                 <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    
                     <input type="text" id="user-name" placeholder="Full Name" style="border: none;">
                     <input type="email" id="user-email" placeholder="Business Email" style="border: none;">
                     <button class="btn btn-primary" id="send-btn" onclick="sendReport()" style="width: 100%; justify-content: center; background: white; color: var(--secondary);">
@@ -339,135 +353,44 @@
 
 <script>
     // --- CONFIGURATION ---
-    const WEBHOOK_URL = "https://hook.us1.make.com/YOUR_WEBHOOK_ID_HERE"; 
+    // YOUR KEY IS INSERTED BELOW:
+    const ACCESS_KEY = "bc681f98-9bcc-4060-8029-c1afc057d00a"; 
 
-    // --- DATA: The "Scalable 8" ---
+    // --- DATA ---
     const solutions = [
-        { 
-            id: 'finance', 
-            title: 'Financial Reconciliation', 
-            desc: 'Invoice matching, categorization & ERP sync.', 
-            icon: 'receipt', 
-            product: 'Finance Ops Agent', 
-            q: 'Monthly invoices processed?', 
-            unit: 'invoices', 
-            timePerUnit: 0.33, // 20 mins per invoice cycle
-            methodology: "Data extraction via secure OCR pipeline. Line-item matching against POs in ERP (NetSuite/QBO). Anomaly detection triggers Human-in-the-Loop review only for exceptions." 
-        },
-        { 
-            id: 'cx', 
-            title: 'Tier-1 CX Resolution', 
-            desc: 'Instant resolution for repetitive support tickets.', 
-            icon: 'message-circle', 
-            product: 'CX Deflection Engine', 
-            q: 'Weekly support tickets?', 
-            unit: 'tickets', 
-            timePerUnit: 0.15, // 9 mins per ticket
-            methodology: "RAG (Retrieval-Augmented Generation) system trained on your Knowledge Base. Resolves status checks and FAQs via API. Drafts responses for Tier-2 agents to approve." 
-        },
-        { 
-            id: 'enrichment', 
-            title: 'Lead Enrichment', 
-            desc: 'Automated research & scoring for sales.', 
-            icon: 'target', 
-            product: 'Pipeline Accelerator', 
-            q: 'New leads per week?', 
-            unit: 'leads', 
-            timePerUnit: 0.25, // 15 mins research per lead
-            methodology: "Waterfall enrichment (LinkedIn/Apollo/Clearbit) triggers upon form fill. Custom scoring logic runs instantly to route high-intent prospects to AEs vs nurture tracks." 
-        },
-        { 
-            id: 'onboarding', 
-            title: 'Identity Provisioning', 
-            desc: 'Employee onboarding & access control.', 
-            icon: 'shield-check', 
-            product: 'IAM Orchestrator', 
-            q: 'New hires per year?', 
-            unit: 'hires', 
-            timePerUnit: 4.0, // 4 hours admin per hire
-            methodology: "Event-driven orchestration using your IDP (Okta/Azure AD). Automates license assignment, hardware provisioning tickets, and generates localized employment contracts." 
-        },
-        { 
-            id: 'compliance', 
-            title: 'Doc Compliance', 
-            desc: 'Contract risk analysis & lease extraction.', 
-            icon: 'file-search', 
-            product: 'Compliance Sentinel', 
-            q: 'Documents reviewed monthly?', 
-            unit: 'docs', 
-            timePerUnit: 0.75, // 45 mins per doc
-            methodology: "Semantic analysis against your custom risk playbook. Highlights non-standard clauses and missing liabilities. Output is structured JSON for your CLM system." 
-        },
-        { 
-            id: 'bi', 
-            title: 'Data Consolidation', 
-            desc: 'Unifying fragmented reporting data.', 
-            icon: 'bar-chart-3', 
-            product: 'BI Data Pipeline', 
-            q: 'Hours spent reporting weekly?', 
-            unit: 'hours', 
-            isDirectTime: true,
-            methodology: "Serverless ETL pipeline fetching data from disparate APIs (Ads, CRM, Stripe) into a unified warehouse (BigQuery/Snowflake) for real-time visualization." 
-        },
-        { 
-            id: 'rfp', 
-            title: 'RFP / Security Qs', 
-            desc: 'Drafting responses to vendor questionnaires.', 
-            icon: 'clipboard-list', 
-            product: 'Knowledge Assistant', 
-            q: 'RFPs/Questionnaires per month?', 
-            unit: 'docs', 
-            timePerUnit: 3.0, // 3 hours per questionnaire
-            methodology: "Vector database indexing your past security audits (SOC2/ISO). Auto-fills vendor spreadsheets with 90% accuracy, flagging only novel questions for InfoSec review." 
-        },
-        { 
-            id: 'extraction', 
-            title: 'Unstructured Data', 
-            desc: 'PDF/Image to SQL/Excel conversion.', 
-            icon: 'database', 
-            product: 'Data Structuring Agent', 
-            q: 'Files processed weekly?', 
-            unit: 'files', 
-            timePerUnit: 0.2, // 12 mins per file
-            methodology: "Multi-modal vision models extract table data from PDFs or images. Data is normalized, validated against schema rules, and pushed directly to your SQL database." 
-        }
+        { id: 'finance', title: 'Financial Reconciliation', desc: 'Invoice matching, categorization & ERP sync.', icon: 'receipt', product: 'Finance Ops Agent', q: 'Monthly invoices processed?', unit: 'invoices', timePerUnit: 0.33, methodology: "Data extraction via secure OCR pipeline. Line-item matching against POs in ERP (NetSuite/QBO). Anomaly detection triggers Human-in-the-Loop review only for exceptions." },
+        { id: 'cx', title: 'Tier-1 CX Resolution', desc: 'Instant resolution for repetitive support tickets.', icon: 'message-circle', product: 'CX Deflection Engine', q: 'Weekly support tickets?', unit: 'tickets', timePerUnit: 0.15, methodology: "RAG (Retrieval-Augmented Generation) system trained on your Knowledge Base. Resolves status checks and FAQs via API. Drafts responses for Tier-2 agents to approve." },
+        { id: 'enrichment', title: 'Lead Enrichment', desc: 'Automated research & scoring for sales.', icon: 'target', product: 'Pipeline Accelerator', q: 'New leads per week?', unit: 'leads', timePerUnit: 0.25, methodology: "Waterfall enrichment (LinkedIn/Apollo/Clearbit) triggers upon form fill. Custom scoring logic runs instantly to route high-intent prospects to AEs vs nurture tracks." },
+        { id: 'onboarding', title: 'Identity Provisioning', desc: 'Employee onboarding & access control.', icon: 'shield-check', product: 'IAM Orchestrator', q: 'New hires per year?', unit: 'hires', timePerUnit: 4.0, methodology: "Event-driven orchestration using your IDP (Okta/Azure AD). Automates license assignment, hardware provisioning tickets, and generates localized employment contracts." },
+        { id: 'compliance', title: 'Doc Compliance', desc: 'Contract risk analysis & lease extraction.', icon: 'file-search', product: 'Compliance Sentinel', q: 'Documents reviewed monthly?', unit: 'docs', timePerUnit: 0.75, methodology: "Semantic analysis against your custom risk playbook. Highlights non-standard clauses and missing liabilities. Output is structured JSON for your CLM system." },
+        { id: 'bi', title: 'Data Consolidation', desc: 'Unifying fragmented reporting data.', icon: 'bar-chart-3', product: 'BI Data Pipeline', q: 'Hours spent reporting weekly?', unit: 'hours', isDirectTime: true, methodology: "Serverless ETL pipeline fetching data from disparate APIs (Ads, CRM, Stripe) into a unified warehouse (BigQuery/Snowflake) for real-time visualization." },
+        { id: 'rfp', title: 'RFP / Security Qs', desc: 'Drafting responses to vendor questionnaires.', icon: 'clipboard-list', product: 'Knowledge Assistant', q: 'RFPs/Questionnaires per month?', unit: 'docs', timePerUnit: 3.0, methodology: "Vector database indexing your past security audits (SOC2/ISO). Auto-fills vendor spreadsheets with 90% accuracy, flagging only novel questions for InfoSec review." },
+        { id: 'extraction', title: 'Unstructured Data', desc: 'PDF/Image to SQL/Excel conversion.', icon: 'database', product: 'Data Structuring Agent', q: 'Files processed weekly?', unit: 'files', timePerUnit: 0.2, methodology: "Multi-modal vision models extract table data from PDFs or images. Data is normalized, validated against schema rules, and pushed directly to your SQL database." }
     ];
 
     let state = { selectedIds: new Set(), inputs: {}, results: {} };
 
-    // --- NAVIGATION ---
     function navigate(step) {
         document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
-        const activeEl = document.getElementById(`step-${step}`);
-        activeEl.classList.remove('hidden');
-        
-        // Smooth scroll to top
+        document.getElementById(`step-${step}`).classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        // Refresh icons
         if(typeof lucide !== 'undefined') lucide.createIcons();
     }
 
-    // --- INITIALIZATION ---
     window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('year').textContent = new Date().getFullYear();
         renderCards();
         lucide.createIcons();
     });
 
-    // --- STEP 1 LOGIC ---
     function validateStep1() {
         const ind = document.getElementById('industry').value;
         const size = document.getElementById('size').value;
-        if (!ind || !size) {
-            document.getElementById('err-1').style.display = 'block';
-            return;
-        }
+        if (!ind || !size) { document.getElementById('err-1').style.display = 'block'; return; }
         document.getElementById('err-1').style.display = 'none';
         navigate(2);
     }
 
-    // --- STEP 2 LOGIC ---
     function renderCards() {
         const grid = document.getElementById('card-grid');
         grid.innerHTML = solutions.map(sol => `
@@ -475,50 +398,34 @@
                 <div class="icon-box"><i data-lucide="${sol.icon}"></i></div>
                 <h3 style="font-size: 1.1rem; margin-bottom: 6px; font-family: 'Inter', sans-serif;">${sol.title}</h3>
                 <p style="font-size: 0.9rem; line-height: 1.5;">${sol.desc}</p>
-                <div style="position: absolute; top: 20px; right: 20px; color: var(--primary); opacity: 0; transition: opacity 0.2s;" class="check-icon">
-                    <i data-lucide="check-circle-2" size="20"></i>
-                </div>
+                <div style="position: absolute; top: 20px; right: 20px; color: var(--primary); opacity: 0; transition: opacity 0.2s;" class="check-icon"><i data-lucide="check-circle-2" size="20"></i></div>
             </div>
         `).join('');
     }
 
     function toggleCard(id, el) {
         const check = el.querySelector('.check-icon');
-        if (state.selectedIds.has(id)) { 
-            state.selectedIds.delete(id); 
-            el.classList.remove('selected'); 
-            check.style.opacity = '0';
-        } else { 
-            state.selectedIds.add(id); 
-            el.classList.add('selected'); 
-            check.style.opacity = '1';
-        }
+        if (state.selectedIds.has(id)) { state.selectedIds.delete(id); el.classList.remove('selected'); check.style.opacity = '0'; } 
+        else { state.selectedIds.add(id); el.classList.add('selected'); check.style.opacity = '1'; }
         document.getElementById('err-2').style.display = 'none';
     }
 
     function validateStep2() {
-        if (state.selectedIds.size === 0) {
-            document.getElementById('err-2').style.display = 'block';
-            return;
-        }
+        if (state.selectedIds.size === 0) { document.getElementById('err-2').style.display = 'block'; return; }
         generateQuestions();
         navigate(3);
     }
 
-    // --- STEP 3 LOGIC ---
     function generateQuestions() {
         const container = document.getElementById('question-container');
         const selectedSols = solutions.filter(s => state.selectedIds.has(s.id));
-        
         container.innerHTML = selectedSols.map(sol => `
             <div class="range-card">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <label style="margin:0; font-weight: 600; font-size: 1rem;">${sol.q}</label>
                     <span style="font-weight: 700; color: var(--primary); background: #eef2ff; padding: 4px 12px; border-radius: 20px; font-size: 0.9rem;" id="val-${sol.id}">0</span>
                 </div>
-                <input type="range" min="0" max="100" value="0" step="1" 
-                    oninput="updateVal('${sol.id}', this.value)" 
-                    style="width: 100%;">
+                <input type="range" min="0" max="100" value="0" step="1" oninput="updateVal('${sol.id}', this.value)" style="width: 100%;">
             </div>
         `).join('');
     }
@@ -528,12 +435,8 @@
         document.getElementById(`val-${id}`).textContent = val;
     }
 
-    function updateHourlyCalc() {
-        // Just triggers recalc if user changes rate on step 3
-        // Logic handled in calculation phase
-    }
+    function updateHourlyCalc() { } // Handled in final calc
 
-    // --- CALCULATION ENGINE ---
     function calculateResults() {
         const hourlyRate = parseFloat(document.getElementById('hourly-rate').value) || 55;
         let totalHoursYear = 0;
@@ -542,37 +445,20 @@
         solutions.filter(s => state.selectedIds.has(s.id)).forEach(sol => {
             const val = state.inputs[sol.id] || 0;
             if(val === 0) return;
-
             let yearlyHours = 0;
-            
-            if (sol.isDirectTime) {
-                // Input is "Weekly Hours"
-                yearlyHours = val * 50; // 50 working weeks
-            } else {
-                // Input is Volume (Unit)
+            if (sol.isDirectTime) { yearlyHours = val * 50; } 
+            else {
                 let annualizedVolume = 0;
-                
-                if (sol.unit === 'hires') annualizedVolume = val; // Annual input
-                else if (sol.unit === 'docs' && sol.id === 'rfp') annualizedVolume = val * 12; // Monthly
-                else if (sol.unit === 'docs' && sol.id === 'compliance') annualizedVolume = val * 12; // Monthly
-                else if (sol.unit === 'invoices') annualizedVolume = val * 12; // Monthly
-                else annualizedVolume = val * 52; // Weekly default (tickets, leads, files)
-
+                if (sol.unit === 'hires') annualizedVolume = val;
+                else if (['rfp','compliance','invoices'].includes(sol.id)) annualizedVolume = val * 12;
+                else annualizedVolume = val * 52;
                 yearlyHours = annualizedVolume * sol.timePerUnit;
             }
-
             activeSols.push({ ...sol, savings: Math.round(yearlyHours) });
             totalHoursYear += yearlyHours;
         });
 
-        state.results = {
-            hours: Math.round(totalHoursYear),
-            money: Math.round(totalHoursYear * hourlyRate),
-            details: activeSols,
-            rate: hourlyRate
-        };
-
-        // Render Step 4
+        state.results = { hours: Math.round(totalHoursYear), money: Math.round(totalHoursYear * hourlyRate), details: activeSols, rate: hourlyRate };
         document.getElementById('roi-display').textContent = '$' + state.results.money.toLocaleString();
         document.getElementById('hours-display').textContent = state.results.hours.toLocaleString();
         renderRecommendations(state.results.details);
@@ -582,7 +468,6 @@
     function renderRecommendations(details) {
         details.sort((a,b) => b.savings - a.savings);
         const container = document.getElementById('rec-container');
-        
         container.innerHTML = details.slice(0, 3).map(s => `
             <div class="rec-item">
                 <div class="rec-header">
@@ -596,16 +481,13 @@
                         <div style="font-size: 0.8rem; color: var(--text-muted);">saved / year</div>
                     </div>
                 </div>
-                <div class="rec-body">
-                    <i data-lucide="cpu" style="width: 18px; height: 18px; flex-shrink: 0; color: var(--primary); margin-top: 2px;"></i>
-                    <span><strong>Architecture:</strong> ${s.methodology}</span>
-                </div>
+                <div class="rec-body"><i data-lucide="cpu" style="width: 18px; height: 18px; flex-shrink: 0; color: var(--primary); margin-top: 2px;"></i><span><strong>Architecture:</strong> ${s.methodology}</span></div>
             </div>
         `).join('');
         lucide.createIcons();
     }
 
-    // --- FORM HANDLING ---
+    // --- FORM SUBMISSION (WEB3FORMS) ---
     function sendReport() {
         const name = document.getElementById('user-name').value;
         const email = document.getElementById('user-email').value;
@@ -613,42 +495,66 @@
         const status = document.getElementById('send-status');
 
         if (!name || !email) {
-            status.innerHTML = '<span style="color: #ffadad;">Please enter your name and email.</span>';
+            status.innerHTML = '<span style="color: #ef4444;">Please enter your name and email.</span>';
             return;
         }
 
-        btn.innerText = "Sending...";
+        btn.innerText = "Sending Request...";
         btn.classList.add('loading');
+        status.innerHTML = '';
 
-        const payload = {
-            contact: { name, email },
-            profile: {
-                industry: document.getElementById('industry').value,
-                size: document.getElementById('size').value
-            },
-            results: state.results
-        };
+        // Prepare message string for email
+        const summary = `
+New ROI Assessment Lead:
+------------------------
+Name: ${name}
+Email: ${email}
+Industry: ${document.getElementById('industry').value}
+Company Size: ${document.getElementById('size').value}
 
-        // Simulate API call or replace with fetch to WEBHOOK_URL
-        fetch(WEBHOOK_URL, {
+Financials:
+- Est. Savings: $${state.results.money.toLocaleString()}
+- Hours Saved: ${state.results.hours}
+- Burdened Rate: $${state.results.rate}
+
+Top Opportunities:
+${state.results.details.map(d => `- ${d.product}: ${d.savings} hours`).join('\n')}
+        `;
+
+        const json = JSON.stringify({
+            access_key: ACCESS_KEY,
+            name: name,
+            email: email,
+            subject: "New Magic Folder Lead: " + name,
+            message: summary,
+            botcheck: document.querySelector('input[name="botcheck"]').checked
+        });
+
+        fetch('https://api.web3forms.com/submit', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: json
         })
-        .then(() => {
-            btn.innerText = "Check Your Email";
-            btn.classList.remove('loading');
-            status.innerHTML = '<span style="color: #86efac;">Blueprint request received! We are compiling your report.</span>';
+        .then(async (response) => {
+            const json = await response.json();
+            if (response.status == 200) {
+                btn.innerText = "Request Sent!";
+                btn.disabled = true;
+                btn.classList.remove('loading');
+                btn.style.backgroundColor = "#10b981"; 
+                status.innerHTML = '<span style="color: #10b981; font-weight:600;">Success! We have received your request.</span>';
+            } else {
+                status.innerHTML = json.message;
+                btn.classList.remove('loading');
+            }
         })
-        .catch(err => {
-            // For demo purposes, we'll show success even if webhook fails (cors etc)
-            console.log("Webhook attempt:", payload);
-            btn.innerText = "Request Sent";
+        .catch(error => {
+            console.log(error);
+            btn.innerText = "Try Again";
             btn.classList.remove('loading');
-            status.innerHTML = '<span style="color: #86efac;">Success. We will be in touch shortly.</span>';
+            status.innerHTML = "Something went wrong. Please try again.";
         });
     }
 </script>
-
 </body>
 </html>
