@@ -55,7 +55,7 @@
         .emphasis { color: var(--primary); font-weight: 600; }
 
         /* --- LAYOUT --- */
-        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; width: 100%; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; width: 100%; }
         header { 
             padding: 24px 0; 
             background: var(--bg-card); 
@@ -167,7 +167,7 @@
             color: var(--text-muted); display: flex; gap: 12px;
         }
 
-        /* --- TOOLTIP STYLES (NEW) --- */
+        /* --- TOOLTIP STYLES --- */
         .tooltip-wrap { position: relative; display: inline-flex; align-items: center; gap: 6px; cursor: help; }
         .tooltip-icon { color: var(--text-muted); transition: color 0.2s; }
         .tooltip-wrap:hover .tooltip-icon { color: var(--primary); }
@@ -297,7 +297,7 @@
                         <input type="number" id="hourly-rate" value="55" style="width: 80px; padding: 6px;" onchange="updateHourlyCalc()">
                     </div>
                 </div>
-                </div>
+            </div>
 
             <div style="display: flex; gap: 12px; margin-top: 32px;">
                 <button class="btn btn-ghost" onclick="navigate(2)">Back</button>
@@ -331,7 +331,6 @@
                 
                 <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-                    
                     <input type="text" id="user-name" placeholder="Full Name" style="border: none;">
                     <input type="email" id="user-email" placeholder="Business Email" style="border: none;">
                     <button class="btn btn-primary" id="send-btn" onclick="sendReport()" style="width: 100%; justify-content: center; background: white; color: var(--secondary);">
@@ -353,19 +352,142 @@
 
 <script>
     // --- CONFIGURATION ---
-    // YOUR KEY IS INSERTED BELOW:
     const ACCESS_KEY = "bc681f98-9bcc-4060-8029-c1afc057d00a"; 
 
-    // --- DATA ---
+    // --- DATA: Expanded to 12 Items with Better Descriptions ---
     const solutions = [
-        { id: 'finance', title: 'Financial Reconciliation', desc: 'Invoice matching, categorization & ERP sync.', icon: 'receipt', product: 'Finance Ops Agent', q: 'Monthly invoices processed?', unit: 'invoices', timePerUnit: 0.33, methodology: "Data extraction via secure OCR pipeline. Line-item matching against POs in ERP (NetSuite/QBO). Anomaly detection triggers Human-in-the-Loop review only for exceptions." },
-        { id: 'cx', title: 'Tier-1 CX Resolution', desc: 'Instant resolution for repetitive support tickets.', icon: 'message-circle', product: 'CX Deflection Engine', q: 'Weekly support tickets?', unit: 'tickets', timePerUnit: 0.15, methodology: "RAG (Retrieval-Augmented Generation) system trained on your Knowledge Base. Resolves status checks and FAQs via API. Drafts responses for Tier-2 agents to approve." },
-        { id: 'enrichment', title: 'Lead Enrichment', desc: 'Automated research & scoring for sales.', icon: 'target', product: 'Pipeline Accelerator', q: 'New leads per week?', unit: 'leads', timePerUnit: 0.25, methodology: "Waterfall enrichment (LinkedIn/Apollo/Clearbit) triggers upon form fill. Custom scoring logic runs instantly to route high-intent prospects to AEs vs nurture tracks." },
-        { id: 'onboarding', title: 'Identity Provisioning', desc: 'Employee onboarding & access control.', icon: 'shield-check', product: 'IAM Orchestrator', q: 'New hires per year?', unit: 'hires', timePerUnit: 4.0, methodology: "Event-driven orchestration using your IDP (Okta/Azure AD). Automates license assignment, hardware provisioning tickets, and generates localized employment contracts." },
-        { id: 'compliance', title: 'Doc Compliance', desc: 'Contract risk analysis & lease extraction.', icon: 'file-search', product: 'Compliance Sentinel', q: 'Documents reviewed monthly?', unit: 'docs', timePerUnit: 0.75, methodology: "Semantic analysis against your custom risk playbook. Highlights non-standard clauses and missing liabilities. Output is structured JSON for your CLM system." },
-        { id: 'bi', title: 'Data Consolidation', desc: 'Unifying fragmented reporting data.', icon: 'bar-chart-3', product: 'BI Data Pipeline', q: 'Hours spent reporting weekly?', unit: 'hours', isDirectTime: true, methodology: "Serverless ETL pipeline fetching data from disparate APIs (Ads, CRM, Stripe) into a unified warehouse (BigQuery/Snowflake) for real-time visualization." },
-        { id: 'rfp', title: 'RFP / Security Qs', desc: 'Drafting responses to vendor questionnaires.', icon: 'clipboard-list', product: 'Knowledge Assistant', q: 'RFPs/Questionnaires per month?', unit: 'docs', timePerUnit: 3.0, methodology: "Vector database indexing your past security audits (SOC2/ISO). Auto-fills vendor spreadsheets with 90% accuracy, flagging only novel questions for InfoSec review." },
-        { id: 'extraction', title: 'Unstructured Data', desc: 'PDF/Image to SQL/Excel conversion.', icon: 'database', product: 'Data Structuring Agent', q: 'Files processed weekly?', unit: 'files', timePerUnit: 0.2, methodology: "Multi-modal vision models extract table data from PDFs or images. Data is normalized, validated against schema rules, and pushed directly to your SQL database." }
+        { 
+            id: 'finance', 
+            title: 'Invoice & PO Reconciliation', 
+            desc: 'Extract data from PDF invoices, match against POs, and sync to NetSuite/Quickbooks without manual entry.', 
+            icon: 'receipt', 
+            product: 'Finance Ops Agent', 
+            q: 'Monthly invoices processed?', 
+            unit: 'invoices', 
+            timePerUnit: 0.33, 
+            methodology: "Secure OCR pipeline extracts line items from PDFs. Logic agents match amounts against ERP Purchase Orders, flagging only anomalies for human review." 
+        },
+        { 
+            id: 'cx', 
+            title: 'Tier-1 Support Triage', 
+            desc: 'Instantly resolve status checks (WISMO) and FAQs, routing only complex issues to humans.', 
+            icon: 'message-circle', 
+            product: 'CX Deflection Engine', 
+            q: 'Weekly support tickets?', 
+            unit: 'tickets', 
+            timePerUnit: 0.15, 
+            methodology: "RAG system trained on your help center. Intercepts tickets via API, checks order status in real-time, and replies instantly to Tier-1 requests." 
+        },
+        { 
+            id: 'enrichment', 
+            title: 'Lead Research & Scoring', 
+            desc: 'Enrich new leads with LinkedIn/Clearbit data to score intent and fast-track VIPs to sales.', 
+            icon: 'target', 
+            product: 'Pipeline Accelerator', 
+            q: 'New leads per week?', 
+            unit: 'leads', 
+            timePerUnit: 0.25, 
+            methodology: "Waterfall enrichment triggers upon form fill. Custom logic scores the prospect against your ICP and updates CRM fields/Slack before a human sees it." 
+        },
+        { 
+            id: 'onboarding', 
+            title: 'Instant User Onboarding', 
+            desc: 'Automatically provision accounts (Slack, Email, AWS) when an offer letter is signed.', 
+            icon: 'shield-check', 
+            product: 'IAM Orchestrator', 
+            q: 'New hires per year?', 
+            unit: 'hires', 
+            timePerUnit: 4.0, 
+            methodology: "Event-driven workflow triggers via HRIS webhook. API calls provision licenses in IDP (Okta/Azure), order hardware, and schedule welcome emails." 
+        },
+        { 
+            id: 'compliance', 
+            title: 'Contract Risk Detection', 
+            desc: 'Scan legal docs to instantly flag risky clauses, non-standard terms, and missing liabilities.', 
+            icon: 'file-search', 
+            product: 'Compliance Sentinel', 
+            q: 'Documents reviewed monthly?', 
+            unit: 'docs', 
+            timePerUnit: 0.75, 
+            methodology: "Semantic analysis compares incoming contracts against your internal legal playbook. Generates a 'Red Flag Report' highlighting deviations for counsel." 
+        },
+        { 
+            id: 'bi', 
+            title: 'Auto-Reporting & Dashboards', 
+            desc: 'Pull fragmented data from Ads, CRM, and Stripe into a single dashboard view.', 
+            icon: 'bar-chart-3', 
+            product: 'BI Data Pipeline', 
+            q: 'Hours spent reporting weekly?', 
+            unit: 'hours', 
+            isDirectTime: true, 
+            methodology: "Serverless ETL pipeline fetches daily metrics from disparate APIs, normalizes the data, and pushes it to a centralized warehouse (BigQuery) for visualization." 
+        },
+        { 
+            id: 'rfp', 
+            title: 'Security Questionnaire Auto-Fill', 
+            desc: 'Use past security audits to automatically draft answers for vendor security questionnaires.', 
+            icon: 'clipboard-list', 
+            product: 'Knowledge Assistant', 
+            q: 'RFPs/Questionnaires per month?', 
+            unit: 'docs', 
+            timePerUnit: 3.0, 
+            methodology: "Vector database indexing your previous SOC2/ISO audits. Auto-populates vendor Excel sheets with 90% accuracy, requiring only final sign-off." 
+        },
+        { 
+            id: 'extraction', 
+            title: 'PDF & Form Data Extraction', 
+            desc: 'Convert \'dead\' data from PDF invoices, handwritten forms, or images into usable Excel/SQL rows.', 
+            icon: 'database', 
+            product: 'Data Structuring Agent', 
+            q: 'Files processed weekly?', 
+            unit: 'files', 
+            timePerUnit: 0.2, 
+            methodology: "Multi-modal vision models (GPT-4o/Claude Vision) identify and extract table data from unstructured files, validate format, and push to database." 
+        },
+        { 
+            id: 'meetings', 
+            title: 'Meeting Transcription & CRM', 
+            desc: 'Record client calls, extract action items, and update Salesforce/HubSpot fields automatically.', 
+            icon: 'mic', 
+            product: 'Meeting Intelligence', 
+            q: 'Weekly meetings?', 
+            unit: 'meetings', 
+            timePerUnit: 0.25, 
+            methodology: "Bot joins calls to transcribe audio. NLP summarizer extracts key dates, deal risks, and next steps, inserting them directly into the specific CRM deal record." 
+        },
+        { 
+            id: 'content', 
+            title: 'Social Content Distribution', 
+            desc: 'Turn one whitepaper into 10 LinkedIn posts, tweets, and newsletter blurbs formatted for each channel.', 
+            icon: 'share-2', 
+            product: 'Content Ops Agent', 
+            q: 'Weekly posts managed?', 
+            unit: 'posts', 
+            timePerUnit: 0.5, 
+            methodology: "Ingests long-form content. LLM generates platform-specific variations (tone/length), selects hashtags, and schedules via buffer/social API." 
+        },
+        { 
+            id: 'inventory', 
+            title: 'Multi-Channel Inventory Sync', 
+            desc: 'Prevent stockouts by syncing inventory levels across Shopify, Amazon, and ERP in real-time.', 
+            icon: 'package', 
+            product: 'Inventory Automator', 
+            q: 'Hours spent updating stock?', 
+            unit: 'hours', 
+            isDirectTime: true, 
+            methodology: "Webhooks listen for sales on any channel. Middleware instantly recalculates available stock and pushes updates to all other storefronts to prevent overselling." 
+        },
+        { 
+            id: 'email', 
+            title: 'Smart Inbox Routing', 
+            desc: 'Read general support@ emails and route them to specific departments (Sales vs Billing) based on intent.', 
+            icon: 'mail', 
+            product: 'Inbox Dispatcher', 
+            q: 'Emails triaged daily?', 
+            unit: 'emails', 
+            timePerUnit: 0.05, // 3 mins per email
+            methodology: "Classifier analyzes email body sentiment and intent. Tags the conversation and moves it to the correct inbox folder or forwards to the right department head." 
+        }
     ];
 
     let state = { selectedIds: new Set(), inputs: {}, results: {} };
@@ -435,7 +557,7 @@
         document.getElementById(`val-${id}`).textContent = val;
     }
 
-    function updateHourlyCalc() { } // Handled in final calc
+    function updateHourlyCalc() { } 
 
     function calculateResults() {
         const hourlyRate = parseFloat(document.getElementById('hourly-rate').value) || 55;
@@ -446,12 +568,16 @@
             const val = state.inputs[sol.id] || 0;
             if(val === 0) return;
             let yearlyHours = 0;
-            if (sol.isDirectTime) { yearlyHours = val * 50; } 
-            else {
+            
+            if (sol.isDirectTime) { 
+                yearlyHours = val * 50; 
+            } else {
                 let annualizedVolume = 0;
                 if (sol.unit === 'hires') annualizedVolume = val;
-                else if (['rfp','compliance','invoices'].includes(sol.id)) annualizedVolume = val * 12;
-                else annualizedVolume = val * 52;
+                else if (['rfp','compliance','invoices'].includes(sol.id)) annualizedVolume = val * 12; // Monthly inputs
+                else if (sol.unit === 'emails') annualizedVolume = val * 250; // Daily input (~250 working days)
+                else annualizedVolume = val * 52; // Weekly inputs
+                
                 yearlyHours = annualizedVolume * sol.timePerUnit;
             }
             activeSols.push({ ...sol, savings: Math.round(yearlyHours) });
@@ -487,7 +613,6 @@
         lucide.createIcons();
     }
 
-    // --- FORM SUBMISSION (WEB3FORMS) ---
     function sendReport() {
         const name = document.getElementById('user-name').value;
         const email = document.getElementById('user-email').value;
@@ -503,7 +628,6 @@
         btn.classList.add('loading');
         status.innerHTML = '';
 
-        // Prepare message string for email
         const summary = `
 New ROI Assessment Lead:
 ------------------------
@@ -536,7 +660,6 @@ ${state.results.details.map(d => `- ${d.product}: ${d.savings} hours`).join('\n'
             body: json
         })
         .then(async (response) => {
-            const json = await response.json();
             if (response.status == 200) {
                 btn.innerText = "Request Sent!";
                 btn.disabled = true;
@@ -544,7 +667,7 @@ ${state.results.details.map(d => `- ${d.product}: ${d.savings} hours`).join('\n'
                 btn.style.backgroundColor = "#10b981"; 
                 status.innerHTML = '<span style="color: #10b981; font-weight:600;">Success! We have received your request.</span>';
             } else {
-                status.innerHTML = json.message;
+                status.innerHTML = "Error sending. Please try again.";
                 btn.classList.remove('loading');
             }
         })
