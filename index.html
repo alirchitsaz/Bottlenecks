@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operational Efficiency Assessment | Magic Folder</title>
+    <title>Automation Opportunity Assessment</title>
     
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -22,17 +22,15 @@
         :root {
             --primary: #4338ca; 
             --primary-hover: #3730a3;
-            --secondary: #1e1b4b; 
+            --secondary: #0f172a; 
             --bg-page: #f8fafc;
             --bg-card: #ffffff;
             --border-color: #e2e8f0;
-            --text-main: #0f172a;
+            --text-main: #1e293b;
             --text-muted: #64748b;
-            --text-on-primary: #ffffff;
             --radius: 12px;
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
         /* --- RESET & BASE --- */
@@ -43,37 +41,38 @@
             color: var(--text-main); 
             line-height: 1.6; 
             min-height: 100vh;
-            display: flex; 
-            flex-direction: column;
+            display: flex; flex-direction: column;
         }
 
         /* --- TYPOGRAPHY --- */
         h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--secondary); font-weight: 700; }
-        h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; }
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.02em; }
         h2 { font-size: 1.75rem; margin-bottom: 0.5rem; }
         p { color: var(--text-muted); }
         .emphasis { color: var(--primary); font-weight: 600; }
+        .category-header {
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-muted); font-weight: 700; margin: 32px 0 16px 0;
+            border-bottom: 1px solid var(--border-color); padding-bottom: 8px;
+        }
 
         /* --- LAYOUT --- */
-        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; width: 100%; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; width: 100%; }
         header { 
-            padding: 24px 0; 
-            background: var(--bg-card); 
+            padding: 20px 0; background: var(--bg-card); 
             border-bottom: 1px solid var(--border-color);
             position: sticky; top: 0; z-index: 50;
         }
         .nav-content { display: flex; align-items: center; justify-content: space-between; }
         .logo { 
             display: flex; align-items: center; gap: 10px; 
-            font-family: 'Playfair Display', serif; 
-            font-weight: 700; font-size: 1.25rem; color: var(--secondary); 
-            text-decoration: none;
+            font-family: 'Playfair Display', serif; font-weight: 700; 
+            font-size: 1.25rem; color: var(--secondary); 
         }
         
         main { flex: 1; padding: 60px 0; display: flex; flex-direction: column; justify-content: center; }
-        
         .hidden { display: none !important; }
-        .fade-in { animation: enter 0.5s ease forwards; }
+        .fade-in { animation: enter 0.4s ease forwards; }
         @keyframes enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- COMPONENTS --- */
@@ -84,7 +83,7 @@
             transition: all 0.2s ease;
         }
         .btn-primary { 
-            background: var(--primary); color: var(--text-on-primary); 
+            background: var(--primary); color: #fff; 
             box-shadow: 0 4px 12px rgba(67, 56, 202, 0.3);
         }
         .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
@@ -92,41 +91,35 @@
         .btn-ghost:hover { border-color: var(--text-main); color: var(--text-main); background: var(--bg-card); }
         .btn.loading { opacity: 0.7; pointer-events: none; cursor: wait; }
 
-        select, input[type="text"], input[type="email"], input[type="number"] {
+        select, input {
             width: 100%; padding: 14px 16px; 
             border: 1px solid var(--border-color); border-radius: var(--radius);
             font-size: 1rem; background: var(--bg-card); color: var(--text-main);
             outline: none; transition: border-color 0.2s;
         }
         select:focus, input:focus { border-color: var(--primary); ring: 2px solid var(--primary); }
-        label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--secondary); }
         
-        /* --- CARDS & GRID --- */
+        /* --- CARDS --- */
         .grid-selector { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 20px; margin-top: 32px; 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
+            gap: 16px; margin-bottom: 24px;
         }
         .selection-card { 
             background: var(--bg-card); border: 1px solid var(--border-color); 
-            border-radius: var(--radius); padding: 24px; cursor: pointer; 
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); position: relative;
+            border-radius: var(--radius); padding: 20px; cursor: pointer; 
+            transition: all 0.2s; position: relative; display: flex; gap: 16px; align-items: flex-start;
             box-shadow: var(--shadow-sm);
         }
-        .selection-card:hover { 
-            border-color: var(--primary); transform: translateY(-2px); 
-            box-shadow: var(--shadow-md); 
-        }
-        .selection-card.selected { 
-            border-color: var(--primary); background: #eef2ff; 
-            box-shadow: 0 0 0 1px var(--primary);
-        }
-        .icon-box { 
-            width: 44px; height: 44px; background: #f1f5f9; border-radius: 10px; 
-            display: flex; align-items: center; justify-content: center; 
-            color: var(--text-muted); margin-bottom: 16px; transition: all 0.2s;
-        }
-        .selection-card.selected .icon-box { background: var(--primary); color: white; }
+        .selection-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .selection-card.selected { border-color: var(--primary); background: #eef2ff; box-shadow: 0 0 0 1px var(--primary); }
         
+        .card-icon { 
+            min-width: 40px; height: 40px; background: #f1f5f9; border-radius: 8px; 
+            display: flex; align-items: center; justify-content: center; color: var(--text-muted); 
+        }
+        .selection-card.selected .card-icon { background: var(--primary); color: white; }
+
+        /* --- SLIDERS --- */
         .range-card { 
             background: var(--bg-card); padding: 24px; border-radius: var(--radius); 
             border: 1px solid var(--border-color); margin-bottom: 16px; 
@@ -164,21 +157,18 @@
         }
         .rec-body {
             padding: 20px 24px; background: #f8fafc; font-size: 0.9rem;
-            color: var(--text-muted); display: flex; gap: 12px;
+            color: var(--text-muted); display: flex; gap: 12px; align-items: center;
         }
 
-        /* --- TOOLTIP STYLES --- */
+        /* --- TOOLTIP --- */
         .tooltip-wrap { position: relative; display: inline-flex; align-items: center; gap: 6px; cursor: help; }
         .tooltip-icon { color: var(--text-muted); transition: color 0.2s; }
         .tooltip-wrap:hover .tooltip-icon { color: var(--primary); }
-
         .tooltip-content {
-            visibility: hidden; opacity: 0;
-            width: 240px; background-color: var(--secondary); color: #fff;
-            text-align: center; border-radius: 8px; padding: 12px;
-            position: absolute; z-index: 100; bottom: 140%; left: 50%; 
-            transform: translateX(-50%); font-size: 0.8rem; font-weight: 400; line-height: 1.4;
-            box-shadow: var(--shadow-lg); transition: all 0.2s ease;
+            visibility: hidden; opacity: 0; width: 240px; background-color: var(--secondary); color: #fff;
+            text-align: center; border-radius: 8px; padding: 12px; position: absolute; z-index: 100; 
+            bottom: 140%; left: 50%; transform: translateX(-50%); font-size: 0.8rem; box-shadow: var(--shadow-md);
+            transition: all 0.2s ease;
         }
         .tooltip-content::after {
             content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px;
@@ -186,15 +176,10 @@
         }
         .tooltip-wrap:hover .tooltip-content { visibility: visible; opacity: 1; bottom: 125%; }
 
-        /* Footer & Mobile */
-        footer { 
-            text-align: center; padding: 32px; color: var(--text-muted); 
-            font-size: 0.85rem; border-top: 1px solid var(--border-color); 
-            margin-top: auto; background: var(--bg-card);
-        }
         @media (max-width: 640px) {
             .rec-header { flex-direction: column; gap: 16px; }
             .btn { width: 100%; }
+            .selection-card { flex-direction: column; gap: 12px; }
         }
     </style>
 </head>
@@ -203,7 +188,7 @@
 <header>
     <div class="container nav-content">
         <div class="logo">
-            <i data-lucide="sparkles" style="color: var(--primary); width: 20px;"></i>
+            <i data-lucide="sparkles" style="color: var(--primary); width: 22px;"></i>
             Magic Folder
         </div>
     </div>
@@ -216,14 +201,14 @@
             <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: #eef2ff; color: var(--primary); border-radius: 100px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px;">
                 <i data-lucide="zap" size="14"></i> 2-Minute Assessment
             </div>
-            <h1>Unlock Operational <span class="emphasis">Velocity</span></h1>
-            <p style="font-size: 1.15rem; margin: 20px 0 40px 0;">
-                Identify high-friction workflows in your business and quantify the ROI of modern, API-first automation architecture.
+            <h1>Where is your team <br><span class="emphasis">wasting time?</span></h1>
+            <p style="font-size: 1.15rem; margin: 24px 0 40px 0;">
+                Find out exactly how much manual work is costing you, and discover which tasks can be fully automated today.
             </p>
             
             <div style="max-width: 400px; display: flex; flex-direction: column; gap: 20px;">
                 <div>
-                    <label>Primary Industry</label>
+                    <label>Your Sector</label>
                     <select id="industry">
                         <option value="">Select Sector...</option>
                         <option value="tech">Technology / SaaS</option>
@@ -235,7 +220,7 @@
                     </select>
                 </div>
                 <div>
-                    <label>Organization Size</label>
+                    <label>Team Size</label>
                     <select id="size">
                         <option value="">Select Headcount...</option>
                         <option value="1-50">1-50 Employees</option>
@@ -253,14 +238,14 @@
     </div>
 
     <div id="step-2" class="hidden fade-in">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-            <h2>Where is the friction?</h2>
-            <p>Select the operational areas that currently require significant manual oversight.</p>
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 40px auto;">
+            <h2>Select your bottlenecks</h2>
+            <p>Which of these areas slow your team down the most? Select all that apply.</p>
         </div>
 
-        <div class="grid-selector" id="card-grid"></div>
+        <div id="cards-container"></div>
         
-        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 40px;">
+        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);">
             <button class="btn btn-ghost" onclick="navigate(1)">Back</button>
             <button class="btn btn-primary" style="min-width: 160px;" onclick="validateStep2()">
                 Continue <i data-lucide="arrow-right" size="18"></i>
@@ -272,29 +257,29 @@
     <div id="step-3" class="hidden fade-in">
         <div style="max-width: 600px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 40px;">
-                <h2>Estimate Volume</h2>
-                <p>Use the sliders to estimate monthly or weekly volume. Rough estimates are fine.</p>
+                <h2>Quantify the drag</h2>
+                <p>Roughly how much volume do you handle in these areas?</p>
             </div>
             
             <div id="question-container"></div>
 
-            <div style="background: #f8fafc; border: 1px solid var(--border-color); padding: 16px; border-radius: 8px; margin-top: 24px; display: flex; align-items: flex-start; gap: 12px;">
+            <div style="background: #f8fafc; border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-top: 24px; display: flex; align-items: flex-start; gap: 16px;">
                 <div style="min-width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
                     <i data-lucide="dollar-sign" size="16"></i>
                 </div>
                 
                 <div style="flex: 1;">
                     <div class="tooltip-wrap">
-                        <label style="margin: 0; font-size: 0.85rem; cursor: pointer;">Average Burdened Hourly Cost</label>
+                        <label style="margin: 0; font-size: 0.9rem; font-weight: 600; cursor: pointer;">Fully Burdened Hourly Cost</label>
                         <i data-lucide="info" size="14" class="tooltip-icon"></i>
                         <div class="tooltip-content">
                             <strong>What is this?</strong><br>
-                            The fully loaded cost of an employee. Includes base salary + taxes, benefits, insurance, and equipment (typically 1.25x - 1.4x base pay).
+                            The total cost of an employee hour. Includes base salary, taxes, benefits, and equipment (typically 1.3x base pay).
                         </div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
-                        <span style="color: var(--text-muted);">$</span>
-                        <input type="number" id="hourly-rate" value="55" style="width: 80px; padding: 6px;" onchange="updateHourlyCalc()">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                        <span style="color: var(--text-muted); font-size: 1.1rem;">$</span>
+                        <input type="number" id="hourly-rate" value="55" style="width: 100px; padding: 8px; font-weight: 600;" onchange="updateHourlyCalc()">
                     </div>
                 </div>
             </div>
@@ -310,31 +295,31 @@
 
     <div id="step-4" class="hidden fade-in">
         <div class="roi-hero">
-            <h3 style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 16px;">Annual Efficiency Opportunity</h3>
+            <h3 style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 16px;">Projected Annual Savings</h3>
             <div class="big-number" id="roi-display">$0</div>
             <p style="font-size: 1.1rem; max-width: 500px; margin: 0 auto;">
-                Potential savings by reallocating <strong style="color: var(--text-main);"><span id="hours-display">0</span> hours</strong> of manual labor to automated architecture.
+                Value generated by reallocating <strong style="color: var(--text-main);"><span id="hours-display">0</span> hours</strong> of manual labor to automated agents.
             </p>
         </div>
 
-        <h3 style="margin-bottom: 24px;">Strategic Roadmap</h3>
+        <h3 style="margin-bottom: 24px;">Your Automation Roadmap</h3>
         <div id="rec-container"></div>
 
-        <div style="background: var(--secondary); color: white; border-radius: 20px; padding: 40px; text-align: center; margin-top: 48px; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: -50%; left: -10%; width: 200px; height: 200px; background: var(--primary); filter: blur(80px); opacity: 0.5;"></div>
+        <div style="background: var(--secondary); color: white; border-radius: 20px; padding: 48px 32px; text-align: center; margin-top: 48px; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -50%; left: -10%; width: 250px; height: 250px; background: var(--primary); filter: blur(90px); opacity: 0.6;"></div>
             
-            <div style="position: relative; z-index: 2; max-width: 460px; margin: 0 auto;">
-                <h3 style="color: white; margin-bottom: 12px;">Get the Architecture Blueprint</h3>
-                <p style="color: #cbd5e1; margin-bottom: 32px;">
-                    Receive a detailed breakdown of these solutions, including technical implementation steps, security governance (SOC2), and tool recommendations.
+            <div style="position: relative; z-index: 2; max-width: 480px; margin: 0 auto;">
+                <h3 style="color: white; margin-bottom: 12px; font-size: 1.5rem;">See exactly how to automate this</h3>
+                <p style="color: #cbd5e1; margin-bottom: 32px; font-size: 1rem;">
+                    We will send you a breakdown of these specific solutions, including the tools we use (Make, OpenAI, etc.) and a deployment timeline.
                 </p>
                 
                 <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-                    <input type="text" id="user-name" placeholder="Full Name" style="border: none;">
-                    <input type="email" id="user-email" placeholder="Business Email" style="border: none;">
-                    <button class="btn btn-primary" id="send-btn" onclick="sendReport()" style="width: 100%; justify-content: center; background: white; color: var(--secondary);">
-                        Send Blueprint Request
+                    <input type="text" id="user-name" placeholder="First Name" style="border: none; padding: 16px;">
+                    <input type="email" id="user-email" placeholder="Work Email" style="border: none; padding: 16px;">
+                    <button class="btn btn-primary" id="send-btn" onclick="sendReport()" style="width: 100%; justify-content: center; background: white; color: var(--secondary); margin-top: 8px;">
+                        Send Me The Blueprint
                     </button>
                 </div>
                 <div id="send-status" style="margin-top: 16px; font-size: 0.9rem; min-height: 20px;"></div>
@@ -347,151 +332,121 @@
 </main>
 
 <footer>
-    &copy; <span id="year"></span> Magic Folder. Designed for modern operations.
+    &copy; <span id="year"></span> Magic Folder. Built for modern operations.
 </footer>
 
 <script>
     // --- CONFIGURATION ---
     const ACCESS_KEY = "bc681f98-9bcc-4060-8029-c1afc057d00a"; 
 
-    // --- DATA: Expanded to 12 Items with Better Descriptions ---
+    // --- CATEGORIZED DATA ---
     const solutions = [
+        // --- CATEGORY: GROWTH & SALES ---
         { 
-            id: 'finance', 
-            title: 'Invoice & PO Reconciliation', 
-            desc: 'Extract data from PDF invoices, match against POs, and sync to NetSuite/Quickbooks without manual entry.', 
-            icon: 'receipt', 
-            product: 'Finance Ops Agent', 
-            q: 'Monthly invoices processed?', 
-            unit: 'invoices', 
-            timePerUnit: 0.33, 
-            methodology: "Secure OCR pipeline extracts line items from PDFs. Logic agents match amounts against ERP Purchase Orders, flagging only anomalies for human review." 
+            id: 'enrichment', category: 'Growth & Sales',
+            title: 'Auto-Qualify Leads', 
+            desc: 'Enrich new signups with LinkedIn data and score them before sales sees them.', 
+            icon: 'target', product: 'Lead Enrichment Agent', 
+            q: 'New leads per week?', unit: 'leads', timePerUnit: 0.25, 
+            methodology: "Triggers on form fill. Pulls Clearbit/Apollo data to score intent. High scores route to Slack; low scores go to nurture." 
         },
         { 
-            id: 'cx', 
-            title: 'Tier-1 Support Triage', 
-            desc: 'Instantly resolve status checks (WISMO) and FAQs, routing only complex issues to humans.', 
-            icon: 'message-circle', 
-            product: 'CX Deflection Engine', 
-            q: 'Weekly support tickets?', 
-            unit: 'tickets', 
-            timePerUnit: 0.15, 
-            methodology: "RAG system trained on your help center. Intercepts tickets via API, checks order status in real-time, and replies instantly to Tier-1 requests." 
+            id: 'cx', category: 'Growth & Sales',
+            title: 'Auto-Resolve Support', 
+            desc: 'Instantly answer "Where is my order?" and FAQ tickets without human agents.', 
+            icon: 'message-circle', product: 'Support Triage Bot', 
+            q: 'Weekly support tickets?', unit: 'tickets', timePerUnit: 0.15, 
+            methodology: "RAG system answers Tier-1 questions via knowledge base. Checks order status via API and replies instantly." 
         },
         { 
-            id: 'enrichment', 
-            title: 'Lead Research & Scoring', 
-            desc: 'Enrich new leads with LinkedIn/Clearbit data to score intent and fast-track VIPs to sales.', 
-            icon: 'target', 
-            product: 'Pipeline Accelerator', 
-            q: 'New leads per week?', 
-            unit: 'leads', 
-            timePerUnit: 0.25, 
-            methodology: "Waterfall enrichment triggers upon form fill. Custom logic scores the prospect against your ICP and updates CRM fields/Slack before a human sees it." 
+            id: 'meetings', category: 'Growth & Sales',
+            title: 'Meeting Data Entry', 
+            desc: 'Transcribe sales calls and automatically update HubSpot/Salesforce fields.', 
+            icon: 'mic', product: 'CRM Data Agent', 
+            q: 'Weekly meetings?', unit: 'meetings', timePerUnit: 0.25, 
+            methodology: "Bot joins calls, extracts next steps and deal sentiment, and pushes structured data directly into specific CRM fields." 
         },
         { 
-            id: 'onboarding', 
-            title: 'Instant User Onboarding', 
-            desc: 'Automatically provision accounts (Slack, Email, AWS) when an offer letter is signed.', 
-            icon: 'shield-check', 
-            product: 'IAM Orchestrator', 
-            q: 'New hires per year?', 
-            unit: 'hires', 
-            timePerUnit: 4.0, 
-            methodology: "Event-driven workflow triggers via HRIS webhook. API calls provision licenses in IDP (Okta/Azure), order hardware, and schedule welcome emails." 
+            id: 'content', category: 'Growth & Sales',
+            title: 'Social Repurposing', 
+            desc: 'Turn one blog post into 10 optimized posts for LinkedIn and Twitter.', 
+            icon: 'share-2', product: 'Content Ops Agent', 
+            q: 'Weekly posts managed?', unit: 'posts', timePerUnit: 0.5, 
+            methodology: "Ingests long-form content. LLM generates platform-specific variations, selects hashtags, and schedules posts via API." 
+        },
+
+        // --- CATEGORY: FINANCE & OPS ---
+        { 
+            id: 'finance', category: 'Finance & Ops',
+            title: 'Automate Invoicing', 
+            desc: 'Extract data from PDF invoices and sync to QuickBooks/NetSuite automatically.', 
+            icon: 'receipt', product: 'AP Automation Agent', 
+            q: 'Monthly invoices?', unit: 'invoices', timePerUnit: 0.33, 
+            methodology: "OCR extracts line items from PDFs. Logic matches against POs. Only anomalies are flagged for human review." 
         },
         { 
-            id: 'compliance', 
-            title: 'Contract Risk Detection', 
-            desc: 'Scan legal docs to instantly flag risky clauses, non-standard terms, and missing liabilities.', 
-            icon: 'file-search', 
-            product: 'Compliance Sentinel', 
-            q: 'Documents reviewed monthly?', 
-            unit: 'docs', 
-            timePerUnit: 0.75, 
-            methodology: "Semantic analysis compares incoming contracts against your internal legal playbook. Generates a 'Red Flag Report' highlighting deviations for counsel." 
+            id: 'onboarding', category: 'Finance & Ops',
+            title: 'Instant Onboarding', 
+            desc: 'Provision Slack, Email, and Software accounts the moment an offer is signed.', 
+            icon: 'users', product: 'IT Onboarding Flow', 
+            q: 'New hires per year?', unit: 'hires', timePerUnit: 4.0, 
+            methodology: "HRIS webhook triggers API calls to Okta/Azure AD to provision licenses, order hardware, and send welcome emails." 
         },
         { 
-            id: 'bi', 
-            title: 'Auto-Reporting & Dashboards', 
-            desc: 'Pull fragmented data from Ads, CRM, and Stripe into a single dashboard view.', 
-            icon: 'bar-chart-3', 
-            product: 'BI Data Pipeline', 
-            q: 'Hours spent reporting weekly?', 
-            unit: 'hours', 
-            isDirectTime: true, 
-            methodology: "Serverless ETL pipeline fetches daily metrics from disparate APIs, normalizes the data, and pushes it to a centralized warehouse (BigQuery) for visualization." 
+            id: 'inventory', category: 'Finance & Ops',
+            title: 'Sync Inventory', 
+            desc: 'Keep stock levels perfectly synced between Shopify, Amazon, and your warehouse.', 
+            icon: 'package', product: 'Inventory Sync Agent', 
+            q: 'Hours spent updating?', unit: 'hours', isDirectTime: true, 
+            methodology: "Real-time webhooks listen for sales on any channel and instantly recalculate/push stock levels to all other platforms." 
         },
         { 
-            id: 'rfp', 
-            title: 'Security Questionnaire Auto-Fill', 
-            desc: 'Use past security audits to automatically draft answers for vendor security questionnaires.', 
-            icon: 'clipboard-list', 
-            product: 'Knowledge Assistant', 
-            q: 'RFPs/Questionnaires per month?', 
-            unit: 'docs', 
-            timePerUnit: 3.0, 
-            methodology: "Vector database indexing your previous SOC2/ISO audits. Auto-populates vendor Excel sheets with 90% accuracy, requiring only final sign-off." 
+            id: 'compliance', category: 'Finance & Ops',
+            title: 'Contract Scanning', 
+            desc: 'Scan legal docs to instantly flag risky clauses and non-standard terms.', 
+            icon: 'file-search', product: 'Legal Review Bot', 
+            q: 'Contracts per month?', unit: 'docs', timePerUnit: 0.75, 
+            methodology: "Semantic analysis compares contracts against your playbook. Generates a 'Red Flag Report' for legal counsel." 
+        },
+
+        // --- CATEGORY: DATA & ADMIN ---
+        { 
+            id: 'extraction', category: 'Data & Admin',
+            title: 'Digitize PDFs & Forms', 
+            desc: 'Stop typing. Extract tables and text from PDFs into Excel or SQL automatically.', 
+            icon: 'database', product: 'Data Extraction Agent', 
+            q: 'Files processed weekly?', unit: 'files', timePerUnit: 0.2, 
+            methodology: "Vision models identify tables in unstructured documents, validate data types, and push clean rows to your database." 
         },
         { 
-            id: 'extraction', 
-            title: 'PDF & Form Data Extraction', 
-            desc: 'Convert \'dead\' data from PDF invoices, handwritten forms, or images into usable Excel/SQL rows.', 
-            icon: 'database', 
-            product: 'Data Structuring Agent', 
-            q: 'Files processed weekly?', 
-            unit: 'files', 
-            timePerUnit: 0.2, 
-            methodology: "Multi-modal vision models (GPT-4o/Claude Vision) identify and extract table data from unstructured files, validate format, and push to database." 
+            id: 'bi', category: 'Data & Admin',
+            title: 'Auto-Reporting', 
+            desc: 'Stop manual copy-pasting. Pull data from all your tools into one dashboard.', 
+            icon: 'bar-chart-3', product: 'BI Data Pipeline', 
+            q: 'Hours reporting weekly?', unit: 'hours', isDirectTime: true, 
+            methodology: "Serverless pipeline fetches daily metrics from APIs (Ads, CRM, Stripe), normalizes data, and pushes to a dashboard." 
         },
         { 
-            id: 'meetings', 
-            title: 'Meeting Transcription & CRM', 
-            desc: 'Record client calls, extract action items, and update Salesforce/HubSpot fields automatically.', 
-            icon: 'mic', 
-            product: 'Meeting Intelligence', 
-            q: 'Weekly meetings?', 
-            unit: 'meetings', 
-            timePerUnit: 0.25, 
-            methodology: "Bot joins calls to transcribe audio. NLP summarizer extracts key dates, deal risks, and next steps, inserting them directly into the specific CRM deal record." 
+            id: 'rfp', category: 'Data & Admin',
+            title: 'Auto-Fill RFPs', 
+            desc: 'Draft answers for security questionnaires using your past audits.', 
+            icon: 'clipboard-list', product: 'RFP Assistant', 
+            q: 'RFPs per month?', unit: 'docs', timePerUnit: 3.0, 
+            methodology: "Vector database indexes past security audits. Auto-populates vendor spreadsheets with high accuracy for review." 
         },
         { 
-            id: 'content', 
-            title: 'Social Content Distribution', 
-            desc: 'Turn one whitepaper into 10 LinkedIn posts, tweets, and newsletter blurbs formatted for each channel.', 
-            icon: 'share-2', 
-            product: 'Content Ops Agent', 
-            q: 'Weekly posts managed?', 
-            unit: 'posts', 
-            timePerUnit: 0.5, 
-            methodology: "Ingests long-form content. LLM generates platform-specific variations (tone/length), selects hashtags, and schedules via buffer/social API." 
-        },
-        { 
-            id: 'inventory', 
-            title: 'Multi-Channel Inventory Sync', 
-            desc: 'Prevent stockouts by syncing inventory levels across Shopify, Amazon, and ERP in real-time.', 
-            icon: 'package', 
-            product: 'Inventory Automator', 
-            q: 'Hours spent updating stock?', 
-            unit: 'hours', 
-            isDirectTime: true, 
-            methodology: "Webhooks listen for sales on any channel. Middleware instantly recalculates available stock and pushes updates to all other storefronts to prevent overselling." 
-        },
-        { 
-            id: 'email', 
+            id: 'email', category: 'Data & Admin',
             title: 'Smart Inbox Routing', 
-            desc: 'Read general support@ emails and route them to specific departments (Sales vs Billing) based on intent.', 
-            icon: 'mail', 
-            product: 'Inbox Dispatcher', 
-            q: 'Emails triaged daily?', 
-            unit: 'emails', 
-            timePerUnit: 0.05, // 3 mins per email
-            methodology: "Classifier analyzes email body sentiment and intent. Tags the conversation and moves it to the correct inbox folder or forwards to the right department head." 
+            desc: 'Read general support emails and route them to the right person based on content.', 
+            icon: 'mail', product: 'Inbox Dispatcher', 
+            q: 'Emails triaged daily?', unit: 'emails', timePerUnit: 0.05, 
+            methodology: "AI analyzes sentiment and intent of incoming emails, tagging and forwarding them to the correct department." 
         }
     ];
 
     let state = { selectedIds: new Set(), inputs: {}, results: {} };
 
+    // --- CORE NAVIGATION ---
     function navigate(step) {
         document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
         document.getElementById(`step-${step}`).classList.remove('hidden');
@@ -501,10 +456,11 @@
 
     window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('year').textContent = new Date().getFullYear();
-        renderCards();
+        renderCategoriesAndCards();
         lucide.createIcons();
     });
 
+    // --- LOGIC ---
     function validateStep1() {
         const ind = document.getElementById('industry').value;
         const size = document.getElementById('size').value;
@@ -513,16 +469,28 @@
         navigate(2);
     }
 
-    function renderCards() {
-        const grid = document.getElementById('card-grid');
-        grid.innerHTML = solutions.map(sol => `
-            <div class="selection-card" onclick="toggleCard('${sol.id}', this)">
-                <div class="icon-box"><i data-lucide="${sol.icon}"></i></div>
-                <h3 style="font-size: 1.1rem; margin-bottom: 6px; font-family: 'Inter', sans-serif;">${sol.title}</h3>
-                <p style="font-size: 0.9rem; line-height: 1.5;">${sol.desc}</p>
-                <div style="position: absolute; top: 20px; right: 20px; color: var(--primary); opacity: 0; transition: opacity 0.2s;" class="check-icon"><i data-lucide="check-circle-2" size="20"></i></div>
-            </div>
-        `).join('');
+    function renderCategoriesAndCards() {
+        const container = document.getElementById('cards-container');
+        const categories = [...new Set(solutions.map(s => s.category))];
+        
+        container.innerHTML = categories.map(cat => {
+            const catSols = solutions.filter(s => s.category === cat);
+            return `
+                <div class="category-header">${cat}</div>
+                <div class="grid-selector">
+                    ${catSols.map(sol => `
+                        <div class="selection-card" onclick="toggleCard('${sol.id}', this)">
+                            <div class="card-icon"><i data-lucide="${sol.icon}"></i></div>
+                            <div>
+                                <h3 style="font-size: 1rem; margin-bottom: 4px; font-weight: 600;">${sol.title}</h3>
+                                <p style="font-size: 0.85rem; line-height: 1.4;">${sol.desc}</p>
+                            </div>
+                            <div style="position: absolute; top: 16px; right: 16px; color: var(--primary); opacity: 0; transition: opacity 0.2s;" class="check-icon"><i data-lucide="check-circle-2" size="20"></i></div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }).join('');
     }
 
     function toggleCard(id, el) {
@@ -574,10 +542,9 @@
             } else {
                 let annualizedVolume = 0;
                 if (sol.unit === 'hires') annualizedVolume = val;
-                else if (['rfp','compliance','invoices'].includes(sol.id)) annualizedVolume = val * 12; // Monthly inputs
-                else if (sol.unit === 'emails') annualizedVolume = val * 250; // Daily input (~250 working days)
-                else annualizedVolume = val * 52; // Weekly inputs
-                
+                else if (['rfp','compliance','invoices'].includes(sol.id)) annualizedVolume = val * 12; 
+                else if (sol.unit === 'emails') annualizedVolume = val * 250;
+                else annualizedVolume = val * 52; 
                 yearlyHours = annualizedVolume * sol.timePerUnit;
             }
             activeSols.push({ ...sol, savings: Math.round(yearlyHours) });
@@ -599,15 +566,18 @@
                 <div class="rec-header">
                     <div>
                         <div style="text-transform: uppercase; font-size: 0.75rem; color: var(--primary); font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px;">Recommended Solution</div>
-                        <h3 style="font-size: 1.25rem; margin-bottom: 8px; font-family: 'Inter', sans-serif;">${s.product}</h3>
-                        <p style="margin: 0;">${s.desc}</p>
+                        <h3 style="font-size: 1.25rem; margin-bottom: 8px; font-weight: 600;">${s.product}</h3>
+                        <p style="margin: 0; font-size:0.95rem;">${s.desc}</p>
                     </div>
                     <div style="text-align: right; min-width: 100px;">
                         <div style="font-weight: 800; font-size: 1.5rem; color: var(--text-main);">${s.savings}h</div>
                         <div style="font-size: 0.8rem; color: var(--text-muted);">saved / year</div>
                     </div>
                 </div>
-                <div class="rec-body"><i data-lucide="cpu" style="width: 18px; height: 18px; flex-shrink: 0; color: var(--primary); margin-top: 2px;"></i><span><strong>Architecture:</strong> ${s.methodology}</span></div>
+                <div class="rec-body">
+                    <i data-lucide="cpu" style="width: 18px; height: 18px; flex-shrink: 0; color: var(--primary);"></i>
+                    <span><strong>How it works:</strong> ${s.methodology}</span>
+                </div>
             </div>
         `).join('');
         lucide.createIcons();
@@ -624,22 +594,22 @@
             return;
         }
 
-        btn.innerText = "Sending Request...";
+        btn.innerText = "Sending...";
         btn.classList.add('loading');
         status.innerHTML = '';
 
         const summary = `
-New ROI Assessment Lead:
+New Lead (Magic Folder):
 ------------------------
 Name: ${name}
 Email: ${email}
 Industry: ${document.getElementById('industry').value}
-Company Size: ${document.getElementById('size').value}
+Size: ${document.getElementById('size').value}
 
-Financials:
+Results:
 - Est. Savings: $${state.results.money.toLocaleString()}
 - Hours Saved: ${state.results.hours}
-- Burdened Rate: $${state.results.rate}
+- Rate Used: $${state.results.rate}
 
 Top Opportunities:
 ${state.results.details.map(d => `- ${d.product}: ${d.savings} hours`).join('\n')}
@@ -649,7 +619,7 @@ ${state.results.details.map(d => `- ${d.product}: ${d.savings} hours`).join('\n'
             access_key: ACCESS_KEY,
             name: name,
             email: email,
-            subject: "New Magic Folder Lead: " + name,
+            subject: "New Lead: " + name,
             message: summary,
             botcheck: document.querySelector('input[name="botcheck"]').checked
         });
@@ -661,7 +631,7 @@ ${state.results.details.map(d => `- ${d.product}: ${d.savings} hours`).join('\n'
         })
         .then(async (response) => {
             if (response.status == 200) {
-                btn.innerText = "Request Sent!";
+                btn.innerText = "Check Your Email!";
                 btn.disabled = true;
                 btn.classList.remove('loading');
                 btn.style.backgroundColor = "#10b981"; 
