@@ -156,8 +156,8 @@
             border-bottom: 1px solid #f1f5f9;
         }
         .rec-body {
-            padding: 20px 24px; background: #f8fafc; font-size: 0.9rem;
-            color: var(--text-muted); display: flex; gap: 12px; align-items: center;
+            padding: 16px 24px; background: #f8fafc; font-size: 0.85rem;
+            color: var(--text-muted); display: grid; gap: 8px;
         }
 
         /* --- TOOLTIP --- */
@@ -258,7 +258,7 @@
         <div style="max-width: 600px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 40px;">
                 <h2>Quantify the drag</h2>
-                <p>Roughly how much volume do you handle in these areas?</p>
+                <p>Estimate your volume. We use conservative manual-effort benchmarks to calculate savings.</p>
             </div>
             
             <div id="question-container"></div>
@@ -347,7 +347,7 @@
             title: 'Auto-Qualify Leads', 
             desc: 'Enrich new signups with verified data and score them before sales sees them.', 
             icon: 'target', product: 'Lead Enrichment Agent', 
-            q: 'New leads per week?', unit: 'leads', timePerUnit: 0.25, 
+            q: 'New leads per week?', unit: 'leads', timePerUnit: 0.25, timeLabel: '15 mins',
             methodology: "Triggers on form fill. Pulls enrichment data (Apollo/Clearbit) to score intent. Routes high scores to **chat tools (Slack/Teams)** and low scores to nurture." 
         },
         { 
@@ -355,7 +355,7 @@
             title: 'Auto-Resolve Support', 
             desc: 'Instantly answer "Where is my order?" and FAQ tickets without human agents.', 
             icon: 'message-circle', product: 'Support Triage Bot', 
-            q: 'Weekly support tickets?', unit: 'tickets', timePerUnit: 0.15, 
+            q: 'Weekly support tickets?', unit: 'tickets', timePerUnit: 0.15, timeLabel: '9 mins',
             methodology: "RAG system answers Tier-1 questions via knowledge base. Checks order status via API and replies instantly via **Helpdesk (Zendesk/Intercom/etc)**." 
         },
         { 
@@ -363,7 +363,7 @@
             title: 'Meeting Data Entry', 
             desc: 'Transcribe sales calls and automatically update your CRM fields.', 
             icon: 'mic', product: 'CRM Data Agent', 
-            q: 'Weekly meetings?', unit: 'meetings', timePerUnit: 0.25, 
+            q: 'Weekly meetings?', unit: 'meetings', timePerUnit: 0.25, timeLabel: '15 mins',
             methodology: "Bot joins calls, extracts next steps and deal sentiment, and pushes structured data directly into **your CRM (HubSpot, Salesforce, etc.)**." 
         },
         { 
@@ -371,7 +371,7 @@
             title: 'Social Repurposing', 
             desc: 'Turn one blog post into optimized posts for multiple social channels.', 
             icon: 'share-2', product: 'Content Ops Agent', 
-            q: 'Weekly posts managed?', unit: 'posts', timePerUnit: 0.5, 
+            q: 'Weekly posts managed?', unit: 'posts', timePerUnit: 0.5, timeLabel: '30 mins',
             methodology: "Ingests long-form content. AI generates variations (tone/length), selects hashtags, and schedules posts to **social platforms (LinkedIn, X, etc.)**." 
         },
 
@@ -381,7 +381,7 @@
             title: 'Automate Invoicing', 
             desc: 'Extract data from PDF invoices and sync to your accounting system automatically.', 
             icon: 'receipt', product: 'AP Automation Agent', 
-            q: 'Monthly invoices?', unit: 'invoices', timePerUnit: 0.33, 
+            q: 'Monthly invoices?', unit: 'invoices', timePerUnit: 0.33, timeLabel: '20 mins',
             methodology: "OCR extracts line items from PDFs. Logic matches against POs in **your ERP (NetSuite, QBO, SAP)**. Only anomalies are flagged for human review." 
         },
         { 
@@ -389,7 +389,7 @@
             title: 'Instant Onboarding', 
             desc: 'Provision collaboration tools and software accounts the moment an offer is signed.', 
             icon: 'users', product: 'IT Onboarding Flow', 
-            q: 'New hires per year?', unit: 'hires', timePerUnit: 4.0, 
+            q: 'New hires per year?', unit: 'hires', timePerUnit: 4.0, timeLabel: '4 hours',
             methodology: "HRIS triggers API calls to your **Identity Provider (Okta/Entra ID)** to provision licenses and access to cloud tools automatically." 
         },
         { 
@@ -397,7 +397,7 @@
             title: 'Sync Inventory', 
             desc: 'Keep stock levels perfectly synced between e-commerce channels and your warehouse.', 
             icon: 'package', product: 'Inventory Sync Agent', 
-            q: 'Hours spent updating?', unit: 'hours', isDirectTime: true, 
+            q: 'Hours spent updating?', unit: 'hours', isDirectTime: true, timeLabel: '1 hour',
             methodology: "Real-time webhooks listen for sales on **any channel (Shopify/Amazon/Woo)** and instantly recalculate/push stock levels to prevent overselling." 
         },
         { 
@@ -405,7 +405,7 @@
             title: 'Contract Scanning', 
             desc: 'Scan legal docs to instantly flag risky clauses and non-standard terms.', 
             icon: 'file-search', product: 'Legal Review Bot', 
-            q: 'Contracts per month?', unit: 'docs', timePerUnit: 0.75, 
+            q: 'Contracts per month?', unit: 'docs', timePerUnit: 0.75, timeLabel: '45 mins',
             methodology: "Semantic analysis compares incoming contracts against your playbook. Generates a 'Red Flag Report' for legal counsel to review." 
         },
 
@@ -415,7 +415,7 @@
             title: 'Digitize PDFs & Forms', 
             desc: 'Stop typing. Extract tables and text from PDFs into Excel or SQL automatically.', 
             icon: 'database', product: 'Data Extraction Agent', 
-            q: 'Files processed weekly?', unit: 'files', timePerUnit: 0.2, 
+            q: 'Files processed weekly?', unit: 'files', timePerUnit: 0.2, timeLabel: '12 mins',
             methodology: "Vision models identify tables in unstructured documents (PDFs/Images), validate data types, and push clean rows to **your database or spreadsheets**." 
         },
         { 
@@ -423,7 +423,7 @@
             title: 'Auto-Reporting', 
             desc: 'Stop manual copy-pasting. Pull data from all your tools into one dashboard.', 
             icon: 'bar-chart-3', product: 'BI Data Pipeline', 
-            q: 'Hours reporting weekly?', unit: 'hours', isDirectTime: true, 
+            q: 'Hours reporting weekly?', unit: 'hours', isDirectTime: true, timeLabel: '1 hour',
             methodology: "Serverless pipeline fetches daily metrics from **marketing, sales, and finance tools**, normalizes data, and pushes to a data warehouse." 
         },
         { 
@@ -431,7 +431,7 @@
             title: 'Auto-Fill RFPs', 
             desc: 'Draft answers for security questionnaires using your past documentation.', 
             icon: 'clipboard-list', product: 'RFP Assistant', 
-            q: 'RFPs per month?', unit: 'docs', timePerUnit: 3.0, 
+            q: 'RFPs per month?', unit: 'docs', timePerUnit: 2.0, timeLabel: '2 hours',
             methodology: "Vector database indexes past **security documentation (SOC2/ISO)**. Auto-populates vendor spreadsheets with high accuracy for review." 
         },
         { 
@@ -439,7 +439,7 @@
             title: 'Smart Inbox Routing', 
             desc: 'Read general support emails and route them to the right person based on content.', 
             icon: 'mail', product: 'Inbox Dispatcher', 
-            q: 'Emails triaged daily?', unit: 'emails', timePerUnit: 0.05, 
+            q: 'Emails triaged daily?', unit: 'emails', timePerUnit: 0.05, timeLabel: '3 mins',
             methodology: "AI analyzes sentiment and intent of incoming emails, tagging and forwarding them to the **correct department (Sales vs Support vs Billing)**." 
         }
     ];
@@ -509,15 +509,18 @@
     function generateQuestions() {
         const container = document.getElementById('question-container');
         const selectedSols = solutions.filter(s => state.selectedIds.has(s.id));
-        container.innerHTML = selectedSols.map(sol => `
+        container.innerHTML = selectedSols.map(sol => {
+            const timeInfo = sol.isDirectTime ? 'Direct Hours' : `Est. manual effort: <strong>${sol.timeLabel}</strong> per ${sol.unit.slice(0,-1)}`;
+            return `
             <div class="range-card">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <label style="margin:0; font-weight: 600; font-size: 1rem;">${sol.q}</label>
                     <span style="font-weight: 700; color: var(--primary); background: #eef2ff; padding: 4px 12px; border-radius: 20px; font-size: 0.9rem;" id="val-${sol.id}">0</span>
                 </div>
                 <input type="range" min="0" max="100" value="0" step="1" oninput="updateVal('${sol.id}', this.value)" style="width: 100%;">
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">${timeInfo}</div>
             </div>
-        `).join('');
+        `}).join('');
     }
 
     function updateVal(id, val) {
@@ -575,8 +578,14 @@
                     </div>
                 </div>
                 <div class="rec-body">
-                    <i data-lucide="cpu" style="width: 18px; height: 18px; flex-shrink: 0; color: var(--primary);"></i>
-                    <span><strong>How it works:</strong> ${s.methodology}</span>
+                    <div style="display:flex; align-items:flex-start; gap:8px;">
+                        <i data-lucide="cpu" style="width: 16px; height: 16px; flex-shrink: 0; color: var(--primary); margin-top:2px;"></i>
+                        <span>${s.methodology}</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; margin-top:4px; padding-top:8px; border-top:1px dashed var(--border-color); color:var(--text-main); font-size:0.8rem;">
+                        <i data-lucide="calculator" style="width: 14px; height: 14px; color: var(--text-muted);"></i>
+                        <span><strong>Manual Benchmark:</strong> ~${s.timeLabel} per task</span>
+                    </div>
                 </div>
             </div>
         `).join('');
@@ -612,7 +621,7 @@ Results:
 - Rate Used: $${state.results.rate}
 
 Top Opportunities:
-${state.results.details.map(d => `- ${d.product}: ${d.savings} hours`).join('\n')}
+${state.results.details.map(d => `- ${d.product}: ${d.savings} hours (Based on ${d.timeLabel} manual work/unit)`).join('\n')}
         `;
 
         const json = JSON.stringify({
