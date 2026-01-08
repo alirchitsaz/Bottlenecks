@@ -35,7 +35,7 @@
         
         body { background: var(--bg-page); color: var(--text-dark); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
         
-        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
         /* HEADER */
         header { background: #fff; border-bottom: 1px solid var(--border); padding: 20px 0; position: sticky; top:0; z-index:50; }
@@ -59,14 +59,15 @@
         .btn-ghost:hover { border-color: var(--text-dark); color: var(--text-dark); background: #fff; }
 
         /* SELECTION GRID (STEP 1) */
-        .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 32px; }
+        .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 32px; }
         .persona-card {
             background: white; border: 1px solid var(--border); padding: 24px; border-radius: var(--radius);
             cursor: pointer; transition: all 0.2s; text-align: left; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; height: 100%;
         }
         .persona-card:hover { border-color: var(--accent); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); transform: translateY(-2px); }
         .persona-card.selected { border-color: var(--accent); background: #eff6ff; ring: 1px solid var(--accent); }
-        .persona-icon { color: var(--accent); margin-bottom: 12px; }
+        .persona-icon { color: var(--accent); margin-bottom: 16px; }
 
         /* PROBLEM LIST (STEP 2) */
         .problem-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 24px; }
@@ -101,6 +102,7 @@
         @media (max-width: 600px) { 
             .problem-list { grid-template-columns: 1fr; } 
             .btn { width: 100%; }
+            .persona-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -115,9 +117,9 @@
 <main class="container" style="flex: 1; padding: 40px 0;">
 
     <div id="step-1" class="fade-in">
-        <div style="max-width: 650px;">
+        <div style="max-width: 700px;">
             <h1>Identify the friction points costing you money.</h1>
-            <p>Select your industry. We will audit your workflow to identify where you are losing time on non-billable, low-value tasks.</p>
+            <p>Select your industry below. We will audit your specific workflow to identify where you are losing time and revenue to manual tasks.</p>
         </div>
         
         <div class="persona-grid" id="persona-grid">
@@ -174,7 +176,7 @@
             
             <h3 style="color:white; margin-bottom: 12px; font-size: 1.5rem;">Get the Deployment Blueprint</h3>
             <p style="color: #cbd5e1; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto;">
-                We'll generate a custom PDF report outlining the specific tools (Make, OpenAI, etc.) required to implement these workflows.
+                We'll generate a custom PDF report outlining the specific tools (Make, OpenAI, etc.) required to implement these workflows for your industry.
             </p>
             
             <div class="lead-form" style="max-width: 400px; margin: 0 auto; text-align: left;">
@@ -195,67 +197,102 @@
     // --- CONFIGURATION ---
     const ACCESS_KEY = "bc681f98-9bcc-4060-8029-c1afc057d00a"; 
 
-    // --- THE BRAIN: Industry Specific Logic ---
+    // --- THE BRAIN: 8 High-Value Verticals ---
     const DATA = {
         'legal': {
-            label: 'Law Firm / Contingency',
+            label: 'Legal & Law Firms',
             icon: 'scale',
-            desc: 'Litigation, PI, & Employment Law',
-            rateDefault: 400,
+            desc: 'Litigation, IP, Family, & Corporate',
+            rateDefault: 350,
             problems: [
-                { id: 'intake', label: 'Lead Vetting & Rejection', desc: 'Manually screening calls to disqualify bad cases. Spending time on leads that will never pay out.', timePer: 0.5, unit: 'leads screened', q: 'Leads screened per month?' },
-                { id: 'discovery', label: 'Discovery Organization', desc: 'Renaming, sorting, and indexing thousands of unstructured PDF files from opposing counsel.', timePer: 0.1, unit: 'files', q: 'Files processed per month?' },
-                { id: 'summaries', label: 'Deposition Summaries', desc: 'Reading hours of transcripts to extract key facts and contradictions manually.', timePer: 3.0, unit: 'depositions', q: 'Depositions per month?' },
-                { id: 'medical', label: 'Medical Record Chronologies', desc: 'Pulling dates and treatments from messy hospital records into a clean timeline.', timePer: 2.0, unit: 'records', q: 'Records processed per month?' },
-                { id: 'docs', label: 'Routine Filings', desc: 'Copy-pasting data into standard motions, notices, or engagement letters.', timePer: 0.5, unit: 'docs', q: 'Docs drafted per week?' }
+                { id: 'intake', label: 'Lead Vetting & Intake', desc: 'Screening callers to disqualify bad cases before they reach an attorney.', timePer: 0.5, unit: 'leads', q: 'Leads screened/mo?' },
+                { id: 'discovery', label: 'Discovery Processing', desc: 'Renaming, indexing, and organizing thousands of PDF dump files.', timePer: 0.1, unit: 'files', q: 'Files processed/mo?' },
+                { id: 'docs', label: 'Document Assembly', desc: 'Generating standard motions, NDAs, or fee agreements manually.', timePer: 0.75, unit: 'docs', q: 'Docs drafted/week?' },
+                { id: 'summaries', label: 'Deposition Analysis', desc: 'Reading transcripts to extract timelines and inconsistencies.', timePer: 3.0, unit: 'depositions', q: 'Depositions/mo?' }
             ]
         },
-        'trade': {
-            label: 'Trades & Field Services',
+        'construction': {
+            label: 'Construction & Field',
             icon: 'hammer',
-            desc: 'Plumbers, HVAC, Electricians, GCs',
-            rateDefault: 150,
+            desc: 'GCs, HVAC, Plumbers, Electricians',
+            rateDefault: 125,
             problems: [
-                { id: 'qualify', label: 'Bid Qualification', desc: 'Driving to site estimates for "tire kickers" or jobs too small for your crew.', timePer: 1.5, unit: 'bad estimates', q: 'Wasted estimates per week?' },
-                { id: 'calls', label: 'Missed Calls', desc: 'Phone ringing while on a job site. Losing urgency leads to the next vendor on Google.', timePer: 0.25, unit: 'missed calls', q: 'Missed calls per week?' },
-                { id: 'followup', label: 'Quote Follow-Up', desc: 'Sending estimates but failing to nudge them 3 days later.', timePer: 0.2, unit: 'quotes', q: 'Quotes sent per week?' },
-                { id: 'scheduling', label: 'Dispatch Logistics', desc: 'Texting crews to coordinate arrival times and job details.', timePer: 0.5, unit: 'jobs', q: 'Jobs per week?' }
+                { id: 'bids', label: 'Bid Qualification', desc: 'Driving to estimates for leads that are "tire kickers" or out of budget.', timePer: 1.5, unit: 'bad estimates', q: 'Wasted site visits/week?' },
+                { id: 'calls', label: 'Missed Calls / Dispatch', desc: 'Losing urgent jobs to voicemail while you are on a job site.', timePer: 0.25, unit: 'missed calls', q: 'Missed calls/week?' },
+                { id: 'safety', label: 'Field Reports & Safety', desc: 'Chasing crews for daily logs, photos, and safety checklists.', timePer: 0.5, unit: 'jobs', q: 'Active jobs/week?' },
+                { id: 'materials', label: 'Material Procurement', desc: 'Manual ordering and reconciling supplier invoices.', timePer: 2.0, unit: 'orders', q: 'Orders placed/week?' }
+            ]
+        },
+        'health': {
+            label: 'Healthcare & Wellness',
+            icon: 'heart-pulse',
+            desc: 'Med Spas, Dental, Chiropractic',
+            rateDefault: 200,
+            problems: [
+                { id: 'no-shows', label: 'No-Show Recovery', desc: 'Manually calling patients to confirm or reschedule appointments.', timePer: 0.2, unit: 'appts', q: 'Appointments/day?' },
+                { id: 'intake', label: 'Patient Intake Forms', desc: 'Transcribing data from clipboards/PDFs into the EMR.', timePer: 0.25, unit: 'patients', q: 'New patients/week?' },
+                { id: 'reactivation', label: 'Patient Reactivation', desc: 'Identifying patients due for checkups and sending reminders.', timePer: 0.1, unit: 'patients', q: 'Database size?' },
+                { id: 'reviews', label: 'Reputation Mgmt', desc: 'Chasing happy patients for Google Reviews.', timePer: 0.1, unit: 'visits', q: 'Visits/week?' }
+            ]
+        },
+        'finance': {
+            label: 'Finance & Insurance',
+            icon: 'landmark',
+            desc: 'CPAs, Bookkeepers, Wealth Mgmt',
+            rateDefault: 175,
+            problems: [
+                { id: 'docs', label: 'Document Chase', desc: 'Emailing clients repeatedly to get bank statements or tax forms.', timePer: 0.25, unit: 'clients', q: 'Active clients/mo?' },
+                { id: 'onboarding', label: 'Client Onboarding', desc: 'Generating engagement letters and compliance disclosures.', timePer: 1.0, unit: 'new clients', q: 'New clients/mo?' },
+                { id: 'reconcile', label: 'Transaction Coding', desc: 'Manually categorizing uncategorized bank transactions.', timePer: 0.05, unit: 'transactions', q: 'Transactions/mo?' },
+                { id: 'renewals', label: 'Policy Renewals', desc: 'Identifying expiring policies and generating renewal quotes.', timePer: 0.5, unit: 'policies', q: 'Renewals/mo?' }
             ]
         },
         'realestate': {
-            label: 'Real Estate',
+            label: 'Real Estate & Prop Mgmt',
             icon: 'home',
             desc: 'Agents, Brokers, Investors',
-            rateDefault: 200,
+            rateDefault: 150,
             problems: [
-                { id: 'intent', label: 'Intent Verification', desc: 'Showing homes to leads who haven\'t been vetted for budget or pre-approval.', timePer: 1.0, unit: 'unqualified showings', q: 'Showings per week?' },
-                { id: 'outreach', label: 'Database Reactivation', desc: 'Letting old leads sit cold instead of automatically checking in for new intent.', timePer: 0.1, unit: 'old leads', q: 'Leads in database?' },
-                { id: 'marketing', label: 'Listing Assets', desc: 'Manually writing descriptions and creating social flyers for new listings.', timePer: 2.0, unit: 'listings', q: 'New listings per month?' },
-                { id: 'compliance', label: 'Transaction Docs', desc: 'Chasing signatures and organizing compliance folders.', timePer: 1.5, unit: 'deals', q: 'Deals per month?' }
+                { id: 'qualify', label: 'Lead Qualification', desc: 'Vetting Zillow/online leads for budget and timeline.', timePer: 0.3, unit: 'leads', q: 'Leads/week?' },
+                { id: 'coord', label: 'Showing Logistics', desc: 'Coordinating access times between sellers, buyers, and tenants.', timePer: 0.5, unit: 'showings', q: 'Showings/week?' },
+                { id: 'marketing', label: 'Listing Assets', desc: 'Writing descriptions and creating social flyers for new properties.', timePer: 1.5, unit: 'listings', q: 'Listings/mo?' },
+                { id: 'maintenance', label: 'Maintenance Triage', desc: 'Fielding tenant repair requests and coordinating vendors.', timePer: 0.5, unit: 'requests', q: 'Requests/week?' }
             ]
         },
-        'consultant': {
-            label: 'Consulting & Agencies',
+        'agency': {
+            label: 'Agency & Marketing',
+            icon: 'pen-tool',
+            desc: 'Digital, Creative, PR, Dev',
+            rateDefault: 125,
+            problems: [
+                { id: 'reporting', label: 'Client Reporting', desc: 'Screenshots and manual data pasting for monthly performance decks.', timePer: 2.0, unit: 'reports', q: 'Reports/mo?' },
+                { id: 'assets', label: 'Asset Management', desc: 'Organizing files, resizing images, and chasing approvals.', timePer: 0.2, unit: 'assets', q: 'Assets/week?' },
+                { id: 'outreach', label: 'Outbound Prospecting', desc: 'Personalizing cold emails or LinkedIn messages.', timePer: 0.2, unit: 'prospects', q: 'Outreach/day?' },
+                { id: 'content', label: 'Content Repurposing', desc: 'Turning one video/blog into social posts for every platform.', timePer: 1.0, unit: 'pieces', q: 'Core pieces/week?' }
+            ]
+        },
+        'retail': {
+            label: 'Retail & E-Commerce',
+            icon: 'shopping-bag',
+            desc: 'Shopify, Amazon, Boutiques',
+            rateDefault: 60,
+            problems: [
+                { id: 'support', label: 'Support Tickets', desc: 'Answering "Where is my order?" and return requests.', timePer: 0.1, unit: 'tickets', q: 'Tickets/day?' },
+                { id: 'descriptions', label: 'Product Descriptions', desc: 'Writing SEO-friendly copy for hundreds of SKUs.', timePer: 0.3, unit: 'products', q: 'New products/mo?' },
+                { id: 'inventory', label: 'Inventory Sync', desc: 'Manually updating stock levels across multiple channels.', timePer: 1.0, unit: 'channels', q: 'Channels managed?' },
+                { id: 'supplier', label: 'Supplier POs', desc: 'Reordering stock based on sales velocity manually.', timePer: 2.0, unit: 'POs', q: 'POs/month?' }
+            ]
+        },
+        'services': {
+            label: 'Business Services',
             icon: 'briefcase',
-            desc: 'Marketing, Financial, Coaching',
-            rateDefault: 250,
+            desc: 'Consulting, Recruiting, IT, HR',
+            rateDefault: 100,
             problems: [
-                { id: 'gatekeeping', label: 'Budget Gatekeeping', desc: 'Taking discovery calls with prospects who cannot afford your minimum engagement.', timePer: 1.0, unit: 'bad calls', q: 'Discovery calls per week?' },
-                { id: 'reporting', label: 'Client Reporting', desc: 'Manually pulling data from ads/finance tools to build monthly decks.', timePer: 2.5, unit: 'reports', q: 'Reports per month?' },
-                { id: 'onboarding', label: 'Client Onboarding', desc: 'Manually creating folders, contracts, and welcome emails.', timePer: 1.5, unit: 'clients', q: 'New clients per month?' }
-            ]
-        },
-        'general': {
-            label: 'General Business',
-            icon: 'building',
-            desc: 'Retail, Admin, Small Biz',
-            rateDefault: 75,
-            problems: [
-                { id: 'inbox', label: 'Inbox Triage', desc: 'Reading every email. Using high-value time to answer low-value questions.', timePer: 0.1, unit: 'emails', q: 'Emails per day?' },
-                { id: 'expenses', label: 'Receipt Reconciliation', desc: 'Matching receipt images to bank transactions manually.', timePer: 0.1, unit: 'receipts', q: 'Receipts per month?' },
-                { id: 'data', label: 'Document Data Entry', desc: 'Typing data from PDFs or forms into Excel/Software.', timePer: 0.2, unit: 'documents', q: 'Docs processed per week?' },
-                { id: 'hiring', label: 'Candidate Screening', desc: 'Reviewing resumes of unqualified candidates.', timePer: 0.2, unit: 'applicants', q: 'Applicants per month?' },
-                { id: 'scheduling', label: 'Meeting Logistics', desc: 'Email tag to find time slots.', timePer: 0.15, unit: 'meetings', q: 'Meetings booked per week?' }
+                { id: 'candidates', label: 'Candidate Screening', desc: 'Reviewing resumes and scheduling first-round interviews.', timePer: 0.3, unit: 'applicants', q: 'Applicants/week?' },
+                { id: 'contracts', label: 'Contract Mgmt', desc: 'Drafting SOWs and chasing signatures.', timePer: 1.0, unit: 'contracts', q: 'Contracts/mo?' },
+                { id: 'scheduling', label: 'Meeting Logistics', desc: 'Email tag to coordinate complex stakeholder meetings.', timePer: 0.2, unit: 'meetings', q: 'Meetings/week?' },
+                { id: 'inbox', label: 'Inbox Triage', desc: 'Sorting high-priority client emails from noise.', timePer: 0.1, unit: 'emails', q: 'Emails/day?' }
             ]
         }
     };
