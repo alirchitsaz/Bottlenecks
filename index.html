@@ -20,15 +20,15 @@
     <style>
         /* --- CORE DESIGN --- */
         :root {
-            --primary: #1e40af; /* Traditional Blue - Trustworthy */
+            --primary: #1e40af; 
             --primary-hover: #1e3a8a;
-            --accent: #f59e0b; /* Amber for ROI highlights */
+            --accent: #f59e0b; 
             --bg-page: #f8fafc;
             --bg-card: #ffffff;
             --border: #e2e8f0;
             --text-dark: #0f172a;
             --text-gray: #64748b;
-            --radius: 8px; /* Sharper corners for professional feel */
+            --radius: 12px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -38,11 +38,11 @@
         .container { max-width: 900px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
         /* HEADER */
-        header { background: #fff; border-bottom: 1px solid var(--border); padding: 20px 0; }
+        header { background: #fff; border-bottom: 1px solid var(--border); padding: 20px 0; position: sticky; top:0; z-index:50; }
         .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.4rem; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
 
         /* TYPOGRAPHY */
-        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; line-height: 1.1; margin-bottom: 16px; color: var(--text-dark); }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin-bottom: 16px; color: var(--text-dark); }
         h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 12px; }
         p { color: var(--text-gray); font-size: 1.05rem; }
         .highlight { color: var(--primary); font-weight: 600; }
@@ -50,10 +50,10 @@
         /* BUTTONS */
         .btn { 
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 16px 32px; border-radius: 4px; border: none; cursor: pointer;
+            padding: 16px 32px; border-radius: 50px; border: none; cursor: pointer;
             font-weight: 600; font-size: 1rem; transition: all 0.2s;
         }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2); }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px -3px rgba(30, 64, 175, 0.4); }
         .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
         .btn-ghost { background: transparent; color: var(--text-gray); border: 1px solid var(--border); }
         .btn-ghost:hover { border-color: var(--text-dark); color: var(--text-dark); background: #fff; }
@@ -69,42 +69,46 @@
         .persona-icon { color: var(--primary); margin-bottom: 12px; }
 
         /* PROBLEM LIST (STEP 2) */
-        .problem-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+        .problem-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 24px; }
         .problem-card {
-            display: flex; align-items: center; gap: 16px; padding: 16px; background: white;
+            display: flex; align-items: flex-start; gap: 16px; padding: 20px; background: white;
             border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: all 0.2s;
         }
         .problem-card:hover { border-color: var(--primary); background: #f8fafc; }
-        .problem-card.selected { border-color: var(--primary); background: #eff6ff; }
-        .check-circle { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; color: white; transition: all 0.2s; flex-shrink: 0; }
+        .problem-card.selected { border-color: var(--primary); background: #eff6ff; box-shadow: 0 0 0 1px var(--primary); }
+        .check-circle { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; color: white; transition: all 0.2s; flex-shrink: 0; background: #fff; margin-top: 2px; }
         .problem-card.selected .check-circle { background: var(--primary); border-color: var(--primary); }
 
         /* SLIDERS (STEP 3) */
-        .slider-group { background: white; padding: 20px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; }
-        .slider-header { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 500; }
-        input[type=range] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+        .slider-group { background: white; padding: 24px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; }
+        .slider-header { display: flex; justify-content: space-between; margin-bottom: 16px; font-weight: 600; font-size: 1.1rem; }
+        input[type=range] { width: 100%; accent-color: var(--primary); cursor: pointer; height: 6px; border-radius: 4px; }
 
         /* RESULTS */
-        .result-box { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; text-align: center; margin-bottom: 30px; }
-        .big-money { font-size: 3.5rem; font-weight: 800; color: var(--primary); line-height: 1; font-family: 'Inter', sans-serif; letter-spacing: -1px; }
-        .rec-card { border-left: 4px solid var(--primary); background: white; padding: 20px; margin-bottom: 16px; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .result-box { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 48px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
+        .big-money { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; color: var(--primary); line-height: 1; font-family: 'Inter', sans-serif; letter-spacing: -2px; margin: 16px 0; }
+        .rec-card { border-left: 4px solid var(--primary); background: white; padding: 24px; margin-bottom: 16px; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-radius: 0 8px 8px 0; border: 1px solid var(--border); border-left-width: 4px; border-left-color: var(--primary); }
 
         /* FORM */
-        .lead-form input { width: 100%; padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 1rem; }
+        .lead-form input { width: 100%; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+        .lead-form input:focus { border-color: var(--primary); }
         
-        .hidden { display: none; }
+        .hidden { display: none !important; }
         .fade-in { animation: fadeIn 0.4s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Mobile */
-        @media (max-width: 600px) { h1 { font-size: 2rem; } .big-money { font-size: 2.5rem; } }
+        @media (max-width: 600px) { 
+            .problem-list { grid-template-columns: 1fr; } 
+            .btn { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
 <header>
     <div class="container">
-        <div class="logo"><i data-lucide="layers"></i> Magic Folder</div>
+        <div class="logo"><i data-lucide="layers" style="color: var(--primary);"></i> Magic Folder</div>
     </div>
 </header>
 
@@ -113,7 +117,7 @@
     <div id="step-1" class="fade-in">
         <div style="max-width: 600px;">
             <h1>Let's find the hidden profit in your business.</h1>
-            <p>We don't do generic advice. Select your profession so we can analyze the specific workflows that drain your time and money.</p>
+            <p>Select your profession. We'll identify the specific, non-billable "grunt work" that is draining your profit margins.</p>
         </div>
         
         <div class="persona-grid" id="persona-grid">
@@ -123,81 +127,87 @@
     <div id="step-2" class="hidden fade-in">
         <div style="max-width: 600px;">
             <h2 id="s2-title">What slows you down?</h2>
-            <p id="s2-subtitle">Select the tasks that you or your team handle manually today.</p>
+            <p id="s2-subtitle">Select the tasks that you handle manually today.</p>
         </div>
         <div class="problem-list" id="problem-list"></div>
-        <div style="margin-top: 30px; display: flex; gap: 10px;">
+        <div style="margin-top: 40px; display: flex; gap: 12px; border-top: 1px solid var(--border); padding-top: 24px;">
             <button class="btn btn-ghost" onclick="setStep(1)">Back</button>
             <button class="btn btn-primary" onclick="validateStep2()">Next Step <i data-lucide="arrow-right"></i></button>
         </div>
-        <div id="err-2" style="color:red; margin-top:10px; display:none;">Please select at least one item.</div>
+        <div id="err-2" style="color:#ef4444; margin-top:10px; display:none; text-align: center;">Please select at least one bottleneck.</div>
     </div>
 
     <div id="step-3" class="hidden fade-in">
         <div style="max-width: 600px;">
             <h2>Just a few estimates.</h2>
-            <p>Use your best guess. We'll use industry standard benchmarks to calculate the rest.</p>
+            <p>Slide to match your current volume. We'll use conservative automation benchmarks to calculate your potential savings.</p>
         </div>
-        <div id="slider-container" style="margin-top: 24px;"></div>
+        <div id="slider-container" style="margin-top: 32px;"></div>
         
-        <div style="background: #eff6ff; padding: 20px; border-radius: var(--radius); margin-top: 24px; display: flex; align-items: center; gap: 15px;">
-            <div style="background:white; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary); font-weight:bold;">$</div>
+        <div style="background: #eff6ff; padding: 24px; border-radius: var(--radius); margin-top: 24px; display: flex; align-items: center; gap: 20px;">
+            <div style="background:white; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary); font-weight:bold; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">$</div>
             <div style="flex:1;">
-                <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:4px;">Average Hourly Value</label>
+                <label style="font-weight:700; font-size:0.95rem; display:block; margin-bottom:4px; color: var(--primary);">Average Hourly Value</label>
                 <div style="font-size:0.85rem; color:var(--text-gray); margin-bottom:8px;">What is one hour of your (or your staff's) time worth?</div>
-                <input type="number" id="hourly-rate" value="100" style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; width: 100px;">
+                <input type="number" id="hourly-rate" value="100" style="padding: 10px; border: 1px solid var(--border); border-radius: 6px; width: 120px; font-weight: 600;">
             </div>
         </div>
 
-        <div style="margin-top: 30px; display: flex; gap: 10px;">
+        <div style="margin-top: 40px; display: flex; gap: 12px;">
             <button class="btn btn-ghost" onclick="setStep(2)">Back</button>
-            <button class="btn btn-primary" onclick="calculateAndShow()">Calculate Profit <i data-lucide="calculator"></i></button>
+            <button class="btn btn-primary" onclick="calculateAndShow()" style="flex: 1;">Calculate Profit <i data-lucide="calculator"></i></button>
         </div>
     </div>
 
     <div id="step-4" class="hidden fade-in">
         <div class="result-box">
-            <p style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; font-weight: 700; color: var(--text-gray);">Annual Profit Reclaimed</p>
+            <p style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; font-weight: 700; color: var(--text-gray);">Potential Annual Profit Reclaimed</p>
             <div class="big-money" id="final-amount">$0</div>
-            <p style="margin-top: 10px;">By automating <strong id="final-hours">0</strong> hours of busy work.</p>
+            <p style="margin-top: 10px; font-size: 1.1rem;">By automating <strong id="final-hours" style="color: var(--text-dark);">0</strong> hours of administrative friction.</p>
         </div>
 
-        <h3 style="margin-bottom: 20px;">Your Efficiency Roadmap</h3>
+        <h3 style="margin-bottom: 24px;">Your Efficiency Roadmap</h3>
         <div id="recommendations"></div>
 
-        <div style="background: #1e293b; color: white; padding: 40px; border-radius: var(--radius); text-align: center; margin-top: 40px;">
-            <h3 style="color:white; margin-bottom: 10px;">Get Your Custom Strategy</h3>
-            <p style="color: #94a3b8; margin-bottom: 24px;">We've analyzed your inputs. Enter your details to receive the full PDF report detailing exactly <strong>how</strong> to build these automations.</p>
-            <div class="lead-form" style="max-width: 400px; margin: 0 auto;">
+        <div style="background: #1e293b; color: white; padding: 48px; border-radius: var(--radius); text-align: center; margin-top: 48px; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #3b82f6, #8b5cf6);"></div>
+            
+            <h3 style="color:white; margin-bottom: 12px; font-size: 1.5rem;">Get the Technical Breakdown</h3>
+            <p style="color: #cbd5e1; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                We'll email you a PDF report detailing exactly which tools (Make, OpenAI, etc.) we use to build these specific automations.
+            </p>
+            
+            <div class="lead-form" style="max-width: 400px; margin: 0 auto; text-align: left;">
                 <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                 <input type="text" id="name" placeholder="Full Name">
                 <input type="email" id="email" placeholder="Business Email">
-                <button class="btn btn-primary" style="width: 100%; justify-content: center;" id="send-btn" onclick="sendData()">Send Me The Report</button>
+                <button class="btn btn-primary" style="width: 100%; justify-content: center; background: white; color: var(--text-dark);" id="send-btn" onclick="sendData()">Send Me The Report</button>
             </div>
-            <div id="status-msg" style="margin-top: 15px; min-height: 20px; font-size: 0.9rem;"></div>
+            <div id="status-msg" style="margin-top: 15px; min-height: 20px; font-size: 0.9rem; text-align: center;"></div>
         </div>
         
-        <button class="btn btn-ghost" onclick="location.reload()" style="margin: 30px auto; display: flex;">Start Over</button>
+        <button class="btn btn-ghost" onclick="location.reload()" style="margin: 40px auto; display: flex;">Start Over</button>
     </div>
 
 </main>
 
 <script>
     // --- CONFIGURATION ---
-    const ACCESS_KEY = "bc681f98-9bcc-4060-8029-c1afc057d00a"; // Your Web3Forms Key
+    const ACCESS_KEY = "bc681f98-9bcc-4060-8029-c1afc057d00a"; 
 
     // --- THE BRAIN: Industry Specific Logic ---
     const DATA = {
         'legal': {
             label: 'Law Firm / Legal',
             icon: 'scale',
-            desc: 'Attorneys, Paralegals, Firms',
-            rateDefault: 250,
+            desc: 'Attorneys, Paralegals, & Firms',
+            rateDefault: 300,
             problems: [
-                { id: 'intake', label: 'Client Intake & Scheduling', desc: 'Chasing leads, scheduling consults, collecting initial details manually.', timePer: 0.5, unit: 'new clients', q: 'New clients per month?' },
-                { id: 'docs', label: 'Document Drafting', desc: 'Copy-pasting data into standard contracts, NDAs, or court filings.', timePer: 1.5, unit: 'docs drafted', q: 'Documents drafted per week?' },
-                { id: 'review', label: 'Contract Review', desc: 'Reading long documents to find specific clauses or risks.', timePer: 2.0, unit: 'docs reviewed', q: 'Documents reviewed per week?' },
-                { id: 'billing', label: 'Invoicing & Collections', desc: 'Manually creating invoices and emailing clients to pay.', timePer: 0.25, unit: 'invoices', q: 'Invoices sent per month?' }
+                { id: 'intake', label: 'Client Intake & Scheduling', desc: 'Chasing leads, manual data entry into case management, finding calendar slots.', timePer: 0.5, unit: 'new leads', q: 'New leads per month?' },
+                { id: 'docs', label: 'Document Generation', desc: 'Copy-pasting data into standard templates (NDAs, Motions, Wills).', timePer: 0.75, unit: 'docs drafted', q: 'Docs drafted per week?' },
+                { id: 'discovery', label: 'Discovery Organization', desc: 'Renaming, sorting, and organizing thousands of PDF dump files.', timePer: 0.05, unit: 'files', q: 'Discovery files/mo?' },
+                { id: 'summaries', label: 'Deposition Summaries', desc: 'Reading transcripts to extract key dates and facts manually.', timePer: 2.0, unit: 'depositions', q: 'Depositions per month?' },
+                { id: 'collections', label: 'AR & Collections', desc: 'Manually emailing reminders to clients for overdue invoices.', timePer: 0.25, unit: 'invoices', q: 'Invoices sent per month?' }
             ]
         },
         'trade': {
@@ -206,10 +216,10 @@
             desc: 'Plumbers, HVAC, Electricians, GCs',
             rateDefault: 120,
             problems: [
-                { id: 'calls', label: 'Missed Calls / Reception', desc: 'Phone ringing while you are on a job site. Losing leads to voicemail.', timePer: 0.25, unit: 'missed calls', q: 'Missed calls per week?' },
-                { id: 'quotes', label: 'Quoting & Estimating', desc: 'Typing up estimates at night after a full day of work.', timePer: 0.75, unit: 'quotes', q: 'Quotes sent per week?' },
-                { id: 'followup', label: 'Lead Follow-Up', desc: 'Chasing people who got a quote but never replied.', timePer: 0.2, unit: 'follow-ups', q: 'Follow-ups needed per week?' },
-                { id: 'reviews', label: 'Review Management', desc: 'Asking for Google Reviews and replying to them.', timePer: 0.1, unit: 'jobs', q: 'Jobs completed per week?' }
+                { id: 'calls', label: 'Missed Calls', desc: 'Phone ringing while on site. Losing leads to voicemail.', timePer: 0.25, unit: 'missed calls', q: 'Missed calls per week?' },
+                { id: 'quotes', label: 'Quoting / Estimating', desc: 'Typing estimates at night; manual math; delayed sending.', timePer: 0.75, unit: 'quotes', q: 'Quotes sent per week?' },
+                { id: 'followup', label: 'Lead Follow-Up', desc: 'Chasing people who got a quote but never replied.', timePer: 0.2, unit: 'follow-ups', q: 'Follow-ups needed/week?' },
+                { id: 'reviews', label: 'Review Management', desc: 'Forgetting to ask for Google Reviews after jobs.', timePer: 0.1, unit: 'jobs', q: 'Jobs completed per week?' }
             ]
         },
         'realestate': {
@@ -218,10 +228,10 @@
             desc: 'Agents, Brokers, Property Managers',
             rateDefault: 150,
             problems: [
-                { id: 'qualify', label: 'Lead Qualification', desc: 'Texting/Calling leads to see if they are serious or just looking.', timePer: 0.3, unit: 'leads', q: 'New leads per week?' },
-                { id: 'showings', label: 'Showing Coordination', desc: 'Back-and-forth texts to schedule times with sellers and buyers.', timePer: 0.5, unit: 'showings', q: 'Showings scheduled per week?' },
-                { id: 'marketing', label: 'Listing Marketing', desc: 'Writing descriptions, posting to social media, creating flyers.', timePer: 2.0, unit: 'listings', q: 'New listings per month?' },
-                { id: 'paperwork', label: 'Transaction Docs', desc: 'Prepping DocuSign envelopes and chasing signatures.', timePer: 1.0, unit: 'deals', q: 'Deals in progress per month?' }
+                { id: 'qualify', label: 'Lead Qualification', desc: 'Texting/Calling Zillow leads to see if they are serious.', timePer: 0.3, unit: 'leads', q: 'New leads per week?' },
+                { id: 'showings', label: 'Showing Logistics', desc: 'Back-and-forth texts to coordinate times with sellers/buyers.', timePer: 0.5, unit: 'showings', q: 'Showings set per week?' },
+                { id: 'marketing', label: 'Listing Marketing', desc: 'Writing descriptions, posting to socials, making flyers.', timePer: 2.0, unit: 'listings', q: 'New listings per month?' },
+                { id: 'compliance', label: 'Transaction Docs', desc: 'Chasing signatures and organizing compliance folders.', timePer: 1.5, unit: 'deals', q: 'Deals per month?' }
             ]
         },
         'consultant': {
@@ -230,20 +240,24 @@
             desc: 'Marketing, Accounting, Coaching',
             rateDefault: 175,
             problems: [
-                { id: 'reporting', label: 'Client Reporting', desc: 'Pulling data and making PDFs to show clients what you did.', timePer: 2.0, unit: 'reports', q: 'Reports generated per month?' },
+                { id: 'reporting', label: 'Client Reporting', desc: 'Pulling data from tools to make PDFs/Decks for clients.', timePer: 2.0, unit: 'reports', q: 'Reports generated/mo?' },
                 { id: 'meeting', label: 'Meeting Notes & CRM', desc: 'Taking notes and updating HubSpot/Salesforce manually.', timePer: 0.5, unit: 'meetings', q: 'Meetings per week?' },
-                { id: 'email', label: 'Inbox Triage', desc: 'Reading and routing emails, answering basic FAQs.', timePer: 0.1, unit: 'emails', q: 'Emails received per day?' }
+                { id: 'onboarding', label: 'Client Onboarding', desc: 'Manually creating folders, contracts, and welcome emails.', timePer: 1.5, unit: 'clients', q: 'New clients per month?' }
             ]
         },
-        'other': {
+        'general': {
             label: 'General Business',
             icon: 'building',
-            desc: 'Retail, Admin, Other',
+            desc: 'Retail, Admin, Small Biz, & Others',
             rateDefault: 60,
             problems: [
-                { id: 'data', label: 'Data Entry', desc: 'Moving data from PDF/Email into Excel or software.', timePer: 0.2, unit: 'entries', q: 'Items entered per day?' },
-                { id: 'support', label: 'Customer Support', desc: 'Answering common questions repeatedly.', timePer: 0.15, unit: 'tickets', q: 'Requests per day?' },
-                { id: 'content', label: 'Content Writing', desc: 'Writing emails, posts, or internal updates.', timePer: 0.5, unit: 'pieces', q: 'Items written per week?' }
+                { id: 'inbox', label: 'Inbox Triage', desc: 'Sorting emails, forwarding to team, answering FAQs.', timePer: 0.1, unit: 'emails', q: 'Emails received per day?' },
+                { id: 'expenses', label: 'Receipt Management', desc: 'Matching receipts to transactions in Quickbooks/Excel.', timePer: 0.1, unit: 'receipts', q: 'Receipts per month?' },
+                { id: 'scheduling', label: 'Scheduling Logistics', desc: 'Email tag to find meeting times.', timePer: 0.2, unit: 'meetings', q: 'Meetings booked/week?' },
+                { id: 'data', label: 'Data Entry', desc: 'Moving data from PDF/Forms into Excel.', timePer: 0.15, unit: 'entries', q: 'Entries per day?' },
+                { id: 'hiring', label: 'Employee Onboarding', desc: 'Creating accounts, sending offer letters/contracts.', timePer: 2.0, unit: 'hires', q: 'Hires per year?' },
+                { id: 'social', label: 'Social Media', desc: ' posting updates across LinkedIn/FB/Insta manually.', timePer: 0.5, unit: 'posts', q: 'Posts per week?' },
+                { id: 'files', label: 'File Organization', desc: 'Renaming and moving files to the right folders.', timePer: 0.1, unit: 'files', q: 'Files saved per day?' }
             ]
         }
     };
@@ -273,8 +287,8 @@
         grid.innerHTML = Object.keys(DATA).map(key => `
             <div class="persona-card" onclick="selectPersona('${key}')">
                 <div class="persona-icon"><i data-lucide="${DATA[key].icon}" size="32"></i></div>
-                <h3 style="font-weight:700; margin-bottom:4px;">${DATA[key].label}</h3>
-                <p style="font-size:0.9rem; margin:0;">${DATA[key].desc}</p>
+                <h3 style="font-weight:700; margin-bottom:4px; font-size:1.1rem;">${DATA[key].label}</h3>
+                <p style="font-size:0.9rem; margin:0; color:var(--text-gray);">${DATA[key].desc}</p>
             </div>
         `).join('');
         lucide.createIcons();
@@ -282,7 +296,6 @@
 
     function selectPersona(key) {
         state.industry = key;
-        // Pre-fill default rate
         document.getElementById('hourly-rate').value = DATA[key].rateDefault;
         renderProblems(key);
         setStep(2);
@@ -293,20 +306,19 @@
         const list = document.getElementById('problem-list');
         const data = DATA[key];
         
-        // Update Title dynamically
-        document.getElementById('s2-title').textContent = `Common Bottlenecks for ${data.label}`;
+        document.getElementById('s2-title').textContent = `Bottlenecks in ${data.label}`;
         
         list.innerHTML = data.problems.map(p => `
             <div class="problem-card" onclick="toggleProblem('${p.id}', this)">
                 <div class="check-circle"><i data-lucide="check" size="14"></i></div>
                 <div>
-                    <div style="font-weight:600; font-size:1.05rem;">${p.label}</div>
-                    <div style="color:var(--text-gray); font-size:0.9rem;">${p.desc}</div>
+                    <div style="font-weight:600; font-size:1rem; margin-bottom:4px;">${p.label}</div>
+                    <div style="color:var(--text-gray); font-size:0.85rem; line-height:1.4;">${p.desc}</div>
                 </div>
             </div>
         `).join('');
         lucide.createIcons();
-        state.selection.clear(); // Reset on industry change
+        state.selection.clear(); 
     }
 
     function toggleProblem(id, el) {
@@ -341,7 +353,7 @@
                     <span class="highlight" id="disp-${p.id}">0</span>
                 </div>
                 <input type="range" min="0" max="100" value="0" oninput="updateInput('${p.id}', this.value)">
-                <div style="font-size:0.8rem; color:var(--text-gray); margin-top:5px; text-align:right;">${p.unit}</div>
+                <div style="font-size:0.85rem; color:var(--text-gray); margin-top:8px; text-align:right;">${p.unit}</div>
             </div>
         `).join('');
     }
@@ -361,33 +373,41 @@
 
         activeProbs.forEach(p => {
             const val = state.inputs[p.id] || 0;
-            // Normalize everything to Annual Hours
             let annualUnits = 0;
+            // Normalize to Annual
             if(p.q.includes('week')) annualUnits = val * 50;
             else if(p.q.includes('month')) annualUnits = val * 12;
             else if(p.q.includes('day')) annualUnits = val * 250;
+            else if(p.q.includes('year')) annualUnits = val;
             
             const hours = annualUnits * p.timePer;
             totalHours += hours;
-            breakdown.push({ label: p.label, hours: Math.round(hours), money: Math.round(hours * rate) });
+            if(hours > 0) {
+                breakdown.push({ label: p.label, hours: Math.round(hours), money: Math.round(hours * rate), desc: p.desc });
+            }
         });
 
         const totalMoney = totalHours * rate;
 
-        // Render Results
         document.getElementById('final-amount').textContent = '$' + Math.round(totalMoney).toLocaleString();
         document.getElementById('final-hours').textContent = Math.round(totalHours).toLocaleString();
 
         const recContainer = document.getElementById('recommendations');
-        recContainer.innerHTML = breakdown.sort((a,b)=>b.money - a.money).map(b => `
-            <div class="rec-card">
-                <div style="font-weight:700; font-size:1.1rem; margin-bottom:4px;">${b.label}</div>
-                <div style="display:flex; justify-content:space-between; font-size:0.9rem; color:var(--text-gray);">
-                    <span>Wasting ~${b.hours} hrs/yr</span>
-                    <span style="color:var(--primary); font-weight:600;">$${b.money.toLocaleString()} cost</span>
+        if(breakdown.length === 0) {
+            recContainer.innerHTML = "<p style='text-align:center; color:gray;'>No volume selected.</p>";
+        } else {
+            recContainer.innerHTML = breakdown.sort((a,b)=>b.money - a.money).map(b => `
+                <div class="rec-card">
+                    <div style="font-weight:700; font-size:1.1rem; margin-bottom:4px; color: var(--text-dark);">${b.label}</div>
+                    <div style="font-size:0.9rem; color:var(--text-gray); margin-bottom:12px;">${b.desc}</div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.9rem; border-top:1px dashed var(--border); padding-top:8px;">
+                        <span><i data-lucide="clock" size="14" style="position:relative; top:2px;"></i> Saving ~${b.hours} hrs/yr</span>
+                        <span style="color:var(--primary); font-weight:700;">$${b.money.toLocaleString()} opportunity</span>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `).join('');
+            lucide.createIcons();
+        }
 
         setStep(4);
     }
@@ -400,32 +420,33 @@
         const status = document.getElementById('status-msg');
 
         if(!name || !email) {
-            status.innerHTML = '<span style="color:red">Please enter name and email.</span>';
+            status.innerHTML = '<span style="color:#ef4444">Please enter name and email.</span>';
             return;
         }
 
-        btn.innerText = "Generating Report...";
-        btn.disabled = true;
+        btn.innerText = "Generating...";
+        btn.classList.add('loading');
 
-        // Construct a clean summary for the email
         const industryLabel = DATA[state.industry].label;
         const savingsMoney = document.getElementById('final-amount').textContent;
         const savingsHours = document.getElementById('final-hours').textContent;
         
-        // This JSON is what Web3Forms sends to your email
         const payload = {
             access_key: ACCESS_KEY,
-            subject: `New Audit: ${industryLabel} (${savingsMoney})`,
+            subject: `New Lead: ${industryLabel} (${savingsMoney})`,
             name: name,
             email: email,
             message: `
- इंडस्ट्री: ${industryLabel}
- Estimated Savings: ${savingsMoney}
- Hours Reclaimed: ${savingsHours}
- Hourly Rate Used: $${document.getElementById('hourly-rate').value}
+ INDUSTRY: ${industryLabel}
+ VALUE: ${savingsMoney}
+ HOURS: ${savingsHours}
+ RATE: $${document.getElementById('hourly-rate').value}/hr
 
  BREAKDOWN:
- ${Array.from(document.querySelectorAll('.rec-card')).map(card => card.innerText.replace(/\n/g, ' - ')).join('\n')}
+ ${Array.from(document.querySelectorAll('.rec-card')).map(card => {
+    // Clean up text for email
+    return card.innerText.replace(/\n/g, ' | ');
+ }).join('\n')}
             `,
             botcheck: document.querySelector('input[name="botcheck"]').checked
         };
@@ -439,17 +460,18 @@
             if (response.status == 200) {
                 btn.innerText = "Report Sent!";
                 btn.style.background = "#10b981";
-                status.innerHTML = `<span style="color:#10b981">Success! We are generating your custom ${industryLabel} roadmap now. Check your email in 5 minutes.</span>`;
+                btn.style.color = "white";
+                status.innerHTML = `<span style="color:#10b981; font-weight:600">Success! Check your email for the full breakdown.</span>`;
             } else {
                 btn.innerText = "Try Again";
-                btn.disabled = false;
+                btn.classList.remove('loading');
                 status.innerHTML = "Error sending data.";
             }
         })
         .catch(error => {
             console.log(error);
             btn.innerText = "Try Again";
-            btn.disabled = false;
+            btn.classList.remove('loading');
             status.innerHTML = "Connection error.";
         });
     }
