@@ -20,9 +20,9 @@
     <style>
         /* --- CORE DESIGN --- */
         :root {
-            --primary: #1e40af; 
-            --primary-hover: #1e3a8a;
-            --accent: #f59e0b; 
+            --primary: #0f172a; /* Deep Navy - Professional, High-End */
+            --primary-hover: #1e293b;
+            --accent: #3b82f6; /* Trust Blue for highlights */
             --bg-page: #f8fafc;
             --bg-card: #ffffff;
             --border: #e2e8f0;
@@ -45,7 +45,7 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin-bottom: 16px; color: var(--text-dark); }
         h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 12px; }
         p { color: var(--text-gray); font-size: 1.05rem; }
-        .highlight { color: var(--primary); font-weight: 600; }
+        .highlight { color: var(--accent); font-weight: 600; }
 
         /* BUTTONS */
         .btn { 
@@ -53,7 +53,7 @@
             padding: 16px 32px; border-radius: 50px; border: none; cursor: pointer;
             font-weight: 600; font-size: 1rem; transition: all 0.2s;
         }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px -3px rgba(30, 64, 175, 0.4); }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px -3px rgba(15, 23, 42, 0.4); }
         .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
         .btn-ghost { background: transparent; color: var(--text-gray); border: 1px solid var(--border); }
         .btn-ghost:hover { border-color: var(--text-dark); color: var(--text-dark); background: #fff; }
@@ -62,11 +62,11 @@
         .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 32px; }
         .persona-card {
             background: white; border: 1px solid var(--border); padding: 24px; border-radius: var(--radius);
-            cursor: pointer; transition: all 0.2s; text-align: left;
+            cursor: pointer; transition: all 0.2s; text-align: left; position: relative; overflow: hidden;
         }
-        .persona-card:hover { border-color: var(--primary); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); transform: translateY(-2px); }
-        .persona-card.selected { border-color: var(--primary); background: #eff6ff; ring: 1px solid var(--primary); }
-        .persona-icon { color: var(--primary); margin-bottom: 12px; }
+        .persona-card:hover { border-color: var(--accent); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); transform: translateY(-2px); }
+        .persona-card.selected { border-color: var(--accent); background: #eff6ff; ring: 1px solid var(--accent); }
+        .persona-icon { color: var(--accent); margin-bottom: 12px; }
 
         /* PROBLEM LIST (STEP 2) */
         .problem-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 24px; }
@@ -74,24 +74,24 @@
             display: flex; align-items: flex-start; gap: 16px; padding: 20px; background: white;
             border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: all 0.2s;
         }
-        .problem-card:hover { border-color: var(--primary); background: #f8fafc; }
-        .problem-card.selected { border-color: var(--primary); background: #eff6ff; box-shadow: 0 0 0 1px var(--primary); }
+        .problem-card:hover { border-color: var(--accent); background: #f8fafc; }
+        .problem-card.selected { border-color: var(--accent); background: #eff6ff; box-shadow: 0 0 0 1px var(--accent); }
         .check-circle { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; color: white; transition: all 0.2s; flex-shrink: 0; background: #fff; margin-top: 2px; }
-        .problem-card.selected .check-circle { background: var(--primary); border-color: var(--primary); }
+        .problem-card.selected .check-circle { background: var(--accent); border-color: var(--accent); }
 
         /* SLIDERS (STEP 3) */
         .slider-group { background: white; padding: 24px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; }
         .slider-header { display: flex; justify-content: space-between; margin-bottom: 16px; font-weight: 600; font-size: 1.1rem; }
-        input[type=range] { width: 100%; accent-color: var(--primary); cursor: pointer; height: 6px; border-radius: 4px; }
+        input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; height: 6px; border-radius: 4px; }
 
         /* RESULTS */
         .result-box { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 48px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
-        .big-money { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; color: var(--primary); line-height: 1; font-family: 'Inter', sans-serif; letter-spacing: -2px; margin: 16px 0; }
-        .rec-card { border-left: 4px solid var(--primary); background: white; padding: 24px; margin-bottom: 16px; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-radius: 0 8px 8px 0; border: 1px solid var(--border); border-left-width: 4px; border-left-color: var(--primary); }
+        .big-money { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; color: var(--accent); line-height: 1; font-family: 'Inter', sans-serif; letter-spacing: -2px; margin: 16px 0; }
+        .rec-card { border-left: 4px solid var(--accent); background: white; padding: 24px; margin-bottom: 16px; text-align: left; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-radius: 0 8px 8px 0; border: 1px solid var(--border); border-left-width: 4px; border-left-color: var(--accent); }
 
         /* FORM */
         .lead-form input { width: 100%; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.2s; }
-        .lead-form input:focus { border-color: var(--primary); }
+        .lead-form input:focus { border-color: var(--accent); }
         
         .hidden { display: none !important; }
         .fade-in { animation: fadeIn 0.4s ease forwards; }
@@ -108,16 +108,16 @@
 
 <header>
     <div class="container">
-        <div class="logo"><i data-lucide="layers" style="color: var(--primary);"></i> Magic Folder</div>
+        <div class="logo"><i data-lucide="layers" style="color: var(--accent);"></i> Magic Folder</div>
     </div>
 </header>
 
 <main class="container" style="flex: 1; padding: 40px 0;">
 
     <div id="step-1" class="fade-in">
-        <div style="max-width: 600px;">
-            <h1>Let's find the hidden profit in your business.</h1>
-            <p>Select your profession. We'll identify the specific, non-billable "grunt work" that is draining your profit margins.</p>
+        <div style="max-width: 650px;">
+            <h1>Identify the friction points costing you money.</h1>
+            <p>Select your industry. We will audit your workflow to identify where you are losing time on non-billable, low-value tasks.</p>
         </div>
         
         <div class="persona-grid" id="persona-grid">
@@ -126,28 +126,28 @@
 
     <div id="step-2" class="hidden fade-in">
         <div style="max-width: 600px;">
-            <h2 id="s2-title">What slows you down?</h2>
-            <p id="s2-subtitle">Select the tasks that you handle manually today.</p>
+            <h2 id="s2-title">Where are the bottlenecks?</h2>
+            <p id="s2-subtitle">Select the manual tasks that are currently eating into your margins.</p>
         </div>
         <div class="problem-list" id="problem-list"></div>
         <div style="margin-top: 40px; display: flex; gap: 12px; border-top: 1px solid var(--border); padding-top: 24px;">
             <button class="btn btn-ghost" onclick="setStep(1)">Back</button>
             <button class="btn btn-primary" onclick="validateStep2()">Next Step <i data-lucide="arrow-right"></i></button>
         </div>
-        <div id="err-2" style="color:#ef4444; margin-top:10px; display:none; text-align: center;">Please select at least one bottleneck.</div>
+        <div id="err-2" style="color:#ef4444; margin-top:10px; display:none; text-align: center;">Please select at least one area.</div>
     </div>
 
     <div id="step-3" class="hidden fade-in">
         <div style="max-width: 600px;">
-            <h2>Just a few estimates.</h2>
-            <p>Slide to match your current volume. We'll use conservative automation benchmarks to calculate your potential savings.</p>
+            <h2>Quantify the volume.</h2>
+            <p>Estimate your monthly or weekly volume. We'll apply industry benchmarks to calculate the potential efficiency gain.</p>
         </div>
         <div id="slider-container" style="margin-top: 32px;"></div>
         
         <div style="background: #eff6ff; padding: 24px; border-radius: var(--radius); margin-top: 24px; display: flex; align-items: center; gap: 20px;">
-            <div style="background:white; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary); font-weight:bold; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">$</div>
+            <div style="background:white; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:bold; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">$</div>
             <div style="flex:1;">
-                <label style="font-weight:700; font-size:0.95rem; display:block; margin-bottom:4px; color: var(--primary);">Average Hourly Value</label>
+                <label style="font-weight:700; font-size:0.95rem; display:block; margin-bottom:4px; color: var(--primary);">Average Billable/Hourly Value</label>
                 <div style="font-size:0.85rem; color:var(--text-gray); margin-bottom:8px;">What is one hour of your (or your staff's) time worth?</div>
                 <input type="number" id="hourly-rate" value="100" style="padding: 10px; border: 1px solid var(--border); border-radius: 6px; width: 120px; font-weight: 600;">
             </div>
@@ -155,33 +155,33 @@
 
         <div style="margin-top: 40px; display: flex; gap: 12px;">
             <button class="btn btn-ghost" onclick="setStep(2)">Back</button>
-            <button class="btn btn-primary" onclick="calculateAndShow()" style="flex: 1;">Calculate Profit <i data-lucide="calculator"></i></button>
+            <button class="btn btn-primary" onclick="calculateAndShow()" style="flex: 1;">Calculate Efficiency <i data-lucide="calculator"></i></button>
         </div>
     </div>
 
     <div id="step-4" class="hidden fade-in">
         <div class="result-box">
-            <p style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; font-weight: 700; color: var(--text-gray);">Potential Annual Profit Reclaimed</p>
+            <p style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; font-weight: 700; color: var(--text-gray);">Potential Value Reclaimed (Annual)</p>
             <div class="big-money" id="final-amount">$0</div>
-            <p style="margin-top: 10px; font-size: 1.1rem;">By automating <strong id="final-hours" style="color: var(--text-dark);">0</strong> hours of administrative friction.</p>
+            <p style="margin-top: 10px; font-size: 1.1rem;">By reallocating <strong id="final-hours" style="color: var(--text-dark);">0</strong> hours of manual work to automation.</p>
         </div>
 
-        <h3 style="margin-bottom: 24px;">Your Efficiency Roadmap</h3>
+        <h3 style="margin-bottom: 24px;">Recommended Automation Strategy</h3>
         <div id="recommendations"></div>
 
-        <div style="background: #1e293b; color: white; padding: 48px; border-radius: var(--radius); text-align: center; margin-top: 48px; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #3b82f6, #8b5cf6);"></div>
+        <div style="background: var(--primary); color: white; padding: 48px; border-radius: var(--radius); text-align: center; margin-top: 48px; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #60a5fa, #3b82f6);"></div>
             
-            <h3 style="color:white; margin-bottom: 12px; font-size: 1.5rem;">Get the Technical Breakdown</h3>
+            <h3 style="color:white; margin-bottom: 12px; font-size: 1.5rem;">Get the Deployment Blueprint</h3>
             <p style="color: #cbd5e1; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto;">
-                We'll email you a PDF report detailing exactly which tools (Make, OpenAI, etc.) we use to build these specific automations.
+                We'll generate a custom PDF report outlining the specific tools (Make, OpenAI, etc.) required to implement these workflows.
             </p>
             
             <div class="lead-form" style="max-width: 400px; margin: 0 auto; text-align: left;">
                 <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                 <input type="text" id="name" placeholder="Full Name">
-                <input type="email" id="email" placeholder="Business Email">
-                <button class="btn btn-primary" style="width: 100%; justify-content: center; background: white; color: var(--text-dark);" id="send-btn" onclick="sendData()">Send Me The Report</button>
+                <input type="email" id="user-email" placeholder="Business Email">
+                <button class="btn btn-primary" style="width: 100%; justify-content: center; background: white; color: var(--primary);" id="send-btn" onclick="sendData()">Send Me The Blueprint</button>
             </div>
             <div id="status-msg" style="margin-top: 15px; min-height: 20px; font-size: 0.9rem; text-align: center;"></div>
         </div>
@@ -198,66 +198,64 @@
     // --- THE BRAIN: Industry Specific Logic ---
     const DATA = {
         'legal': {
-            label: 'Law Firm / Legal',
+            label: 'Law Firm / Contingency',
             icon: 'scale',
-            desc: 'Attorneys, Paralegals, & Firms',
-            rateDefault: 300,
+            desc: 'Litigation, PI, & Employment Law',
+            rateDefault: 400,
             problems: [
-                { id: 'intake', label: 'Client Intake & Scheduling', desc: 'Chasing leads, manual data entry into case management, finding calendar slots.', timePer: 0.5, unit: 'new leads', q: 'New leads per month?' },
-                { id: 'docs', label: 'Document Generation', desc: 'Copy-pasting data into standard templates (NDAs, Motions, Wills).', timePer: 0.75, unit: 'docs drafted', q: 'Docs drafted per week?' },
-                { id: 'discovery', label: 'Discovery Organization', desc: 'Renaming, sorting, and organizing thousands of PDF dump files.', timePer: 0.05, unit: 'files', q: 'Discovery files/mo?' },
-                { id: 'summaries', label: 'Deposition Summaries', desc: 'Reading transcripts to extract key dates and facts manually.', timePer: 2.0, unit: 'depositions', q: 'Depositions per month?' },
-                { id: 'collections', label: 'AR & Collections', desc: 'Manually emailing reminders to clients for overdue invoices.', timePer: 0.25, unit: 'invoices', q: 'Invoices sent per month?' }
+                { id: 'intake', label: 'Lead Vetting & Rejection', desc: 'Manually screening calls to disqualify bad cases. Spending time on leads that will never pay out.', timePer: 0.5, unit: 'leads screened', q: 'Leads screened per month?' },
+                { id: 'discovery', label: 'Discovery Organization', desc: 'Renaming, sorting, and indexing thousands of unstructured PDF files from opposing counsel.', timePer: 0.1, unit: 'files', q: 'Files processed per month?' },
+                { id: 'summaries', label: 'Deposition Summaries', desc: 'Reading hours of transcripts to extract key facts and contradictions manually.', timePer: 3.0, unit: 'depositions', q: 'Depositions per month?' },
+                { id: 'medical', label: 'Medical Record Chronologies', desc: 'Pulling dates and treatments from messy hospital records into a clean timeline.', timePer: 2.0, unit: 'records', q: 'Records processed per month?' },
+                { id: 'docs', label: 'Routine Filings', desc: 'Copy-pasting data into standard motions, notices, or engagement letters.', timePer: 0.5, unit: 'docs', q: 'Docs drafted per week?' }
             ]
         },
         'trade': {
             label: 'Trades & Field Services',
             icon: 'hammer',
             desc: 'Plumbers, HVAC, Electricians, GCs',
-            rateDefault: 120,
+            rateDefault: 150,
             problems: [
-                { id: 'calls', label: 'Missed Calls', desc: 'Phone ringing while on site. Losing leads to voicemail.', timePer: 0.25, unit: 'missed calls', q: 'Missed calls per week?' },
-                { id: 'quotes', label: 'Quoting / Estimating', desc: 'Typing estimates at night; manual math; delayed sending.', timePer: 0.75, unit: 'quotes', q: 'Quotes sent per week?' },
-                { id: 'followup', label: 'Lead Follow-Up', desc: 'Chasing people who got a quote but never replied.', timePer: 0.2, unit: 'follow-ups', q: 'Follow-ups needed/week?' },
-                { id: 'reviews', label: 'Review Management', desc: 'Forgetting to ask for Google Reviews after jobs.', timePer: 0.1, unit: 'jobs', q: 'Jobs completed per week?' }
+                { id: 'qualify', label: 'Bid Qualification', desc: 'Driving to site estimates for "tire kickers" or jobs too small for your crew.', timePer: 1.5, unit: 'bad estimates', q: 'Wasted estimates per week?' },
+                { id: 'calls', label: 'Missed Calls', desc: 'Phone ringing while on a job site. Losing urgency leads to the next vendor on Google.', timePer: 0.25, unit: 'missed calls', q: 'Missed calls per week?' },
+                { id: 'followup', label: 'Quote Follow-Up', desc: 'Sending estimates but failing to nudge them 3 days later.', timePer: 0.2, unit: 'quotes', q: 'Quotes sent per week?' },
+                { id: 'scheduling', label: 'Dispatch Logistics', desc: 'Texting crews to coordinate arrival times and job details.', timePer: 0.5, unit: 'jobs', q: 'Jobs per week?' }
             ]
         },
         'realestate': {
             label: 'Real Estate',
             icon: 'home',
-            desc: 'Agents, Brokers, Property Managers',
-            rateDefault: 150,
+            desc: 'Agents, Brokers, Investors',
+            rateDefault: 200,
             problems: [
-                { id: 'qualify', label: 'Lead Qualification', desc: 'Texting/Calling Zillow leads to see if they are serious.', timePer: 0.3, unit: 'leads', q: 'New leads per week?' },
-                { id: 'showings', label: 'Showing Logistics', desc: 'Back-and-forth texts to coordinate times with sellers/buyers.', timePer: 0.5, unit: 'showings', q: 'Showings set per week?' },
-                { id: 'marketing', label: 'Listing Marketing', desc: 'Writing descriptions, posting to socials, making flyers.', timePer: 2.0, unit: 'listings', q: 'New listings per month?' },
+                { id: 'intent', label: 'Intent Verification', desc: 'Showing homes to leads who haven\'t been vetted for budget or pre-approval.', timePer: 1.0, unit: 'unqualified showings', q: 'Showings per week?' },
+                { id: 'outreach', label: 'Database Reactivation', desc: 'Letting old leads sit cold instead of automatically checking in for new intent.', timePer: 0.1, unit: 'old leads', q: 'Leads in database?' },
+                { id: 'marketing', label: 'Listing Assets', desc: 'Manually writing descriptions and creating social flyers for new listings.', timePer: 2.0, unit: 'listings', q: 'New listings per month?' },
                 { id: 'compliance', label: 'Transaction Docs', desc: 'Chasing signatures and organizing compliance folders.', timePer: 1.5, unit: 'deals', q: 'Deals per month?' }
             ]
         },
         'consultant': {
-            label: 'Consultant / Agency',
+            label: 'Consulting & Agencies',
             icon: 'briefcase',
-            desc: 'Marketing, Accounting, Coaching',
-            rateDefault: 175,
+            desc: 'Marketing, Financial, Coaching',
+            rateDefault: 250,
             problems: [
-                { id: 'reporting', label: 'Client Reporting', desc: 'Pulling data from tools to make PDFs/Decks for clients.', timePer: 2.0, unit: 'reports', q: 'Reports generated/mo?' },
-                { id: 'meeting', label: 'Meeting Notes & CRM', desc: 'Taking notes and updating HubSpot/Salesforce manually.', timePer: 0.5, unit: 'meetings', q: 'Meetings per week?' },
+                { id: 'gatekeeping', label: 'Budget Gatekeeping', desc: 'Taking discovery calls with prospects who cannot afford your minimum engagement.', timePer: 1.0, unit: 'bad calls', q: 'Discovery calls per week?' },
+                { id: 'reporting', label: 'Client Reporting', desc: 'Manually pulling data from ads/finance tools to build monthly decks.', timePer: 2.5, unit: 'reports', q: 'Reports per month?' },
                 { id: 'onboarding', label: 'Client Onboarding', desc: 'Manually creating folders, contracts, and welcome emails.', timePer: 1.5, unit: 'clients', q: 'New clients per month?' }
             ]
         },
         'general': {
             label: 'General Business',
             icon: 'building',
-            desc: 'Retail, Admin, Small Biz, & Others',
-            rateDefault: 60,
+            desc: 'Retail, Admin, Small Biz',
+            rateDefault: 75,
             problems: [
-                { id: 'inbox', label: 'Inbox Triage', desc: 'Sorting emails, forwarding to team, answering FAQs.', timePer: 0.1, unit: 'emails', q: 'Emails received per day?' },
-                { id: 'expenses', label: 'Receipt Management', desc: 'Matching receipts to transactions in Quickbooks/Excel.', timePer: 0.1, unit: 'receipts', q: 'Receipts per month?' },
-                { id: 'scheduling', label: 'Scheduling Logistics', desc: 'Email tag to find meeting times.', timePer: 0.2, unit: 'meetings', q: 'Meetings booked/week?' },
-                { id: 'data', label: 'Data Entry', desc: 'Moving data from PDF/Forms into Excel.', timePer: 0.15, unit: 'entries', q: 'Entries per day?' },
-                { id: 'hiring', label: 'Employee Onboarding', desc: 'Creating accounts, sending offer letters/contracts.', timePer: 2.0, unit: 'hires', q: 'Hires per year?' },
-                { id: 'social', label: 'Social Media', desc: ' posting updates across LinkedIn/FB/Insta manually.', timePer: 0.5, unit: 'posts', q: 'Posts per week?' },
-                { id: 'files', label: 'File Organization', desc: 'Renaming and moving files to the right folders.', timePer: 0.1, unit: 'files', q: 'Files saved per day?' }
+                { id: 'inbox', label: 'Inbox Triage', desc: 'Reading every email. Using high-value time to answer low-value questions.', timePer: 0.1, unit: 'emails', q: 'Emails per day?' },
+                { id: 'expenses', label: 'Receipt Reconciliation', desc: 'Matching receipt images to bank transactions manually.', timePer: 0.1, unit: 'receipts', q: 'Receipts per month?' },
+                { id: 'data', label: 'Document Data Entry', desc: 'Typing data from PDFs or forms into Excel/Software.', timePer: 0.2, unit: 'documents', q: 'Docs processed per week?' },
+                { id: 'hiring', label: 'Candidate Screening', desc: 'Reviewing resumes of unqualified candidates.', timePer: 0.2, unit: 'applicants', q: 'Applicants per month?' },
+                { id: 'scheduling', label: 'Meeting Logistics', desc: 'Email tag to find time slots.', timePer: 0.15, unit: 'meetings', q: 'Meetings booked per week?' }
             ]
         }
     };
@@ -374,6 +372,7 @@
         activeProbs.forEach(p => {
             const val = state.inputs[p.id] || 0;
             let annualUnits = 0;
+            
             // Normalize to Annual
             if(p.q.includes('week')) annualUnits = val * 50;
             else if(p.q.includes('month')) annualUnits = val * 12;
@@ -382,6 +381,7 @@
             
             const hours = annualUnits * p.timePer;
             totalHours += hours;
+            
             if(hours > 0) {
                 breakdown.push({ label: p.label, hours: Math.round(hours), money: Math.round(hours * rate), desc: p.desc });
             }
@@ -400,9 +400,9 @@
                 <div class="rec-card">
                     <div style="font-weight:700; font-size:1.1rem; margin-bottom:4px; color: var(--text-dark);">${b.label}</div>
                     <div style="font-size:0.9rem; color:var(--text-gray); margin-bottom:12px;">${b.desc}</div>
-                    <div style="display:flex; justify-content:space-between; font-size:0.9rem; border-top:1px dashed var(--border); padding-top:8px;">
-                        <span><i data-lucide="clock" size="14" style="position:relative; top:2px;"></i> Saving ~${b.hours} hrs/yr</span>
-                        <span style="color:var(--primary); font-weight:700;">$${b.money.toLocaleString()} opportunity</span>
+                    <div style="display:flex; justify-content:space-between; font-size:0.9rem; border-top:1px dashed var(--border); padding-top:12px;">
+                        <span style="display:flex; align-items:center; gap:6px;"><i data-lucide="clock" size="14"></i> Saving ~${b.hours} hrs/yr</span>
+                        <span style="color:var(--accent); font-weight:700;">$${b.money.toLocaleString()} opportunity</span>
                     </div>
                 </div>
             `).join('');
@@ -415,7 +415,7 @@
     // --- SEND REPORT ---
     function sendData() {
         const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
+        const email = document.getElementById('user-email').value;
         const btn = document.getElementById('send-btn');
         const status = document.getElementById('status-msg');
 
@@ -424,7 +424,7 @@
             return;
         }
 
-        btn.innerText = "Generating...";
+        btn.innerText = "Generating Blueprint...";
         btn.classList.add('loading');
 
         const industryLabel = DATA[state.industry].label;
@@ -433,18 +433,17 @@
         
         const payload = {
             access_key: ACCESS_KEY,
-            subject: `New Lead: ${industryLabel} (${savingsMoney})`,
+            subject: `New Blueprint Request: ${industryLabel} (${savingsMoney})`,
             name: name,
             email: email,
             message: `
  INDUSTRY: ${industryLabel}
- VALUE: ${savingsMoney}
- HOURS: ${savingsHours}
- RATE: $${document.getElementById('hourly-rate').value}/hr
+ VALUE FOUND: ${savingsMoney}
+ HOURS SAVED: ${savingsHours}
+ RATE USED: $${document.getElementById('hourly-rate').value}/hr
 
  BREAKDOWN:
  ${Array.from(document.querySelectorAll('.rec-card')).map(card => {
-    // Clean up text for email
     return card.innerText.replace(/\n/g, ' | ');
  }).join('\n')}
             `,
@@ -458,10 +457,10 @@
         })
         .then(async (response) => {
             if (response.status == 200) {
-                btn.innerText = "Report Sent!";
+                btn.innerText = "Blueprint Sent!";
                 btn.style.background = "#10b981";
                 btn.style.color = "white";
-                status.innerHTML = `<span style="color:#10b981; font-weight:600">Success! Check your email for the full breakdown.</span>`;
+                status.innerHTML = `<span style="color:#10b981; font-weight:600">Success! Check your email for the full report.</span>`;
             } else {
                 btn.innerText = "Try Again";
                 btn.classList.remove('loading');
