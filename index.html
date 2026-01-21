@@ -22,13 +22,13 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; flex: 1; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
 
         /* --- NAVIGATION --- */
         nav { padding: 32px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         
         .logo { 
             display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; 
@@ -61,7 +61,6 @@
             background: var(--primary); transition: width 0.1s linear; 
         }
         .dot-wrapper.active .dot-progress { width: 100%; }
-        /* When a slide is done, keep it full Indigo */
         .dot-wrapper.completed .dot-progress { width: 100%; }
 
         /* SIDE ARROWS */
@@ -75,14 +74,14 @@
         .arrow-left { left: -40px; }
         .arrow-right { right: -40px; }
 
-        /* --- ECOSYSTEM --- */
-        .eco-bar { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-bottom: 80px; }
+        /* --- ECOSYSTEM TRUST BAR (HERO ONLY) --- */
+        .eco-bar { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-top: 40px; }
         .eco-label { font-weight: 700; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; display: block; }
         .eco-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1); }
         .eco-grid span { font-weight: 800; font-size: 1rem; color: var(--text-dark); }
 
-        /* --- SELECTION --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px; }
+        /* --- SELECTION CARDS --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px; margin-top: 40px; }
         .card { 
             background: var(--surface); border: 2px solid transparent; padding: 44px; border-radius: 36px; 
             cursor: pointer; transition: 0.3s; text-align: left; position: relative;
@@ -112,7 +111,7 @@
         .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
         /* --- RESULTS & FORM --- */
-        .results-hero { background: #0f172a; color: white; padding: 80px; border-radius: 40px; text-align: center; }
+        .results-hero { background: #0f172a; color: white; padding: 80px; border-radius: 40px; text-align: center; margin-top: 40px; }
         .big-save { font-size: clamp(3.5rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 10px 0; letter-spacing: -2px; }
         .cta-card { background: var(--surface); padding: 60px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 80px; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 600px; margin: 32px auto 0; }
@@ -123,12 +122,21 @@
             font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.2s;
         }
         .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 15px rgba(79, 70, 229, 0.2); }
+
+        /* --- FOOTER --- */
+        footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 100px; }
+        .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+        .footer-brand h4 { font-weight: 800; font-size: 1.2rem; margin-bottom: 12px; }
+        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; max-width: 300px; }
+        .footer-links h5 { font-weight: 700; margin-bottom: 16px; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+        .footer-links div { color: var(--text-dark); font-size: 0.9rem; margin-bottom: 8px; font-weight: 600; }
+        .footer-bottom { border-top: 1px solid var(--border); margin-top: 60px; padding-top: 30px; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="container nav-inner">
+    <div class="nav-inner">
         <div class="logo" onclick="goHome()">
             <svg viewBox="0 0 24 24">
                 <path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/>
@@ -141,7 +149,7 @@
     </div>
 </nav>
 
-<main class="container">
+<div class="container">
 
     <div id="hero" class="hero fade-in">
         <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 700;">Engineered for Growth</div>
@@ -157,21 +165,21 @@
         <div class="dot-container" id="dot-container"></div>
         
         <button class="btn" onclick="setStep(1)">Start Discovery <i data-lucide="sparkle"></i></button>
-    </div>
 
-    <div class="eco-bar">
-        <span class="eco-label">Architected with the World's Most Powerful Ecosystems</span>
-        <div class="eco-grid">
-            <span>OpenAI</span>
-            <span>Anthropic</span>
-            <span>Google Cloud</span>
-            <span>ServiceNow</span>
-            <span>Make.com</span>
+        <div class="eco-bar">
+            <span class="eco-label">Architected with the World's Most Powerful Ecosystems</span>
+            <div class="eco-grid">
+                <span>OpenAI</span>
+                <span>Anthropic</span>
+                <span>Google Cloud</span>
+                <span>ServiceNow</span>
+                <span>Make.com</span>
+            </div>
         </div>
     </div>
 
-    <div id="step-1" class="hidden fade-in">
-        <div class="section-header">
+    <div id="step-1" class="hidden fade-in" style="padding-top: 60px;">
+        <div style="text-align: center;">
             <div class="mono" style="color: var(--text-muted); margin-bottom: 12px;">Phase 01</div>
             <h2>What part of the business needs help?</h2>
             <p style="color: var(--text-muted);">Select all areas where manual tasks are currently limiting your capacity.</p>
@@ -191,20 +199,18 @@
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
             <button class="btn" onclick="validateStep2()">Quantify Impact <i data-lucide="activity"></i></button>
         </div>
-        <div id="err-2" style="color:#ef4444; margin-top:16px; display:none; text-align: center; font-weight: 600;">Selection is required to proceed.</div>
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
         <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 03: Scale & Frequency</div>
         <h2>Measure the Friction</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px;">Estimate your weekly frequency to determine the potential ROI of an architected solution.</p>
-        <div id="slider-box"></div>
+        <div id="slider-box" style="margin-top: 40px;"></div>
         <div style="background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;">
             <div style="display:flex; justify-content:space-between; font-weight:700;">
                 <span class="mono">Resource Hourly Value (USD)</span>
                 <span style="color: var(--primary);">$<span id="rate-disp">150</span></span>
             </div>
-            <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%;">
+            <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value">
         </div>
         <div style="margin-top: 48px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
@@ -231,7 +237,31 @@
         </div>
     </div>
 
-</main>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <h4>MagicFolder</h4>
+            <p>Professional workflow architecture for growing firms and established service businesses.</p>
+        </div>
+        <div class="footer-links">
+            <h5>Intelligence Suites</h5>
+            <div>Magic Folder Logistics</div>
+            <div>Knowledge RAG</div>
+            <div>Request Management</div>
+        </div>
+        <div class="footer-links">
+            <h5>Infrastructure</h5>
+            <div>OpenAI</div>
+            <div>Anthropic</div>
+            <div>ServiceNow</div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 MagicFolder AI. All rights reserved. Professional Workflow Architecture.
+    </div>
+</footer>
 
 <script>
     // --- SLIDESHOW LOGIC ---
@@ -246,8 +276,8 @@
     let slideIndex = 0;
     let progress = 0;
     let isPaused = false;
-    const DURATION = 8000; // 8 Seconds per slide
-    const INTERVAL = 100; // UI Refresh every 0.1s
+    const DURATION = 8000;
+    const INTERVAL = 100;
     const titleEl = document.getElementById('slideshow-title');
     const subEl = document.getElementById('slideshow-sub');
     const dotContainer = document.getElementById('dot-container');
@@ -265,11 +295,8 @@
         setInterval(() => {
             if (isPaused) return;
             progress += (INTERVAL / DURATION) * 100;
-            if (progress >= 100) {
-                nextSlide();
-            } else {
-                updateProgressUI();
-            }
+            if (progress >= 100) nextSlide();
+            else updateProgressUI();
         }, INTERVAL);
     }
 
@@ -277,47 +304,22 @@
         const wrappers = document.querySelectorAll('.dot-wrapper');
         wrappers.forEach((w, i) => {
             const bar = w.querySelector('.dot-progress');
-            if (i < slideIndex) {
-                bar.style.width = '100%';
-                w.classList.add('completed');
-                w.classList.remove('active');
-            } else if (i === slideIndex) {
-                bar.style.width = progress + '%';
-                w.classList.add('active');
-                w.classList.remove('completed');
-            } else {
-                bar.style.width = '0%';
-                w.classList.remove('active', 'completed');
-            }
+            if (i < slideIndex) { bar.style.width = '100%'; w.classList.add('completed'); w.classList.remove('active'); }
+            else if (i === slideIndex) { bar.style.width = progress + '%'; w.classList.add('active'); w.classList.remove('completed'); }
+            else { bar.style.width = '0%'; w.classList.remove('active', 'completed'); }
         });
     }
 
-    function nextSlide() {
-        slideIndex = (slideIndex + 1) % slides.length;
-        progress = 0;
-        updateContent();
-    }
-
-    function prevSlide() {
-        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-        progress = 0;
-        updateContent();
-    }
-
-    function goToSlide(i) {
-        slideIndex = i;
-        progress = 0;
-        updateContent();
-    }
+    function nextSlide() { slideIndex = (slideIndex + 1) % slides.length; progress = 0; updateContent(); }
+    function prevSlide() { slideIndex = (slideIndex - 1 + slides.length) % slides.length; progress = 0; updateContent(); }
+    function goToSlide(i) { slideIndex = i; progress = 0; updateContent(); }
 
     function updateContent() {
-        titleEl.style.opacity = 0;
-        subEl.style.opacity = 0;
+        titleEl.style.opacity = 0; subEl.style.opacity = 0;
         setTimeout(() => {
             titleEl.innerHTML = slides[slideIndex].title;
             subEl.innerHTML = slides[slideIndex].sub;
-            titleEl.style.opacity = 1;
-            subEl.style.opacity = 1;
+            titleEl.style.opacity = 1; subEl.style.opacity = 1;
             updateProgressUI();
         }, 500);
     }
@@ -328,29 +330,29 @@
     // --- WORKFLOW DATA ---
     const DATA = {
         'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', items: [
-            { id: 'invoices', label: 'Invoice Logistics', desc: 'Automatically extracting data from vendor bills into billing systems.', time: 0.25, unit: 'invoices/wk' },
-            { id: 'contracts', label: 'Agreement Triage', desc: 'Intelligent identification and filing based on document content.', time: 0.2, unit: 'files/wk' },
-            { id: 'forms', label: 'Data Extraction', desc: 'Turning manual PDFs or images into structured digital records.', time: 0.5, unit: 'forms/wk' }
+            { id: 'invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills into billing systems.', time: 0.25, unit: 'invoices/wk' },
+            { id: 'contracts', label: 'Agreement Triage', desc: 'Identifying and filing based on document content.', time: 0.2, unit: 'files/wk' },
+            { id: 'forms', label: 'Data Extraction', desc: 'Turning manual forms into structured digital records.', time: 0.5, unit: 'forms/wk' }
         ]},
         'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', items: [
-            { id: 'rag-search', label: 'RAG Knowledge Search', desc: 'Finding specific clauses or facts across thousands of documents instantly.', time: 0.4, unit: 'searches/wk' },
-            { id: 'briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts or depositions into actionable points.', time: 1.5, unit: 'docs/wk' }
+            { id: 'rag-search', label: 'RAG Knowledge Search', desc: 'Finding specific clauses across thousands of documents.', time: 0.4, unit: 'searches/wk' },
+            { id: 'briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts into actionable points.', time: 1.5, unit: 'docs/wk' }
         ]},
         'requests': { label: 'Request Hub', icon: 'clipboard-list', items: [
-            { id: 'tracking', label: 'Job & Order Status', desc: 'Centralized visibility into job stages without manual follow-up.', time: 0.3, unit: 'orders/wk' },
-            { id: 'triage', label: 'Intake Routing', desc: 'Categorizing and assigning inbound client tasks to the right folder.', time: 0.2, unit: 'tasks/wk' }
+            { id: 'tracking', label: 'Job & Order Status', desc: 'Centralized visibility into job stages without follow-up.', time: 0.3, unit: 'orders/wk' },
+            { id: 'triage', label: 'Intake Routing', desc: 'Assigning client tasks to the right team folder.', time: 0.2, unit: 'tasks/wk' }
         ]},
         'support': { label: 'Intelligent Support', icon: 'message-square', items: [
-            { id: 'faq', label: 'Data-Driven FAQ', desc: 'Answering routine questions using your specific company data.', time: 0.15, unit: 'queries/wk' },
-            { id: 'onboarding', label: 'Client Onboarding', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
+            { id: 'faq', label: 'Data-Driven FAQ', desc: 'Answering routine questions using your specific data.', time: 0.15, unit: 'queries/wk' },
+            { id: 'onboarding', label: 'Client Onboarding', desc: 'Automated folder and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', items: [
-            { id: 'billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with outgoing client billing.', time: 1.0, unit: 'invoices/wk' },
-            { id: 'chase', label: 'Document Chase', desc: 'Emailing clients for missing tax forms, signatures, or data.', time: 0.5, unit: 'requests/wk' }
+            { id: 'billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with client billing.', time: 1.0, unit: 'invoices/wk' },
+            { id: 'chase', label: 'Document Chase', desc: 'Emailing clients for missing signatures or tax forms.', time: 0.5, unit: 'requests/wk' }
         ]},
         'logistics': { label: 'Operational Logistics', icon: 'truck', items: [
-            { id: 'notif', label: 'Automated Notifications', desc: 'Keeping clients informed on status changes without typing emails.', time: 0.1, unit: 'alerts/wk' },
-            { id: 'reconcile', label: 'Record Reconciliation', desc: 'Matching job completion logs with internal digital records.', time: 0.1, unit: 'records/wk' }
+            { id: 'notif', label: 'Automated Notifications', desc: 'Keeping clients informed without typing emails.', time: 0.1, unit: 'alerts/wk' },
+            { id: 'reconcile', label: 'Record Reconciliation', desc: 'Matching job logs with internal digital records.', time: 0.1, unit: 'records/wk' }
         ]}
     };
 
@@ -385,7 +387,7 @@
         if(state.domains.size === 0) { document.getElementById('err-1').style.display = 'block'; return; }
         document.getElementById('err-1').style.display = 'none';
         renderTasks();
-        setStep(2);
+        setStep(1); // Visual step update
     }
 
     function renderTasks() {
@@ -410,8 +412,7 @@
     }
 
     function validateStep2() {
-        if(state.tasks.size === 0) { document.getElementById('err-2').style.display = 'block'; return; }
-        document.getElementById('err-2').style.display = 'none';
+        if(state.tasks.size === 0) return;
         renderSliders();
         setStep(3);
     }
@@ -421,12 +422,12 @@
         let active = [];
         state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
         container.innerHTML = active.map(i => `
-            <div class="volume-box">
-                <div style="display:flex; justify-content:space-between; font-weight:700;">
+            <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
+                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:10px;">
                     <span>${i.label} (${i.unit})</span>
                     <span id="val-${i.id}" style="color: var(--primary);">0</span>
                 </div>
-                <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)">
+                <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);">
             </div>
         `).join('');
     }
@@ -436,8 +437,18 @@
     function setStep(n) {
         document.getElementById('hero').classList.add('hidden');
         [1,2,3,4].forEach(s => document.getElementById(`step-${s}`).classList.add('hidden'));
-        document.getElementById(`step-${n}`).classList.remove('hidden');
+        if(n === 1) document.getElementById('step-1').classList.remove('hidden');
+        else if(n === 2) document.getElementById('step-2').classList.remove('hidden');
+        else document.getElementById(`step-${n}`).classList.remove('hidden');
         window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    // Logic to move from Domain to Task
+    function validateStep1() {
+        if(state.domains.size === 0) { document.getElementById('err-1').style.display = 'block'; return; }
+        document.getElementById('err-1').style.display = 'none';
+        renderTasks();
+        setStep(2);
     }
 
     function runAnalysis() {
@@ -462,7 +473,7 @@
         setTimeout(() => {
             btn.innerText = "Blueprint Requested";
             btn.style.background = "#10b981";
-            document.getElementById('status').innerText = "[SUCCESS] Discovery data received. Our team will contact you shortly.";
+            document.getElementById('status').innerText = "[SUCCESS] Discovery received. Our team will contact you shortly.";
         }, 1800);
     }
 </script>
