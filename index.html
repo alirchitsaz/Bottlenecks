@@ -9,6 +9,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
 
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     
     <style>
@@ -44,7 +45,7 @@
         .dot-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); transition: width 0.1s linear; }
         .dot-wrapper.active .dot-progress { width: 100%; }
 
-        .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; display: block; }
+        .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; }
         @media (min-width: 1024px) { .hero:hover .nav-arrow { opacity: 0.5; } .nav-arrow:hover { opacity: 1 !important; color: var(--primary); } }
         @media (max-width: 1023px) { .nav-arrow { display: none; } }
         .arrow-left { left: -40px; } .arrow-right { right: -40px; }
@@ -149,11 +150,14 @@
 
     <div id="step-5" class="hidden fade-in" style="padding: 80px 0;">
         <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Annual Opportunity Potential</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.6rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p></div>
-        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="downloadReport()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download Blueprint (TXT)</button><p style="margin-top: 32px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">Your strategy report has been received. Our Subject Matter Experts will contact you shortly to discuss your custom architecture.</p></div>
+        <div style="text-align: center; margin-top: 60px;">
+            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="file-text"></i> Download Architectural Blueprint (PDF)</button>
+            <p style="margin-top: 32px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">Our Subject Matter Experts have received your session data. We will contact you shortly to discuss your custom architecture.</p>
+        </div>
     </div>
 </div>
 
-<footer><div class="footer-inner"><div class="footer-brand"><h4>MagicFolder</h4><p>Professional workflow systems for firms and professionals. Efficiency that creates real revenue.</p></div><div class="footer-links"><h5>Intelligence</h5><a href="https://openai.com" target="_blank">OpenAI</a><a href="https://anthropic.com" target="_blank">Anthropic</a><a href="https://cloud.google.com" target="_blank">Google</a><a href="https://azure.microsoft.com" target="_blank">Microsoft</a></div><div class="footer-links"><h5>Integration</h5><a href="https://www.servicenow.com" target="_blank">ServiceNow</a><a href="https://www.make.com" target="_blank">Make.com</a><a href="https://www.salesforce.com" target="_blank">Salesforce</a></div></div><div class="footer-bottom">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div></footer>
+<footer><div class="footer-inner"><div class="footer-brand"><h4>MagicFolder</h4><p>Expert workflow systems for firms and professionals. Efficiency that creates real revenue.</p></div><div class="footer-links"><h5>Intelligence</h5><a href="https://openai.com" target="_blank">OpenAI</a><a href="https://anthropic.com" target="_blank">Anthropic</a><a href="https://cloud.google.com" target="_blank">Google</a></div><div class="footer-links"><h5>Integration</h5><a href="https://www.servicenow.com" target="_blank">ServiceNow</a><a href="https://www.make.com" target="_blank">Make.com</a><a href="https://www.salesforce.com" target="_blank">Salesforce</a></div></div><div class="footer-bottom">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div></footer>
 
 <script>
     (function() {
@@ -229,44 +233,60 @@
         };
 
         window.submitToFormspree = function() {
-            const name = document.getElementById('user-name').value;
-            const email = document.getElementById('user-email').value;
-            const comp = document.getElementById('user-company').value;
-            const gotcha = document.getElementById('gotcha-field').value;
-            
+            const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value; const gotcha = document.getElementById('gotcha-field').value;
             if(!name || !email || !comp || gotcha !== "") { document.getElementById('form-err').style.display='block'; return; }
-            
-            runAnalysis();
-            const btn = document.getElementById('submit-btn'); btn.innerText = "Transmitting...";
-            
-            const payload = { 
-                name: name, 
-                _replyto: email, 
-                company: comp, 
-                potential_amt: state.results.amt, 
-                hours_reclaimed: state.results.hours, 
-                focus_areas: Array.from(state.domains).join(', '),
-                _subject: `New Lead: ${name} (${comp})`
-            };
-
-            fetch('https://formspree.io/f/mgooqqjg', { 
-                method: 'POST', 
-                body: JSON.stringify(payload), 
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
-            }).then(response => {
-                if (response.ok) { setStep(5); }
-                else { document.getElementById('form-err').innerText = "Submission error. Please try again."; document.getElementById('form-err').style.display='block'; }
-            }).catch(() => {
-                document.getElementById('form-err').innerText = "Network error. Please try again."; document.getElementById('form-err').style.display='block';
-            });
+            runAnalysis(); const btn = document.getElementById('submit-btn'); btn.innerText = "Transmitting Blueprint...";
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, domains: Array.from(state.domains).join(', ') }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
-        window.downloadReport = function() {
-            let content = `MAGICFOLDER BLUEPRINT\nClient: ${document.getElementById('user-name').value}\nCompany: ${document.getElementById('user-company').value}\n\nREVENUE OPPORTUNITY\nAnnual Value: ${state.results.amt}\nAnnual Capacity: ${state.results.hours} Hours\n\nSTRATEGIC FOCUS:\n`;
-            state.domains.forEach(d => content += `- ${DATA[d].label}\n`);
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = 'MagicFolder-Blueprint.txt'; a.click();
+        // NEW: HIGH-END PDF GENERATION
+        window.generatePDFBlueprint = function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const name = document.getElementById('user-name').value;
+            const comp = document.getElementById('user-company').value;
+            
+            // PDF Header & Branding
+            doc.setFontSize(22); doc.setTextColor(79, 70, 229); // Primary Indigo
+            doc.text('MAGICFOLDER ARCHITECTURAL BLUEPRINT', 20, 30);
+            
+            doc.setFontSize(12); doc.setTextColor(100, 116, 139); // Muted Text
+            doc.text(`Prepared for: ${name} (${comp})`, 20, 40);
+            doc.text(`Date Generated: ${new Date().toLocaleDateString()}`, 20, 47);
+            
+            // Impact Section
+            doc.setDrawColor(226, 232, 240); doc.line(20, 55, 190, 55);
+            doc.setFontSize(14); doc.setTextColor(15, 23, 42); // Dark Text
+            doc.text('ANNUAL OPPORTUNITY SUMMARY', 20, 70);
+            
+            doc.setFontSize(11);
+            doc.text('Potential Annual Reclaimable Value:', 20, 82);
+            doc.setFontSize(16); doc.setTextColor(79, 70, 229);
+            doc.text(state.results.amt, 20, 92);
+            
+            doc.setFontSize(11); doc.setTextColor(15, 23, 42);
+            doc.text('Potential Capacity Gained (Annual):', 120, 82);
+            doc.setFontSize(16); doc.setTextColor(79, 70, 229);
+            doc.text(`${state.results.hours} Hours`, 120, 92);
+            
+            // Strategic Domains
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14);
+            doc.text('STRATEGIC FOCUS AREAS', 20, 115);
+            
+            doc.setFontSize(11); doc.setTextColor(100, 116, 139);
+            let y = 125;
+            state.domains.forEach(d => {
+                doc.text(`- ${DATA[d].label}: ${DATA[d].text}`, 20, y);
+                y += 10;
+            });
+            
+            // Footer Call to Action
+            doc.setTextColor(15, 23, 42); doc.setFontSize(12);
+            doc.text('Next Step: SME Technical Alignment Call', 20, 260);
+            doc.setFontSize(10); doc.setTextColor(100, 116, 139);
+            doc.text('Our team is reviewing your specific challenges to architect your solution.', 20, 267);
+            
+            doc.save('MagicFolder-Blueprint.pdf');
         };
 
         // UI HELPERS
