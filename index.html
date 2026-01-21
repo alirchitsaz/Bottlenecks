@@ -31,13 +31,14 @@
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
 
         /* --- NAVIGATION --- */
-        nav { padding: 24px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        nav { padding: 32px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; text-decoration: none; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
 
-        /* --- HERO & SLIDESHOW --- */
-        .hero { padding: 80px 0 40px; text-align: center; min-height: 550px; position: relative; touch-action: pan-y; }
+        /* --- HERO & INTERACTIVE SLIDESHOW --- */
+        .hero { padding: 100px 0 60px; text-align: center; min-height: 600px; position: relative; touch-action: pan-y; }
         .headline-container { min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; user-select: none; }
         .hero h1 { font-size: clamp(2.8rem, 9vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.05em; transition: opacity 0.5s ease; margin-bottom: 20px; }
         .hero .sub-hero { max-width: 750px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.5s ease; min-height: 3.5em; }
@@ -54,10 +55,17 @@
         @media (max-width: 1023px) { .nav-arrow { display: none; } .hero { padding-top: 40px; } }
         .arrow-left { left: -40px; } .arrow-right { right: -40px; }
 
-        /* --- DOMAIN GRID --- */
-        .grid-container { padding-top: 60px; max-width: 1100px; margin: 0 auto; }
+        /* --- ECOSYSTEM BAR (HERO ONLY) --- */
+        .eco-bar { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-top: 40px; }
+        .eco-label { font-weight: 700; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; display: block; }
+        .eco-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1); }
+        .eco-grid a { font-weight: 800; font-size: 1rem; color: var(--text-dark); text-decoration: none; transition: 0.2s; }
+        .eco-grid a:hover { color: var(--primary); opacity: 1; filter: none; }
+
+        /* --- PHASE 01: GRID --- */
+        .grid-container { padding-top: 80px; max-width: 1100px; margin: 0 auto; }
         .section-title-area { text-align: center; margin-bottom: 60px; }
-        .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; justify-content: center; }
+        .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-content: center; }
         .card { background: var(--surface); border: 1px solid var(--border); padding: 48px 40px; border-radius: 32px; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative; }
         .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
@@ -70,34 +78,29 @@
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .audit-item { display: flex; gap: 24px; padding: 28px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; align-items: center; }
-        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
-        .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
-        .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
-        /* --- RESULTS & ECOSYSTEM --- */
-        .results-hero { background: #0f172a; color: white; padding: 80px 40px; border-radius: 48px; text-align: center; margin-top: 40px; }
+        /* --- RESULTS & FORM --- */
+        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 48px; text-align: center; margin-top: 40px; }
         .big-save { font-size: clamp(4rem, 12vw, 7.5rem); color: #818cf8; font-weight: 800; margin: 15px 0; letter-spacing: -4px; line-height: 1; }
-        .cta-card { background: var(--surface); padding: 60px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 80px; }
+        .cta-card { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 40px auto 0; }
         input { padding: 20px; border-radius: 16px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
+        
         .btn { background: var(--primary); color: white; padding: 20px 48px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s; }
         .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-glow); }
 
-        .eco-bar { padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-top: 60px; }
-        .eco-label { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 32px; display: block; }
-        .eco-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1); }
-        .eco-grid span { font-weight: 800; font-size: 1.1rem; color: var(--text-dark); letter-spacing: -0.5px; }
-
+        /* --- FOOTER --- */
         footer { padding: 100px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
         .footer-brand h4 { font-weight: 800; font-size: 1.4rem; margin-bottom: 16px; }
+        .footer-brand p { color: var(--text-muted); font-size: 1rem; max-width: 350px; }
         .footer-links h5 { font-weight: 700; margin-bottom: 24px; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1.5px; }
-        .footer-links div { color: var(--text-dark); font-size: 0.95rem; margin-bottom: 12px; font-weight: 600; }
+        .footer-links a { display: block; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 12px; font-weight: 600; text-decoration: none; transition: 0.2s; }
+        .footer-links a:hover { color: var(--primary); }
         .footer-bottom { border-top: 1px solid var(--border); margin-top: 80px; padding-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
-
-        @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .row { grid-template-columns: 1fr; } }
+        
+        @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .footer-brand p { margin: 0 auto; } .row { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -134,9 +137,13 @@
         <button class="btn" onclick="setStep(1)">Start Your Discovery <i data-lucide="sparkle"></i></button>
 
         <div class="eco-bar">
-            <span class="eco-label">Integrated with the World's Most Powerful AI Ecosystems</span>
+            <span class="eco-label">Built with the World's Leading AI Engines</span>
             <div class="eco-grid">
-                <span>OpenAI</span><span>Anthropic</span><span>Google Cloud</span><span>ServiceNow</span><span>Make.com</span>
+                <a href="https://openai.com" target="_blank">OpenAI</a>
+                <a href="https://anthropic.com" target="_blank">Anthropic</a>
+                <a href="https://cloud.google.com" target="_blank">Google Cloud</a>
+                <a href="https://azure.microsoft.com" target="_blank">Microsoft Azure</a>
+                <a href="https://www.make.com" target="_blank">Make.com</a>
             </div>
         </div>
     </div>
@@ -198,23 +205,36 @@
             <div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div>
         </div>
     </div>
-
 </div>
 
 <footer>
     <div class="footer-inner">
-        <div class="footer-brand"><h4>MagicFolder</h4><p>Enterprise-grade workflow architecture for mid-market service businesses and firms.</p></div>
-        <div class="footer-links"><h5>Expertise</h5><div>Data Logistics</div><div>Knowledge Intelligence</div><div>Request Hubs</div></div>
-        <div class="footer-links"><h5>Infrastructure</h5><div>OpenAI</div><div>Anthropic</div><div>Google Cloud</div></div>
+        <div class="footer-brand">
+            <h4>MagicFolder</h4>
+            <p>SME-led workflow architecture for mid-market service businesses and firms.</p>
+        </div>
+        <div class="footer-links">
+            <h5>Our Expertise</h5>
+            <a href="https://openai.com" target="_blank">OpenAI LLMs</a>
+            <a href="https://anthropic.com" target="_blank">Anthropic Claude</a>
+            <a href="https://cloud.google.com" target="_blank">Google Vertex AI</a>
+        </div>
+        <div class="footer-links">
+            <h5>Platform Mastery</h5>
+            <a href="https://www.servicenow.com" target="_blank">ServiceNow</a>
+            <a href="https://www.make.com" target="_blank">Make Orchestration</a>
+            <a href="https://azure.microsoft.com" target="_blank">Azure Cognitive</a>
+        </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div>
+    <div class="footer-bottom">
+        &copy; 2026 MagicFolder AI. Professional Operational Architecture.
+    </div>
 </footer>
 
 <script>
-    // --- SLIDESHOW LOGIC ---
     const slides = [
         { title: "Intelligently<br>effortless.", sub: "We architect world-class workflows that scale your capacity without increasing your overhead." },
-        { title: "Chaos in.<br>Intelligence out.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
+        { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
         { title: "Knowledge intelligence<br>at your fingertips.", sub: "Chat with your business history. Find specific clauses or insights across thousands of documents instantly." },
         { title: "Total visibility, zero<br>manual updates.", sub: "Track job status and order logistics in real-time, keeping clients informed without lifting a finger." },
         { title: "Scale your capacity,<br>not your chaos.", sub: "Move from manual firefighting to automated precision with enterprise-standard workflow logic." }
@@ -226,34 +246,19 @@
     const subEl = document.getElementById('slideshow-sub');
     const dotContainer = document.getElementById('dot-container');
 
-    // MOBILE SWIPE HANDLING
     let touchStartX = 0;
     let touchEndX = 0;
 
     function initSlideshow() {
         dotContainer.innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
-        
         const swipeZone = document.getElementById('swipe-zone');
         swipeZone.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
         swipeZone.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, {passive: true});
-
-        setInterval(() => {
-            if (isPaused) return;
-            progress += (INTERVAL / DURATION) * 100;
-            if (progress >= 100) nextSlide(); else updateProgressUI();
-        }, INTERVAL);
+        setInterval(() => { if (!isPaused) { progress += (INTERVAL / DURATION) * 100; if (progress >= 100) nextSlide(); else updateProgressUI(); } }, INTERVAL);
     }
 
-    function handleSwipe() {
-        const threshold = 50;
-        if (touchEndX < touchStartX - threshold) nextSlide();
-        if (touchEndX > touchStartX + threshold) prevSlide();
-    }
-
-    function handleContainerClick(e) {
-        if (window.innerWidth < 1024) return; // Ignore simple clicks on mobile, rely on swipe
-        nextSlide();
-    }
+    function handleSwipe() { if (touchEndX < touchStartX - 50) nextSlide(); if (touchEndX > touchStartX + 50) prevSlide(); }
+    function handleContainerClick(e) { if (window.innerWidth >= 1024) nextSlide(); }
 
     function updateProgressUI() {
         document.querySelectorAll('.dot-wrapper').forEach((w, i) => {
@@ -279,7 +284,6 @@
     function pauseCycle() { isPaused = true; }
     function resumeCycle() { isPaused = false; }
 
-    // --- DATA & APP LOGIC ---
     const DATA = {
         'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', items: [
             { id: 'invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills into billing systems.', time: 0.25, unit: 'invoices/wk' },
@@ -330,16 +334,8 @@
         lucide.createIcons();
     }
 
-    function toggleDomain(key, el) {
-        if(state.domains.has(key)) { state.domains.delete(key); el.classList.remove('selected'); }
-        else { state.domains.add(key); el.classList.add('selected'); }
-    }
-
-    function validateStep1() {
-        if(state.domains.size === 0) { document.getElementById('err-1').style.display = 'block'; return; }
-        document.getElementById('err-1').style.display = 'none';
-        renderTasks(); setStep(2);
-    }
+    function toggleDomain(key, el) { if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); el.classList.toggle('selected'); }
+    function validateStep1() { if(state.domains.size === 0) { document.getElementById('err-1').style.display='block'; return; } renderTasks(); setStep(2); }
 
     function renderTasks() {
         const list = document.getElementById('task-list');
@@ -353,11 +349,7 @@
         lucide.createIcons();
     }
 
-    function toggleTask(id, el) {
-        if(state.tasks.has(id)) { state.tasks.delete(id); el.classList.remove('selected'); }
-        else { state.tasks.add(id); el.classList.add('selected'); }
-    }
-
+    function toggleTask(id, el) { if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); el.classList.toggle('selected'); }
     function validateStep2() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); }
 
     function renderSliders() {
@@ -372,38 +364,16 @@
     }
 
     function updateVal(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; }
-
-    function setStep(n) {
-        document.getElementById('hero').classList.add('hidden');
-        [1,2,3,4].forEach(s => document.getElementById(`step-${s}`).classList.add('hidden'));
-        document.getElementById(`step-${n}`).classList.remove('hidden');
-        window.scrollTo({top:0, behavior:'smooth'});
-    }
+    function setStep(n) { document.getElementById('hero').classList.add('hidden'); [1,2,3,4].forEach(s => document.getElementById(`step-${s}`).classList.add('hidden')); document.getElementById(`step-${n}`).classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); }
 
     function runAnalysis() {
         const rate = parseInt(document.getElementById('hourly-rate').value);
         let h = 0; let v = 0;
-        state.domains.forEach(d => {
-            DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-                const qty = state.inputs[i.id] || 0;
-                const mult = i.unit.includes('mo') ? 12 : 52;
-                const hours = (qty * i.time * mult);
-                h += hours; v += (hours * rate);
-            });
-        });
-        document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString();
-        document.getElementById('final-hours').innerText = Math.round(h).toLocaleString();
-        setStep(4);
+        state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { const qty = state.inputs[i.id] || 0; const mult = i.unit.includes('mo') ? 12 : 52; const hours = (qty * i.time * mult); h += hours; v += (hours * rate); }); });
+        document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString(); document.getElementById('final-hours').innerText = Math.round(h).toLocaleString(); setStep(4);
     }
 
-    function sendData() {
-        const btn = document.getElementById('send-btn');
-        btn.innerText = "Transmitting Discovery...";
-        setTimeout(() => {
-            btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981";
-            document.getElementById('status').innerText = "[SUCCESS] Discovery data received. Our team will contact you shortly.";
-        }, 1800);
-    }
+    function sendData() { const btn = document.getElementById('send-btn'); btn.innerText = "Transmitting Discovery..."; setTimeout(() => { btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981"; document.getElementById('status').innerText = "[SUCCESS] Discovery received. Our architecture team is reviewing your blueprint."; }, 1800); }
 </script>
 </body>
 </html>
