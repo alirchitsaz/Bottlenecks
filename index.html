@@ -141,14 +141,15 @@
         <div class="cta-card">
             <div class="form-row"><input type="text" id="user-name" placeholder="Full Name"><input type="text" id="user-company" placeholder="Company Name"></div>
             <div style="max-width: 700px; margin: 16px auto;"><input type="email" id="user-email" placeholder="Business Email"></div>
+            <div style="display:none;"><input type="text" id="gotcha-field" value=""></div>
             <button class="btn" style="width: 100%; max-width: 700px; margin-top: 16px; justify-content: center;" onclick="submitToFormspree()" id="submit-btn">Unlock My Report <i data-lucide="unlock"></i></button>
-            <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields.</div>
+            <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields correctly.</div>
         </div>
     </div>
 
     <div id="step-5" class="hidden fade-in" style="padding: 80px 0;">
         <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Annual Opportunity Potential</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.6rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p></div>
-        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="downloadReport()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download Blueprint (TXT)</button><p style="margin-top: 32px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">Our Subject Matter Experts have received your data. We will contact you shortly to discuss your custom architecture.</p></div>
+        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="downloadReport()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download Blueprint (TXT)</button><p style="margin-top: 32px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">Your strategy report has been received. Our Subject Matter Experts will contact you shortly to discuss your custom architecture.</p></div>
     </div>
 </div>
 
@@ -181,13 +182,13 @@
                 { id: 'kn-rag', label: 'Intelligent Document Search', desc: 'Find specific facts across thousands of documents instantly.', time: 0.4, unit: 'searches/wk' },
                 { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condensing transcripts or archives into actionable points.', time: 1.5, unit: 'docs/wk' }
             ]},
-            'requests': { label: 'Request & Service Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs for total project visibility.', items: [
+            'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs for total project visibility.', items: [
                 { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Real-time status visibility without manual spreadsheet updates.', time: 0.3, unit: 'orders/wk' },
                 { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assigning tasks to your team based on their capacity.', time: 0.2, unit: 'tasks/wk' }
             ]},
             'support': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with automated intake and 24/7 support rules.', items: [
                 { id: 'sup-faq', label: 'Automated Customer FAQ', desc: 'Answering routine questions using your specific business data.', time: 0.15, unit: 'queries/wk' },
-                { id: 'sup-onboard', label: 'Client Onboarding Ops', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
+                { id: 'sup-onboard', label: 'Client Onboarding Systems', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
             ]},
             'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing reconciliation and administrative paperwork.', items: [
                 { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with incoming revenue billing.', time: 1.0, unit: 'invoices/wk' },
@@ -228,14 +229,40 @@
         };
 
         window.submitToFormspree = function() {
-            const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value;
-            if(!name || !email || !comp) { document.getElementById('form-err').style.display='block'; return; }
-            runAnalysis(); const btn = document.getElementById('submit-btn'); btn.innerText = "Transmitting Blueprint...";
-            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, domains: Array.from(state.domains).join(', ') }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
+            const name = document.getElementById('user-name').value;
+            const email = document.getElementById('user-email').value;
+            const comp = document.getElementById('user-company').value;
+            const gotcha = document.getElementById('gotcha-field').value;
+            
+            if(!name || !email || !comp || gotcha !== "") { document.getElementById('form-err').style.display='block'; return; }
+            
+            runAnalysis();
+            const btn = document.getElementById('submit-btn'); btn.innerText = "Transmitting...";
+            
+            const payload = { 
+                name: name, 
+                _replyto: email, 
+                company: comp, 
+                potential_amt: state.results.amt, 
+                hours_reclaimed: state.results.hours, 
+                focus_areas: Array.from(state.domains).join(', '),
+                _subject: `New Lead: ${name} (${comp})`
+            };
+
+            fetch('https://formspree.io/f/mgooqqjg', { 
+                method: 'POST', 
+                body: JSON.stringify(payload), 
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
+            }).then(response => {
+                if (response.ok) { setStep(5); }
+                else { document.getElementById('form-err').innerText = "Submission error. Please try again."; document.getElementById('form-err').style.display='block'; }
+            }).catch(() => {
+                document.getElementById('form-err').innerText = "Network error. Please try again."; document.getElementById('form-err').style.display='block';
+            });
         };
 
         window.downloadReport = function() {
-            let content = `MAGICFOLDER BLUEPRINT\nClient: ${document.getElementById('user-name').value}\n\nOPPORTUNITY\nAnnual Value: ${state.results.amt}\nAnnual Capacity: ${state.results.hours} Hours\n\nSTRATEGIC FOCUS:\n`;
+            let content = `MAGICFOLDER BLUEPRINT\nClient: ${document.getElementById('user-name').value}\nCompany: ${document.getElementById('user-company').value}\n\nREVENUE OPPORTUNITY\nAnnual Value: ${state.results.amt}\nAnnual Capacity: ${state.results.hours} Hours\n\nSTRATEGIC FOCUS:\n`;
             state.domains.forEach(d => content += `- ${DATA[d].label}\n`);
             const blob = new Blob([content], { type: 'text/plain' });
             const url = window.URL.createObjectURL(blob);
