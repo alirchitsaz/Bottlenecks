@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MagicFolder | Professional Workflow & Document Architecture</title>
     
+    <title>MagicFolder | So smart it feels like magic.</title>
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
+
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -19,7 +22,6 @@
             --text-muted: #64748b;
             --border: #e2e8f0;
             --success: #10b981;
-            --shadow-sm: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
             --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
         }
 
@@ -30,85 +32,40 @@
 
         /* --- NAVIGATION --- */
         nav { padding: 32px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        
-        .logo { 
-            display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; 
-            text-decoration: none; color: var(--text-dark); cursor: pointer;
-        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; text-decoration: none; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
 
         /* --- HERO & INTERACTIVE SLIDESHOW --- */
         .hero { padding: 100px 0 60px; text-align: center; min-height: 550px; position: relative; }
-        .headline-container { 
-            min-height: 200px; display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; margin-bottom: 20px; cursor: pointer;
-        }
-        
-        .hero h1 { 
-            font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; line-height: 1.05; 
-            letter-spacing: -0.05em; transition: opacity 0.6s ease; margin-bottom: 20px;
-        }
-        
-        .hero .sub-hero { 
-            max-width: 700px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); 
-            transition: opacity 0.6s ease; min-height: 3.5em;
-        }
+        .headline-container { min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; }
+        .hero h1 { font-size: clamp(2.8rem, 9vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.05em; transition: opacity 0.6s ease; margin-bottom: 20px; }
+        .hero .sub-hero { max-width: 700px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.6s ease; min-height: 3.5em; }
 
         /* PROGRESS SELECTORS */
         .dot-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 48px; }
-        .dot-wrapper { width: 45px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
-        .dot-progress { 
-            position: absolute; top: 0; left: 0; height: 100%; width: 0%; 
-            background: var(--primary); transition: width 0.1s linear; 
-        }
+        .dot-wrapper { width: 50px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
+        .dot-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); transition: width 0.1s linear; }
         .dot-wrapper.active .dot-progress { width: 100%; }
         .dot-wrapper.completed .dot-progress { width: 100%; }
 
         /* SIDE ARROWS */
-        .nav-arrow {
-            position: absolute; top: 40%; transform: translateY(-50%);
-            padding: 20px; color: var(--text-muted); cursor: pointer;
-            opacity: 0; transition: 0.3s; z-index: 10;
-        }
+        .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; }
         .hero:hover .nav-arrow { opacity: 0.5; }
         .nav-arrow:hover { opacity: 1 !important; color: var(--primary); }
         .arrow-left { left: -40px; }
         .arrow-right { right: -40px; }
 
-        /* --- PHASE 01: THE GRID FIX --- */
+        /* --- PHASE 01: GRID --- */
         .grid-container { padding-top: 80px; max-width: 1100px; margin: 0 auto; }
         .section-title-area { text-align: center; margin-bottom: 60px; }
-        
-        .domain-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 24px; 
-            justify-content: center;
-        }
-        
-        .card { 
-            background: var(--surface); 
-            border: 1px solid var(--border); 
-            padding: 48px 40px; 
-            border-radius: 32px; 
-            cursor: pointer; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-            text-align: left; 
-            position: relative;
-        }
-        
+        .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-content: center; }
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 48px 40px; border-radius: 32px; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative; }
         .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
-        
         .card i { color: var(--primary); margin-bottom: 28px; }
         .card h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.02em; }
-        .card p { color: var(--text-muted); font-size: 1rem; }
-        
-        .check-pill { 
-            position: absolute; top: 24px; right: 24px; width: 28px; height: 28px; 
-            border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s;
-        }
+        .check-pill { position: absolute; top: 24px; right: 24px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
 
         /* --- STEPPER --- */
@@ -116,27 +73,20 @@
         .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .audit-item { 
-            display: flex; gap: 24px; padding: 28px; background: var(--surface); border: 2px solid transparent; 
-            border-radius: 24px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; align-items: center;
-        }
-        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-sm); }
+        .audit-item { display: flex; gap: 24px; padding: 28px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; align-items: center; }
+        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
         .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
         .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
         /* --- RESULTS & FORM --- */
         .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 48px; text-align: center; margin-top: 40px; }
         .big-save { font-size: clamp(4rem, 12vw, 7.5rem); color: #818cf8; font-weight: 800; margin: 15px 0; letter-spacing: -4px; line-height: 1; }
-        
         .cta-card { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 40px auto 0; }
         input { padding: 20px; border-radius: 16px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
         
-        .btn { 
-            background: var(--primary); color: white; padding: 20px 48px; border-radius: 100px; 
-            font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s;
-        }
+        .btn { background: var(--primary); color: white; padding: 20px 48px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s; }
         .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-glow); }
 
         /* --- ECOSYSTEM --- */
@@ -145,21 +95,8 @@
         .eco-grid { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1); }
         .eco-grid span { font-weight: 800; font-size: 1.1rem; color: var(--text-dark); letter-spacing: -0.5px; }
 
-        /* --- FOOTER --- */
         footer { padding: 100px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
-        .footer-brand h4 { font-weight: 800; font-size: 1.4rem; margin-bottom: 16px; }
-        .footer-brand p { color: var(--text-muted); font-size: 1rem; max-width: 350px; }
-        .footer-links h5 { font-weight: 700; margin-bottom: 24px; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1.5px; }
-        .footer-links div { color: var(--text-dark); font-size: 0.95rem; margin-bottom: 12px; font-weight: 600; }
-        .footer-bottom { border-top: 1px solid var(--border); margin-top: 80px; padding-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
-        
-        @media (max-width: 768px) { 
-            .footer-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-            .footer-brand p { margin: 0 auto; }
-            .row { grid-template-columns: 1fr; }
-            .nav-arrow { display: none; }
-        }
     </style>
 </head>
 <body>
@@ -174,36 +111,25 @@
             </svg>
             MagicFolder
         </div>
-        <div class="mono" style="color: var(--text-muted); font-weight: 600; font-size: 0.8rem;">Operational Architecture</div>
+        <div class="mono" style="color: var(--text-muted); font-weight: 600; font-size: 0.8rem;">Workflow Intelligence</div>
     </div>
 </nav>
 
 <div class="container">
-
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 700;">Engineered for Performance</div>
-        
+        <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 700;">Engineered for Growth</div>
         <div class="nav-arrow arrow-left" onclick="prevSlide()"><i data-lucide="chevron-left" size="48"></i></div>
         <div class="nav-arrow arrow-right" onclick="nextSlide()"><i data-lucide="chevron-right" size="48"></i></div>
-
         <div class="headline-container" onclick="nextSlide()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
-            <h1 id="slideshow-title">Expand your business,<br>not your busy work.</h1>
+            <h1 id="slideshow-title">So smart,<br>it feels like magic.</h1>
             <p id="slideshow-sub" class="sub-hero">We architect intelligent workflows that scale your operations without increasing your overhead.</p>
         </div>
-        
         <div class="dot-container" id="dot-container"></div>
-        
-        <button class="btn" onclick="setStep(1)">Start Discovery <i data-lucide="sparkle"></i></button>
-
+        <button class="btn" onclick="setStep(1)">Start Your Discovery <i data-lucide="sparkle"></i></button>
         <div class="eco-bar">
-            <span class="eco-label">Built on the World's Most Powerful Ecosystems</span>
+            <span class="eco-label">Integrated with the World's Most Powerful AI Ecosystems</span>
             <div class="eco-grid">
-                <span>OpenAI</span>
-                <span>Anthropic</span>
-                <span>Google Cloud</span>
-                <span>Microsoft Azure</span>
-                <span>ServiceNow</span>
-                <span>Make.com</span>
+                <span>OpenAI</span><span>Anthropic</span><span>Google Cloud</span><span>Microsoft Azure</span><span>ServiceNow</span><span>Make.com</span>
             </div>
         </div>
     </div>
@@ -211,132 +137,76 @@
     <div id="step-1" class="hidden fade-in grid-container">
         <div class="section-title-area">
             <div class="mono" style="color: var(--text-muted); margin-bottom: 12px;">Phase 01</div>
-            <h2>Define the Opportunity</h2>
+            <h2>Identify the Opportunity</h2>
             <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Select every operational area where manual tasks are limiting your capacity to grow.</p>
         </div>
         <div class="domain-grid" id="domain-grid"></div>
-        <div style="text-align: center; margin-top: 60px;">
-            <button class="btn" onclick="validateStep1()">Map My Friction Points <i data-lucide="map"></i></button>
-            <div id="err-1" style="color:#ef4444; margin-top:16px; display:none; font-weight: 600;">At least one domain must be initialized.</div>
-        </div>
+        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="validateStep1()">Map My Friction Points <i data-lucide="map"></i></button><div id="err-1" style="color:#ef4444; margin-top:16px; display:none; font-weight: 600;">Selection required to begin.</div></div>
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
         <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 02: Structural Mapping</div>
-        <h2 id="s2-title">Identify the Bottlenecks</h2>
+        <h2 id="s2-title">Pinpoint the Bottlenecks</h2>
         <div id="task-list" style="margin-top: 40px;"></div>
-        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
-            <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Quantify Impact <i data-lucide="activity"></i></button>
-        </div>
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button><button class="btn" onclick="validateStep2()">Quantify the Impact <i data-lucide="activity"></i></button></div>
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 03: Scale & Frequency</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 03: Operational Density</div>
         <h2>Measure the Friction</h2>
         <div id="slider-box" style="margin-top: 40px;"></div>
         <div style="background: var(--surface); padding: 48px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;">
-            <div style="display:flex; justify-content:space-between; font-weight:700;">
-                <span class="mono">Resource Hourly Value (USD)</span>
-                <span style="color: var(--primary);">$<span id="rate-disp">150</span></span>
-            </div>
+            <div style="display:flex; justify-content:space-between; font-weight:700;"><span class="mono">Resource Hourly Value (USD)</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value">
         </div>
-        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
-            <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="runAnalysis()">Run Impact Analysis <i data-lucide="zap"></i></button>
-        </div>
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button><button class="btn" onclick="runAnalysis()">Finalize Discovery <i data-lucide="zap"></i></button></div>
     </div>
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
-        <div class="results-hero">
-            <p class="mono" style="opacity: 0.6; letter-spacing: 3px; font-weight: 700;">Potential Annual Reclaimable Value</p>
-            <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.5rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
-        </div>
-
-        <div class="cta-card">
-            <h2>Receive Your Operational Blueprint</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">Our team will review your discovery data and provide a professional implementation guide for your business.</p>
-            <div class="row">
-                <input type="text" id="name" placeholder="Full Name">
-                <input type="email" id="email" placeholder="Work Email">
-            </div>
-            <button class="btn" style="width: 100%; max-width: 650px; margin-top: 20px; justify-content: center;" onclick="sendData()" id="send-btn">Get the Blueprint <i data-lucide="file-text"></i></button>
-            <div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div>
-        </div>
+        <div class="results-hero"><p class="mono" style="opacity: 0.6; letter-spacing: 3px; font-weight: 700;">Potential Annual Capacity Gained</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.5rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p></div>
+        <div class="cta-card"><h2>Request Your Implementation Blueprint</h2><p style="color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">Our team will review your data and provide a professional implementation guide for your business.</p><div class="row"><input type="text" id="name" placeholder="Full Name"><input type="email" id="email" placeholder="Work Email"></div><button class="btn" style="width: 100%; max-width: 650px; margin-top: 20px; justify-content: center;" onclick="sendData()" id="send-btn">Get the Blueprint <i data-lucide="file-text"></i></button><div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div></div>
     </div>
-
 </div>
 
 <footer>
     <div class="footer-inner">
-        <div class="footer-brand">
-            <h4>MagicFolder</h4>
-            <p>Professional workflow architecture for growing firms and established service businesses.</p>
-        </div>
-        <div class="footer-links">
-            <h5>Intelligence Suites</h5>
-            <div>Magic Folder Logistics</div>
-            <div>Knowledge RAG</div>
-            <div>Request Management</div>
-        </div>
-        <div class="footer-links">
-            <h5>Ecosystem Partners</h5>
-            <div>OpenAI</div>
-            <div>Anthropic</div>
-            <div>Google Cloud</div>
-        </div>
+        <div class="footer-brand"><h4>MagicFolder</h4><p>Enterprise-grade workflow architecture for mid-market service businesses and firms.</p></div>
+        <div class="footer-links"><h5>Expertise</h5><div>Data Logistics</div><div>Knowledge Intelligence</div><div>Request Hubs</div></div>
+        <div class="footer-links"><h5>Infrastructure</h5><div>OpenAI</div><div>Anthropic</div><div>Google Cloud</div></div>
     </div>
-    <div class="footer-bottom">
-        &copy; 2026 MagicFolder AI. Professional Operational Architecture.
-    </div>
+    <div class="footer-bottom">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div>
 </footer>
 
 <script>
-    // --- SLIDESHOW LOGIC ---
     const slides = [
-        { title: "Expand your business,<br>not your busy work.", sub: "We architect intelligent workflows that scale your operations without increasing your overhead." },
-        { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
-        { title: "Knowledge intelligence<br>at your fingertips.", sub: "Chat with your business history. Find specific clauses or insights across thousands of documents instantly." },
-        { title: "Total visibility, zero<br>manual updates.", sub: "Track job status and order logistics in real-time, keeping clients informed without lifting a finger." },
-        { title: "Scale your capacity,<br>not your chaos.", sub: "Move from manual firefighting to automated precision with enterprise-standard workflow logic." }
+        { title: "So smart,<br>it feels like magic.", sub: "We architect intelligent workflows that scale your operations without increasing your overhead." },
+        { title: "Chaos in.<br>Intelligence out.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
+        { title: "Architecture for<br>the ambitious.", sub: "Chat with your business history. Find specific clauses or insights across thousands of documents instantly." },
+        { title: "Business at the<br>speed of thought.", sub: "Track job status and order logistics in real-time, keeping clients informed without lifting a finger." },
+        { title: "Engineering the end<br>of busy work.", sub: "Move from manual firefighting to automated precision with enterprise-standard workflow logic." }
     ];
 
-    let slideIndex = 0;
-    let progress = 0;
-    let isPaused = false;
-    const DURATION = 8500;
-    const INTERVAL = 100;
+    let slideIndex = 0; let progress = 0; let isPaused = false;
+    const DURATION = 9000; const INTERVAL = 100;
     const titleEl = document.getElementById('slideshow-title');
     const subEl = document.getElementById('slideshow-sub');
     const dotContainer = document.getElementById('dot-container');
 
     function initSlideshow() {
-        dotContainer.innerHTML = slides.map((_, i) => `
-            <div class="dot-wrapper" onclick="goToSlide(${i})">
-                <div class="dot-progress"></div>
-            </div>
-        `).join('');
-        startLogic();
-    }
-
-    function startLogic() {
+        dotContainer.innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
         setInterval(() => {
             if (isPaused) return;
             progress += (INTERVAL / DURATION) * 100;
-            if (progress >= 100) nextSlide();
-            else updateProgressUI();
+            if (progress >= 100) nextSlide(); else updateProgressUI();
         }, INTERVAL);
     }
 
     function updateProgressUI() {
-        const wrappers = document.querySelectorAll('.dot-wrapper');
-        wrappers.forEach((w, i) => {
+        document.querySelectorAll('.dot-wrapper').forEach((w, i) => {
             const bar = w.querySelector('.dot-progress');
-            if (i < slideIndex) { bar.style.width = '100%'; w.classList.add('completed'); w.classList.remove('active'); }
-            else if (i === slideIndex) { bar.style.width = progress + '%'; w.classList.add('active'); w.classList.remove('completed'); }
-            else { bar.style.width = '0%'; w.classList.remove('active', 'completed'); }
+            if (i < slideIndex) { bar.style.width = '100%'; w.className = 'dot-wrapper completed'; }
+            else if (i === slideIndex) { bar.style.width = progress + '%'; w.className = 'dot-wrapper active'; }
+            else { bar.style.width = '0%'; w.className = 'dot-wrapper'; }
         });
     }
 
@@ -347,17 +217,14 @@
     function updateContent() {
         titleEl.style.opacity = 0; subEl.style.opacity = 0;
         setTimeout(() => {
-            titleEl.innerHTML = slides[slideIndex].title;
-            subEl.innerHTML = slides[slideIndex].sub;
-            titleEl.style.opacity = 1; subEl.style.opacity = 1;
-            updateProgressUI();
+            titleEl.innerHTML = slides[slideIndex].title; subEl.innerHTML = slides[slideIndex].sub;
+            titleEl.style.opacity = 1; subEl.style.opacity = 1; updateProgressUI();
         }, 500);
     }
 
     function pauseCycle() { isPaused = true; }
     function resumeCycle() { isPaused = false; }
 
-    // --- WORKFLOW DATA ---
     const DATA = {
         'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', items: [
             { id: 'invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills into billing systems.', time: 0.25, unit: 'invoices/wk' },
@@ -365,7 +232,7 @@
             { id: 'forms', label: 'Data Extraction', desc: 'Turning manual forms into structured digital records.', time: 0.5, unit: 'forms/wk' }
         ]},
         'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', items: [
-            { id: 'rag-search', label: 'RAG Knowledge Search', desc: 'Finding specific clauses across thousands of documents.', time: 0.4, unit: 'searches/wk' },
+            { id: 'rag-search', label: 'Knowledge Search (RAG)', desc: 'Finding specific clauses across thousands of documents instantly.', time: 0.4, unit: 'searches/wk' },
             { id: 'briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts into actionable points.', time: 1.5, unit: 'docs/wk' }
         ]},
         'requests': { label: 'Request Hub', icon: 'clipboard-list', items: [
@@ -374,14 +241,14 @@
         ]},
         'support': { label: 'Intelligent Support', icon: 'message-square', items: [
             { id: 'faq', label: 'Data-Driven FAQ', desc: 'Answering routine questions using your specific data.', time: 0.15, unit: 'queries/wk' },
-            { id: 'onboarding', label: 'Client Onboarding', desc: 'Automated folder and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
+            { id: 'onboarding', label: 'Client Onboarding Ops', desc: 'Automated folder and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', items: [
             { id: 'billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with client billing.', time: 1.0, unit: 'invoices/wk' },
-            { id: 'chase', label: 'Document Chase', desc: 'Emailing clients for missing tax forms.', time: 0.5, unit: 'requests/wk' }
+            { id: 'chase', label: 'Document Chase', desc: 'Emailing clients for missing tax forms or data.', time: 0.5, unit: 'requests/wk' }
         ]},
         'logistics': { label: 'Operational Logistics', icon: 'truck', items: [
-            { id: 'notif', label: 'Automated Notifications', desc: 'Keeping clients informed on status changes.', time: 0.1, unit: 'alerts/wk' },
+            { id: 'notif', label: 'Automated Notifications', desc: 'Keeping clients informed without typing emails.', time: 0.1, unit: 'alerts/wk' },
             { id: 'reconcile', label: 'Record Reconciliation', desc: 'Matching job logs with internal records.', time: 0.1, unit: 'records/wk' }
         ]}
     };
@@ -416,21 +283,16 @@
     function validateStep1() {
         if(state.domains.size === 0) { document.getElementById('err-1').style.display = 'block'; return; }
         document.getElementById('err-1').style.display = 'none';
-        renderTasks();
-        setStep(2);
+        renderTasks(); setStep(2);
     }
 
     function renderTasks() {
         const list = document.getElementById('task-list');
-        let aggregated = [];
-        state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
+        let aggregated = []; state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
         list.innerHTML = aggregated.map(i => `
             <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', this)">
-                <div class="check-box"><i data-lucide="check" size="16" style="color:white;"></i></div>
-                <div style="flex:1;">
-                    <div style="font-weight:700; font-size:1.1rem;">${i.label}</div>
-                    <div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div>
-                </div>
+                <div class="check-box"><i data-lucide="check" size="14" style="color:white;"></i></div>
+                <div style="flex:1;"><div style="font-weight:700; font-size:1.1rem;">${i.label}</div><div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div></div>
             </div>
         `).join('');
         lucide.createIcons();
@@ -441,22 +303,14 @@
         else { state.tasks.add(id); el.classList.add('selected'); }
     }
 
-    function validateStep2() {
-        if(state.tasks.size === 0) return;
-        renderSliders();
-        setStep(3);
-    }
+    function validateStep2() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); }
 
     function renderSliders() {
         const container = document.getElementById('slider-box');
-        let active = [];
-        state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
+        let active = []; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
         container.innerHTML = active.map(i => `
             <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
-                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;">
-                    <span>${i.label} (${i.unit})</span>
-                    <span id="val-${i.id}" style="color: var(--primary);">0</span>
-                </div>
+                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;"><span>${i.label} (${i.unit})</span><span id="val-${i.id}" style="color: var(--primary);">0</span></div>
                 <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);">
             </div>
         `).join('');
@@ -491,12 +345,10 @@
         const btn = document.getElementById('send-btn');
         btn.innerText = "Transmitting Discovery...";
         setTimeout(() => {
-            btn.innerText = "Blueprint Requested";
-            btn.style.background = "#10b981";
-            document.getElementById('status').innerText = "[SUCCESS] Discovery received. Our team will contact you shortly.";
+            btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981";
+            document.getElementById('status').innerText = "[SUCCESS] Discovery data received. Our team will contact you shortly.";
         }, 1800);
     }
 </script>
-
 </body>
 </html>
