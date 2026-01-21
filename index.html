@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MagicFolder | Expert Workflow & Knowledge Partnership</title>
+    <title>MagicFolder | Professional Data & Workflow Logistics</title>
     
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,20 +37,18 @@
         .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 24px; }
         .hero p { max-width: 700px; margin: 0 auto 48px; font-size: 1.25rem; color: var(--text-muted); }
         
-        /* --- THE "FEELS LIKE MAGIC" SECTION --- */
-        .story-section { padding: 80px 0; background: var(--surface); border-radius: 40px; margin-bottom: 80px; text-align: center; }
-        .story-content { max-width: 800px; margin: 0 auto; padding: 0 24px; }
-        .story-content h2 { font-size: 2rem; margin-bottom: 20px; }
-        
-        /* --- SOLUTION GRID --- */
-        .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-top: 40px; }
-        .diag-card { 
-            background: white; border: 1px solid var(--border); padding: 40px; border-radius: 24px; 
+        /* --- PRODUCT SELECTOR (STEP 1) --- */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
+        .product-card { 
+            background: white; border: 1px solid var(--border); padding: 40px; border-radius: 28px; 
             cursor: pointer; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-align: left;
+            position: relative; overflow: hidden;
         }
-        .diag-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .diag-card i { color: var(--primary); margin-bottom: 24px; }
-        .diag-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        .product-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .product-card.featured { border: 2px solid var(--primary); background: var(--primary-soft); }
+        .product-card i { color: var(--primary); margin-bottom: 24px; }
+        .product-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
+        .badge-small { position: absolute; top: 20px; right: 20px; background: var(--primary); color: white; padding: 4px 10px; border-radius: 50px; font-size: 0.65rem; font-weight: 800; }
 
         /* --- STEP STYLES --- */
         .hidden { display: none !important; }
@@ -62,7 +60,7 @@
             border-radius: 20px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center;
         }
         .audit-item.selected { border-color: var(--primary); background: #f5f3ff; }
-        .check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; }
+        .check { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
         .audit-item.selected .check { background: var(--primary); border-color: var(--primary); }
 
         /* --- INPUTS --- */
@@ -89,72 +87,48 @@
 <nav>
     <div class="container nav-inner">
         <a href="#" class="logo"><i data-lucide="sparkle"></i> MagicFolder</a>
-        <div class="mono" style="color: var(--text-muted);">Partner-Led Architecture Collective</div>
+        <div class="mono" style="color: var(--text-muted);">Partner Collective</div>
     </div>
 </nav>
 
 <main class="container">
 
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px;">Professional Workflow & Data Logistics</div>
-        <h1>Expand your business,<br>not your busy work.</h1>
-        <p>We help midsize firms and growing service businesses use modern technology to remove operational friction. We don't just automate tasks—we architect solutions.</p>
-        <button class="btn" onclick="startAudit()">Begin Your Operational Audit <i data-lucide="arrow-right"></i></button>
-    </div>
-
-    <div class="story-section">
-        <div class="story-content">
-            <div class="mono" style="color: var(--primary); margin-bottom: 16px;">Our Namesake Technology</div>
-            <h2>It’s not magic, but it feels like it.</h2>
-            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px;">
-                Our name was inspired by a simple concept: **The Magic Folder.** Imagine a single destination where you drop any PDF, invoice, or client request. Our engine instantly identifies the content, extracts the data, and triggers the next step in your business—automatically. It is the logical core of every partnership we build.
-            </p>
-            <div style="display: flex; justify-content: center; gap: 40px; color: var(--text-dark); font-weight: 700; font-size: 0.9rem;">
-                <span><i data-lucide="scan" style="vertical-align: middle; margin-right: 6px; color: var(--primary);"></i> INGEST</span>
-                <span><i data-lucide="brain" style="vertical-align: middle; margin-right: 6px; color: var(--primary);"></i> IDENTIFY</span>
-                <span><i data-lucide="zap" style="vertical-align: middle; margin-right: 6px; color: var(--primary);"></i> EXECUTE</span>
-            </div>
-        </div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px;">Professional Workflow Optimization</div>
+        <h1>Scale your business,<br>not your manual work.</h1>
+        <p>We provide the architecture and expertise to help growing firms automate the mundane. Choose a starting point to see how we can help.</p>
+        <button class="btn" onclick="startAudit()">Begin Your Discovery Audit <i data-lucide="arrow-right"></i></button>
     </div>
 
     <div id="step-1" class="hidden fade-in">
-        <h2 style="text-align: center; margin-bottom: 40px;">Where do you need the most help?</h2>
-        <div class="diag-grid">
-            <div class="diag-card" onclick="selectArea('legal')">
-                <i data-lucide="scale" size="40"></i>
-                <h3>Legal & Compliance</h3>
-                <p>Knowledge Intelligence (RAG) to find clauses and data in old case files and discovery instantly.</p>
+        <h2 style="text-align: center; margin-bottom: 40px;">Select a Solution Module</h2>
+        <div class="product-grid">
+            <div class="product-card featured" onclick="selectArea('magicfolder')">
+                <div class="badge-small">CORE PRODUCT</div>
+                <i data-lucide="folder-kanban" size="40"></i>
+                <h3>The Magic Folder</h3>
+                <p><strong>Intelligent Data Logistics.</strong> Automatically identify, extract data from, and route documents like invoices, contracts, and receipts.</p>
             </div>
-            <div class="diag-card" onclick="selectArea('realestate')">
-                <i data-lucide="home" size="40"></i>
-                <h3>Real Estate & Property</h3>
-                <p>Automated request hubs for tenants and vendors, and intelligent lease data management.</p>
+            <div class="product-card" onclick="selectArea('knowledge')">
+                <i data-lucide="brain-circuit" size="40"></i>
+                <h3>Knowledge Hub</h3>
+                <p><strong>RAG-Based Intelligence.</strong> Chat with your company's past data. Find clauses and details in thousands of PDFs instantly.</p>
             </div>
-            <div class="diag-card" onclick="selectArea('service')">
-                <i data-lucide="truck" size="40"></i>
-                <h3>Service & Logistics</h3>
-                <p>End-to-end job status tracking and automated client notifications without the manual emails.</p>
+            <div class="product-card" onclick="selectArea('requests')">
+                <i data-lucide="clipboard-list" size="40"></i>
+                <h3>Request Command</h3>
+                <p><strong>Order & Service Tracking.</strong> A centralized hub to manage every client task and job status without losing anything in email.</p>
             </div>
-            <div class="diag-card" onclick="selectArea('finance')">
-                <i data-lucide="landmark" size="40"></i>
-                <h3>Financial Services</h3>
-                <p>Streamlined client onboarding, automated billing, and manual data reconciliation.</p>
-            </div>
-            <div class="diag-card" onclick="selectArea('projects')">
-                <i data-lucide="calendar" size="40"></i>
-                <h3>Project & Team Ops</h3>
-                <p>Intelligent meeting coordination and automated internal status reporting.</p>
-            </div>
-            <div class="diag-card" onclick="selectArea('growth')">
-                <i data-lucide="trending-up" size="40"></i>
-                <h3>Marketing & Growth</h3>
-                <p>Turning internal business knowledge into automated outreach and marketing assets.</p>
+            <div class="product-card" onclick="selectArea('operations')">
+                <i data-lucide="cpu" size="40"></i>
+                <h3>Automated Ops</h3>
+                <p><strong>General Workflow.</strong> Intelligent meeting scheduling, automated customer FAQs, and client onboarding sequences.</p>
             </div>
         </div>
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
-        <h2 id="s2-title" style="margin-bottom: 32px;">Identify the Friction Points</h2>
+        <h2 id="s2-title" style="margin-bottom: 32px;">Identify the Friction</h2>
         <div id="task-list"></div>
         <div style="margin-top: 48px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
@@ -164,7 +138,7 @@
 
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
         <h2>The Frequency Audit</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px;">To architect a solution, we first need to understand the scale of your current manual work.</p>
+        <p style="color: var(--text-muted); margin-bottom: 40px;">To help our partners architect a solution, we need to understand your current volume.</p>
         <div id="slider-box"></div>
         <div class="data-card" style="border-style: dashed;">
             <div style="display:flex; justify-content:space-between; font-weight:700;">
@@ -181,19 +155,19 @@
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
         <div class="results-box">
-            <p class="mono" style="opacity: 0.6; letter-spacing: 2px;">Estimated Annual Reclaimable Opportunity</p>
+            <p class="mono" style="opacity: 0.6; letter-spacing: 2px;">Estimated Annual Value Reclaimed</p>
             <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.25rem; opacity: 0.8;">Equivalent to over <strong id="final-weeks" style="color:white;">0</strong> full work weeks reclaimed.</p>
+            <p style="font-size: 1.25rem; opacity: 0.8;">That represents over <strong id="final-weeks" style="color:white;">0</strong> full work weeks redeployed.</p>
         </div>
 
         <div class="form-area">
-            <h2>Request Your Implementation Blueprint</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 550px; margin-left: auto; margin-right: auto;">Our collective of specialists will review your metrics and provide a professional guide to help you remove these specific friction points.</p>
+            <h2>Request Your Partner Blueprint</h2>
+            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 550px; margin-left: auto; margin-right: auto;">Our collective will review your audit and provide a professional implementation guide tailored to your business.</p>
             <div class="row">
                 <input type="text" id="name" placeholder="Full Name">
                 <input type="email" id="email" placeholder="Work Email">
             </div>
-            <button class="btn" style="width: 100%; max-width: 600px; margin-top: 12px; justify-content: center;" onclick="sendData()" id="send-btn">Send My Blueprint</button>
+            <button class="btn" style="width: 100%; max-width: 600px; margin-top: 12px; justify-content: center;" onclick="sendData()" id="send-btn">Request My Blueprint</button>
             <div id="status" class="mono" style="margin-top: 24px; color: #10b981;"></div>
         </div>
     </div>
@@ -202,34 +176,25 @@
 
 <script>
     const DATA = {
-        'legal': { items: [
-            { id: 'rag', label: 'Case Knowledge (RAG)', desc: 'Instant search through old files and discovery for specific facts.', time: 0.4, unit: 'searches/wk' },
-            { id: 'indexing', label: 'Document Indexing', desc: 'Renaming and filing inbound legal documents manually.', time: 0.1, unit: 'files/wk' },
-            { id: 'summaries', label: 'Briefing & Summaries', desc: 'Summarizing long transcripts or depositions via AI.', time: 1.5, unit: 'docs/wk' }
+        'magicfolder': { label: 'Magic Folder Logistics', items: [
+            { id: 'invoices', label: 'Invoice Processing', desc: 'Automatically extracting data from vendor bills and routing to billing.', time: 0.25, unit: 'invoices/wk' },
+            { id: 'contracts', label: 'Contract Data Entry', desc: 'Identifying key terms in legal docs and syncing to your CRM.', time: 1.0, unit: 'docs/wk' },
+            { id: 'forms', label: 'Form Extraction', desc: 'Turning manual client intake forms into structured data records.', time: 0.5, unit: 'forms/wk' }
         ]},
-        'realestate': { items: [
-            { id: 'requests', label: 'Property Request Hub', desc: 'A central destination for all tenant and vendor coordination.', time: 0.5, unit: 'tickets/wk' },
-            { id: 'leases', label: 'Lease Data Extraction', desc: 'Moving tenant info from contracts to CRM without typing.', time: 1.0, unit: 'leases/wk' },
-            { id: 'status', label: 'Automated Status Updates', desc: 'Keeping owners/buyers updated on escrow stages automatically.', time: 0.2, unit: 'updates/wk' }
+        'knowledge': { label: 'Knowledge Intelligence', items: [
+            { id: 'rag-search', label: 'Document Search (RAG)', desc: 'Finding specific clauses or facts in discovery files instantly.', time: 0.4, unit: 'searches/wk' },
+            { id: 'briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts or depositions via AI.', time: 1.5, unit: 'docs/wk' },
+            { id: 'archive', label: 'Data Retrieval', desc: 'Locating information from years of archived emails or records.', time: 0.2, unit: 'lookups/wk' }
         ]},
-        'service': { items: [
-            { id: 'tracking', label: 'Job & Order Tracking', desc: 'Real-time job status tracking without manual follow-up.', time: 0.3, unit: 'orders/wk' },
-            { id: 'faq', label: 'Automated CS (AI FAQ)', desc: 'Answering routine customer questions about your services instantly.', time: 0.2, unit: 'queries/wk' },
-            { id: 'dispatch', label: 'Scheduling & Dispatch', desc: 'Assigning jobs and coordinating team calendars manually.', time: 0.5, unit: 'jobs/wk' }
+        'requests': { label: 'Request & Hub Ops', items: [
+            { id: 'tracking', label: 'Job/Order Tracking', desc: 'Monitoring job status without manual spreadsheet updates.', time: 0.3, unit: 'orders/wk' },
+            { id: 'notif', label: 'Automated Status Alerts', desc: 'Keeping clients updated on milestones automatically.', time: 0.2, unit: 'alerts/wk' },
+            { id: 'vendor', label: 'Vendor Triage', desc: 'Routing task requests to the right external contractor.', time: 0.5, unit: 'tasks/wk' }
         ]},
-        'finance': { items: [
-            { id: 'onboard', label: 'Client Onboarding', desc: 'Setting up new accounts and collecting forms manually.', time: 1.5, unit: 'clients/wk' },
-            { id: 'billing', label: 'Invoice Reconciliation', desc: 'Matching transaction records to outgoing bills.', time: 1.0, unit: 'invoices/wk' },
-            { id: 'records', label: 'Data Reconciliation', desc: 'Manual matching of records across different software systems.', time: 0.1, unit: 'records/wk' }
-        ]},
-        'projects': { items: [
-            { id: 'schedule', label: 'Meeting Logistics', desc: 'The manual back-and-forth dance to find open calendar spots.', time: 0.2, unit: 'meetings/wk' },
-            { id: 'reports', label: 'Operational Reporting', desc: 'Aggregating data for weekly or monthly status summaries.', time: 2.0, unit: 'reports/mo' },
-            { id: 'internal', label: 'Team Status Syncs', desc: 'Asking "what is the status" on internal tasks via email/chat.', time: 0.1, unit: 'syncs/wk' }
-        ]},
-        'growth': { items: [
-            { id: 'research', label: 'Lead Personalization', desc: 'Tailoring outreach emails based on past data or research.', time: 0.3, unit: 'leads/wk' },
-            { id: 'assets', label: 'Content Repurposing', desc: 'Turning internal knowledge into growth or training assets.', time: 1.0, unit: 'assets/wk' }
+        'operations': { label: 'Operational Automations', items: [
+            { id: 'onboarding', label: 'Client Onboarding', desc: 'Setting up new folders and accounts for customers.', time: 1.5, unit: 'onboards/wk' },
+            { id: 'schedule', label: 'Meeting Logistics', desc: 'The manual dance to find open spots on calendars.', time: 0.2, unit: 'meetings/wk' },
+            { id: 'faq', label: 'Customer FAQ', desc: 'Answering routine client questions about your rules or history.', time: 0.1, unit: 'queries/wk' }
         ]}
     };
 
@@ -295,7 +260,7 @@
         setTimeout(() => {
             btn.innerText = "Blueprint Requested";
             btn.style.background = "#10b981";
-            document.getElementById('status').innerText = "[SUCCESS] Audit received. Our collective will review and provide your Implementation Blueprint.";
+            document.getElementById('status').innerText = "[SUCCESS] Audit received. Our collective will review and provide your Blueprint.";
         }, 1800);
     }
 </script>
