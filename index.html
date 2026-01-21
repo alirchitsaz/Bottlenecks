@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>MagicFolder | Logic, made magic.</title>
+    <title>MagicFolder | Intelligently effortless.</title>
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
 
@@ -78,7 +78,7 @@
         .arrow-left { left: -40px; }
         .arrow-right { right: -40px; }
 
-        /* --- PHASE 01: GRID --- */
+        /* --- PHASE 01: DOMAIN GRID --- */
         .grid-container { padding-top: 80px; max-width: 1100px; margin: 0 auto; }
         .section-title-area { text-align: center; margin-bottom: 60px; }
         
@@ -182,8 +182,8 @@
         <div class="nav-arrow arrow-right" onclick="nextSlide()"><i data-lucide="chevron-right" size="48"></i></div>
 
         <div class="headline-container" onclick="nextSlide()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
-            <h1 id="slideshow-title">Logic, made magic.</h1>
-            <p id="slideshow-sub" class="sub-hero">We architect intelligent workflows that scale your operations without increasing your overhead.</p>
+            <h1 id="slideshow-title">Intelligently<br>effortless.</h1>
+            <p id="slideshow-sub" class="sub-hero">We architect world-class workflows that scale your capacity without increasing your overhead.</p>
         </div>
         
         <div class="dot-container" id="dot-container"></div>
@@ -291,7 +291,7 @@
 <script>
     // --- SLIDESHOW LOGIC ---
     const slides = [
-        { title: "Logic, made magic.", sub: "We architect intelligent workflows that scale your operations without increasing your overhead." },
+        { title: "Intelligently<br>effortless.", sub: "We architect world-class workflows that scale your capacity without increasing your overhead." },
         { title: "Chaos in.<br>Intelligence out.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
         { title: "Architecture for<br>the ambitious.", sub: "Chat with your business history. Find specific clauses or insights across thousands of documents instantly." },
         { title: "Business at the<br>speed of thought.", sub: "Track job status and order logistics in real-time, keeping clients informed without lifting a finger." },
@@ -329,9 +329,9 @@
         const wrappers = document.querySelectorAll('.dot-wrapper');
         wrappers.forEach((w, i) => {
             const bar = w.querySelector('.dot-progress');
-            if (i < slideIndex) { bar.style.width = '100%'; w.classList.add('completed'); w.classList.remove('active'); }
-            else if (i === slideIndex) { bar.style.width = progress + '%'; w.classList.add('active'); w.classList.remove('completed'); }
-            else { bar.style.width = '0%'; w.classList.remove('active', 'completed'); }
+            if (i < slideIndex) { bar.style.width = '100%'; w.className = 'dot-wrapper completed'; }
+            else if (i === slideIndex) { bar.style.width = progress + '%'; w.className = 'dot-wrapper active'; }
+            else { bar.style.width = '0%'; w.className = 'dot-wrapper'; }
         });
     }
 
@@ -369,7 +369,7 @@
         ]},
         'support': { label: 'Intelligent Support', icon: 'message-square', items: [
             { id: 'faq', label: 'Data-Driven FAQ', desc: 'Answering routine questions using your specific data.', time: 0.15, unit: 'queries/wk' },
-            { id: 'onboarding', label: 'Client Onboarding Ops', desc: 'Automated folder and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
+            { id: 'onboarding', label: 'Client Onboarding Ops', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', items: [
             { id: 'billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with client billing.', time: 1.0, unit: 'invoices/wk' },
@@ -411,16 +411,21 @@
     function validateStep1() {
         if(state.domains.size === 0) { document.getElementById('err-1').style.display = 'block'; return; }
         document.getElementById('err-1').style.display = 'none';
-        renderTasks(); setStep(2);
+        renderTasks();
+        setStep(2);
     }
 
     function renderTasks() {
         const list = document.getElementById('task-list');
-        let aggregated = []; state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
+        let aggregated = [];
+        state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
         list.innerHTML = aggregated.map(i => `
             <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', this)">
                 <div class="check-box"><i data-lucide="check" size="14" style="color:white;"></i></div>
-                <div style="flex:1;"><div style="font-weight:700; font-size:1.1rem;">${i.label}</div><div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div></div>
+                <div style="flex:1;">
+                    <div style="font-weight:700; font-size:1.1rem;">${i.label}</div>
+                    <div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div>
+                </div>
             </div>
         `).join('');
         lucide.createIcons();
@@ -431,14 +436,22 @@
         else { state.tasks.add(id); el.classList.add('selected'); }
     }
 
-    function validateStep2() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); }
+    function validateStep2() {
+        if(state.tasks.size === 0) return;
+        renderSliders();
+        setStep(3);
+    }
 
     function renderSliders() {
         const container = document.getElementById('slider-box');
-        let active = []; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
+        let active = [];
+        state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
         container.innerHTML = active.map(i => `
             <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
-                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;"><span>${i.label} (${i.unit})</span><span id="val-${i.id}" style="color: var(--primary);">0</span></div>
+                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;">
+                    <span>${i.label} (${i.unit})</span>
+                    <span id="val-${i.id}" style="color: var(--primary);">0</span>
+                </div>
                 <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);">
             </div>
         `).join('');
@@ -473,10 +486,12 @@
         const btn = document.getElementById('send-btn');
         btn.innerText = "Transmitting Discovery...";
         setTimeout(() => {
-            btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981";
-            document.getElementById('status').innerText = "[SUCCESS] Discovery received. Our team will review and provide your blueprint.";
+            btn.innerText = "Blueprint Requested";
+            btn.style.background = "#10b981";
+            document.getElementById('status').innerText = "[SUCCESS] Discovery received. Our team will contact you shortly.";
         }, 1800);
     }
 </script>
+
 </body>
 </html>
