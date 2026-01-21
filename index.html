@@ -12,23 +12,25 @@
     <style>
         :root {
             --primary: #4f46e5;
-            --primary-glow: rgba(79, 70, 229, 0.15);
+            --primary-glow: rgba(79, 70, 229, 0.1);
             --bg: #ffffff;
             --surface: #f8fafc;
             --text-dark: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
             --success: #10b981;
+            --shadow-sm: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; flex: 1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; flex: 1; width: 100%; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
 
         /* --- NAVIGATION --- */
         nav { padding: 32px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
         .logo { 
             display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; 
@@ -37,25 +39,25 @@
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
 
         /* --- HERO & INTERACTIVE SLIDESHOW --- */
-        .hero { padding: 100px 0 60px; text-align: center; min-height: 600px; position: relative; }
+        .hero { padding: 100px 0 60px; text-align: center; min-height: 550px; position: relative; }
         .headline-container { 
-            min-height: 220px; display: flex; flex-direction: column; align-items: center; 
+            min-height: 200px; display: flex; flex-direction: column; align-items: center; 
             justify-content: center; margin-bottom: 20px; cursor: pointer;
         }
         
         .hero h1 { 
-            font-size: clamp(2.5rem, 8vw, 4.25rem); font-weight: 800; line-height: 1.1; 
-            letter-spacing: -0.04em; transition: opacity 0.5s ease; margin-bottom: 20px;
+            font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; line-height: 1.05; 
+            letter-spacing: -0.05em; transition: opacity 0.6s ease; margin-bottom: 20px;
         }
         
         .hero .sub-hero { 
-            max-width: 650px; margin: 0 auto; font-size: 1.25rem; color: var(--text-muted); 
-            transition: opacity 0.5s ease; min-height: 3.5em;
+            max-width: 700px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); 
+            transition: opacity 0.6s ease; min-height: 3.5em;
         }
 
         /* PROGRESS SELECTORS */
-        .dot-container { display: flex; justify-content: center; gap: 16px; margin-bottom: 48px; }
-        .dot-wrapper { width: 60px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
+        .dot-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 48px; }
+        .dot-wrapper { width: 45px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
         .dot-progress { 
             position: absolute; top: 0; left: 0; height: 100%; width: 0%; 
             background: var(--primary); transition: width 0.1s linear; 
@@ -65,7 +67,7 @@
 
         /* SIDE ARROWS */
         .nav-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
+            position: absolute; top: 40%; transform: translateY(-50%);
             padding: 20px; color: var(--text-muted); cursor: pointer;
             opacity: 0; transition: 0.3s; z-index: 10;
         }
@@ -74,22 +76,34 @@
         .arrow-left { left: -40px; }
         .arrow-right { right: -40px; }
 
-        /* --- ECOSYSTEM TRUST BAR (HERO ONLY) --- */
-        .eco-bar { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-top: 40px; }
-        .eco-label { font-weight: 700; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; display: block; }
-        .eco-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1); }
-        .eco-grid span { font-weight: 800; font-size: 1rem; color: var(--text-dark); }
-
-        /* --- SELECTION CARDS --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px; margin-top: 40px; }
-        .card { 
-            background: var(--surface); border: 2px solid transparent; padding: 44px; border-radius: 36px; 
-            cursor: pointer; transition: 0.3s; text-align: left; position: relative;
+        /* --- PHASE 01: THE GRID FIX --- */
+        .grid-container { padding-top: 80px; max-width: 1100px; margin: 0 auto; }
+        .section-title-area { text-align: center; margin-bottom: 60px; }
+        
+        .domain-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 24px; 
+            justify-content: center;
         }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); border-color: var(--border); }
-        .card.selected { border-color: var(--primary); background: #fff; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); }
-        .card i { color: var(--primary); margin-bottom: 24px; }
-        .card h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 700; }
+        
+        .card { 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            padding: 48px 40px; 
+            border-radius: 32px; 
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            text-align: left; 
+            position: relative;
+        }
+        
+        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
+        .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
+        
+        .card i { color: var(--primary); margin-bottom: 28px; }
+        .card h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.02em; }
+        .card p { color: var(--text-muted); font-size: 1rem; }
         
         .check-pill { 
             position: absolute; top: 24px; right: 24px; width: 28px; height: 28px; 
@@ -99,38 +113,53 @@
 
         /* --- STEPPER --- */
         .hidden { display: none !important; }
-        .fade-in { animation: fadeInUp 0.5s ease forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .audit-item { 
-            display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; 
-            border-radius: 20px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center;
+            display: flex; gap: 24px; padding: 28px; background: var(--surface); border: 2px solid transparent; 
+            border-radius: 24px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; align-items: center;
         }
-        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
-        .check-box { width: 20px; height: 20px; border-radius: 4px; border: 2px solid var(--border); display: grid; place-items: center; }
+        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-sm); }
+        .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
         .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
         /* --- RESULTS & FORM --- */
-        .results-hero { background: #0f172a; color: white; padding: 80px; border-radius: 40px; text-align: center; margin-top: 40px; }
-        .big-save { font-size: clamp(3.5rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 10px 0; letter-spacing: -2px; }
-        .cta-card { background: var(--surface); padding: 60px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 80px; }
-        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 600px; margin: 32px auto 0; }
-        input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; }
+        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 48px; text-align: center; margin-top: 40px; }
+        .big-save { font-size: clamp(4rem, 12vw, 7.5rem); color: #818cf8; font-weight: 800; margin: 15px 0; letter-spacing: -4px; line-height: 1; }
+        
+        .cta-card { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 40px auto 0; }
+        input { padding: 20px; border-radius: 16px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
         
         .btn { 
-            background: var(--primary); color: white; padding: 18px 44px; border-radius: 50px; 
-            font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.2s;
+            background: var(--primary); color: white; padding: 20px 48px; border-radius: 100px; 
+            font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s;
         }
-        .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 15px rgba(79, 70, 229, 0.2); }
+        .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-glow); }
+
+        /* --- ECOSYSTEM --- */
+        .eco-bar { padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-top: 60px; }
+        .eco-label { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 32px; display: block; }
+        .eco-grid { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1); }
+        .eco-grid span { font-weight: 800; font-size: 1.1rem; color: var(--text-dark); letter-spacing: -0.5px; }
 
         /* --- FOOTER --- */
-        footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 100px; }
-        .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
-        .footer-brand h4 { font-weight: 800; font-size: 1.2rem; margin-bottom: 12px; }
-        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; max-width: 300px; }
-        .footer-links h5 { font-weight: 700; margin-bottom: 16px; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
-        .footer-links div { color: var(--text-dark); font-size: 0.9rem; margin-bottom: 8px; font-weight: 600; }
-        .footer-bottom { border-top: 1px solid var(--border); margin-top: 60px; padding-top: 30px; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
+        footer { padding: 100px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
+        .footer-brand h4 { font-weight: 800; font-size: 1.4rem; margin-bottom: 16px; }
+        .footer-brand p { color: var(--text-muted); font-size: 1rem; max-width: 350px; }
+        .footer-links h5 { font-weight: 700; margin-bottom: 24px; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1.5px; }
+        .footer-links div { color: var(--text-dark); font-size: 0.95rem; margin-bottom: 12px; font-weight: 600; }
+        .footer-bottom { border-top: 1px solid var(--border); margin-top: 80px; padding-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+        
+        @media (max-width: 768px) { 
+            .footer-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .footer-brand p { margin: 0 auto; }
+            .row { grid-template-columns: 1fr; }
+            .nav-arrow { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -145,14 +174,14 @@
             </svg>
             MagicFolder
         </div>
-        <div class="mono" style="color: var(--text-muted); font-weight: 600;">Operational Intelligence</div>
+        <div class="mono" style="color: var(--text-muted); font-weight: 600; font-size: 0.8rem;">Operational Architecture</div>
     </div>
 </nav>
 
 <div class="container">
 
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 700;">Engineered for Growth</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 700;">Engineered for Performance</div>
         
         <div class="nav-arrow arrow-left" onclick="prevSlide()"><i data-lucide="chevron-left" size="48"></i></div>
         <div class="nav-arrow arrow-right" onclick="nextSlide()"><i data-lucide="chevron-right" size="48"></i></div>
@@ -167,52 +196,53 @@
         <button class="btn" onclick="setStep(1)">Start Discovery <i data-lucide="sparkle"></i></button>
 
         <div class="eco-bar">
-            <span class="eco-label">Architected with the World's Most Powerful Ecosystems</span>
+            <span class="eco-label">Built on the World's Most Powerful Ecosystems</span>
             <div class="eco-grid">
                 <span>OpenAI</span>
                 <span>Anthropic</span>
                 <span>Google Cloud</span>
+                <span>Microsoft Azure</span>
                 <span>ServiceNow</span>
                 <span>Make.com</span>
             </div>
         </div>
     </div>
 
-    <div id="step-1" class="hidden fade-in" style="padding-top: 60px;">
-        <div style="text-align: center;">
+    <div id="step-1" class="hidden fade-in grid-container">
+        <div class="section-title-area">
             <div class="mono" style="color: var(--text-muted); margin-bottom: 12px;">Phase 01</div>
-            <h2>What part of the business needs help?</h2>
-            <p style="color: var(--text-muted);">Select all areas where manual tasks are currently limiting your capacity.</p>
+            <h2>Define the Opportunity</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Select every operational area where manual tasks are limiting your capacity to grow.</p>
         </div>
-        <div class="grid" id="domain-grid"></div>
-        <div style="text-align: center; margin-top: 40px;">
-            <button class="btn" onclick="validateStep1()">Map My Opportunity <i data-lucide="map"></i></button>
-            <div id="err-1" style="color:#ef4444; margin-top:16px; display:none; font-weight: 600;">Please select at least one area.</div>
+        <div class="domain-grid" id="domain-grid"></div>
+        <div style="text-align: center; margin-top: 60px;">
+            <button class="btn" onclick="validateStep1()">Map My Friction Points <i data-lucide="map"></i></button>
+            <div id="err-1" style="color:#ef4444; margin-top:16px; display:none; font-weight: 600;">At least one domain must be initialized.</div>
         </div>
     </div>
 
-    <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 02: Opportunity Mapping</div>
+    <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 02: Structural Mapping</div>
         <h2 id="s2-title">Identify the Bottlenecks</h2>
-        <div id="task-list" style="margin-top: 32px;"></div>
-        <div style="margin-top: 48px; display: flex; justify-content: space-between;">
+        <div id="task-list" style="margin-top: 40px;"></div>
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
             <button class="btn" onclick="validateStep2()">Quantify Impact <i data-lucide="activity"></i></button>
         </div>
     </div>
 
-    <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
+    <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
         <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 03: Scale & Frequency</div>
         <h2>Measure the Friction</h2>
         <div id="slider-box" style="margin-top: 40px;"></div>
-        <div style="background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;">
+        <div style="background: var(--surface); padding: 48px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;">
             <div style="display:flex; justify-content:space-between; font-weight:700;">
                 <span class="mono">Resource Hourly Value (USD)</span>
                 <span style="color: var(--primary);">$<span id="rate-disp">150</span></span>
             </div>
             <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value">
         </div>
-        <div style="margin-top: 48px; display: flex; justify-content: space-between;">
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
             <button class="btn" onclick="runAnalysis()">Run Impact Analysis <i data-lucide="zap"></i></button>
         </div>
@@ -220,19 +250,19 @@
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
         <div class="results-hero">
-            <p class="mono" style="opacity: 0.6; letter-spacing: 2px;">Potential Annual Reclaimable Value</p>
+            <p class="mono" style="opacity: 0.6; letter-spacing: 3px; font-weight: 700;">Potential Annual Reclaimable Value</p>
             <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.25rem; opacity: 0.8;">Equivalent to over <strong id="final-weeks" style="color:white;">0</strong> full work weeks reclaimed.</p>
+            <p style="font-size: 1.5rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
         </div>
 
         <div class="cta-card">
             <h2>Receive Your Operational Blueprint</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 550px; margin-left: auto; margin-right: auto;">Our architects will review your discovery data and provide a professional implementation guide for your business.</p>
+            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">Our team will review your discovery data and provide a professional implementation guide for your business.</p>
             <div class="row">
                 <input type="text" id="name" placeholder="Full Name">
                 <input type="email" id="email" placeholder="Work Email">
             </div>
-            <button class="btn" style="width: 100%; max-width: 600px; margin-top: 12px; justify-content: center;" onclick="sendData()" id="send-btn">Request My Blueprint</button>
+            <button class="btn" style="width: 100%; max-width: 650px; margin-top: 20px; justify-content: center;" onclick="sendData()" id="send-btn">Get the Blueprint <i data-lucide="file-text"></i></button>
             <div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div>
         </div>
     </div>
@@ -252,14 +282,14 @@
             <div>Request Management</div>
         </div>
         <div class="footer-links">
-            <h5>Infrastructure</h5>
+            <h5>Ecosystem Partners</h5>
             <div>OpenAI</div>
             <div>Anthropic</div>
-            <div>ServiceNow</div>
+            <div>Google Cloud</div>
         </div>
     </div>
     <div class="footer-bottom">
-        &copy; 2026 MagicFolder AI. All rights reserved. Professional Workflow Architecture.
+        &copy; 2026 MagicFolder AI. Professional Operational Architecture.
     </div>
 </footer>
 
@@ -276,7 +306,7 @@
     let slideIndex = 0;
     let progress = 0;
     let isPaused = false;
-    const DURATION = 8000;
+    const DURATION = 8500;
     const INTERVAL = 100;
     const titleEl = document.getElementById('slideshow-title');
     const subEl = document.getElementById('slideshow-sub');
@@ -348,11 +378,11 @@
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', items: [
             { id: 'billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with client billing.', time: 1.0, unit: 'invoices/wk' },
-            { id: 'chase', label: 'Document Chase', desc: 'Emailing clients for missing signatures or tax forms.', time: 0.5, unit: 'requests/wk' }
+            { id: 'chase', label: 'Document Chase', desc: 'Emailing clients for missing tax forms.', time: 0.5, unit: 'requests/wk' }
         ]},
         'logistics': { label: 'Operational Logistics', icon: 'truck', items: [
-            { id: 'notif', label: 'Automated Notifications', desc: 'Keeping clients informed without typing emails.', time: 0.1, unit: 'alerts/wk' },
-            { id: 'reconcile', label: 'Record Reconciliation', desc: 'Matching job logs with internal digital records.', time: 0.1, unit: 'records/wk' }
+            { id: 'notif', label: 'Automated Notifications', desc: 'Keeping clients informed on status changes.', time: 0.1, unit: 'alerts/wk' },
+            { id: 'reconcile', label: 'Record Reconciliation', desc: 'Matching job logs with internal records.', time: 0.1, unit: 'records/wk' }
         ]}
     };
 
@@ -370,7 +400,7 @@
         grid.innerHTML = Object.keys(DATA).map(key => `
             <div class="card ${state.domains.has(key) ? 'selected' : ''}" onclick="toggleDomain('${key}', this)">
                 <div class="check-pill"><i data-lucide="check" size="14" style="color:white;"></i></div>
-                <i data-lucide="${DATA[key].icon}" size="40"></i>
+                <i data-lucide="${DATA[key].icon}" size="44"></i>
                 <h3>${DATA[key].label}</h3>
                 <p>Architectural solutions for ${DATA[key].label.toLowerCase()} friction.</p>
             </div>
@@ -387,7 +417,7 @@
         if(state.domains.size === 0) { document.getElementById('err-1').style.display = 'block'; return; }
         document.getElementById('err-1').style.display = 'none';
         renderTasks();
-        setStep(1); // Visual step update
+        setStep(2);
     }
 
     function renderTasks() {
@@ -396,10 +426,10 @@
         state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
         list.innerHTML = aggregated.map(i => `
             <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', this)">
-                <div class="check-box"><i data-lucide="check" size="14" style="color:white;"></i></div>
+                <div class="check-box"><i data-lucide="check" size="16" style="color:white;"></i></div>
                 <div style="flex:1;">
                     <div style="font-weight:700; font-size:1.1rem;">${i.label}</div>
-                    <div style="color:var(--text-muted); font-size:0.9rem;">${i.desc}</div>
+                    <div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div>
                 </div>
             </div>
         `).join('');
@@ -423,7 +453,7 @@
         state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
         container.innerHTML = active.map(i => `
             <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
-                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:10px;">
+                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;">
                     <span>${i.label} (${i.unit})</span>
                     <span id="val-${i.id}" style="color: var(--primary);">0</span>
                 </div>
@@ -437,18 +467,8 @@
     function setStep(n) {
         document.getElementById('hero').classList.add('hidden');
         [1,2,3,4].forEach(s => document.getElementById(`step-${s}`).classList.add('hidden'));
-        if(n === 1) document.getElementById('step-1').classList.remove('hidden');
-        else if(n === 2) document.getElementById('step-2').classList.remove('hidden');
-        else document.getElementById(`step-${n}`).classList.remove('hidden');
+        document.getElementById(`step-${n}`).classList.remove('hidden');
         window.scrollTo({top:0, behavior:'smooth'});
-    }
-
-    // Logic to move from Domain to Task
-    function validateStep1() {
-        if(state.domains.size === 0) { document.getElementById('err-1').style.display = 'block'; return; }
-        document.getElementById('err-1').style.display = 'none';
-        renderTasks();
-        setStep(2);
     }
 
     function runAnalysis() {
@@ -463,7 +483,7 @@
             });
         });
         document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString();
-        document.getElementById('final-weeks').innerText = (h / 40).toFixed(1);
+        document.getElementById('final-hours').innerText = Math.round(h).toLocaleString();
         setStep(4);
     }
 
