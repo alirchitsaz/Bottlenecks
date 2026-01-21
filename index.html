@@ -36,27 +36,44 @@
         }
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
 
-        /* --- HERO & SLIDESHOW --- */
-        .hero { padding: 120px 0 80px; text-align: center; min-height: 580px; }
-        .headline-container { min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 32px; }
+        /* --- HERO & INTERACTIVE SLIDESHOW --- */
+        .hero { padding: 100px 0 60px; text-align: center; min-height: 600px; position: relative; }
+        .headline-container { 
+            min-height: 220px; display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; margin-bottom: 20px; cursor: pointer;
+        }
         
         .hero h1 { 
             font-size: clamp(2.5rem, 8vw, 4.25rem); font-weight: 800; line-height: 1.1; 
-            letter-spacing: -0.04em; transition: opacity 0.6s ease; margin-bottom: 16px;
+            letter-spacing: -0.04em; transition: opacity 0.5s ease; margin-bottom: 20px;
         }
         
         .hero .sub-hero { 
             max-width: 650px; margin: 0 auto; font-size: 1.25rem; color: var(--text-muted); 
-            transition: opacity 0.6s ease; min-height: 3.2em;
+            transition: opacity 0.5s ease; min-height: 3.5em;
         }
 
-        /* SLIDESHOW DOTS */
-        .dot-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; }
-        .dot { 
-            width: 10px; height: 10px; border-radius: 50%; background: var(--border); 
-            cursor: pointer; transition: 0.3s;
+        /* PROGRESS SELECTORS */
+        .dot-container { display: flex; justify-content: center; gap: 16px; margin-bottom: 48px; }
+        .dot-wrapper { width: 60px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
+        .dot-progress { 
+            position: absolute; top: 0; left: 0; height: 100%; width: 0%; 
+            background: var(--primary); transition: width 0.1s linear; 
         }
-        .dot.active { background: var(--primary); transform: scale(1.3); }
+        .dot-wrapper.active .dot-progress { width: 100%; }
+        /* When a slide is done, keep it full Indigo */
+        .dot-wrapper.completed .dot-progress { width: 100%; }
+
+        /* SIDE ARROWS */
+        .nav-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            padding: 20px; color: var(--text-muted); cursor: pointer;
+            opacity: 0; transition: 0.3s; z-index: 10;
+        }
+        .hero:hover .nav-arrow { opacity: 0.5; }
+        .nav-arrow:hover { opacity: 1 !important; color: var(--primary); }
+        .arrow-left { left: -40px; }
+        .arrow-right { right: -40px; }
 
         /* --- ECOSYSTEM --- */
         .eco-bar { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-bottom: 80px; }
@@ -72,7 +89,6 @@
         }
         .card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); border-color: var(--border); }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); }
-        
         .card i { color: var(--primary); margin-bottom: 24px; }
         .card h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 700; }
         
@@ -82,7 +98,7 @@
         }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
 
-        /* --- AUDIT/DISCOVERY ITEMS --- */
+        /* --- STEPPER --- */
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.5s ease forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -95,24 +111,18 @@
         .check-box { width: 20px; height: 20px; border-radius: 4px; border: 2px solid var(--border); display: grid; place-items: center; }
         .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
-        /* --- VOLUME --- */
-        .volume-box { background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 24px; }
-        input[type=range] { width: 100%; accent-color: var(--primary); height: 8px; margin-top: 16px; cursor: pointer; }
-        
-        .btn { 
-            background: var(--primary); color: white; padding: 18px 44px; border-radius: 100px; 
-            font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.2s;
-        }
-        .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 15px rgba(79, 70, 229, 0.2); }
-
-        /* --- RESULTS --- */
+        /* --- RESULTS & FORM --- */
         .results-hero { background: #0f172a; color: white; padding: 80px; border-radius: 40px; text-align: center; }
         .big-save { font-size: clamp(3.5rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 10px 0; letter-spacing: -2px; }
-
-        /* --- CONVERSION --- */
         .cta-card { background: var(--surface); padding: 60px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 80px; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 600px; margin: 32px auto 0; }
         input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; }
+        
+        .btn { 
+            background: var(--primary); color: white; padding: 18px 44px; border-radius: 50px; 
+            font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.2s;
+        }
+        .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 15px rgba(79, 70, 229, 0.2); }
     </style>
 </head>
 <body>
@@ -136,7 +146,10 @@
     <div id="hero" class="hero fade-in">
         <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 700;">Engineered for Growth</div>
         
-        <div class="headline-container">
+        <div class="nav-arrow arrow-left" onclick="prevSlide()"><i data-lucide="chevron-left" size="48"></i></div>
+        <div class="nav-arrow arrow-right" onclick="nextSlide()"><i data-lucide="chevron-right" size="48"></i></div>
+
+        <div class="headline-container" onclick="nextSlide()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
             <h1 id="slideshow-title">Expand your business,<br>not your busy work.</h1>
             <p id="slideshow-sub" class="sub-hero">We architect intelligent workflows that scale your operations without increasing your overhead.</p>
         </div>
@@ -186,12 +199,12 @@
         <h2>Measure the Friction</h2>
         <p style="color: var(--text-muted); margin-bottom: 40px;">Estimate your weekly frequency to determine the potential ROI of an architected solution.</p>
         <div id="slider-box"></div>
-        <div class="volume-box" style="border-style: dashed;">
+        <div style="background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;">
             <div style="display:flex; justify-content:space-between; font-weight:700;">
                 <span class="mono">Resource Hourly Value (USD)</span>
                 <span style="color: var(--primary);">$<span id="rate-disp">150</span></span>
             </div>
-            <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value">
+            <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%;">
         </div>
         <div style="margin-top: 48px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
@@ -221,72 +234,96 @@
 </main>
 
 <script>
-    // --- HEADLINE SLIDESHOW DATA ---
+    // --- SLIDESHOW LOGIC ---
     const slides = [
-        {
-            title: "Expand your business,<br>not your busy work.",
-            sub: "We architect intelligent workflows that scale your operations without increasing your overhead."
-        },
-        {
-            title: "Data logistics that<br>feel like magic.",
-            sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms."
-        },
-        {
-            title: "Knowledge intelligence<br>at your fingertips.",
-            sub: "Chat with your business history. Find specific clauses or insights across thousands of documents instantly."
-        },
-        {
-            title: "Total visibility, zero<br>manual updates.",
-            sub: "Track job status and order logistics in real-time, keeping clients informed without lifting a finger."
-        },
-        {
-            title: "Scale your capacity,<br>not your chaos.",
-            sub: "Move from manual firefighting to automated precision with enterprise-standard workflow logic."
-        }
+        { title: "Expand your business,<br>not your busy work.", sub: "We architect intelligent workflows that scale your operations without increasing your overhead." },
+        { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
+        { title: "Knowledge intelligence<br>at your fingertips.", sub: "Chat with your business history. Find specific clauses or insights across thousands of documents instantly." },
+        { title: "Total visibility, zero<br>manual updates.", sub: "Track job status and order logistics in real-time, keeping clients informed without lifting a finger." },
+        { title: "Scale your capacity,<br>not your chaos.", sub: "Move from manual firefighting to automated precision with enterprise-standard workflow logic." }
     ];
 
     let slideIndex = 0;
-    let autoCycle;
+    let progress = 0;
+    let isPaused = false;
+    const DURATION = 8000; // 8 Seconds per slide
+    const INTERVAL = 100; // UI Refresh every 0.1s
     const titleEl = document.getElementById('slideshow-title');
     const subEl = document.getElementById('slideshow-sub');
     const dotContainer = document.getElementById('dot-container');
 
     function initSlideshow() {
         dotContainer.innerHTML = slides.map((_, i) => `
-            <div class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></div>
+            <div class="dot-wrapper" onclick="goToSlide(${i})">
+                <div class="dot-progress"></div>
+            </div>
         `).join('');
-        startAutoCycle();
+        startLogic();
     }
 
-    function goToSlide(index) {
-        clearInterval(autoCycle);
-        slideIndex = index;
-        updateSlideUI();
-        startAutoCycle();
+    function startLogic() {
+        setInterval(() => {
+            if (isPaused) return;
+            progress += (INTERVAL / DURATION) * 100;
+            if (progress >= 100) {
+                nextSlide();
+            } else {
+                updateProgressUI();
+            }
+        }, INTERVAL);
     }
 
-    function updateSlideUI() {
+    function updateProgressUI() {
+        const wrappers = document.querySelectorAll('.dot-wrapper');
+        wrappers.forEach((w, i) => {
+            const bar = w.querySelector('.dot-progress');
+            if (i < slideIndex) {
+                bar.style.width = '100%';
+                w.classList.add('completed');
+                w.classList.remove('active');
+            } else if (i === slideIndex) {
+                bar.style.width = progress + '%';
+                w.classList.add('active');
+                w.classList.remove('completed');
+            } else {
+                bar.style.width = '0%';
+                w.classList.remove('active', 'completed');
+            }
+        });
+    }
+
+    function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        progress = 0;
+        updateContent();
+    }
+
+    function prevSlide() {
+        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+        progress = 0;
+        updateContent();
+    }
+
+    function goToSlide(i) {
+        slideIndex = i;
+        progress = 0;
+        updateContent();
+    }
+
+    function updateContent() {
         titleEl.style.opacity = 0;
         subEl.style.opacity = 0;
-        
         setTimeout(() => {
             titleEl.innerHTML = slides[slideIndex].title;
             subEl.innerHTML = slides[slideIndex].sub;
             titleEl.style.opacity = 1;
             subEl.style.opacity = 1;
-            
-            document.querySelectorAll('.dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === slideIndex);
-            });
-        }, 600);
+            updateProgressUI();
+        }, 500);
     }
 
-    function startAutoCycle() {
-        autoCycle = setInterval(() => {
-            slideIndex = (slideIndex + 1) % slides.length;
-            updateSlideUI();
-        }, 9000); // 9 Seconds
-    }
+    function pauseCycle() { isPaused = true; }
+    function resumeCycle() { isPaused = false; }
 
     // --- WORKFLOW DATA ---
     const DATA = {
@@ -318,12 +355,7 @@
     };
 
     let state = { domains: new Set(), tasks: new Set(), inputs: {} };
-    
-    document.addEventListener('DOMContentLoaded', () => { 
-        lucide.createIcons(); 
-        renderDomains(); 
-        initSlideshow();
-    });
+    document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); renderDomains(); initSlideshow(); });
 
     function goHome() {
         document.getElementById('hero').classList.remove('hidden');
