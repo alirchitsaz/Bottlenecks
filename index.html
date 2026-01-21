@@ -35,7 +35,7 @@
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; text-decoration: none; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
 
-        .hero { padding: 100px 0 60px; text-align: center; min-height: 600px; position: relative; touch-action: pan-y; }
+        .hero { padding: 100px 0 60px; text-align: center; min-height: 550px; position: relative; touch-action: pan-y; }
         .headline-container { min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; user-select: none; }
         .hero h1 { font-size: clamp(2.8rem, 9vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.05em; transition: opacity 0.5s ease; margin-bottom: 20px; }
         .hero .sub-hero { max-width: 750px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.5s ease; min-height: 3.5em; }
@@ -50,17 +50,22 @@
         @media (max-width: 1023px) { .nav-arrow { display: none; } }
         .arrow-left { left: -40px; } .arrow-right { right: -40px; }
 
+        /* INDUSTRY ALIGNMENT BAR */
+        .industry-bar { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; margin-top: 60px; }
+        .industry-label { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; display: block; }
+        .industry-grid { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
+        .industry-tag { background: var(--surface); padding: 8px 20px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; color: var(--text-muted); border: 1px solid var(--border); }
+
+        /* --- PHASE 01 --- */
         .grid-container { padding: 80px 0; max-width: 1100px; margin: 0 auto; }
         .section-title-area { text-align: center; margin-bottom: 60px; }
         .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-content: center; }
-        
         .card { background: var(--surface); border: 1px solid var(--border); padding: 56px 48px; border-radius: 40px; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative; }
         .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
         .card i, .card h3, .card p { pointer-events: none; }
         .card h3 { font-size: 1.6rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.03em; }
         .card p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.4; }
-        
         .check-pill { position: absolute; top: 32px; right: 32px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; pointer-events: none; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
 
@@ -75,7 +80,6 @@
 
         .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 50px; text-align: center; margin-top: 40px; }
         .big-save { font-size: clamp(4.5rem, 12vw, 8rem); color: #818cf8; font-weight: 800; margin: 20px 0; letter-spacing: -5px; line-height: 1; }
-        
         .cta-card { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 40px auto 0; }
         input { padding: 22px; border-radius: 16px; border: 1px solid var(--border); font-size: 1.1rem; width: 100%; outline: none; transition: 0.2s; }
@@ -115,7 +119,7 @@
 
 <div class="container">
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 800; letter-spacing: 3px;">Business Intelligence Architects</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 800; letter-spacing: 3px;">Business Architecture for Professionals</div>
         
         <div class="nav-arrow arrow-left" onclick="prevSlide()"><i data-lucide="chevron-left" size="48"></i></div>
         <div class="nav-arrow arrow-right" onclick="nextSlide()"><i data-lucide="chevron-right" size="48"></i></div>
@@ -128,13 +132,14 @@
         <div class="dot-container" id="dot-container"></div>
         <button class="btn" onclick="setStep(1)">Project Your Potential <i data-lucide="sparkle"></i></button>
 
-        <div style="padding: 80px 0 40px; border-top: 1px solid var(--border); margin-top: 80px; text-align: center;">
-            <span class="mono" style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-bottom: 32px; font-weight: 700;">Expert Integration with World-Class Technology</span>
-            <div style="display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; opacity: 0.7; filter: grayscale(1);">
-                <a href="https://openai.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">OpenAI</a>
-                <a href="https://anthropic.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">Anthropic</a>
-                <a href="https://cloud.google.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">Google</a>
-                <a href="https://www.make.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">Make.com</a>
+        <div class="industry-bar">
+            <span class="industry-label">Solving Friction Across Industries</span>
+            <div class="industry-grid">
+                <div class="industry-tag">Legal & Law Firms</div>
+                <div class="industry-tag">Real Estate & Property</div>
+                <div class="industry-tag">Service Industries</div>
+                <div class="industry-tag">Logistics & Supply</div>
+                <div class="industry-tag">Professional Services</div>
             </div>
         </div>
     </div>
@@ -142,32 +147,32 @@
     <div id="step-1" class="hidden fade-in grid-container">
         <div class="section-title-area">
             <div class="mono" style="color: var(--text-muted); margin-bottom: 16px; font-weight: 700;">Phase 01</div>
-            <h2 style="font-size: 2.5rem; letter-spacing: -0.04em;">Map Your Opportunity</h2>
-            <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 650px; margin: 20px auto 0;">Play with the tiles below to see where automation could capture more revenue and improve your reliability.</p>
+            <h2 style="font-size: 2.5rem; letter-spacing: -0.04em;">Where can we help you grow?</h2>
+            <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 650px; margin: 20px auto 0;">Select your priority domains to see how automation creates new revenue velocity and absolute reliability.</p>
         </div>
         <div class="domain-grid" id="domain-grid"></div>
         <div style="text-align: center; margin-top: 80px;">
-            <button class="btn" onclick="validateStep1()">Map My Growth <span id="domain-count" class="btn-count">0</span></button>
-            <div id="err-1" style="color:#ef4444; margin-top:24px; display:none; font-weight: 800;">Please select a focus area to start your calculation.</div>
+            <button class="btn" onclick="validateStep1()">Map My Growth Potential <span id="domain-count" class="btn-count">0</span></button>
+            <div id="err-1" style="color:#ef4444; margin-top:24px; display:none; font-weight: 800;">Please select a focus area to start your projection.</div>
         </div>
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 120px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 02: Identifying Friction</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 02: Bottleneck Identification</div>
         <h2 id="s2-title" style="font-size: 2.5rem; letter-spacing: -0.04em;">What's slowing you down?</h2>
         <div id="task-list" style="margin-top: 50px;"></div>
         <div style="margin-top: 80px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Calculate the Unlock <span id="task-count" class="btn-count">0</span></button>
+            <button class="btn" onclick="validateStep2()">Calculate My Unlock <span id="task-count" class="btn-count">0</span></button>
         </div>
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 03: Growth Calculator</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 03: Growth Projection</div>
         <h2 style="font-size: 2.5rem;">Project Your Gains</h2>
         <div id="slider-box" style="margin-top: 50px;"></div>
         <div style="background: var(--surface); padding: 56px; border-radius: 40px; border: 1px solid var(--border); margin-bottom: 32px; border-style: dashed;">
-            <div style="display:flex; justify-content:space-between; font-weight:800;"><span class="mono">Staff/Resource Hourly Value</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:800;"><span class="mono">Resource/Staff Hourly Value</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:24px; accent-color:var(--primary);">
         </div>
         <div style="margin-top: 80px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button><button class="btn" onclick="runAnalysis()">Finalize My Report <i data-lucide="zap"></i></button></div>
@@ -175,17 +180,17 @@
 
     <div id="step-4" class="hidden fade-in" style="padding: 80px 0;">
         <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Potential Annual Opportunity</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.6rem; opacity: 0.9;">Equivalent to <strong id="final-hours" style="color:white;">0</strong> high-value hours redeployed to revenue and growth.</p></div>
-        <div class="cta-card"><h2>Download Your Growth Blueprint</h2><p style="color: var(--text-muted); margin-bottom: 40px; max-width: 650px; margin-left: auto; margin-right: auto; font-size: 1.2rem;">Our Subject Matter Experts will review your projection and provide a tailored technical guide to ensure zero-error reliability for your business.</p><div class="row"><input type="text" id="name" placeholder="Full Name"><input type="email" id="email" placeholder="Business Email"></div><button class="btn" style="width: 100%; max-width: 650px; margin-top: 24px; justify-content: center;" onclick="sendData()" id="send-btn">Get My Blueprint <i data-lucide="file-text"></i></button><div id="status" class="mono" style="margin-top: 32px; color: #10b981; font-weight: 800;"></div></div>
+        <div class="cta-card"><h2>Get Your Growth Blueprint</h2><p style="color: var(--text-muted); margin-bottom: 40px; max-width: 650px; margin-left: auto; margin-right: auto; font-size: 1.2rem;">Our Subject Matter Experts will review your projection and provide a tailored technical guide to ensure 100% reliability for your business.</p><div class="row"><input type="text" id="name" placeholder="Full Name"><input type="email" id="email" placeholder="Business Email"></div><button class="btn" style="width: 100%; max-width: 650px; margin-top: 24px; justify-content: center;" onclick="sendData()" id="send-btn">Send My Blueprint <i data-lucide="file-text"></i></button><div id="status" class="mono" style="margin-top: 32px; color: #10b981; font-weight: 800;"></div></div>
     </div>
 </div>
 
 <footer>
     <div class="footer-inner">
-        <div class="footer-brand"><h4>MagicFolder</h4><p>Professional workflow systems for firms and service businesses. Efficiency that creates real revenue.</p></div>
-        <div class="footer-links"><h5>Our Expertise</h5><a href="https://openai.com" target="_blank">OpenAI</a><a href="https://anthropic.com" target="_blank">Anthropic</a><a href="https://cloud.google.com" target="_blank">Google</a></div>
-        <div class="footer-links"><h5>Core Platforms</h5><a href="https://www.servicenow.com" target="_blank">ServiceNow</a><a href="https://www.make.com" target="_blank">Make.com</a><a href="https://azure.microsoft.com" target="_blank">Microsoft</a></div>
+        <div class="footer-brand"><h4>MagicFolder</h4><p>SME-led operational architecture. We bridge the gap between AI potential and real-world revenue velocity.</p></div>
+        <div class="footer-links"><h5>Intelligence Ecosystem</h5><a href="https://openai.com" target="_blank">OpenAI</a><a href="https://anthropic.com" target="_blank">Anthropic</a><a href="https://cloud.google.com" target="_blank">Google</a><a href="https://azure.microsoft.com" target="_blank">Microsoft</a></div>
+        <div class="footer-links"><h5>Integration Partners</h5><a href="https://www.servicenow.com" target="_blank">ServiceNow</a><a href="https://www.make.com" target="_blank">Make.com</a><a href="https://www.salesforce.com" target="_blank">Salesforce</a></div>
     </div>
-    <div class="footer-bottom">&copy; 2026 MagicFolder AI. Modern Business Systems.</div>
+    <div class="footer-bottom">&copy; 2026 MagicFolder AI. SME-Led Operational Architecture.</div>
 </footer>
 
 <script>
@@ -212,21 +217,21 @@
                 { id: 'mf-contracts', label: 'Contract Management', desc: 'Identifying and filing based on specific document terms.', time: 0.2, unit: 'docs/wk' },
                 { id: 'mf-forms', label: 'Data Extraction', desc: 'Turning manual forms into structured, verified digital records.', time: 0.5, unit: 'forms/wk' }
             ]},
-            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn years of archives and case files into an instant, searchable resource.', items: [
-                { id: 'kn-rag', label: 'Intelligent Document Search', desc: 'Find specific facts across thousands of documents instantly.', time: 0.4, unit: 'searches/wk' },
-                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condensing long transcripts or depositions into actionable points.', time: 1.5, unit: 'docs/wk' }
+            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives and case files into an instant, searchable firm resource.', items: [
+                { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Find specific facts across thousands of documents instantly.', time: 0.4, unit: 'searches/wk' },
+                { id: 'kn-briefing', label: 'Case Summarization', desc: 'Condensing long transcripts or depositions into actionable points.', time: 1.5, unit: 'docs/wk' }
             ]},
-            'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs for total visibility.', items: [
+            'requests': { label: 'Request & Service Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs for total project visibility.', items: [
                 { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Real-time status visibility without manual spreadsheet updates.', time: 0.3, unit: 'orders/wk' },
                 { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assigning tasks to your team based on their capacity.', time: 0.2, unit: 'tasks/wk' }
             ]},
-            'support': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with automated intake and 24/7 support.', items: [
+            'support': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with automated intake and 24/7 support rules.', items: [
                 { id: 'sup-faq', label: 'Automated Customer FAQ', desc: 'Answering routine questions using your specific business data.', time: 0.15, unit: 'queries/wk' },
-                { id: 'sup-onboard', label: 'Client Onboarding Ops', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
+                { id: 'sup-onboard', label: 'Onboarding Systems', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
             ]},
             'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing reconciliation and administrative paperwork.', items: [
                 { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with incoming revenue billing.', time: 1.0, unit: 'invoices/wk' },
-                { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching of records across different software systems.', time: 0.1, unit: 'records/wk' }
+                { id: 'bo-reconcile', label: 'Data Integrity', desc: 'Manual matching of records across different software systems.', time: 0.1, unit: 'records/wk' }
             ]}
         };
 
@@ -304,7 +309,7 @@
             document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString(); document.getElementById('final-hours').innerText = Math.round(h).toLocaleString(); setStep(4);
         };
 
-        window.sendData = function() { const btn = document.getElementById('send-btn'); btn.innerText = "Transmitting..."; setTimeout(() => { btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981"; document.getElementById('status').innerText = "[SUCCESS] Growth Map received. Our experts will contact you shortly."; }, 1800); };
+        window.sendData = function() { const btn = document.getElementById('send-btn'); btn.innerText = "Transmitting..."; setTimeout(() => { btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981"; document.getElementById('status').innerText = "[SUCCESS] Growth Projection received. Our experts will contact you shortly."; }, 1800); };
 
         window.nextSlide = function() { slideIndex = (slideIndex + 1) % slides.length; progress = 0; updateContent(); };
         window.prevSlide = function() { slideIndex = (slideIndex - 1 + slides.length) % slides.length; progress = 0; updateContent(); };
