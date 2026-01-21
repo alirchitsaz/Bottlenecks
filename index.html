@@ -3,158 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MagicFolder | The Future of Small Business Efficiency</title>
+    <title>MagicFolder | Workflow Intelligence for Growing Firms</title>
     
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #6366f1; /* Indigo */
-            --primary-dark: #4f46e5;
-            --bg: #ffffff;
+            --primary: #4f46e5;
             --surface: #f8fafc;
             --text-dark: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
-            --success: #10b981;
-            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            --accent-glow: rgba(79, 70, 229, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        
-        /* --- NAVIGATION --- */
-        nav { padding: 32px 0; background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+
+        /* --- HEADER --- */
+        nav { padding: 32px 0; border-bottom: 1px solid var(--border); background: #fff; position: sticky; top: 0; z-index: 100; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; text-decoration: none; color: var(--text-dark); }
-        .logo-icon { width: 36px; height: 36px; background: var(--primary); border-radius: 10px; display: grid; place-items: center; color: white; }
+        .logo i { color: var(--primary); }
 
         /* --- HERO --- */
-        .hero { padding: 100px 0 80px; text-align: center; }
-        .badge { display: inline-block; padding: 6px 16px; background: #eef2ff; color: var(--primary); border-radius: 50px; font-weight: 700; font-size: 0.85rem; margin-bottom: 24px; }
-        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 24px; }
-        .hero p { max-width: 650px; margin: 0 auto 48px; font-size: 1.25rem; color: var(--text-muted); }
+        .hero { padding: 100px 0 60px; text-align: center; }
+        .hero h1 { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 24px; }
+        .hero p { max-width: 650px; margin: 0 auto 40px; font-size: 1.25rem; color: var(--text-muted); }
+        
+        /* --- MODULE SELECTOR --- */
+        .module-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 40px; }
+        .module-card { 
+            background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 20px; 
+            cursor: pointer; transition: 0.3s; text-align: left;
+        }
+        .module-card:hover { border-color: var(--primary); box-shadow: 0 10px 30px var(--accent-glow); transform: translateY(-4px); }
+        .module-card i { color: var(--primary); margin-bottom: 20px; }
+        .module-card h3 { margin-bottom: 8px; font-size: 1.1rem; }
 
-        /* --- BUTTONS --- */
-        .btn { background: var(--primary); color: white; padding: 20px 40px; border-radius: 50px; font-weight: 700; border: none; cursor: pointer; transition: 0.2s; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; }
-        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 10px 15px rgba(99, 102, 241, 0.3); }
+        /* --- STEPPER --- */
+        .step-container { padding: 60px 0; }
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- PARTNERSHIP SECTION --- */
-        .partners-bar { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-bottom: 80px; }
-        .partners-label { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; display: block; }
-        .partners-grid { display: flex; justify-content: center; gap: 60px; filter: grayscale(1); opacity: 0.5; }
+        /* --- AUDIT QUESTIONS --- */
+        .audit-item { 
+            display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 1px solid var(--border); 
+            border-radius: 16px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center;
+        }
+        .audit-item.selected { border-color: var(--primary); background: #f5f3ff; }
+        .check { width: 20px; height: 20px; border-radius: 4px; border: 2px solid var(--border); display: grid; place-items: center; }
+        .audit-item.selected .check { background: var(--primary); border-color: var(--primary); }
 
-        /* --- THE CALCULATOR --- */
-        .choice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .choice-card { background: var(--surface); padding: 48px; border-radius: 32px; border: 2px solid transparent; transition: 0.3s; cursor: pointer; text-align: left; }
-        .choice-card:hover { border-color: var(--primary); background: white; box-shadow: var(--shadow); }
-        .choice-card i { color: var(--primary); margin-bottom: 24px; }
-        .choice-card h3 { margin-bottom: 12px; font-size: 1.4rem; }
+        /* --- SLIDERS & DATA CAPTURE --- */
+        .data-card { background: var(--surface); padding: 32px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 24px; }
+        input[type=range] { width: 100%; accent-color: var(--primary); height: 8px; margin-top: 16px; }
+        
+        .btn { 
+            background: var(--primary); color: white; padding: 18px 36px; border-radius: 50px; 
+            font-weight: 700; border: none; cursor: pointer; transition: 0.2s; font-size: 1rem;
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn:hover { background: #4338ca; transform: translateY(-2px); }
 
         /* --- RESULTS --- */
-        .results-box { background: #1e1b4b; color: white; padding: 80px; border-radius: 48px; text-align: center; margin-bottom: 60px; box-shadow: 0 40px 60px -20px rgba(0,0,0,0.3); }
-        .big-save { font-size: clamp(4rem, 10vw, 6rem); font-weight: 800; color: #818cf8; margin: 10px 0; }
-        
-        /* --- FORM --- */
-        .cta-box { background: var(--surface); padding: 60px; border-radius: 32px; border: 1px solid var(--border); text-align: center; }
-        .input-group { display: flex; gap: 12px; max-width: 600px; margin: 32px auto 0; flex-wrap: wrap; }
-        input { flex: 1; padding: 20px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; min-width: 250px; }
-
-        .hidden { display: none !important; }
-        .fade-in { animation: fadeInUp 0.6s ease forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .results-box { background: #0f172a; color: white; padding: 80px; border-radius: 40px; text-align: center; }
+        .big-save { font-size: clamp(3rem, 10vw, 5rem); color: #818cf8; font-weight: 800; margin: 10px 0; }
     </style>
 </head>
 <body>
 
 <nav>
     <div class="container nav-inner">
-        <a href="#" class="logo">
-            <div class="logo-icon"><i data-lucide="sparkle"></i></div>
-            MagicFolder
-        </a>
-        <div style="font-weight: 700; color: var(--text-muted); font-size: 0.85rem;">EXPERTISE NETWORK</div>
+        <a href="#" class="logo"><i data-lucide="folder-kanban"></i> MagicFolder</a>
+        <div class="mono" style="color: var(--text-muted);">WORKFLOW_PARTNERSHIP</div>
     </div>
 </nav>
 
 <main class="container">
 
-    <div id="hero" class="hero">
-        <div class="badge">A COLLECTIVE OF WORKFLOW EXPERTS</div>
-        <h1>Your time is your<br>most valuable asset.</h1>
-        <p>Small business owners are the engine of the economy. We are the architects that keep that engine running smoothly by removing the friction of manual work.</p>
-        <button class="btn" onclick="startAudit()">Reclaim Your Time <i data-lucide="clock-arrow-up"></i></button>
+    <div id="hero" class="hero fade-in">
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px;">V3.0 DEPLOYED</div>
+        <h1>Enterprise efficiency,<br>right where you are.</h1>
+        <p>We help midsize service firms, law offices, and realtors turn messy day-to-day operations into automated growth engines.</p>
+        <button class="btn" onclick="startAudit()">Begin Operational Audit <i data-lucide="arrow-right"></i></button>
     </div>
 
-    <div class="partners-bar">
-        <span class="partners-label">Powered by Collective Expertise in</span>
-        <div class="partners-grid">
-            <div style="font-weight: 800; font-size: 1.2rem;">SaaS ARCHITECTURE</div>
-            <div style="font-weight: 800; font-size: 1.2rem;">DATA LOGISTICS</div>
-            <div style="font-weight: 800; font-size: 1.2rem;">DIGITAL WORKPLACES</div>
-        </div>
-    </div>
-
-    <div id="step-1" class="hidden fade-in" style="padding: 60px 0;">
-        <h2 style="text-align: center; font-size: 2rem; margin-bottom: 40px;">Where are you losing the most time?</h2>
-        <div class="choice-grid">
-            <div class="choice-card" onclick="selectPain('operations')">
-                <i data-lucide="settings" size="48"></i>
-                <h3>Daily Operations</h3>
-                <p>The manual "busy work" of running your business—scheduling, updates, and emails.</p>
+    <div id="step-1" class="hidden fade-in">
+        <h2 style="text-align: center; margin-bottom: 40px;">What part of the business needs help today?</h2>
+        <div class="module-grid">
+            <div class="module-card" onclick="selectMod('rag')">
+                <i data-lucide="brain-circuit" size="32"></i>
+                <h3>Knowledge Base</h3>
+                <p>Chat with your files. Use AI (RAG) to find data in PDFs and emails instantly.</p>
             </div>
-            <div class="choice-card" onclick="selectPain('paperwork')">
-                <i data-lucide="file-check" size="48"></i>
-                <h3>Document Logistics</h3>
-                <p>Forms, invoices, receipts, and the constant friction of paper-based workflows.</p>
+            <div class="module-card" onclick="selectMod('requests')">
+                <i data-lucide="clipboard-list" size="32"></i>
+                <h3>Request Tracking</h3>
+                <p>Never lose a client task. Manage intake and follow-ups in one place.</p>
             </div>
-            <div class="choice-card" onclick="selectPain('growth')">
-                <i data-lucide="trending-up" size="48"></i>
-                <h3>Client Growth</h3>
-                <p>Onboarding new customers and managing leads without losing the personal touch.</p>
+            <div class="module-card" onclick="selectMod('orders')">
+                <i data-lucide="truck" size="32"></i>
+                <h3>Order Logistics</h3>
+                <p>Track job status and shipments without manual email updates.</p>
+            </div>
+            <div class="module-card" onclick="selectMod('cs')">
+                <i data-lucide="message-square" size="32"></i>
+                <h3>Customer Service</h3>
+                <p>Automated first-response systems that actually know your business.</p>
             </div>
         </div>
     </div>
 
-    <div id="step-2" class="hidden fade-in" style="max-width: 700px; margin: 0 auto; padding: 60px 0;">
-        <h2 style="margin-bottom: 32px;">Which of these feel like a "mess" to you?</h2>
-        <div id="task-list"></div>
+    <div id="step-2" class="step-container hidden fade-in">
+        <h2 id="s2-title" style="margin-bottom: 32px;">Identify the structural friction.</h2>
+        <div id="audit-list"></div>
         <div style="margin-top: 48px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Next <i data-lucide="arrow-right"></i></button>
+            <button class="btn" onclick="validateStep2()">Quantify Volume <i data-lucide="chevron-right"></i></button>
         </div>
     </div>
 
-    <div id="step-3" class="hidden fade-in" style="max-width: 700px; margin: 0 auto; padding: 60px 0;">
-        <h2>The Frequency Audit</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px;">Tell us how often these tasks happen. We'll do the math.</p>
-        <div id="slider-container"></div>
+    <div id="step-3" class="step-container hidden fade-in">
+        <h2>Quantifying the Opportunity</h2>
+        <p style="color: var(--text-muted); margin-bottom: 32px;">To provide an accurate solution, we need to understand the scale of your operations.</p>
+        <div id="slider-box"></div>
+        <div class="data-card" style="border-style: dashed;">
+            <div style="display:flex; justify-content:space-between; font-weight:700;">
+                <span>Typical Staff Member Hourly Value (USD)</span>
+                <span style="color: var(--primary);">$<span id="rate-disp">150</span></span>
+            </div>
+            <input type="range" id="hourly-rate" min="50" max="500" value="150" oninput="document.getElementById('rate-disp').innerText = this.value">
+        </div>
         <div style="margin-top: 48px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="runAnalysis()">Analyze My Business <i data-lucide="cpu"></i></button>
+            <button class="btn" onclick="runAnalysis()">Run Final Analysis <i data-lucide="zap"></i></button>
         </div>
     </div>
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
         <div class="results-box">
-            <p style="text-transform: uppercase; letter-spacing: 3px; font-weight: 700; opacity: 0.6;">Potential Time Reclaimed Yearly</p>
-            <div class="big-save" id="final-hours">0 Hours</div>
-            <p style="font-size: 1.5rem; font-weight: 600;">That's <span id="final-weeks" style="color:#818cf8;">0</span> weeks you get back for family, golf, or growth.</p>
+            <p class="mono" style="opacity: 0.6; letter-spacing: 2px;">POTENTIAL ANNUAL OPPORTUNITY</p>
+            <div class="big-save" id="final-val">$0</div>
+            <p style="font-size: 1.25rem; opacity: 0.8;">Reclaiming approximately <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
         </div>
 
-        <div class="cta-box">
-            <div class="badge" style="background: white;">THE MAGICFOLDER BLUEPRINT</div>
-            <h3>Let our collective help you.</h3>
-            <p style="color: var(--text-muted); max-width: 500px; margin: 12px auto 32px;">Receive a professional implementation guide showing how our partners remove these specific friction points.</p>
-            <div class="input-group">
-                <input type="text" id="name" placeholder="Your Name">
-                <input type="email" id="email" placeholder="Your Email">
-                <button class="btn" onclick="sendData()" id="send-btn">Get the Blueprint</button>
+        <div style="margin-top: 80px; text-align: center; background: var(--surface); padding: 60px; border-radius: 32px; border: 1px solid var(--border);">
+            <h2>Get Your Custom Blueprint</h2>
+            <p style="color: var(--text-muted); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto;">Our partner network will review your data and send a technical implementation guide for your specific friction points.</p>
+            <div style="max-width: 400px; margin: 0 auto; text-align: left;">
+                <input type="text" id="name" placeholder="Full Name" style="width:100%; padding:16px; border-radius:12px; border:1px solid var(--border); margin-bottom:12px;">
+                <input type="email" id="email" placeholder="Work Email" style="width:100%; padding:16px; border-radius:12px; border:1px solid var(--border); margin-bottom:24px;">
+                <button class="btn" style="width:100%; justify-content: center;" onclick="sendData()" id="send-btn">Send My Blueprint</button>
             </div>
-            <div id="status" style="margin-top: 24px; font-weight: 700; color: var(--success);"></div>
+            <div id="status" class="mono" style="margin-top: 20px;"></div>
         </div>
     </div>
 
@@ -162,102 +169,92 @@
 
 <script>
     const DATA = {
-        'operations': { label: 'Daily Operations', tasks: [
-            { id: 'schedule', label: 'Scheduling Meetings', desc: 'Managing calendars and back-and-forth emails.', time: 0.2, unit: 'meetings/wk' },
-            { id: 'updates', label: 'Status Updates', desc: 'Syncing your team on project progress manually.', time: 0.5, unit: 'updates/wk' },
-            { id: 'sorting', label: 'Inbox Management', desc: 'Filtering emails into the right folders.', time: 0.1, unit: 'emails/wk' }
+        'rag': { label: 'Knowledge Intelligence', audit: [
+            { id: 'search', label: 'Document Hunting', desc: 'Searching for clauses, details, or emails from the past.', time: 0.2, unit: 'searches/wk' },
+            { id: 'summary', label: 'Briefing & Summaries', desc: 'Manually summarizing long PDFs or call transcripts.', time: 0.5, unit: 'docs/wk' },
+            { id: 'data', label: 'Data Extraction', desc: 'Pulling info from invoices/receipts into spreadsheets.', time: 0.1, unit: 'records/wk' }
         ]},
-        'paperwork': { label: 'Document Logistics', tasks: [
-            { id: 'invoices', label: 'Manual Invoicing', desc: 'Generating and sending bills to clients.', time: 0.25, unit: 'invoices/wk' },
-            { id: 'receipts', label: 'Tracking Expenses', desc: 'Sorting and scanning receipts for tax purposes.', time: 0.1, unit: 'receipts/wk' },
-            { id: 'signing', label: 'Contract Execution', desc: 'Following up on digital signatures and filing.', time: 0.5, unit: 'contracts/wk' }
+        'requests': { label: 'Request Management', audit: [
+            { id: 'intake', label: 'Client Intake', desc: 'Vetting new leads and setting up folders manually.', time: 1.0, unit: 'clients/wk' },
+            { id: 'followup', label: 'Follow-up Management', desc: 'Chasing clients for missing info or signatures.', time: 0.25, unit: 'requests/wk' },
+            { id: 'triage', label: 'Status Updates', desc: 'Answering "where is my request at?" emails.', time: 0.2, unit: 'updates/wk' }
         ]},
-        'growth': { label: 'Client Growth', tasks: [
-            { id: 'onboarding', label: 'Client Onboarding', desc: 'Getting new customers set up in your systems.', time: 1.5, unit: 'new clients/wk' },
-            { id: 'leads', label: 'Lead Following', desc: 'Vetting and responding to initial inquiries.', time: 0.4, unit: 'leads/wk' }
+        'orders': { label: 'Order & Logistics', audit: [
+            { id: 'tracking', label: 'Status Tracking', desc: 'Checking carrier or job sites for latest status.', time: 0.2, unit: 'orders/wk' },
+            { id: 'notif', label: 'Customer Notifications', desc: 'Sending manual "shipped" or "arrived" texts.', time: 0.1, unit: 'alerts/wk' },
+            { id: 'inventory', label: 'Inventory Updates', desc: 'Manual stock reconciliation across systems.', time: 1.5, unit: 'updates/wk' }
+        ]},
+        'cs': { label: 'Customer Service', audit: [
+            { id: 'faq', label: 'Answering FAQ', desc: 'Copy-pasting the same answers to common emails.', time: 0.15, unit: 'questions/wk' },
+            { id: 'routing', label: 'Inbound Routing', desc: 'Moving tickets to the right person or department.', time: 0.1, unit: 'tickets/wk' },
+            { id: 'schedules', label: 'Meeting Coordination', desc: 'The manual "email dance" to book appointments.', time: 0.2, unit: 'meetings/wk' }
         ]}
     };
 
-    let state = { pain: null, selection: new Set(), inputs: {} };
-
+    let state = { mod: null, selection: new Set(), inputs: {} };
     document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
 
-    function startAudit() {
-        document.getElementById('hero').classList.add('hidden');
-        setStep(1);
-    }
+    function startAudit() { document.getElementById('hero').classList.add('hidden'); setStep(1); }
+    function setStep(n) { [1,2,3,4].forEach(s => document.getElementById(`step-${s}`).classList.add('hidden')); document.getElementById(`step-${n}`).classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); }
 
-    function setStep(n) {
-        [1,2,3,4].forEach(s => document.getElementById(`step-${s}`).classList.add('hidden'));
-        document.getElementById(`step-${n}`).classList.remove('hidden');
-        window.scrollTo({top:0, behavior:'smooth'});
-    }
-
-    function selectPain(key) {
-        state.pain = key;
-        const list = document.getElementById('task-list');
-        list.innerHTML = DATA[key].tasks.map(t => `
-            <div style="background:var(--surface); padding:24px; border-radius:16px; margin-bottom:12px; display:flex; gap:20px; align-items:center; cursor:pointer;" onclick="toggleTask('${t.id}', this)" class="task-ui">
-                <div style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;" class="check-box"><i data-lucide="check" size="14" style="color:white;"></i></div>
-                <div>
-                    <div style="font-weight:700;">${t.label}</div>
-                    <div style="font-size:0.9rem; color:var(--text-muted);">${t.desc}</div>
-                </div>
+    function selectMod(key) {
+        state.mod = key;
+        const list = document.getElementById('audit-list');
+        list.innerHTML = DATA[key].audit.map(a => `
+            <div class="audit-item" onclick="toggleAud('${a.id}', this)">
+                <div class="check"><i data-lucide="check" size="14" style="color:white;"></i></div>
+                <div><div style="font-weight:700; font-size:1.1rem;">${a.label}</div><div style="color:var(--text-muted); font-size:0.9rem;">${a.desc}</div></div>
             </div>
         `).join('');
         lucide.createIcons();
         setStep(2);
     }
 
-    function toggleTask(id, el) {
-        if(state.selection.has(id)) { state.selection.delete(id); el.style.borderColor = 'transparent'; el.querySelector('.check-box').style.background = 'transparent'; }
-        else { state.selection.add(id); el.style.border = '2px solid var(--primary)'; el.querySelector('.check-box').style.background = 'var(--primary)'; }
+    function toggleAud(id, el) {
+        if(state.selection.has(id)) { state.selection.delete(id); el.classList.remove('selected'); }
+        else { state.selection.add(id); el.classList.add('selected'); }
     }
 
-    function validateStep2() {
-        if(state.selection.size === 0) return;
-        renderSliders();
-        setStep(3);
-    }
+    function validateStep2() { if(state.selection.size > 0) { renderSliders(); setStep(3); } }
 
     function renderSliders() {
-        const container = document.getElementById('slider-container');
-        const active = DATA[state.pain].tasks.filter(t => state.selection.has(t.id));
-        container.innerHTML = active.map(t => `
-            <div style="background:var(--surface); padding:32px; border-radius:24px; margin-bottom:20px;">
-                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;">
-                    <span>${t.label} (Qty/Week)</span>
-                    <span style="color:var(--primary);" id="val-${t.id}">0</span>
+        const container = document.getElementById('slider-box');
+        const active = DATA[state.mod].audit.filter(a => state.selection.has(a.id));
+        container.innerHTML = active.map(a => `
+            <div class="data-card">
+                <div style="display:flex; justify-content:space-between; font-weight:700;">
+                    <span>${a.label} (${a.unit})</span>
+                    <span id="val-${a.id}" style="color: var(--primary);">0</span>
                 </div>
-                <input type="range" min="0" max="100" value="0" style="width:100%; accent-color:var(--primary);" oninput="updateVal('${t.id}', this.value)">
+                <input type="range" min="0" max="100" value="0" oninput="updateVal('${a.id}', this.value)">
             </div>
         `).join('');
     }
 
-    function updateVal(id, val) {
-        state.inputs[id] = parseInt(val);
-        document.getElementById(`val-${id}`).innerText = val;
-    }
+    function updateVal(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; }
 
     function runAnalysis() {
-        let hours = 0;
-        DATA[state.pain].tasks.filter(t => state.selection.has(t.id)).forEach(t => {
-            const qty = state.inputs[t.id] || 0;
-            hours += (qty * t.time * 52);
+        const rate = parseInt(document.getElementById('hourly-rate').value);
+        let totalH = 0; let totalV = 0;
+        DATA[state.mod].audit.filter(a => state.selection.has(a.id)).forEach(a => {
+            const qty = state.inputs[a.id] || 0;
+            const mult = a.unit.includes('mo') ? 12 : 52;
+            const hours = (qty * a.time * mult);
+            totalH += hours; totalV += (hours * rate);
         });
-        document.getElementById('final-hours').innerText = Math.round(hours) + " Hours";
-        document.getElementById('final-weeks').innerText = (hours / 40).toFixed(1);
+        document.getElementById('final-val').innerText = '$' + Math.round(totalV).toLocaleString();
+        document.getElementById('final-hours').innerText = Math.round(totalH).toLocaleString();
         setStep(4);
     }
 
     function sendData() {
         const btn = document.getElementById('send-btn');
-        btn.innerText = "Transmitting...";
+        btn.innerText = "TRANSMITTING DATA...";
         setTimeout(() => {
-            btn.innerText = "Blueprint Sent";
-            btn.style.background = "var(--success)";
-            document.getElementById('status').innerText = "Blueprint sent! Check your email for our partner guide.";
-        }, 1800);
+            btn.innerText = "BLUEPRINT SENT";
+            btn.style.background = "#22c55e";
+            document.getElementById('status').innerText = "[SUCCESS] Data received. Our experts are reviewing your footprint.";
+        }, 1500);
     }
 </script>
 
