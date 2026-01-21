@@ -44,7 +44,7 @@
         .dot-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); transition: width 0.1s linear; }
         .dot-wrapper.active .dot-progress { width: 100%; }
 
-        .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; }
+        .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; display: block; }
         @media (min-width: 1024px) { .hero:hover .nav-arrow { opacity: 0.5; } .nav-arrow:hover { opacity: 1 !important; color: var(--primary); } }
         @media (max-width: 1023px) { .nav-arrow { display: none; } }
         .arrow-left { left: -40px; } .arrow-right { right: -40px; }
@@ -87,6 +87,9 @@
 
         footer { padding: 120px 0 60px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; }
+        .footer-links a { display: block; color: var(--text-dark); font-size: 1rem; margin-bottom: 14px; font-weight: 600; text-decoration: none; transition: 0.2s; }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-bottom { border-top: 1px solid var(--border); margin-top: 100px; padding-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
         @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .form-row { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -126,7 +129,7 @@
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 03: Projection Calculator</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 03: Growth Projection</div>
         <h2 style="font-size: 2.5rem;">Project Your Gains</h2>
         <div id="slider-box" style="margin-top: 50px;"></div>
         <div style="background: var(--surface); padding: 56px; border-radius: 40px; border: 1px solid var(--border); margin-bottom: 32px; border-style: dashed;"><div style="display:flex; justify-content:space-between; font-weight:800;"><span class="mono">Resource/Staff Hourly Value</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div><input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:24px; accent-color:var(--primary);"></div>
@@ -136,10 +139,7 @@
     <div id="step-4" class="hidden fade-in" style="padding: 100px 0; max-width: 800px; margin: 0 auto;">
         <div style="text-align: center; margin-bottom: 48px;"><div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 16px;">Final Step</div><h2>Unlock Your Results</h2><p style="color: var(--text-muted); font-size: 1.2rem; margin-top: 12px;">Provide your details to receive your customized Architectural Blueprint and ROI projection.</p></div>
         <div class="cta-card">
-            <div class="form-row">
-                <input type="text" id="user-name" placeholder="Full Name">
-                <input type="text" id="user-company" placeholder="Company Name">
-            </div>
+            <div class="form-row"><input type="text" id="user-name" placeholder="Full Name"><input type="text" id="user-company" placeholder="Company Name"></div>
             <div style="max-width: 700px; margin: 16px auto;"><input type="email" id="user-email" placeholder="Business Email"></div>
             <button class="btn" style="width: 100%; max-width: 700px; margin-top: 16px; justify-content: center;" onclick="submitToFormspree()" id="submit-btn">Unlock My Report <i data-lucide="unlock"></i></button>
             <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields.</div>
@@ -147,15 +147,12 @@
     </div>
 
     <div id="step-5" class="hidden fade-in" style="padding: 80px 0;">
-        <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Annual Opportunity Potential</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.6rem; opacity: 0.9;">Equivalent to <strong id="final-hours" style="color:white;">0</strong> high-value hours reclaimed for revenue growth.</p></div>
-        <div style="text-align: center; margin-top: 60px;">
-            <button class="btn" onclick="downloadReport()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download Blueprint (TXT)</button>
-            <p style="margin-top: 32px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">Our Subject Matter Experts have received your data. We will contact you shortly to discuss your custom architecture.</p>
-        </div>
+        <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Annual Opportunity Potential</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.6rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p></div>
+        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="downloadReport()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download Blueprint (TXT)</button><p style="margin-top: 32px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">Our Subject Matter Experts have received your data. We will contact you shortly to discuss your custom architecture.</p></div>
     </div>
 </div>
 
-<footer><div class="footer-inner"><div class="footer-brand"><h4>MagicFolder</h4><p>Expert workflow architecture for firms and professionals. Building systems that scale revenue and reliability.</p></div><div class="footer-links"><h5>Intelligence</h5><a href="https://openai.com" target="_blank">OpenAI</a><a href="https://anthropic.com" target="_blank">Anthropic</a><a href="https://cloud.google.com" target="_blank">Google</a></div><div class="footer-links"><h5>Integration</h5><a href="https://www.servicenow.com" target="_blank">ServiceNow</a><a href="https://www.make.com" target="_blank">Make.com</a><a href="https://www.salesforce.com" target="_blank">Salesforce</a></div></div><div class="footer-bottom">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div></footer>
+<footer><div class="footer-inner"><div class="footer-brand"><h4>MagicFolder</h4><p>Professional workflow systems for firms and professionals. Efficiency that creates real revenue.</p></div><div class="footer-links"><h5>Intelligence</h5><a href="https://openai.com" target="_blank">OpenAI</a><a href="https://anthropic.com" target="_blank">Anthropic</a><a href="https://cloud.google.com" target="_blank">Google</a><a href="https://azure.microsoft.com" target="_blank">Microsoft</a></div><div class="footer-links"><h5>Integration</h5><a href="https://www.servicenow.com" target="_blank">ServiceNow</a><a href="https://www.make.com" target="_blank">Make.com</a><a href="https://www.salesforce.com" target="_blank">Salesforce</a></div></div><div class="footer-bottom">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div></footer>
 
 <script>
     (function() {
@@ -171,7 +168,7 @@
 
         const DATA = {
             'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and response systems.', items: [
-                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on your pricing rules.', time: 0.5, unit: 'quotes/wk' },
+                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on your specific pricing rules.', time: 0.5, unit: 'quotes/wk' },
                 { id: 'rev-proposal', label: 'Proposal Generation', desc: 'Auto-create professional project proposals using your past data.', time: 1.0, unit: 'proposals/wk' },
                 { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route new customer inquiries automatically.', time: 0.2, unit: 'leads/wk' }
             ]},
@@ -180,9 +177,17 @@
                 { id: 'mf-contracts', label: 'Contract Management', desc: 'Identifying and filing based on specific document terms.', time: 0.2, unit: 'docs/wk' },
                 { id: 'mf-forms', label: 'Data Extraction', desc: 'Turning manual forms into structured, verified digital records.', time: 0.5, unit: 'forms/wk' }
             ]},
-            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives into an instant, searchable firm resource.', items: [
+            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn firm archives into an instant, searchable high-value resource.', items: [
                 { id: 'kn-rag', label: 'Intelligent Document Search', desc: 'Find specific facts across thousands of documents instantly.', time: 0.4, unit: 'searches/wk' },
-                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condensing long transcripts into actionable points.', time: 1.5, unit: 'docs/wk' }
+                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condensing transcripts or archives into actionable points.', time: 1.5, unit: 'docs/wk' }
+            ]},
+            'requests': { label: 'Request & Service Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs for total project visibility.', items: [
+                { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Real-time status visibility without manual spreadsheet updates.', time: 0.3, unit: 'orders/wk' },
+                { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assigning tasks to your team based on their capacity.', time: 0.2, unit: 'tasks/wk' }
+            ]},
+            'support': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with automated intake and 24/7 support rules.', items: [
+                { id: 'sup-faq', label: 'Automated Customer FAQ', desc: 'Answering routine questions using your specific business data.', time: 0.15, unit: 'queries/wk' },
+                { id: 'sup-onboard', label: 'Client Onboarding Ops', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
             ]},
             'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing reconciliation and administrative paperwork.', items: [
                 { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with incoming revenue billing.', time: 1.0, unit: 'invoices/wk' },
@@ -206,11 +211,7 @@
             document.getElementById('task-count').innerText = state.tasks.size;
         }
 
-        window.toggleTask = function(id, e) {
-            const item = e.currentTarget; if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); item.classList.toggle('selected');
-            document.getElementById('task-count').innerText = state.tasks.size;
-            const cb = item.querySelector('.check-box'); cb.style.background = item.classList.contains('selected') ? 'var(--primary)' : 'transparent';
-        };
+        window.toggleTask = function(id, e) { const item = e.currentTarget; if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); item.classList.toggle('selected'); document.getElementById('task-count').innerText = state.tasks.size; const cb = item.querySelector('.check-box'); cb.style.background = item.classList.contains('selected') ? 'var(--primary)' : 'transparent'; };
 
         window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
         function renderSliders() {
@@ -227,22 +228,14 @@
         };
 
         window.submitToFormspree = function() {
-            const name = document.getElementById('user-name').value;
-            const email = document.getElementById('user-email').value;
-            const company = document.getElementById('user-company').value;
-            if(!name || !email || !company) { document.getElementById('form-err').style.display='block'; return; }
-            runAnalysis();
-            const btn = document.getElementById('submit-btn'); btn.innerText = "Transmitting...";
-            
-            const formData = { name, email, company, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, domains: Array.from(state.domains).join(', '), tasks: Array.from(state.tasks).join(', ') };
-
-            fetch('https://formspree.io/f/mgooqqjg', {
-                method: 'POST', body: JSON.stringify(formData), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-            }).finally(() => { setStep(5); });
+            const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value;
+            if(!name || !email || !comp) { document.getElementById('form-err').style.display='block'; return; }
+            runAnalysis(); const btn = document.getElementById('submit-btn'); btn.innerText = "Transmitting Blueprint...";
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, domains: Array.from(state.domains).join(', ') }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
         window.downloadReport = function() {
-            let content = `MAGICFOLDER BLUEPRINT\nClient: ${document.getElementById('user-name').value}\nCompany: ${document.getElementById('user-company').value}\n\nREVENUE OPPORTUNITY\nAnnual Value: ${state.results.amt}\nAnnual Capacity: ${state.results.hours} Hours\n\nFOCUS AREAS:\n`;
+            let content = `MAGICFOLDER BLUEPRINT\nClient: ${document.getElementById('user-name').value}\n\nOPPORTUNITY\nAnnual Value: ${state.results.amt}\nAnnual Capacity: ${state.results.hours} Hours\n\nSTRATEGIC FOCUS:\n`;
             state.domains.forEach(d => content += `- ${DATA[d].label}\n`);
             const blob = new Blob([content], { type: 'text/plain' });
             const url = window.URL.createObjectURL(blob);
@@ -255,7 +248,7 @@
         window.handleHeroClick = function() { if (window.innerWidth >= 1024) nextSlide(); };
         window.pauseCycle = function() { isPaused = true; }; window.resumeCycle = function() { isPaused = false; };
         function updateContent() { const t = document.getElementById('slideshow-title'); const s = document.getElementById('slideshow-sub'); if(!t) return; t.style.opacity = 0; s.style.opacity = 0; setTimeout(() => { t.innerHTML = slides[slideIndex].title; s.innerHTML = slides[slideIndex].sub; t.style.opacity = 1; s.style.opacity = 1; updateProgressUI(); }, 500); }
-        function updateProgressUI() { document.querySelectorAll('.dot-wrapper').forEach((w, i) => { const bar = w.querySelector('.dot-progress'); if (i < slideIndex) bar.style.width = '100%'; else if (i === slideIndex) bar.style.width = progress + '%'; else bar.style.width = '0%'; }); }
+        function updateProgressUI() { document.querySelectorAll('.dot-progress').forEach((bar, i) => { if (i < slideIndex) bar.style.width = '100%'; else if (i === slideIndex) bar.style.width = progress + '%'; else bar.style.width = '0%'; }); }
 
         document.addEventListener('DOMContentLoaded', () => {
             const grid = document.getElementById('domain-grid');
