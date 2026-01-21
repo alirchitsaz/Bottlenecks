@@ -3,183 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MagicFolder | Workflow Architecture for the Enterprise</title>
+    <title>MagicFolder | The Future of Small Business Efficiency</title>
     
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg: #030712;
-            --surface: #0f172a;
-            --accent: #6366f1;
-            --text: #f8fafc;
-            --text-dim: #94a3b8;
-            --border: #1e293b;
-            --success: #22c55e;
-            --glow: 0 0 30px rgba(99, 102, 241, 0.2);
+            --primary: #6366f1; /* Indigo */
+            --primary-dark: #4f46e5;
+            --bg: #ffffff;
+            --surface: #f8fafc;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: var(--bg); color: var(--text); 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            line-height: 1.6; overflow-x: hidden;
-        }
-
-        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 1px; }
-
-        /* --- STAMP OF AUTHORITY --- */
-        .architect-seal {
-            position: fixed; bottom: 24px; right: 24px; font-size: 0.7rem;
-            color: var(--text-dim); opacity: 0.5; z-index: 100;
-        }
-
-        /* --- HEADER --- */
-        nav { padding: 32px 0; border-bottom: 1px solid var(--border); background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
-        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+        body { background: var(--bg); color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
-        .logo { display: flex; align-items: center; gap: 14px; font-weight: 800; font-size: 1.4rem; color: #fff; text-decoration: none; }
-        .logo-svg { width: 32px; height: 32px; color: var(--accent); filter: drop-shadow(0 0 8px var(--accent)); }
+        /* --- NAVIGATION --- */
+        nav { padding: 32px 0; background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; text-decoration: none; color: var(--text-dark); }
+        .logo-icon { width: 36px; height: 36px; background: var(--primary); border-radius: 10px; display: grid; place-items: center; color: white; }
 
         /* --- HERO --- */
-        .hero { padding: 140px 0 100px; text-align: center; background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, transparent 70%); }
-        .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.1); border: 1px solid var(--accent); padding: 8px 16px; border-radius: 100px; color: var(--accent); font-weight: 600; margin-bottom: 32px; }
-        h1 { font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.05em; margin-bottom: 24px; }
-        .hero p { max-width: 650px; margin: 0 auto 48px; color: var(--text-dim); font-size: 1.25rem; }
+        .hero { padding: 100px 0 80px; text-align: center; }
+        .badge { display: inline-block; padding: 6px 16px; background: #eef2ff; color: var(--primary); border-radius: 50px; font-weight: 700; font-size: 0.85rem; margin-bottom: 24px; }
+        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 24px; }
+        .hero p { max-width: 650px; margin: 0 auto 48px; font-size: 1.25rem; color: var(--text-muted); }
 
-        /* --- SYSTEM DIAGNOSTIC (STEP 1) --- */
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
-        .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 60px; }
-        .diag-card { 
-            background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 24px; cursor: pointer;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-align: left;
-        }
-        .diag-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: var(--glow); }
-        .diag-card i { color: var(--accent); margin-bottom: 24px; }
-        .diag-card h3 { margin-bottom: 12px; font-size: 1.3rem; }
-        .diag-card p { color: var(--text-dim); font-size: 0.95rem; }
+        /* --- BUTTONS --- */
+        .btn { background: var(--primary); color: white; padding: 20px 40px; border-radius: 50px; font-weight: 700; border: none; cursor: pointer; transition: 0.2s; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 10px 15px rgba(99, 102, 241, 0.3); }
 
-        /* --- AUDIT FLOW --- */
+        /* --- PARTNERSHIP SECTION --- */
+        .partners-bar { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-bottom: 80px; }
+        .partners-label { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; display: block; }
+        .partners-grid { display: flex; justify-content: center; gap: 60px; filter: grayscale(1); opacity: 0.5; }
+
+        /* --- THE CALCULATOR --- */
+        .choice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .choice-card { background: var(--surface); padding: 48px; border-radius: 32px; border: 2px solid transparent; transition: 0.3s; cursor: pointer; text-align: left; }
+        .choice-card:hover { border-color: var(--primary); background: white; box-shadow: var(--shadow); }
+        .choice-card i { color: var(--primary); margin-bottom: 24px; }
+        .choice-card h3 { margin-bottom: 12px; font-size: 1.4rem; }
+
+        /* --- RESULTS --- */
+        .results-box { background: #1e1b4b; color: white; padding: 80px; border-radius: 48px; text-align: center; margin-bottom: 60px; box-shadow: 0 40px 60px -20px rgba(0,0,0,0.3); }
+        .big-save { font-size: clamp(4rem, 10vw, 6rem); font-weight: 800; color: #818cf8; margin: 10px 0; }
+        
+        /* --- FORM --- */
+        .cta-box { background: var(--surface); padding: 60px; border-radius: 32px; border: 1px solid var(--border); text-align: center; }
+        .input-group { display: flex; gap: 12px; max-width: 600px; margin: 32px auto 0; flex-wrap: wrap; }
+        input { flex: 1; padding: 20px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; min-width: 250px; }
+
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.6s ease forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-        .audit-item { 
-            display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 1px solid var(--border); 
-            border-radius: 16px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; align-items: center;
-        }
-        .audit-item:hover { border-color: var(--text-dim); }
-        .audit-item.selected { border-color: var(--accent); background: rgba(99, 102, 241, 0.05); }
-        .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
-        .audit-item.selected .check-box { background: var(--accent); border-color: var(--accent); }
-
-        /* --- QUANTIFICATION --- */
-        .input-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin-bottom: 20px; }
-        input[type=range] { width: 100%; accent-color: var(--accent); height: 8px; margin-top: 16px; }
-        
-        /* --- THE RESULTS TERMINAL --- */
-        .terminal { 
-            background: #000; border: 1px solid #334155; border-radius: 16px; padding: 60px;
-            text-align: left; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .terminal::before { content: 'SYSTEM_ANALYSIS_V2.0'; position: absolute; top: 16px; left: 24px; font-family: 'JetBrains Mono'; font-size: 0.65rem; color: #475569; }
-        .big-number { font-size: clamp(4rem, 10vw, 6rem); color: var(--accent); font-weight: 800; margin: 20px 0; letter-spacing: -0.04em; }
-
-        /* --- FOOTER CTA --- */
-        .blueprint-card { background: linear-gradient(145deg, #0f172a, #020617); border: 1px solid var(--accent); padding: 60px; border-radius: 32px; text-align: center; margin-top: 100px; }
-        .btn { 
-            background: var(--accent); color: white; padding: 20px 44px; border-radius: 12px; font-weight: 700; 
-            border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.2s;
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: var(--glow); }
-
-        .field { width: 100%; padding: 18px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; color: white; margin-bottom: 16px; }
-        .field:focus { outline: none; border-color: var(--accent); }
-
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="nav-inner">
+    <div class="container nav-inner">
         <a href="#" class="logo">
-            <svg class="logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <div class="logo-icon"><i data-lucide="sparkle"></i></div>
             MagicFolder
         </a>
-        <div class="mono" style="color: var(--text-dim); text-transform: uppercase;">Architecture over Automation</div>
+        <div style="font-weight: 700; color: var(--text-muted); font-size: 0.85rem;">EXPERTISE NETWORK</div>
     </div>
 </nav>
 
-<div class="architect-seal mono">PRINCIPAL ARCHITECT VERIFIED</div>
-
 <main class="container">
 
-    <div id="hero" class="hero fade-in">
-        <div class="badge mono">PRECISION WORKFLOW ENGINEERING</div>
-        <h1>Complexity is the<br><span style="color: var(--accent);">new friction.</span></h1>
-        <p>We don't solve tasks. We re-engineer the workflows that create them. Identify your structural bottlenecks below.</p>
-        <button class="btn" onclick="startAudit()">Initialize System Audit <i data-lucide="chevron-right"></i></button>
+    <div id="hero" class="hero">
+        <div class="badge">A COLLECTIVE OF WORKFLOW EXPERTS</div>
+        <h1>Your time is your<br>most valuable asset.</h1>
+        <p>Small business owners are the engine of the economy. We are the architects that keep that engine running smoothly by removing the friction of manual work.</p>
+        <button class="btn" onclick="startAudit()">Reclaim Your Time <i data-lucide="clock-arrow-up"></i></button>
+    </div>
+
+    <div class="partners-bar">
+        <span class="partners-label">Powered by Collective Expertise in</span>
+        <div class="partners-grid">
+            <div style="font-weight: 800; font-size: 1.2rem;">SaaS ARCHITECTURE</div>
+            <div style="font-weight: 800; font-size: 1.2rem;">DATA LOGISTICS</div>
+            <div style="font-weight: 800; font-size: 1.2rem;">DIGITAL WORKPLACES</div>
+        </div>
     </div>
 
     <div id="step-1" class="hidden fade-in" style="padding: 60px 0;">
-        <div class="mono" style="color: var(--accent); margin-bottom: 16px;">PHASE_01: SELECT_DIAGNOSTIC_DOMAIN</div>
-        <h2>Where is your primary friction?</h2>
-        <div class="diag-grid" id="domain-grid"></div>
-    </div>
-
-    <div id="step-2" class="hidden fade-in" style="padding: 60px 0;">
-        <div class="mono" style="color: var(--accent); margin-bottom: 16px;">PHASE_02: FRICTION_MAPPING</div>
-        <h2 id="s2-title">Detected Structural Flaws</h2>
-        <div id="problem-list" style="margin-top: 32px;"></div>
-        <div style="margin-top: 48px; display: flex; justify-content: space-between;">
-            <button class="btn" style="background:transparent; border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Quantify Impact <i data-lucide="arrow-right"></i></button>
-        </div>
-    </div>
-
-    <div id="step-3" class="hidden fade-in" style="padding: 60px 0;">
-        <div class="mono" style="color: var(--accent); margin-bottom: 16px;">PHASE_03: VOLUME_DENSITY_AUDIT</div>
-        <h2>Operational Frequency</h2>
-        <div id="slider-container" style="margin-top: 32px;"></div>
-        
-        <div class="input-card" style="border-style: dashed;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
-                <span class="mono">RESOURCE_HOURLY_COST (USD)</span>
-                <span style="color: var(--accent); font-weight: 700;">$<span id="rate-disp">150</span></span>
+        <h2 style="text-align: center; font-size: 2rem; margin-bottom: 40px;">Where are you losing the most time?</h2>
+        <div class="choice-grid">
+            <div class="choice-card" onclick="selectPain('operations')">
+                <i data-lucide="settings" size="48"></i>
+                <h3>Daily Operations</h3>
+                <p>The manual "busy work" of running your business—scheduling, updates, and emails.</p>
             </div>
-            <input type="range" id="hourly-rate" min="50" max="500" value="150" oninput="document.getElementById('rate-disp').innerText = this.value">
+            <div class="choice-card" onclick="selectPain('paperwork')">
+                <i data-lucide="file-check" size="48"></i>
+                <h3>Document Logistics</h3>
+                <p>Forms, invoices, receipts, and the constant friction of paper-based workflows.</p>
+            </div>
+            <div class="choice-card" onclick="selectPain('growth')">
+                <i data-lucide="trending-up" size="48"></i>
+                <h3>Client Growth</h3>
+                <p>Onboarding new customers and managing leads without losing the personal touch.</p>
+            </div>
         </div>
+    </div>
 
+    <div id="step-2" class="hidden fade-in" style="max-width: 700px; margin: 0 auto; padding: 60px 0;">
+        <h2 style="margin-bottom: 32px;">Which of these feel like a "mess" to you?</h2>
+        <div id="task-list"></div>
         <div style="margin-top: 48px; display: flex; justify-content: space-between;">
-            <button class="btn" style="background:transparent; border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="runAnalysis()">Execute Analysis <i data-lucide="cpu"></i></button>
+            <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
+            <button class="btn" onclick="validateStep2()">Next <i data-lucide="arrow-right"></i></button>
+        </div>
+    </div>
+
+    <div id="step-3" class="hidden fade-in" style="max-width: 700px; margin: 0 auto; padding: 60px 0;">
+        <h2>The Frequency Audit</h2>
+        <p style="color: var(--text-muted); margin-bottom: 40px;">Tell us how often these tasks happen. We'll do the math.</p>
+        <div id="slider-container"></div>
+        <div style="margin-top: 48px; display: flex; justify-content: space-between;">
+            <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
+            <button class="btn" onclick="runAnalysis()">Analyze My Business <i data-lucide="cpu"></i></button>
         </div>
     </div>
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
-        <div class="terminal">
-            <div class="mono" style="color: var(--text-dim);">> ANALYZING_SYSTEM_LEAKAGE...</div>
-            <div class="big-number" id="final-amt">$0</div>
-            <div class="mono" style="color: var(--success);">[RESULT] ANNUAL RECLAIMABLE REVENUE</div>
-            <div style="margin-top: 24px; color: var(--text-dim); font-size: 1.1rem;">
-                This represents <strong id="final-hours" style="color: white;">0</strong> hours of high-value leadership time currently lost to architectural friction.
-            </div>
+        <div class="results-box">
+            <p style="text-transform: uppercase; letter-spacing: 3px; font-weight: 700; opacity: 0.6;">Potential Time Reclaimed Yearly</p>
+            <div class="big-save" id="final-hours">0 Hours</div>
+            <p style="font-size: 1.5rem; font-weight: 600;">That's <span id="final-weeks" style="color:#818cf8;">0</span> weeks you get back for family, golf, or growth.</p>
         </div>
 
-        <div class="blueprint-card">
-            <h2>The Deployment Blueprint</h2>
-            <p style="color: var(--text-dim); margin-bottom: 32px;">Receive a technical specification for the Make, OpenAI, and custom API architecture required to remediate these friction points.</p>
-            <div style="max-width: 400px; margin: 0 auto; text-align: left;">
-                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-                <input type="text" id="name" placeholder="Full Name" class="field">
-                <input type="email" id="email" placeholder="Business Email" class="field">
-                <button class="btn" style="width: 100%; justify-content: center;" onclick="sendData()" id="send-btn">Send Blueprint <i data-lucide="file-text"></i></button>
+        <div class="cta-box">
+            <div class="badge" style="background: white;">THE MAGICFOLDER BLUEPRINT</div>
+            <h3>Let our collective help you.</h3>
+            <p style="color: var(--text-muted); max-width: 500px; margin: 12px auto 32px;">Receive a professional implementation guide showing how our partners remove these specific friction points.</p>
+            <div class="input-group">
+                <input type="text" id="name" placeholder="Your Name">
+                <input type="email" id="email" placeholder="Your Email">
+                <button class="btn" onclick="sendData()" id="send-btn">Get the Blueprint</button>
             </div>
-            <div id="status" class="mono" style="margin-top: 24px;"></div>
+            <div id="status" style="margin-top: 24px; font-weight: 700; color: var(--success);"></div>
         </div>
     </div>
 
@@ -187,29 +162,25 @@
 
 <script>
     const DATA = {
-        'intake': { label: 'Inbound Data Intake', icon: 'inbox', problems: [
-            { id: 'ocr', label: 'Unstructured Doc Processing', desc: 'Manual extraction of data from PDFs, emails, or images.', time: 0.25, unit: 'docs/wk' },
-            { id: 'vetting', label: 'Lead & Client Vetting', desc: 'Checking inbound inquiries against internal databases.', time: 0.5, unit: 'leads/wk' },
-            { id: 'sorting', label: 'Inbox Triage & Routing', desc: 'Categorizing and assigning tickets or emails manually.', time: 0.1, unit: 'emails/wk' }
+        'operations': { label: 'Daily Operations', tasks: [
+            { id: 'schedule', label: 'Scheduling Meetings', desc: 'Managing calendars and back-and-forth emails.', time: 0.2, unit: 'meetings/wk' },
+            { id: 'updates', label: 'Status Updates', desc: 'Syncing your team on project progress manually.', time: 0.5, unit: 'updates/wk' },
+            { id: 'sorting', label: 'Inbox Management', desc: 'Filtering emails into the right folders.', time: 0.1, unit: 'emails/wk' }
         ]},
-        'ops': { label: 'Operational Coordination', icon: 'layers', problems: [
-            { id: 'scheduling', label: 'Complex Scheduling', desc: 'The manual back-and-forth for multi-stakeholder meetings.', time: 0.2, unit: 'meetings/wk' },
-            { id: 'status', label: 'Project Status Syncing', desc: 'Updating internal dashboards from manual status checks.', time: 1.5, unit: 'updates/wk' },
-            { id: 'reconcile', label: 'System Reconciliation', desc: 'Manual matching of transactions or records between systems.', time: 0.1, unit: 'records/wk' }
+        'paperwork': { label: 'Document Logistics', tasks: [
+            { id: 'invoices', label: 'Manual Invoicing', desc: 'Generating and sending bills to clients.', time: 0.25, unit: 'invoices/wk' },
+            { id: 'receipts', label: 'Tracking Expenses', desc: 'Sorting and scanning receipts for tax purposes.', time: 0.1, unit: 'receipts/wk' },
+            { id: 'signing', label: 'Contract Execution', desc: 'Following up on digital signatures and filing.', time: 0.5, unit: 'contracts/wk' }
         ]},
-        'output': { label: 'Reporting & Content', icon: 'file-text', problems: [
-            { id: 'reports', label: 'Executive Reporting', desc: 'Manual aggregation of data for monthly performance decks.', time: 2.0, unit: 'reports/mo' },
-            { id: 'repurpose', label: 'Content Repurposing', desc: 'Turning one core asset (video/doc) into social/internal posts.', time: 1.0, unit: 'assets/wk' },
-            { id: 'sow', label: 'Contract/SOW Drafting', desc: 'Customizing standard agreements based on meeting notes.', time: 0.75, unit: 'contracts/mo' }
+        'growth': { label: 'Client Growth', tasks: [
+            { id: 'onboarding', label: 'Client Onboarding', desc: 'Getting new customers set up in your systems.', time: 1.5, unit: 'new clients/wk' },
+            { id: 'leads', label: 'Lead Following', desc: 'Vetting and responding to initial inquiries.', time: 0.4, unit: 'leads/wk' }
         ]}
     };
 
-    let state = { domain: null, selection: new Set(), inputs: {} };
+    let state = { pain: null, selection: new Set(), inputs: {} };
 
-    document.addEventListener('DOMContentLoaded', () => {
-        lucide.createIcons();
-        renderDomains();
-    });
+    document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
 
     function startAudit() {
         document.getElementById('hero').classList.add('hidden');
@@ -222,27 +193,15 @@
         window.scrollTo({top:0, behavior:'smooth'});
     }
 
-    function renderDomains() {
-        const grid = document.getElementById('domain-grid');
-        grid.innerHTML = Object.keys(DATA).map(key => `
-            <div class="diag-card" onclick="selectDomain('${key}')">
-                <i data-lucide="${DATA[key].icon}" size="40"></i>
-                <h3>${DATA[key].label}</h3>
-                <p>Remediate friction in ${DATA[key].label.toLowerCase()}.</p>
-            </div>
-        `).join('');
-        lucide.createIcons();
-    }
-
-    function selectDomain(key) {
-        state.domain = key;
-        const list = document.getElementById('problem-list');
-        list.innerHTML = DATA[key].problems.map(p => `
-            <div class="audit-item" onclick="toggleProb('${p.id}', this)">
-                <div class="check-box"><i data-lucide="check" size="16" style="color:white;"></i></div>
-                <div style="flex:1;">
-                    <div style="font-weight:700; font-size:1.1rem;">${p.label}</div>
-                    <div style="font-size:0.9rem; color:var(--text-dim);">${p.desc}</div>
+    function selectPain(key) {
+        state.pain = key;
+        const list = document.getElementById('task-list');
+        list.innerHTML = DATA[key].tasks.map(t => `
+            <div style="background:var(--surface); padding:24px; border-radius:16px; margin-bottom:12px; display:flex; gap:20px; align-items:center; cursor:pointer;" onclick="toggleTask('${t.id}', this)" class="task-ui">
+                <div style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;" class="check-box"><i data-lucide="check" size="14" style="color:white;"></i></div>
+                <div>
+                    <div style="font-weight:700;">${t.label}</div>
+                    <div style="font-size:0.9rem; color:var(--text-muted);">${t.desc}</div>
                 </div>
             </div>
         `).join('');
@@ -250,9 +209,9 @@
         setStep(2);
     }
 
-    function toggleProb(id, el) {
-        if(state.selection.has(id)) { state.selection.delete(id); el.classList.remove('selected'); }
-        else { state.selection.add(id); el.classList.add('selected'); }
+    function toggleTask(id, el) {
+        if(state.selection.has(id)) { state.selection.delete(id); el.style.borderColor = 'transparent'; el.querySelector('.check-box').style.background = 'transparent'; }
+        else { state.selection.add(id); el.style.border = '2px solid var(--primary)'; el.querySelector('.check-box').style.background = 'var(--primary)'; }
     }
 
     function validateStep2() {
@@ -263,14 +222,14 @@
 
     function renderSliders() {
         const container = document.getElementById('slider-container');
-        const active = DATA[state.domain].problems.filter(p => state.selection.has(p.id));
-        container.innerHTML = active.map(p => `
-            <div class="input-card">
-                <div style="display:flex; justify-content:space-between; font-weight:600;">
-                    <span>${p.label} (${p.unit})</span>
-                    <span id="val-${p.id}" style="color: var(--accent);">0</span>
+        const active = DATA[state.pain].tasks.filter(t => state.selection.has(t.id));
+        container.innerHTML = active.map(t => `
+            <div style="background:var(--surface); padding:32px; border-radius:24px; margin-bottom:20px;">
+                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;">
+                    <span>${t.label} (Qty/Week)</span>
+                    <span style="color:var(--primary);" id="val-${t.id}">0</span>
                 </div>
-                <input type="range" min="0" max="100" value="0" oninput="updateVal('${p.id}', this.value)">
+                <input type="range" min="0" max="100" value="0" style="width:100%; accent-color:var(--primary);" oninput="updateVal('${t.id}', this.value)">
             </div>
         `).join('');
     }
@@ -281,29 +240,23 @@
     }
 
     function runAnalysis() {
-        const rate = parseInt(document.getElementById('hourly-rate').value);
-        let totalVal = 0; let totalHours = 0;
-        
-        DATA[state.domain].problems.filter(p => state.selection.has(p.id)).forEach(p => {
-            const qty = state.inputs[p.id] || 0;
-            const mult = p.unit.includes('mo') ? 12 : 52;
-            const hours = qty * p.time * mult;
-            totalHours += hours;
-            totalVal += hours * rate;
+        let hours = 0;
+        DATA[state.pain].tasks.filter(t => state.selection.has(t.id)).forEach(t => {
+            const qty = state.inputs[t.id] || 0;
+            hours += (qty * t.time * 52);
         });
-
-        document.getElementById('final-amt').innerText = '$' + Math.round(totalVal).toLocaleString();
-        document.getElementById('final-hours').innerText = Math.round(totalHours).toLocaleString();
+        document.getElementById('final-hours').innerText = Math.round(hours) + " Hours";
+        document.getElementById('final-weeks').innerText = (hours / 40).toFixed(1);
         setStep(4);
     }
 
     function sendData() {
         const btn = document.getElementById('send-btn');
-        btn.innerText = "TRANSMITTING DIAGNOSTICS...";
+        btn.innerText = "Transmitting...";
         setTimeout(() => {
-            btn.innerText = "BLUEPRINT DISPATCHED";
-            btn.style.background = "#22c55e";
-            document.getElementById('status').innerHTML = "[SUCCESS] Blueprint delivered to secure endpoint.";
+            btn.innerText = "Blueprint Sent";
+            btn.style.background = "var(--success)";
+            document.getElementById('status').innerText = "Blueprint sent! Check your email for our partner guide.";
         }, 1800);
     }
 </script>
