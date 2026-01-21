@@ -30,65 +30,63 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; flex: 1; width: 100%; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- NAVIGATION --- */
         nav { padding: 32px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; text-decoration: none; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
 
-        /* --- HERO & INTERACTIVE SLIDESHOW --- */
         .hero { padding: 100px 0 60px; text-align: center; min-height: 600px; position: relative; touch-action: pan-y; }
         .headline-container { min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; user-select: none; }
         .hero h1 { font-size: clamp(2.8rem, 9vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.05em; transition: opacity 0.5s ease; margin-bottom: 20px; }
         .hero .sub-hero { max-width: 750px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.5s ease; min-height: 3.5em; }
 
-        /* PROGRESS SELECTORS */
         .dot-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 48px; }
         .dot-wrapper { width: 50px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
         .dot-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); transition: width 0.1s linear; }
         .dot-wrapper.active .dot-progress { width: 100%; }
 
-        /* ARROWS */
         .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; display: block; }
         @media (min-width: 1024px) { .hero:hover .nav-arrow { opacity: 0.5; } .nav-arrow:hover { opacity: 1 !important; color: var(--primary); } }
         @media (max-width: 1023px) { .nav-arrow { display: none; } }
         .arrow-left { left: -40px; } .arrow-right { right: -40px; }
 
-        /* --- DOMAIN GRID --- */
         .grid-container { padding-top: 80px; max-width: 1100px; margin: 0 auto; }
         .section-title-area { text-align: center; margin-bottom: 60px; }
         .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-content: center; }
-        .card { background: var(--surface); border: 1px solid var(--border); padding: 48px 40px; border-radius: 32px; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative; }
+        
+        .card { 
+            background: var(--surface); border: 1px solid var(--border); padding: 48px 40px; border-radius: 32px; 
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative; 
+        }
         .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
-        .card i { color: var(--primary); margin-bottom: 28px; }
-        .card h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.02em; }
-        .check-pill { position: absolute; top: 24px; right: 24px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; }
+        .card i { color: var(--primary); margin-bottom: 28px; pointer-events: none; }
+        .card h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.02em; pointer-events: none; }
+        .card p { color: var(--text-muted); font-size: 1rem; pointer-events: none; }
+        
+        .check-pill { position: absolute; top: 24px; right: 24px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; pointer-events: none; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
 
-        /* --- STEPPER --- */
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
         .audit-item { display: flex; gap: 24px; padding: 28px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; align-items: center; }
         .audit-item:hover { border-color: var(--border); background: white; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
-        .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
+        .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; pointer-events: none; }
         .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
-        /* --- RESULTS & FORM --- */
-        .results-hero { background: #0f172a; color: white; padding: 80px 40px; border-radius: 48px; text-align: center; margin-top: 40px; }
+        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 48px; text-align: center; margin-top: 40px; }
         .big-save { font-size: clamp(4rem, 12vw, 7.5rem); color: #818cf8; font-weight: 800; margin: 15px 0; letter-spacing: -4px; line-height: 1; }
-        .cta-card { background: var(--surface); padding: 60px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
+        .cta-card { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 40px auto 0; }
         input { padding: 20px; border-radius: 16px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; }
         
         .btn { background: var(--primary); color: white; padding: 20px 48px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s; }
         .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-glow); }
-
         .btn-count { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; margin-left: 8px; }
 
-        /* --- FOOTER --- */
         footer { padding: 100px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
         .footer-brand h4 { font-weight: 800; font-size: 1.4rem; margin-bottom: 16px; }
@@ -117,21 +115,16 @@
 </nav>
 
 <div class="container">
-
     <div id="hero" class="hero fade-in">
         <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 700;">Engineered for Performance</div>
-        
         <div class="nav-arrow arrow-left" onclick="prevSlide()"><i data-lucide="chevron-left" size="48"></i></div>
         <div class="nav-arrow arrow-right" onclick="nextSlide()"><i data-lucide="chevron-right" size="48"></i></div>
-
-        <div id="swipe-zone" class="headline-container" onclick="handleContainerClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
+        <div id="swipe-zone" class="headline-container" onclick="handleHeroClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
             <h1 id="slideshow-title">Intelligently<br>effortless.</h1>
             <p id="slideshow-sub" class="sub-hero">We architect world-class workflows that scale your capacity without increasing your overhead.</p>
         </div>
-        
         <div class="dot-container" id="dot-container"></div>
         <button class="btn" onclick="setStep(1)">Start Your Discovery <i data-lucide="sparkle"></i></button>
-
         <div style="padding: 60px 0; border-top: 1px solid var(--border); margin-top: 60px; text-align: center;">
             <span class="mono" style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 24px;">Built with the World's Leading AI Engines</span>
             <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1);">
@@ -179,7 +172,7 @@
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
         <div class="results-hero"><p class="mono" style="opacity: 0.6; letter-spacing: 3px; font-weight: 700;">Potential Annual Capacity Gained</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.5rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p></div>
-        <div class="cta-card"><h2>Request Your Implementation Blueprint</h2><p style="color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">Our team will review your data and provide a professional implementation guide for your business.</p><div class="row"><input type="text" id="name" placeholder="Full Name"><input type="email" id="email" placeholder="Work Email"></div><button class="btn" style="width: 100%; max-width: 650px; margin-top: 20px; justify-content: center;" onclick="sendData()" id="send-btn">Get the Blueprint <i data-lucide="file-text"></i></button><div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div></div>
+        <div class="cta-card"><h2>Get Your SME Blueprint</h2><p style="color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">Our SME architects will review your discovery data and provide a professional implementation guide for your business.</p><div class="row"><input type="text" id="name" placeholder="Full Name"><input type="email" id="email" placeholder="Work Email"></div><button class="btn" style="width: 100%; max-width: 650px; margin-top: 20px; justify-content: center;" onclick="sendData()" id="send-btn">Request My Blueprint <i data-lucide="file-text"></i></button><div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div></div>
     </div>
 </div>
 
@@ -193,7 +186,6 @@
 </footer>
 
 <script>
-    // --- SLIDESHOW ---
     const slides = [
         { title: "Intelligently<br>effortless.", sub: "We architect world-class workflows that scale your capacity without increasing your overhead." },
         { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
@@ -214,12 +206,12 @@
         dotContainer.innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
         const zone = document.getElementById('swipe-zone');
         zone.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-        zone.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, {passive: true});
+        zone.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; if(Math.abs(touchEndX - touchStartX) > 50) handleSwipe(); }, {passive: true});
         setInterval(() => { if (!isPaused) { progress += (INTERVAL / DURATION) * 100; if (progress >= 100) nextSlide(); else updateProgressUI(); } }, INTERVAL);
     }
 
-    function handleSwipe() { if (touchEndX < touchStartX - 50) nextSlide(); if (touchEndX > touchStartX + 50) prevSlide(); }
-    function handleContainerClick() { if (window.innerWidth >= 1024) nextSlide(); }
+    function handleSwipe() { if (touchEndX < touchStartX) nextSlide(); else prevSlide(); }
+    function handleHeroClick() { if (window.innerWidth >= 1024) nextSlide(); }
 
     function updateProgressUI() {
         document.querySelectorAll('.dot-wrapper').forEach((w, i) => {
@@ -245,7 +237,6 @@
     function pauseCycle() { isPaused = true; }
     function resumeCycle() { isPaused = false; }
 
-    // --- APP DATA (UNIQUE IDs ADDED) ---
     const DATA = {
         'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', items: [
             { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills into billing systems.', time: 0.25, unit: 'invoices/wk' },
@@ -267,7 +258,7 @@
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', items: [
             { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with client billing.', time: 1.0, unit: 'invoices/wk' },
-            { id: 'bo-chase', label: 'Compliance Follow-ups', desc: 'Emailing clients for missing tax forms or regulatory data.', time: 0.5, unit: 'requests/wk' }
+            { id: 'bo-chase', label: 'Compliance Follow-ups', desc: 'Emailing clients for missing tax forms.', time: 0.5, unit: 'requests/wk' }
         ]},
         'logistics': { label: 'Operational Logistics', icon: 'truck', items: [
             { id: 'log-notif', label: 'Automated Notifications', desc: 'Keeping clients informed on status changes.', time: 0.1, unit: 'alerts/wk' },
@@ -283,7 +274,7 @@
     function renderDomains() {
         const grid = document.getElementById('domain-grid');
         grid.innerHTML = Object.keys(DATA).map(key => `
-            <div class="card ${state.domains.has(key) ? 'selected' : ''}" onclick="toggleDomain('${key}', this)">
+            <div class="card ${state.domains.has(key) ? 'selected' : ''}" onclick="toggleDomain('${key}', event)">
                 <div class="check-pill"><i data-lucide="check" size="14" style="color:white;"></i></div>
                 <i data-lucide="${DATA[key].icon}" size="44"></i>
                 <h3>${DATA[key].label}</h3>
@@ -293,9 +284,10 @@
         lucide.createIcons();
     }
 
-    function toggleDomain(key, el) { 
+    function toggleDomain(key, e) {
+        const card = e.currentTarget;
         if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); 
-        el.classList.toggle('selected');
+        card.classList.toggle('selected');
         document.getElementById('domain-count').innerText = state.domains.size;
     }
 
@@ -305,7 +297,7 @@
         const list = document.getElementById('task-list');
         let aggregated = []; state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
         list.innerHTML = aggregated.map(i => `
-            <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', this)">
+            <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', event)">
                 <div class="check-box"><i data-lucide="check" size="14" style="color:white;"></i></div>
                 <div style="flex:1;"><div style="font-weight:700; font-size:1.1rem;">${i.label}</div><div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div></div>
             </div>
@@ -314,9 +306,10 @@
         document.getElementById('task-count').innerText = state.tasks.size;
     }
 
-    function toggleTask(id, el) { 
+    function toggleTask(id, e) {
+        const item = e.currentTarget;
         if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); 
-        el.classList.toggle('selected');
+        item.classList.toggle('selected');
         document.getElementById('task-count').innerText = state.tasks.size;
     }
 
@@ -335,14 +328,7 @@
 
     function updateVal(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; }
     function setStep(n) { document.getElementById('hero').classList.add('hidden'); [1,2,3,4].forEach(s => document.getElementById(`step-${s}`).classList.add('hidden')); document.getElementById(`step-${n}`).classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); }
-
-    function runAnalysis() {
-        const rate = parseInt(document.getElementById('hourly-rate').value);
-        let h = 0; let v = 0;
-        state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { const qty = state.inputs[i.id] || 0; const mult = i.unit.includes('mo') ? 12 : 52; const hours = (qty * i.time * mult); h += hours; v += (hours * rate); }); });
-        document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString(); document.getElementById('final-hours').innerText = Math.round(h).toLocaleString(); setStep(4);
-    }
-
+    function runAnalysis() { const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { const qty = state.inputs[i.id] || 0; const mult = i.unit.includes('mo') ? 12 : 52; const hours = (qty * i.time * mult); h += hours; v += (hours * rate); }); }); document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString(); document.getElementById('final-hours').innerText = Math.round(h).toLocaleString(); setStep(4); }
     function sendData() { const btn = document.getElementById('send-btn'); btn.innerText = "Transmitting Discovery..."; setTimeout(() => { btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981"; document.getElementById('status').innerText = "[SUCCESS] Discovery data received. Our team will review and contact you."; }, 1800); }
 </script>
 </body>
