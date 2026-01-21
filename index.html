@@ -37,14 +37,22 @@
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
 
         /* --- HERO & SLIDESHOW --- */
-        .hero { padding: 120px 0 80px; text-align: center; min-height: 500px; }
-        .headline-container { min-height: 140px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+        .hero { padding: 120px 0 80px; text-align: center; min-height: 550px; }
+        .headline-container { min-height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
         
         .hero h1 { 
             font-size: clamp(2.5rem, 8vw, 4.25rem); font-weight: 800; line-height: 1.1; 
             letter-spacing: -0.04em; transition: opacity 0.8s ease;
         }
         
+        /* SLIDESHOW DOTS */
+        .dot-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; }
+        .dot { 
+            width: 10px; height: 10px; border-radius: 50%; background: var(--border); 
+            cursor: pointer; transition: 0.3s;
+        }
+        .dot.active { background: var(--primary); transform: scale(1.3); }
+
         .hero p { max-width: 650px; margin: 0 auto 48px; font-size: 1.25rem; color: var(--text-muted); }
 
         /* --- ECOSYSTEM --- */
@@ -53,7 +61,7 @@
         .eco-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1); }
         .eco-grid span { font-weight: 800; font-size: 1rem; color: var(--text-dark); }
 
-        /* --- SELECTION --- */
+        /* --- SELECTION (MULTI-SELECT) --- */
         .section-header { text-align: center; margin-bottom: 40px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px; }
         .card { 
@@ -129,6 +137,9 @@
         <div class="headline-container">
             <h1 id="slideshow-text">Expand your business,<br>not your busy work.</h1>
         </div>
+        
+        <div class="dot-container" id="dot-container">
+            </div>
         
         <p>We leverage world-class workflow architecture to remove operational friction for growing firms. It isn't magic—it just feels that way.</p>
         <button class="btn" onclick="setStep(1)">Start Your Discovery <i data-lucide="sparkle"></i></button>
@@ -219,17 +230,50 @@
         "Intelligent logistics<br>for the modern firm."
     ];
     let headlineIndex = 0;
+    let autoCycle;
     const slideshowEl = document.getElementById('slideshow-text');
+    const dotContainer = document.getElementById('dot-container');
 
-    function rotateHeadline() {
+    // Initialize Dots
+    function initDots() {
+        dotContainer.innerHTML = headlines.map((_, i) => `
+            <div class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></div>
+        `).join('');
+    }
+
+    function goToSlide(index) {
+        // Clear interval so it doesn't jump while reading
+        clearInterval(autoCycle);
+        
+        headlineIndex = index;
+        updateSlideUI();
+        
+        // Restart interval
+        startAutoCycle();
+    }
+
+    function updateSlideUI() {
+        // Fade effect
         slideshowEl.style.opacity = 0;
+        
         setTimeout(() => {
-            headlineIndex = (headlineIndex + 1) % headlines.length;
             slideshowEl.innerHTML = headlines[headlineIndex];
             slideshowEl.style.opacity = 1;
+            
+            // Update dots
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === headlineIndex);
+            });
         }, 800);
     }
-    setInterval(rotateHeadline, 4500);
+
+    function startAutoCycle() {
+        autoCycle = setInterval(() => {
+            headlineIndex = (headlineIndex + 1) % headlines.length;
+            updateSlideUI();
+        }, 8000); // 8 Seconds
+    }
 
     // --- WORKFLOW DATA ---
     const DATA = {
@@ -261,7 +305,13 @@
     };
 
     let state = { domains: new Set(), tasks: new Set(), inputs: {} };
-    document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); renderDomains(); });
+    
+    document.addEventListener('DOMContentLoaded', () => { 
+        lucide.createIcons(); 
+        renderDomains(); 
+        initDots();
+        startAutoCycle();
+    });
 
     function goHome() {
         document.getElementById('hero').classList.remove('hidden');
