@@ -33,7 +33,6 @@
         /* --- NAVIGATION --- */
         nav { padding: 32px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-        
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; text-decoration: none; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
 
@@ -49,20 +48,13 @@
         .dot-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); transition: width 0.1s linear; }
         .dot-wrapper.active .dot-progress { width: 100%; }
 
-        /* ARROWS (Hidden on mobile) */
+        /* ARROWS */
         .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; display: block; }
         @media (min-width: 1024px) { .hero:hover .nav-arrow { opacity: 0.5; } .nav-arrow:hover { opacity: 1 !important; color: var(--primary); } }
-        @media (max-width: 1023px) { .nav-arrow { display: none; } .hero { padding-top: 40px; } }
+        @media (max-width: 1023px) { .nav-arrow { display: none; } }
         .arrow-left { left: -40px; } .arrow-right { right: -40px; }
 
-        /* --- ECOSYSTEM BAR (HERO ONLY) --- */
-        .eco-bar { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-top: 40px; }
-        .eco-label { font-weight: 700; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; display: block; }
-        .eco-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1); }
-        .eco-grid a { font-weight: 800; font-size: 1rem; color: var(--text-dark); text-decoration: none; transition: 0.2s; }
-        .eco-grid a:hover { color: var(--primary); opacity: 1; filter: none; }
-
-        /* --- PHASE 01: GRID --- */
+        /* --- DOMAIN GRID --- */
         .grid-container { padding-top: 80px; max-width: 1100px; margin: 0 auto; }
         .section-title-area { text-align: center; margin-bottom: 60px; }
         .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-content: center; }
@@ -78,29 +70,34 @@
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .audit-item { display: flex; gap: 24px; padding: 28px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; align-items: center; }
+        .audit-item:hover { border-color: var(--border); background: white; }
+        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
+        .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
+        .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
         /* --- RESULTS & FORM --- */
-        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 48px; text-align: center; margin-top: 40px; }
+        .results-hero { background: #0f172a; color: white; padding: 80px 40px; border-radius: 48px; text-align: center; margin-top: 40px; }
         .big-save { font-size: clamp(4rem, 12vw, 7.5rem); color: #818cf8; font-weight: 800; margin: 15px 0; letter-spacing: -4px; line-height: 1; }
-        .cta-card { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
+        .cta-card { background: var(--surface); padding: 60px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 40px auto 0; }
-        input { padding: 20px; border-radius: 16px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
+        input { padding: 20px; border-radius: 16px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; }
         
         .btn { background: var(--primary); color: white; padding: 20px 48px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s; }
         .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-glow); }
+
+        .btn-count { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; margin-left: 8px; }
 
         /* --- FOOTER --- */
         footer { padding: 100px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
         .footer-brand h4 { font-weight: 800; font-size: 1.4rem; margin-bottom: 16px; }
-        .footer-brand p { color: var(--text-muted); font-size: 1rem; max-width: 350px; }
         .footer-links h5 { font-weight: 700; margin-bottom: 24px; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1.5px; }
         .footer-links a { display: block; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 12px; font-weight: 600; text-decoration: none; transition: 0.2s; }
         .footer-links a:hover { color: var(--primary); }
         .footer-bottom { border-top: 1px solid var(--border); margin-top: 80px; padding-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
-        
-        @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .footer-brand p { margin: 0 auto; } .row { grid-template-columns: 1fr; } }
+
+        @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .row { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -127,23 +124,21 @@
         <div class="nav-arrow arrow-left" onclick="prevSlide()"><i data-lucide="chevron-left" size="48"></i></div>
         <div class="nav-arrow arrow-right" onclick="nextSlide()"><i data-lucide="chevron-right" size="48"></i></div>
 
-        <div id="swipe-zone" class="headline-container" onclick="handleContainerClick(event)" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
+        <div id="swipe-zone" class="headline-container" onclick="handleContainerClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
             <h1 id="slideshow-title">Intelligently<br>effortless.</h1>
             <p id="slideshow-sub" class="sub-hero">We architect world-class workflows that scale your capacity without increasing your overhead.</p>
         </div>
         
         <div class="dot-container" id="dot-container"></div>
-        
         <button class="btn" onclick="setStep(1)">Start Your Discovery <i data-lucide="sparkle"></i></button>
 
-        <div class="eco-bar">
-            <span class="eco-label">Built with the World's Leading AI Engines</span>
-            <div class="eco-grid">
-                <a href="https://openai.com" target="_blank">OpenAI</a>
-                <a href="https://anthropic.com" target="_blank">Anthropic</a>
-                <a href="https://cloud.google.com" target="_blank">Google Cloud</a>
-                <a href="https://azure.microsoft.com" target="_blank">Microsoft Azure</a>
-                <a href="https://www.make.com" target="_blank">Make.com</a>
+        <div style="padding: 60px 0; border-top: 1px solid var(--border); margin-top: 60px; text-align: center;">
+            <span class="mono" style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 24px;">Built with the World's Leading AI Engines</span>
+            <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1);">
+                <a href="https://openai.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">OpenAI</a>
+                <a href="https://anthropic.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">Anthropic</a>
+                <a href="https://cloud.google.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">Google Cloud</a>
+                <a href="https://www.make.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">Make.com</a>
             </div>
         </div>
     </div>
@@ -156,8 +151,8 @@
         </div>
         <div class="domain-grid" id="domain-grid"></div>
         <div style="text-align: center; margin-top: 60px;">
-            <button class="btn" onclick="validateStep1()">Map My Friction Points <i data-lucide="map"></i></button>
-            <div id="err-1" style="color:#ef4444; margin-top:16px; display:none; font-weight: 600;">At least one domain must be initialized.</div>
+            <button class="btn" onclick="validateStep1()">Map My Friction Points <span id="domain-count" class="btn-count">0</span></button>
+            <div id="err-1" style="color:#ef4444; margin-top:16px; display:none; font-weight: 600;">Selection required to begin.</div>
         </div>
     </div>
 
@@ -167,7 +162,7 @@
         <div id="task-list" style="margin-top: 40px;"></div>
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Quantify the Impact <i data-lucide="activity"></i></button>
+            <button class="btn" onclick="validateStep2()">Quantify the Impact <span id="task-count" class="btn-count">0</span></button>
         </div>
     </div>
 
@@ -176,62 +171,29 @@
         <h2>Measure the Friction</h2>
         <div id="slider-box" style="margin-top: 40px;"></div>
         <div style="background: var(--surface); padding: 48px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;">
-            <div style="display:flex; justify-content:space-between; font-weight:700;">
-                <span class="mono">Resource Hourly Value (USD)</span>
-                <span style="color: var(--primary);">$<span id="rate-disp">150</span></span>
-            </div>
+            <div style="display:flex; justify-content:space-between; font-weight:700;"><span class="mono">Resource Hourly Value (USD)</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value">
         </div>
-        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
-            <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="runAnalysis()">Finalize Discovery <i data-lucide="zap"></i></button>
-        </div>
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button><button class="btn" onclick="runAnalysis()">Finalize Discovery <i data-lucide="zap"></i></button></div>
     </div>
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
-        <div class="results-hero">
-            <p class="mono" style="opacity: 0.6; letter-spacing: 3px; font-weight: 700;">Potential Annual Capacity Gained</p>
-            <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.5rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
-        </div>
-        <div class="cta-card">
-            <h2>Request Your Implementation Blueprint</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">Our team will review your discovery data and provide a professional implementation guide for your business.</p>
-            <div class="row">
-                <input type="text" id="name" placeholder="Full Name">
-                <input type="email" id="email" placeholder="Work Email">
-            </div>
-            <button class="btn" style="width: 100%; max-width: 650px; margin-top: 20px; justify-content: center;" onclick="sendData()" id="send-btn">Get the Blueprint <i data-lucide="file-text"></i></button>
-            <div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div>
-        </div>
+        <div class="results-hero"><p class="mono" style="opacity: 0.6; letter-spacing: 3px; font-weight: 700;">Potential Annual Capacity Gained</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.5rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p></div>
+        <div class="cta-card"><h2>Request Your Implementation Blueprint</h2><p style="color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">Our team will review your data and provide a professional implementation guide for your business.</p><div class="row"><input type="text" id="name" placeholder="Full Name"><input type="email" id="email" placeholder="Work Email"></div><button class="btn" style="width: 100%; max-width: 650px; margin-top: 20px; justify-content: center;" onclick="sendData()" id="send-btn">Get the Blueprint <i data-lucide="file-text"></i></button><div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div></div>
     </div>
 </div>
 
 <footer>
     <div class="footer-inner">
-        <div class="footer-brand">
-            <h4>MagicFolder</h4>
-            <p>SME-led workflow architecture for mid-market service businesses and firms.</p>
-        </div>
-        <div class="footer-links">
-            <h5>Our Expertise</h5>
-            <a href="https://openai.com" target="_blank">OpenAI LLMs</a>
-            <a href="https://anthropic.com" target="_blank">Anthropic Claude</a>
-            <a href="https://cloud.google.com" target="_blank">Google Vertex AI</a>
-        </div>
-        <div class="footer-links">
-            <h5>Platform Mastery</h5>
-            <a href="https://www.servicenow.com" target="_blank">ServiceNow</a>
-            <a href="https://www.make.com" target="_blank">Make Orchestration</a>
-            <a href="https://azure.microsoft.com" target="_blank">Azure Cognitive</a>
-        </div>
+        <div class="footer-brand"><h4>MagicFolder</h4><p>SME-led workflow architecture for mid-market service businesses and firms.</p></div>
+        <div class="footer-links"><h5>Our Expertise</h5><a href="https://openai.com" target="_blank">OpenAI LLMs</a><a href="https://anthropic.com" target="_blank">Anthropic Claude</a><a href="https://cloud.google.com" target="_blank">Google Vertex AI</a></div>
+        <div class="footer-links"><h5>Platform Mastery</h5><a href="https://www.servicenow.com" target="_blank">ServiceNow</a><a href="https://www.make.com" target="_blank">Make Orchestration</a><a href="https://azure.microsoft.com" target="_blank">Azure Cognitive</a></div>
     </div>
-    <div class="footer-bottom">
-        &copy; 2026 MagicFolder AI. Professional Operational Architecture.
-    </div>
+    <div class="footer-bottom">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div>
 </footer>
 
 <script>
+    // --- SLIDESHOW ---
     const slides = [
         { title: "Intelligently<br>effortless.", sub: "We architect world-class workflows that scale your capacity without increasing your overhead." },
         { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
@@ -246,19 +208,18 @@
     const subEl = document.getElementById('slideshow-sub');
     const dotContainer = document.getElementById('dot-container');
 
-    let touchStartX = 0;
-    let touchEndX = 0;
+    let touchStartX = 0; let touchEndX = 0;
 
     function initSlideshow() {
         dotContainer.innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
-        const swipeZone = document.getElementById('swipe-zone');
-        swipeZone.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-        swipeZone.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, {passive: true});
+        const zone = document.getElementById('swipe-zone');
+        zone.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        zone.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, {passive: true});
         setInterval(() => { if (!isPaused) { progress += (INTERVAL / DURATION) * 100; if (progress >= 100) nextSlide(); else updateProgressUI(); } }, INTERVAL);
     }
 
     function handleSwipe() { if (touchEndX < touchStartX - 50) nextSlide(); if (touchEndX > touchStartX + 50) prevSlide(); }
-    function handleContainerClick(e) { if (window.innerWidth >= 1024) nextSlide(); }
+    function handleContainerClick() { if (window.innerWidth >= 1024) nextSlide(); }
 
     function updateProgressUI() {
         document.querySelectorAll('.dot-wrapper').forEach((w, i) => {
@@ -284,42 +245,40 @@
     function pauseCycle() { isPaused = true; }
     function resumeCycle() { isPaused = false; }
 
+    // --- APP DATA (UNIQUE IDs ADDED) ---
     const DATA = {
         'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', items: [
-            { id: 'invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills into billing systems.', time: 0.25, unit: 'invoices/wk' },
-            { id: 'contracts', label: 'Agreement Triage', desc: 'Identifying and filing based on document content.', time: 0.2, unit: 'files/wk' },
-            { id: 'forms', label: 'Data Extraction', desc: 'Turning manual forms into structured digital records.', time: 0.5, unit: 'forms/wk' }
+            { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills into billing systems.', time: 0.25, unit: 'invoices/wk' },
+            { id: 'mf-contracts', label: 'Agreement Triage', desc: 'Identifying and filing based on document content.', time: 0.2, unit: 'files/wk' },
+            { id: 'mf-forms', label: 'Data Extraction', desc: 'Turning manual forms into structured digital records.', time: 0.5, unit: 'forms/wk' }
         ]},
         'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', items: [
-            { id: 'rag-search', label: 'Knowledge Search (RAG)', desc: 'Finding specific clauses across thousands of documents.', time: 0.4, unit: 'searches/wk' },
-            { id: 'briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts into actionable points.', time: 1.5, unit: 'docs/wk' }
+            { id: 'kn-rag', label: 'RAG Knowledge Search', desc: 'Finding specific clauses across thousands of documents.', time: 0.4, unit: 'searches/wk' },
+            { id: 'kn-briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts into actionable points.', time: 1.5, unit: 'docs/wk' }
         ]},
         'requests': { label: 'Request Hub', icon: 'clipboard-list', items: [
-            { id: 'tracking', label: 'Job & Order Status', desc: 'Centralized visibility into job stages without follow-up.', time: 0.3, unit: 'orders/wk' },
-            { id: 'triage', label: 'Intake Routing', desc: 'Assigning client tasks to the right team folder.', time: 0.2, unit: 'tasks/wk' }
+            { id: 'req-tracking', label: 'Job & Order Status', desc: 'Centralized visibility into job stages without follow-up.', time: 0.3, unit: 'orders/wk' },
+            { id: 'req-triage', label: 'Intake Routing', desc: 'Assigning client tasks to the right team folder.', time: 0.2, unit: 'tasks/wk' },
+            { id: 'req-chase', label: 'Client Document Chase', desc: 'Chasing clients for missing info or signatures.', time: 0.5, unit: 'requests/wk' }
         ]},
         'support': { label: 'Intelligent Support', icon: 'message-square', items: [
-            { id: 'faq', label: 'Data-Driven FAQ', desc: 'Answering routine questions using your specific data.', time: 0.15, unit: 'queries/wk' },
-            { id: 'onboarding', label: 'Client Onboarding Ops', desc: 'Automated folder and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
+            { id: 'sup-faq', label: 'Data-Driven FAQ', desc: 'Answering routine questions using your specific data.', time: 0.15, unit: 'queries/wk' },
+            { id: 'sup-onboard', label: 'Client Onboarding Ops', desc: 'Automated folder and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', items: [
-            { id: 'billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with client billing.', time: 1.0, unit: 'invoices/wk' },
-            { id: 'chase', label: 'Document Chase', desc: 'Emailing clients for missing tax forms.', time: 0.5, unit: 'requests/wk' }
+            { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with client billing.', time: 1.0, unit: 'invoices/wk' },
+            { id: 'bo-chase', label: 'Compliance Follow-ups', desc: 'Emailing clients for missing tax forms or regulatory data.', time: 0.5, unit: 'requests/wk' }
         ]},
         'logistics': { label: 'Operational Logistics', icon: 'truck', items: [
-            { id: 'notif', label: 'Automated Notifications', desc: 'Keeping clients informed on status changes.', time: 0.1, unit: 'alerts/wk' },
-            { id: 'reconcile', label: 'Record Reconciliation', desc: 'Matching job logs with internal records.', time: 0.1, unit: 'records/wk' }
+            { id: 'log-notif', label: 'Automated Notifications', desc: 'Keeping clients informed on status changes.', time: 0.1, unit: 'alerts/wk' },
+            { id: 'log-reconcile', label: 'Record Reconciliation', desc: 'Matching job logs with internal records.', time: 0.1, unit: 'records/wk' }
         ]}
     };
 
     let state = { domains: new Set(), tasks: new Set(), inputs: {} };
     document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); renderDomains(); initSlideshow(); });
 
-    function goHome() {
-        document.getElementById('hero').classList.remove('hidden');
-        [1,2,3,4].forEach(n => document.getElementById(`step-${n}`).classList.add('hidden'));
-        window.scrollTo({top:0, behavior:'smooth'});
-    }
+    function goHome() { document.getElementById('hero').classList.remove('hidden'); [1,2,3,4].forEach(n => document.getElementById(`step-${n}`).classList.add('hidden')); window.scrollTo({top:0, behavior:'smooth'}); }
 
     function renderDomains() {
         const grid = document.getElementById('domain-grid');
@@ -334,7 +293,12 @@
         lucide.createIcons();
     }
 
-    function toggleDomain(key, el) { if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); el.classList.toggle('selected'); }
+    function toggleDomain(key, el) { 
+        if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); 
+        el.classList.toggle('selected');
+        document.getElementById('domain-count').innerText = state.domains.size;
+    }
+
     function validateStep1() { if(state.domains.size === 0) { document.getElementById('err-1').style.display='block'; return; } renderTasks(); setStep(2); }
 
     function renderTasks() {
@@ -347,9 +311,15 @@
             </div>
         `).join('');
         lucide.createIcons();
+        document.getElementById('task-count').innerText = state.tasks.size;
     }
 
-    function toggleTask(id, el) { if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); el.classList.toggle('selected'); }
+    function toggleTask(id, el) { 
+        if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); 
+        el.classList.toggle('selected');
+        document.getElementById('task-count').innerText = state.tasks.size;
+    }
+
     function validateStep2() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); }
 
     function renderSliders() {
@@ -373,7 +343,7 @@
         document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString(); document.getElementById('final-hours').innerText = Math.round(h).toLocaleString(); setStep(4);
     }
 
-    function sendData() { const btn = document.getElementById('send-btn'); btn.innerText = "Transmitting Discovery..."; setTimeout(() => { btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981"; document.getElementById('status').innerText = "[SUCCESS] Discovery received. Our architecture team is reviewing your blueprint."; }, 1800); }
+    function sendData() { const btn = document.getElementById('send-btn'); btn.innerText = "Transmitting Discovery..."; setTimeout(() => { btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981"; document.getElementById('status').innerText = "[SUCCESS] Discovery data received. Our team will review and contact you."; }, 1800); }
 </script>
 </body>
 </html>
