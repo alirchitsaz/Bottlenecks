@@ -15,7 +15,7 @@
     <style>
         :root {
             --primary: #4f46e5;
-            --primary-glow: rgba(79, 70, 229, 0.1);
+            --primary-soft: rgba(79, 70, 229, 0.08);
             --bg: #ffffff;
             --surface: #f8fafc;
             --text-dark: #0f172a;
@@ -31,7 +31,7 @@
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
 
         nav { padding: 32px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; text-decoration: none; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
 
@@ -45,57 +45,57 @@
         .dot-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); transition: width 0.1s linear; }
         .dot-wrapper.active .dot-progress { width: 100%; }
 
-        .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; display: block; }
+        .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; }
         @media (min-width: 1024px) { .hero:hover .nav-arrow { opacity: 0.5; } .nav-arrow:hover { opacity: 1 !important; color: var(--primary); } }
         @media (max-width: 1023px) { .nav-arrow { display: none; } }
         .arrow-left { left: -40px; } .arrow-right { right: -40px; }
 
-        .grid-container { padding-top: 80px; max-width: 1100px; margin: 0 auto; }
+        .grid-container { padding: 80px 0; max-width: 1100px; margin: 0 auto; }
         .section-title-area { text-align: center; margin-bottom: 60px; }
         .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-content: center; }
         
-        .card { 
-            background: var(--surface); border: 1px solid var(--border); padding: 48px 40px; border-radius: 32px; 
-            cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative; 
-        }
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 56px 48px; border-radius: 40px; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative; }
         .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
         .card i { color: var(--primary); margin-bottom: 28px; pointer-events: none; }
-        .card h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.02em; pointer-events: none; }
-        .card p { color: var(--text-muted); font-size: 1rem; pointer-events: none; }
+        .card h3 { font-size: 1.6rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.03em; pointer-events: none; }
+        .card p { color: var(--text-muted); font-size: 1.05rem; pointer-events: none; }
         
-        .check-pill { position: absolute; top: 24px; right: 24px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; pointer-events: none; }
+        .check-pill { position: absolute; top: 32px; right: 32px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; pointer-events: none; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
 
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .audit-item { display: flex; gap: 24px; padding: 28px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; align-items: center; }
+        .audit-item { display: flex; gap: 24px; padding: 32px; background: var(--surface); border: 2px solid transparent; border-radius: 28px; margin-bottom: 20px; cursor: pointer; transition: 0.2s; align-items: center; }
         .audit-item:hover { border-color: var(--border); background: white; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
         .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; pointer-events: none; }
         .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
-        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 48px; text-align: center; margin-top: 40px; }
-        .big-save { font-size: clamp(4rem, 12vw, 7.5rem); color: #818cf8; font-weight: 800; margin: 15px 0; letter-spacing: -4px; line-height: 1; }
+        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 50px; text-align: center; margin-top: 40px; }
+        .big-save { font-size: clamp(4.5rem, 12vw, 8rem); color: #818cf8; font-weight: 800; margin: 20px 0; letter-spacing: -5px; line-height: 1; }
+        
         .cta-card { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 40px auto 0; }
-        input { padding: 20px; border-radius: 16px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; }
+        input { padding: 22px; border-radius: 16px; border: 1px solid var(--border); font-size: 1.1rem; width: 100%; outline: none; transition: 0.2s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
         
-        .btn { background: var(--primary); color: white; padding: 20px 48px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s; }
-        .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-glow); }
-        .btn-count { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; margin-left: 8px; }
+        .btn { background: var(--primary); color: white; padding: 22px 52px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.2rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s; }
+        .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-soft); }
+        .btn-count { background: rgba(255,255,255,0.25); padding: 4px 10px; border-radius: 8px; font-size: 0.9rem; margin-left: 10px; font-weight: 800; }
 
-        footer { padding: 100px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
-        .footer-brand h4 { font-weight: 800; font-size: 1.4rem; margin-bottom: 16px; }
-        .footer-links h5 { font-weight: 700; margin-bottom: 24px; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1.5px; }
-        .footer-links a { display: block; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 12px; font-weight: 600; text-decoration: none; transition: 0.2s; }
+        footer { padding: 120px 0 60px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; }
+        .footer-brand h4 { font-weight: 800; font-size: 1.6rem; margin-bottom: 16px; letter-spacing: -0.02em; }
+        .footer-brand p { color: var(--text-muted); font-size: 1.1rem; max-width: 380px; }
+        .footer-links h5 { font-weight: 700; margin-bottom: 28px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; }
+        .footer-links a { display: block; color: var(--text-dark); font-size: 1rem; margin-bottom: 14px; font-weight: 600; text-decoration: none; transition: 0.2s; }
         .footer-links a:hover { color: var(--primary); }
-        .footer-bottom { border-top: 1px solid var(--border); margin-top: 80px; padding-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+        .footer-bottom { border-top: 1px solid var(--border); margin-top: 100px; padding-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
 
-        @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .row { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .footer-brand p { margin: 0 auto; } .row { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -110,13 +110,13 @@
             </svg>
             MagicFolder
         </div>
-        <div class="mono" style="color: var(--text-muted); font-weight: 600; font-size: 0.8rem;">Workflow Intelligence</div>
+        <div class="mono" style="color: var(--text-muted); font-weight: 700; font-size: 0.8rem;">Workflow Intelligence</div>
     </div>
 </nav>
 
 <div class="container">
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 700;">Engineered for Performance</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 800; letter-spacing: 3px;">Engineered for Performance</div>
         <div class="nav-arrow arrow-left" onclick="prevSlide()"><i data-lucide="chevron-left" size="48"></i></div>
         <div class="nav-arrow arrow-right" onclick="nextSlide()"><i data-lucide="chevron-right" size="48"></i></div>
         <div id="swipe-zone" class="headline-container" onclick="handleHeroClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
@@ -125,9 +125,9 @@
         </div>
         <div class="dot-container" id="dot-container"></div>
         <button class="btn" onclick="setStep(1)">Start Your Discovery <i data-lucide="sparkle"></i></button>
-        <div style="padding: 60px 0; border-top: 1px solid var(--border); margin-top: 60px; text-align: center;">
-            <span class="mono" style="color: var(--text-muted); font-size: 0.7rem; display: block; margin-bottom: 24px;">Built with the World's Leading AI Engines</span>
-            <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.6; filter: grayscale(1);">
+        <div style="padding: 80px 0 40px; border-top: 1px solid var(--border); margin-top: 80px; text-align: center;">
+            <span class="mono" style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-bottom: 32px; font-weight: 700;">Expert Subject Matter Mastery</span>
+            <div style="display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; opacity: 0.7; filter: grayscale(1);">
                 <a href="https://openai.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">OpenAI</a>
                 <a href="https://anthropic.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">Anthropic</a>
                 <a href="https://cloud.google.com" target="_blank" style="font-weight:800; color:var(--text-dark); text-decoration:none;">Google Cloud</a>
@@ -138,198 +138,218 @@
 
     <div id="step-1" class="hidden fade-in grid-container">
         <div class="section-title-area">
-            <div class="mono" style="color: var(--text-muted); margin-bottom: 12px;">Phase 01</div>
-            <h2>Identify the Opportunity</h2>
-            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Select every operational area where manual tasks are limiting your capacity to grow.</p>
+            <div class="mono" style="color: var(--text-muted); margin-bottom: 16px; font-weight: 700;">Phase 01</div>
+            <h2 style="font-size: 2.5rem; letter-spacing: -0.04em;">Identify the Opportunity</h2>
+            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 650px; margin: 20px auto 0;">Select every operational area where manual tasks are limiting your capacity to grow.</p>
         </div>
         <div class="domain-grid" id="domain-grid"></div>
-        <div style="text-align: center; margin-top: 60px;">
+        <div style="text-align: center; margin-top: 80px;">
             <button class="btn" onclick="validateStep1()">Map My Friction Points <span id="domain-count" class="btn-count">0</span></button>
-            <div id="err-1" style="color:#ef4444; margin-top:16px; display:none; font-weight: 600;">Selection required to begin.</div>
+            <div id="err-1" style="color:#ef4444; margin-top:24px; display:none; font-weight: 800;">Selection required to begin.</div>
         </div>
     </div>
 
-    <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 02: Structural Mapping</div>
-        <h2 id="s2-title">Pinpoint the Bottlenecks</h2>
-        <div id="task-list" style="margin-top: 40px;"></div>
-        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
+    <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 120px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 02: Structural Mapping</div>
+        <h2 id="s2-title" style="font-size: 2.5rem; letter-spacing: -0.04em;">Pinpoint the Bottlenecks</h2>
+        <div id="task-list" style="margin-top: 50px;"></div>
+        <div style="margin-top: 80px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
             <button class="btn" onclick="validateStep2()">Quantify the Impact <span id="task-count" class="btn-count">0</span></button>
         </div>
     </div>
 
-    <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 03: Operational Density</div>
-        <h2>Measure the Friction</h2>
-        <div id="slider-box" style="margin-top: 40px;"></div>
-        <div style="background: var(--surface); padding: 48px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;">
-            <div style="display:flex; justify-content:space-between; font-weight:700;"><span class="mono">Resource Hourly Value (USD)</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
-            <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value">
+    <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 120px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 03: Operational Density</div>
+        <h2 style="font-size: 2.5rem;">Measure the Friction</h2>
+        <div id="slider-box" style="margin-top: 50px;"></div>
+        <div style="background: var(--surface); padding: 56px; border-radius: 40px; border: 1px solid var(--border); margin-bottom: 32px; border-style: dashed;">
+            <div style="display:flex; justify-content:space-between; font-weight:800;"><span class="mono">Resource Hourly Value (USD)</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div>
+            <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:24px; accent-color:var(--primary);">
         </div>
-        <div style="margin-top: 60px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button><button class="btn" onclick="runAnalysis()">Finalize Discovery <i data-lucide="zap"></i></button></div>
+        <div style="margin-top: 80px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button><button class="btn" onclick="runAnalysis()">Finalize Discovery <i data-lucide="zap"></i></button></div>
     </div>
 
-    <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
-        <div class="results-hero"><p class="mono" style="opacity: 0.6; letter-spacing: 3px; font-weight: 700;">Potential Annual Capacity Gained</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.5rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p></div>
-        <div class="cta-card"><h2>Get Your SME Blueprint</h2><p style="color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">Our SME architects will review your discovery data and provide a professional implementation guide for your business.</p><div class="row"><input type="text" id="name" placeholder="Full Name"><input type="email" id="email" placeholder="Work Email"></div><button class="btn" style="width: 100%; max-width: 650px; margin-top: 20px; justify-content: center;" onclick="sendData()" id="send-btn">Request My Blueprint <i data-lucide="file-text"></i></button><div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div></div>
+    <div id="step-4" class="hidden fade-in" style="padding: 80px 0;">
+        <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Annual Capacity Potential</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.6rem; opacity: 0.9;">Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p></div>
+        <div class="cta-card"><h2>Download Your SME Blueprint</h2><p style="color: var(--text-muted); margin-bottom: 40px; max-width: 650px; margin-left: auto; margin-right: auto; font-size: 1.2rem;">Our Subject Matter Experts will review your discovery data and provide a tailored technical guide for your architecture.</p><div class="row"><input type="text" id="name" placeholder="Full Name"><input type="email" id="email" placeholder="Business Email"></div><button class="btn" style="width: 100%; max-width: 650px; margin-top: 24px; justify-content: center;" onclick="sendData()" id="send-btn">Get the Blueprint <i data-lucide="file-text"></i></button><div id="status" class="mono" style="margin-top: 32px; color: #10b981; font-weight: 800;"></div></div>
     </div>
 </div>
 
 <footer>
     <div class="footer-inner">
-        <div class="footer-brand"><h4>MagicFolder</h4><p>SME-led workflow architecture for mid-market service businesses and firms.</p></div>
-        <div class="footer-links"><h5>Our Expertise</h5><a href="https://openai.com" target="_blank">OpenAI LLMs</a><a href="https://anthropic.com" target="_blank">Anthropic Claude</a><a href="https://cloud.google.com" target="_blank">Google Vertex AI</a></div>
-        <div class="footer-links"><h5>Platform Mastery</h5><a href="https://www.servicenow.com" target="_blank">ServiceNow</a><a href="https://www.make.com" target="_blank">Make Orchestration</a><a href="https://azure.microsoft.com" target="_blank">Azure Cognitive</a></div>
+        <div class="footer-brand"><h4>MagicFolder</h4><p>SME-led workflow architecture for mid-market service businesses and firms. Building logic that feels like magic.</p></div>
+        <div class="footer-links"><h5>Our Expertise</h5><a href="https://openai.com" target="_blank">OpenAI Models</a><a href="https://anthropic.com" target="_blank">Claude 3.5</a><a href="https://cloud.google.com" target="_blank">Google Vertex</a></div>
+        <div class="footer-links"><h5>Platform Mastery</h5><a href="https://www.servicenow.com" target="_blank">ServiceNow ITSM</a><a href="https://www.make.com" target="_blank">Make Orchestration</a><a href="https://azure.microsoft.com" target="_blank">Azure Cognitive</a></div>
     </div>
-    <div class="footer-bottom">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div>
+    <div class="footer-bottom">&copy; 2026 MagicFolder AI. SME-Led Operational Architecture.</div>
 </footer>
 
 <script>
-    const slides = [
-        { title: "Intelligently<br>effortless.", sub: "We architect world-class workflows that scale your capacity without increasing your overhead." },
-        { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
-        { title: "Knowledge intelligence<br>at your fingertips.", sub: "Chat with your business history. Find specific clauses or insights across thousands of documents instantly." },
-        { title: "Total visibility, zero<br>manual updates.", sub: "Track job status and order logistics in real-time, keeping clients informed without lifting a finger." },
-        { title: "Scale your capacity,<br>not your chaos.", sub: "Move from manual firefighting to automated precision with enterprise-standard workflow logic." }
-    ];
+    (function() {
+        const slides = [
+            { title: "Intelligently<br>effortless.", sub: "We architect world-class workflows that scale your capacity without increasing your overhead." },
+            { title: "Chaos in.<br>Intelligence out.", sub: "Automatically identify, extract, and route document data from any source—invoices, contracts, or client forms." },
+            { title: "Knowledge intelligence<br>at your fingertips.", sub: "Chat with your business history. Find specific clauses or insights across thousands of documents instantly." },
+            { title: "Total visibility, zero<br>manual updates.", sub: "Track job status and order logistics in real-time, keeping clients informed without lifting a finger." },
+            { title: "Scale your capacity,<br>not your chaos.", sub: "Move from manual firefighting to automated precision with enterprise-standard model orchestration." }
+        ];
 
-    let slideIndex = 0; let progress = 0; let isPaused = false;
-    const DURATION = 9000; const INTERVAL = 100;
-    const titleEl = document.getElementById('slideshow-title');
-    const subEl = document.getElementById('slideshow-sub');
-    const dotContainer = document.getElementById('dot-container');
+        let slideIndex = 0; let progress = 0; let isPaused = false;
+        const DURATION = 9000; const INTERVAL = 100;
+        let autoCycle;
 
-    let touchStartX = 0; let touchEndX = 0;
+        const DATA = {
+            'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', items: [
+                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills into billing systems.', time: 0.25, unit: 'invoices/wk' },
+                { id: 'mf-contracts', label: 'Agreement Triage', desc: 'Identifying and filing based on document content.', time: 0.2, unit: 'files/wk' },
+                { id: 'mf-forms', label: 'Data Extraction', desc: 'Turning manual forms into structured digital records.', time: 0.5, unit: 'forms/wk' }
+            ]},
+            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', items: [
+                { id: 'kn-rag', label: 'RAG Knowledge Search', desc: 'Finding specific clauses across thousands of documents.', time: 0.4, unit: 'searches/wk' },
+                { id: 'kn-briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts into actionable points.', time: 1.5, unit: 'docs/wk' }
+            ]},
+            'requests': { label: 'Request Hub', icon: 'clipboard-list', items: [
+                { id: 'req-tracking', label: 'Job & Order Status', desc: 'Centralized visibility into job stages without follow-up.', time: 0.3, unit: 'orders/wk' },
+                { id: 'req-triage', label: 'Intake Routing', desc: 'Assigning client tasks to the right team folder.', time: 0.2, unit: 'tasks/wk' },
+                { id: 'req-chase', label: 'Compliance Follow-ups', desc: 'Automated chasing for missing signatures or tax forms.', time: 0.5, unit: 'requests/wk' }
+            ]},
+            'support': { label: 'Intelligent Support', icon: 'message-square', items: [
+                { id: 'sup-faq', label: 'Data-Driven FAQ', desc: 'Answering routine questions using your specific company data.', time: 0.15, unit: 'queries/wk' },
+                { id: 'sup-onboard', label: 'Client Onboarding Ops', desc: 'Automated folder and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
+            ]},
+            'backoffice': { label: 'Back Office Ops', icon: 'landmark', items: [
+                { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with client billing.', time: 1.0, unit: 'invoices/wk' },
+                { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching of records across siloed software systems.', time: 0.1, unit: 'records/wk' }
+            ]},
+            'logistics': { label: 'Operational Logistics', icon: 'truck', items: [
+                { id: 'log-notif', label: 'Automated Notifications', desc: 'Keeping clients informed on status changes without typing emails.', time: 0.1, unit: 'alerts/wk' },
+                { id: 'log-track', label: 'Delivery Integrity', desc: 'Matching job logs with internal digital records automatically.', time: 0.1, unit: 'records/wk' }
+            ]}
+        };
 
-    function initSlideshow() {
-        dotContainer.innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
-        const zone = document.getElementById('swipe-zone');
-        zone.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-        zone.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; if(Math.abs(touchEndX - touchStartX) > 50) handleSwipe(); }, {passive: true});
-        setInterval(() => { if (!isPaused) { progress += (INTERVAL / DURATION) * 100; if (progress >= 100) nextSlide(); else updateProgressUI(); } }, INTERVAL);
-    }
+        let state = { domains: new Set(), tasks: new Set(), inputs: {} };
 
-    function handleSwipe() { if (touchEndX < touchStartX) nextSlide(); else prevSlide(); }
-    function handleHeroClick() { if (window.innerWidth >= 1024) nextSlide(); }
+        window.goHome = function() { location.reload(); };
 
-    function updateProgressUI() {
-        document.querySelectorAll('.dot-wrapper').forEach((w, i) => {
-            const bar = w.querySelector('.dot-progress');
-            if (i < slideIndex) { bar.style.width = '100%'; w.className = 'dot-wrapper completed'; }
-            else if (i === slideIndex) { bar.style.width = progress + '%'; w.className = 'dot-wrapper active'; }
-            else { bar.style.width = '0%'; w.className = 'dot-wrapper'; }
+        window.setStep = function(n) {
+            document.getElementById('hero').classList.add('hidden');
+            [1,2,3,4].forEach(s => {
+                const el = document.getElementById(`step-${s}`);
+                if(el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(`step-${n}`);
+            if(target) target.classList.remove('hidden');
+            window.scrollTo({top:0, behavior:'smooth'});
+        };
+
+        window.toggleDomain = function(key, e) {
+            const card = e.currentTarget;
+            if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); 
+            card.classList.toggle('selected');
+            document.getElementById('domain-count').innerText = state.domains.size;
+        };
+
+        window.validateStep1 = function() {
+            if(state.domains.size === 0) { document.getElementById('err-1').style.display='block'; return; }
+            renderTasks(); setStep(2);
+        };
+
+        function renderTasks() {
+            const list = document.getElementById('task-list');
+            let aggregated = []; state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
+            list.innerHTML = aggregated.map(i => `
+                <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', event)">
+                    <div class="check-box"><i data-lucide="check" size="14" style="color:white;"></i></div>
+                    <div style="flex:1;"><div style="font-weight:700; font-size:1.15rem;">${i.label}</div><div style="color:var(--text-muted); font-size:1rem;">${i.desc}</div></div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+            document.getElementById('task-count').innerText = state.tasks.size;
+        }
+
+        window.toggleTask = function(id, e) {
+            const item = e.currentTarget;
+            if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); 
+            item.classList.toggle('selected');
+            document.getElementById('task-count').innerText = state.tasks.size;
+        };
+
+        window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
+
+        function renderSliders() {
+            const container = document.getElementById('slider-box');
+            let active = []; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
+            container.innerHTML = active.map(i => `
+                <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
+                    <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;"><span>${i.label} (${i.unit})</span><span id="val-${i.id}" style="color: var(--primary);">0</span></div>
+                    <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);">
+                </div>
+            `).join('');
+        }
+
+        window.updateVal = function(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; };
+
+        window.runAnalysis = function() {
+            const rate = parseInt(document.getElementById('hourly-rate').value);
+            let h = 0; let v = 0;
+            state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { const qty = state.inputs[i.id] || 0; const mult = i.unit.includes('mo') ? 12 : 52; const hours = (qty * i.time * mult); h += hours; v += (hours * rate); }); });
+            document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString(); document.getElementById('final-hours').innerText = Math.round(h).toLocaleString(); setStep(4);
+        };
+
+        window.sendData = function() { const btn = document.getElementById('send-btn'); btn.innerText = "Transmitting..."; setTimeout(() => { btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981"; document.getElementById('status').innerText = "[SUCCESS] Discovery data received. Our team will review and contact you."; }, 1800); };
+
+        // Slideshow UI
+        window.nextSlide = function() { slideIndex = (slideIndex + 1) % slides.length; progress = 0; updateContent(); };
+        window.prevSlide = function() { slideIndex = (slideIndex - 1 + slides.length) % slides.length; progress = 0; updateContent(); };
+        window.goToSlide = function(i) { slideIndex = i; progress = 0; updateContent(); };
+        window.pauseCycle = function() { isPaused = true; };
+        window.resumeCycle = function() { isPaused = false; };
+        window.handleHeroClick = function() { if (window.innerWidth >= 1024) nextSlide(); };
+
+        function updateContent() {
+            const t = document.getElementById('slideshow-title');
+            const s = document.getElementById('slideshow-sub');
+            t.style.opacity = 0; s.style.opacity = 0;
+            setTimeout(() => {
+                t.innerHTML = slides[slideIndex].title; s.innerHTML = slides[slideIndex].sub;
+                t.style.opacity = 1; s.style.opacity = 1; updateProgressUI();
+            }, 500);
+        }
+
+        function updateProgressUI() {
+            document.querySelectorAll('.dot-wrapper').forEach((w, i) => {
+                const bar = w.querySelector('.dot-progress');
+                if (i < slideIndex) { bar.style.width = '100%'; w.className = 'dot-wrapper completed'; }
+                else if (i === slideIndex) { bar.style.width = progress + '%'; w.className = 'dot-wrapper active'; }
+                else { bar.style.width = '0%'; w.className = 'dot-wrapper'; }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const grid = document.getElementById('domain-grid');
+            grid.innerHTML = Object.keys(DATA).map(key => `
+                <div class="card" onclick="toggleDomain('${key}', event)">
+                    <div class="check-pill"><i data-lucide="check" size="16" style="color:white;"></i></div>
+                    <i data-lucide="${DATA[key].icon}" size="48"></i>
+                    <h3>${DATA[key].label}</h3>
+                    <p>Expert SME solutions to remove ${DATA[key].label.toLowerCase()} friction.</p>
+                </div>
+            `).join('');
+            lucide.createIcons();
+
+            const dotCont = document.getElementById('dot-container');
+            dotCont.innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
+
+            const zone = document.getElementById('swipe-zone');
+            let sx = 0;
+            zone.addEventListener('touchstart', e => sx = e.changedTouches[0].screenX, {passive: true});
+            zone.addEventListener('touchend', e => { let ex = e.changedTouches[0].screenX; if(ex < sx - 50) nextSlide(); if(ex > sx + 50) prevSlide(); }, {passive: true});
+
+            autoCycle = setInterval(() => { if (!isPaused) { progress += (INTERVAL / DURATION) * 100; if (progress >= 100) nextSlide(); else updateProgressUI(); } }, INTERVAL);
         });
-    }
-
-    function nextSlide() { slideIndex = (slideIndex + 1) % slides.length; progress = 0; updateContent(); }
-    function prevSlide() { slideIndex = (slideIndex - 1 + slides.length) % slides.length; progress = 0; updateContent(); }
-    function goToSlide(i) { slideIndex = i; progress = 0; updateContent(); }
-
-    function updateContent() {
-        titleEl.style.opacity = 0; subEl.style.opacity = 0;
-        setTimeout(() => {
-            titleEl.innerHTML = slides[slideIndex].title; subEl.innerHTML = slides[slideIndex].sub;
-            titleEl.style.opacity = 1; subEl.style.opacity = 1; updateProgressUI();
-        }, 500);
-    }
-
-    function pauseCycle() { isPaused = true; }
-    function resumeCycle() { isPaused = false; }
-
-    const DATA = {
-        'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', items: [
-            { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills into billing systems.', time: 0.25, unit: 'invoices/wk' },
-            { id: 'mf-contracts', label: 'Agreement Triage', desc: 'Identifying and filing based on document content.', time: 0.2, unit: 'files/wk' },
-            { id: 'mf-forms', label: 'Data Extraction', desc: 'Turning manual forms into structured digital records.', time: 0.5, unit: 'forms/wk' }
-        ]},
-        'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', items: [
-            { id: 'kn-rag', label: 'RAG Knowledge Search', desc: 'Finding specific clauses across thousands of documents.', time: 0.4, unit: 'searches/wk' },
-            { id: 'kn-briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts into actionable points.', time: 1.5, unit: 'docs/wk' }
-        ]},
-        'requests': { label: 'Request Hub', icon: 'clipboard-list', items: [
-            { id: 'req-tracking', label: 'Job & Order Status', desc: 'Centralized visibility into job stages without follow-up.', time: 0.3, unit: 'orders/wk' },
-            { id: 'req-triage', label: 'Intake Routing', desc: 'Assigning client tasks to the right team folder.', time: 0.2, unit: 'tasks/wk' },
-            { id: 'req-chase', label: 'Client Document Chase', desc: 'Chasing clients for missing info or signatures.', time: 0.5, unit: 'requests/wk' }
-        ]},
-        'support': { label: 'Intelligent Support', icon: 'message-square', items: [
-            { id: 'sup-faq', label: 'Data-Driven FAQ', desc: 'Answering routine questions using your specific data.', time: 0.15, unit: 'queries/wk' },
-            { id: 'sup-onboard', label: 'Client Onboarding Ops', desc: 'Automated folder and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
-        ]},
-        'backoffice': { label: 'Back Office Ops', icon: 'landmark', items: [
-            { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with client billing.', time: 1.0, unit: 'invoices/wk' },
-            { id: 'bo-chase', label: 'Compliance Follow-ups', desc: 'Emailing clients for missing tax forms.', time: 0.5, unit: 'requests/wk' }
-        ]},
-        'logistics': { label: 'Operational Logistics', icon: 'truck', items: [
-            { id: 'log-notif', label: 'Automated Notifications', desc: 'Keeping clients informed on status changes.', time: 0.1, unit: 'alerts/wk' },
-            { id: 'log-reconcile', label: 'Record Reconciliation', desc: 'Matching job logs with internal records.', time: 0.1, unit: 'records/wk' }
-        ]}
-    };
-
-    let state = { domains: new Set(), tasks: new Set(), inputs: {} };
-    document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); renderDomains(); initSlideshow(); });
-
-    function goHome() { document.getElementById('hero').classList.remove('hidden'); [1,2,3,4].forEach(n => document.getElementById(`step-${n}`).classList.add('hidden')); window.scrollTo({top:0, behavior:'smooth'}); }
-
-    function renderDomains() {
-        const grid = document.getElementById('domain-grid');
-        grid.innerHTML = Object.keys(DATA).map(key => `
-            <div class="card ${state.domains.has(key) ? 'selected' : ''}" onclick="toggleDomain('${key}', event)">
-                <div class="check-pill"><i data-lucide="check" size="14" style="color:white;"></i></div>
-                <i data-lucide="${DATA[key].icon}" size="44"></i>
-                <h3>${DATA[key].label}</h3>
-                <p>Architectural solutions for ${DATA[key].label.toLowerCase()} friction.</p>
-            </div>
-        `).join('');
-        lucide.createIcons();
-    }
-
-    function toggleDomain(key, e) {
-        const card = e.currentTarget;
-        if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); 
-        card.classList.toggle('selected');
-        document.getElementById('domain-count').innerText = state.domains.size;
-    }
-
-    function validateStep1() { if(state.domains.size === 0) { document.getElementById('err-1').style.display='block'; return; } renderTasks(); setStep(2); }
-
-    function renderTasks() {
-        const list = document.getElementById('task-list');
-        let aggregated = []; state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
-        list.innerHTML = aggregated.map(i => `
-            <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', event)">
-                <div class="check-box"><i data-lucide="check" size="14" style="color:white;"></i></div>
-                <div style="flex:1;"><div style="font-weight:700; font-size:1.1rem;">${i.label}</div><div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div></div>
-            </div>
-        `).join('');
-        lucide.createIcons();
-        document.getElementById('task-count').innerText = state.tasks.size;
-    }
-
-    function toggleTask(id, e) {
-        const item = e.currentTarget;
-        if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); 
-        item.classList.toggle('selected');
-        document.getElementById('task-count').innerText = state.tasks.size;
-    }
-
-    function validateStep2() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); }
-
-    function renderSliders() {
-        const container = document.getElementById('slider-box');
-        let active = []; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
-        container.innerHTML = active.map(i => `
-            <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
-                <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;"><span>${i.label} (${i.unit})</span><span id="val-${i.id}" style="color: var(--primary);">0</span></div>
-                <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);">
-            </div>
-        `).join('');
-    }
-
-    function updateVal(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; }
-    function setStep(n) { document.getElementById('hero').classList.add('hidden'); [1,2,3,4].forEach(s => document.getElementById(`step-${s}`).classList.add('hidden')); document.getElementById(`step-${n}`).classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); }
-    function runAnalysis() { const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { const qty = state.inputs[i.id] || 0; const mult = i.unit.includes('mo') ? 12 : 52; const hours = (qty * i.time * mult); h += hours; v += (hours * rate); }); }); document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString(); document.getElementById('final-hours').innerText = Math.round(h).toLocaleString(); setStep(4); }
-    function sendData() { const btn = document.getElementById('send-btn'); btn.innerText = "Transmitting Discovery..."; setTimeout(() => { btn.innerText = "Blueprint Requested"; btn.style.background = "#10b981"; document.getElementById('status').innerText = "[SUCCESS] Discovery data received. Our team will review and contact you."; }, 1800); }
+    })();
 </script>
 </body>
 </html>
