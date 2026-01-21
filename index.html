@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MagicFolder | Professional Workflow & Knowledge Architecture</title>
+    <title>MagicFolder | Professional Workflow Intelligence & Architecture</title>
     
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,73 +24,83 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
 
         /* --- NAVIGATION --- */
-        nav { padding: 24px 0; border-bottom: 1px solid var(--border); background: #fff; position: sticky; top: 0; z-index: 100; }
+        nav { padding: 32px 0; border-bottom: 1px solid var(--border); background: #fff; position: sticky; top: 0; z-index: 100; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
         
         .logo { 
-            display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; 
+            display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; 
             text-decoration: none; color: var(--text-dark); cursor: pointer;
         }
-        .logo svg { width: 36px; height: 36px; fill: var(--primary); }
+        .logo svg { width: 38px; height: 38px; fill: var(--primary); }
 
         /* --- HERO --- */
-        .hero { padding: 100px 0 60px; text-align: center; }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 24px; }
-        .hero p { max-width: 700px; margin: 0 auto 48px; font-size: 1.25rem; color: var(--text-muted); }
+        .hero { padding: 120px 0 80px; text-align: center; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.05em; margin-bottom: 24px; }
+        .hero p { max-width: 750px; margin: 0 auto 48px; font-size: 1.35rem; color: var(--text-muted); }
 
-        /* --- DOMAIN SELECTOR (MULTI-SELECT) --- */
-        .section-label { text-align: center; margin-bottom: 40px; }
+        /* --- PARTNER SHIELDS --- */
+        .ecosystem-bar { padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; margin-bottom: 80px; }
+        .ecosystem-label { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 24px; display: block; }
+        .ecosystem-grid { display: flex; justify-content: center; align-items: center; gap: 60px; flex-wrap: wrap; opacity: 0.7; filter: grayscale(1); }
+        .ecosystem-grid span { font-weight: 800; font-size: 1.1rem; color: var(--text-dark); letter-spacing: -0.5px; }
+
+        /* --- DOMAIN SELECTOR --- */
+        .section-label { text-align: center; margin-bottom: 50px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px; }
         .card { 
-            background: var(--surface); border: 2px solid transparent; padding: 44px; border-radius: 32px; 
+            background: var(--surface); border: 2px solid transparent; padding: 48px; border-radius: 36px; 
             cursor: pointer; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative;
         }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-color: var(--border); }
-        .card.selected { border-color: var(--primary); background: #fff; box-shadow: 0 20px 40px var(--primary-glow); }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.06); border-color: var(--border); }
+        .card.selected { border-color: var(--primary); background: #fff; box-shadow: 0 25px 50px var(--primary-glow); }
         
-        .card i { color: var(--primary); margin-bottom: 24px; }
-        .card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        .card i { color: var(--primary); margin-bottom: 28px; }
+        .card h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 700; }
+        .card p { color: var(--text-muted); font-size: 1rem; }
         
-        .select-dot { 
-            position: absolute; top: 24px; right: 24px; width: 24px; height: 24px; 
+        .check-pill { 
+            position: absolute; top: 24px; right: 24px; width: 28px; height: 28px; 
             border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s;
         }
-        .card.selected .select-dot { background: var(--primary); border-color: var(--primary); }
+        .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
 
-        /* --- STEPPER --- */
+        /* --- AUDIT STEPS --- */
         .hidden { display: none !important; }
-        .fade-in { animation: fadeInUp 0.6s ease forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
         .audit-item { 
-            display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; 
-            border-radius: 20px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center;
+            display: flex; gap: 24px; padding: 28px; background: var(--surface); border: 2px solid transparent; 
+            border-radius: 24px; margin-bottom: 16px; cursor: pointer; transition: 0.2s; align-items: center;
         }
         .audit-item.selected { border-color: var(--primary); background: #f5f3ff; }
-        .check-ui { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
-        .audit-item.selected .check-ui { background: var(--primary); border-color: var(--primary); }
+        .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
+        .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
-        /* --- DATA & SLIDERS --- */
-        .data-card { background: var(--surface); padding: 32px; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 24px; }
-        input[type=range] { width: 100%; accent-color: var(--primary); height: 8px; margin-top: 16px; }
+        /* --- DATA & VOLUME --- */
+        .volume-card { background: var(--surface); padding: 40px; border-radius: 28px; border: 1px solid var(--border); margin-bottom: 24px; }
+        input[type=range] { width: 100%; accent-color: var(--primary); height: 10px; margin-top: 20px; border-radius: 5px; cursor: pointer; }
         
         .btn { 
-            background: var(--primary); color: white; padding: 20px 40px; border-radius: 50px; 
-            font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px;
+            background: var(--primary); color: white; padding: 22px 48px; border-radius: 100px; 
+            font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s;
         }
-        .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-glow); }
+        .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-glow); }
 
         /* --- RESULTS --- */
-        .results-box { background: #0f172a; color: white; padding: 80px; border-radius: 44px; text-align: center; }
-        .big-save { font-size: clamp(4rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 10px 0; letter-spacing: -2px; }
+        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 50px; text-align: center; box-shadow: 0 40px 80px rgba(0,0,0,0.3); }
+        .big-save { font-size: clamp(4.5rem, 12vw, 7.5rem); color: #818cf8; font-weight: 800; margin: 15px 0; letter-spacing: -4px; line-height: 1; }
 
-        /* --- LEAD CAPTURE --- */
-        .form-section { background: var(--surface); padding: 60px; border-radius: 36px; border: 1px solid var(--border); text-align: center; margin-top: 80px; }
-        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 600px; margin: 32px auto 0; }
-        input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; }
+        /* --- LEAD CONVERSION --- */
+        .cta-section { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 100px; }
+        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 40px auto 0; }
+        input { padding: 20px; border-radius: 16px; border: 1px solid var(--border); font-size: 1.05rem; width: 100%; outline: none; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); }
+        
+        @media (max-width: 700px) { .input-group { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -105,115 +115,134 @@
             </svg>
             MagicFolder
         </div>
-        <div class="mono" style="color: var(--text-muted);">Partner Architecture Collective</div>
+        <div class="mono" style="color: var(--text-muted); font-size: 0.8rem; font-weight: 600;">Enterprise Workflow Intelligence</div>
     </div>
 </nav>
 
 <main class="container">
 
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px;">Built by Enterprise Architects</div>
-        <h1>Scale your capacity,<br>not your manual work.</h1>
-        <p>We provide the architecture and specialized expertise to turn messy data into intelligent, automated growth. It isn't magic—it just feels that way.</p>
-        <button class="btn" onclick="setStep(1)">Begin Operational Audit <i data-lucide="arrow-right"></i></button>
+        <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 700;">Engineered by Enterprise Architects</div>
+        <h1>Complexity is the<br><span style="color: var(--primary);">new friction.</span></h1>
+        <p>We leverage decades of Global ITSM experience and deep relationships with major AI ecosystems to bridge the gap between enterprise-grade technology and mid-market operations.</p>
+        <button class="btn" onclick="setStep(1)">Initialize Operational Audit <i data-lucide="scan-search"></i></button>
+    </div>
+
+    <div class="ecosystem-bar">
+        <span class="ecosystem-label">Integrated with the Global Ecosystem</span>
+        <div class="ecosystem-grid">
+            <span>OpenAI</span>
+            <span>Google Cloud</span>
+            <span>Anthropic</span>
+            <span>Microsoft Azure</span>
+            <span>ServiceNow</span>
+            <span>Make.com</span>
+        </div>
     </div>
 
     <div id="step-1" class="hidden fade-in">
         <div class="section-label">
-            <div class="mono" style="color: var(--text-muted); margin-bottom: 8px;">Phase 01</div>
-            <h2>Where is your primary friction?</h2>
-            <p style="color: var(--text-muted);">Select all domains that apply to your current operations.</p>
+            <div class="mono" style="color: var(--text-muted); margin-bottom: 12px;">Phase 01</div>
+            <h2>Define the Friction Domains</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">Select all operational areas currently under-performing or manual-heavy.</p>
         </div>
         <div class="grid" id="domain-grid">
             </div>
-        <div style="text-align: center; margin-top: 40px;">
-            <button class="btn" onclick="validateStep1()">Map My Friction Points <i data-lucide="map"></i></button>
-            <div id="err-1" style="color:#ef4444; margin-top:16px; display:none;">Please select at least one domain.</div>
+        <div style="text-align: center; margin-top: 50px;">
+            <button class="btn" onclick="validateStep1()">Map Global Friction <i data-lucide="map-pinned"></i></button>
+            <div id="err-1" style="color:#ef4444; margin-top:16px; display:none; font-weight: 600;">At least one domain must be initialized.</div>
         </div>
     </div>
 
-    <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 02: Friction Mapping</div>
+    <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 60px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 02: Structural Mapping</div>
         <h2 id="s2-title">Identify the Bottlenecks</h2>
-        <p style="color: var(--text-muted); margin-bottom: 32px;">Select the manual tasks within your chosen domains that consume the most time.</p>
+        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">Select the manual workflows within your selected domains that are limiting your capacity.</p>
         <div id="task-list"></div>
-        <div style="margin-top: 48px; display: flex; justify-content: space-between;">
+        <div style="margin-top: 60px; display: flex; justify-content: space-between; align-items: center;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Quantify Impact <i data-lucide="chevron-right"></i></button>
+            <button class="btn" onclick="validateStep2()">Quantify Impact <i data-lucide="activity"></i></button>
         </div>
-        <div id="err-2" style="color:#ef4444; margin-top:16px; display:none; text-align: center;">Please select at least one task.</div>
+        <div id="err-2" style="color:#ef4444; margin-top:20px; display:none; text-align: center; font-weight: 600;">Task selection is required to proceed.</div>
     </div>
 
-    <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 03: Operational Density</div>
-        <h2>Scale of Impact</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px;">Estimate your weekly frequency to determine the potential ROI of our architecture.</p>
+    <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 60px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Phase 03: Operational Density</div>
+        <h2>Measure the Friction</h2>
+        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">Estimate your weekly frequency to determine the potential ROI of an architected solution.</p>
         <div id="slider-box"></div>
-        <div class="data-card" style="border-style: dashed;">
-            <div style="display:flex; justify-content:space-between; font-weight:700;">
-                <span>Staff Hourly Value (USD)</span>
+        <div class="volume-card" style="border-style: dashed; border-width: 2px;">
+            <div style="display:flex; justify-content:space-between; font-weight:800; font-size: 1.1rem;">
+                <span class="mono" style="letter-spacing: 1px;">Base Resource Value (Hourly)</span>
                 <span style="color: var(--primary);">$<span id="rate-disp">150</span></span>
             </div>
-            <input type="range" id="hourly-rate" min="50" max="500" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%;">
+            <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%;">
         </div>
-        <div style="margin-top: 48px; display: flex; justify-content: space-between;">
+        <div style="margin-top: 60px; display: flex; justify-content: space-between; align-items: center;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="runAnalysis()">Analyze Efficiency <i data-lucide="zap"></i></button>
+            <button class="btn" onclick="runAnalysis()">Execute Impact Analysis <i data-lucide="cpu"></i></button>
         </div>
     </div>
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
-        <div class="results-box">
-            <p class="mono" style="opacity: 0.6; letter-spacing: 2px;">Potential Annual Reclaimable Value</p>
+        <div class="results-hero">
+            <p class="mono" style="opacity: 0.6; letter-spacing: 3px; font-weight: 700;">Annual Reclaimable Opportunity</p>
             <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.25rem; opacity: 0.8;">Equivalent to <strong id="final-hours" style="color:white;">0</strong> high-value hours redeployed to business growth.</p>
+            <p style="font-size: 1.4rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">
+                Equivalent to reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value leadership hours per year.
+            </p>
         </div>
 
-        <div class="form-section">
-            <h2>Receive the Implementation Blueprint</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 550px; margin-left: auto; margin-right: auto;">Our collective of experts will review your metrics and provide a professional guide to help you remove these specific bottlenecks.</p>
-            <div class="input-row">
+        <div class="cta-section">
+            <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 700;">Next Steps</div>
+            <h2>Request Your Implementation Blueprint</h2>
+            <p style="color: var(--text-muted); margin-bottom: 10px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem;">
+                Our architects will review your audit and provide a professional technical specification for the ecosystem integrations (OpenAI, Anthropic, Google) required to remediate these bottlenecks.
+            </p>
+            <div class="input-group">
                 <input type="text" id="name" placeholder="Full Name">
-                <input type="email" id="email" placeholder="Work Email">
+                <input type="email" id="email" placeholder="Business Email">
             </div>
-            <button class="btn" style="width: 100%; max-width: 600px; margin-top: 12px; justify-content: center;" onclick="sendData()" id="send-btn">Send My Blueprint</button>
-            <div id="status" class="mono" style="margin-top: 24px; color: #10b981;"></div>
+            <button class="btn" style="width: 100%; max-width: 650px; margin-top: 16px; justify-content: center;" onclick="sendData()" id="send-btn">Get the Blueprint <i data-lucide="file-text"></i></button>
+            <div id="status" class="mono" style="margin-top: 24px; color: #10b981; font-weight: 700;"></div>
         </div>
     </div>
 
 </main>
 
 <script>
+    // --- WORKFLOW DATA ---
     const DATA = {
         'magicfolder': { label: 'Document Intelligence', icon: 'folder-search', items: [
-            { id: 'invoices', label: 'Invoice Processing', desc: 'Automatically extracting data from vendor bills and syncing to billing.', time: 0.25, unit: 'invoices/wk' },
-            { id: 'contracts', label: 'Agreement Identification', desc: 'Recognizing contract types and filing them in the right project folder.', time: 0.15, unit: 'files/wk' },
-            { id: 'forms', label: 'Client Intake Forms', desc: 'Extracting info from manual PDFs or images into your digital CRM.', time: 0.5, unit: 'forms/wk' }
+            { id: 'invoices', label: 'Invoice Processing', desc: 'Auto-extraction of vendor data into accounting/ERP systems.', time: 0.25, unit: 'invoices/wk' },
+            { id: 'contracts', label: 'Agreement Triage', desc: 'Intelligent identification and filing based on clause analysis.', time: 0.2, unit: 'files/wk' },
+            { id: 'forms', label: 'Unstructured Data Entry', desc: 'Turning manual PDFs or images into structured digital records.', time: 0.5, unit: 'forms/wk' }
         ]},
-        'knowledge': { label: 'Knowledge RAG', icon: 'brain-circuit', items: [
-            { id: 'rag-search', label: 'RAG Knowledge Search', desc: 'Finding specific legal clauses or past history across thousands of files.', time: 0.4, unit: 'searches/wk' },
-            { id: 'briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts or depositions into actionable points.', time: 1.5, unit: 'docs/wk' }
+        'knowledge': { label: 'Knowledge Intelligence', icon: 'brain-circuit', items: [
+            { id: 'rag-search', label: 'RAG Knowledge Help', desc: 'Chat with your archives. Find specific facts across thousands of documents.', time: 0.4, unit: 'searches/wk' },
+            { id: 'briefing', label: 'Automated Summarization', desc: 'Briefing long discovery files or meeting transcripts via AI.', time: 1.5, unit: 'docs/wk' }
         ]},
-        'requests': { label: 'Request Management', icon: 'clipboard-list', items: [
-            { id: 'triage', label: 'Task Intake & Triage', desc: 'Categorizing and assigning inbound client tasks manually.', time: 0.2, unit: 'tasks/wk' },
-            { id: 'chase', label: 'Document Chasing', desc: 'Emailing clients for missing signatures, tax forms, or data.', time: 0.5, unit: 'requests/wk' }
+        'requests': { label: 'Request Hub', icon: 'clipboard-list', items: [
+            { id: 'tracking', label: 'Order & Job Status', desc: 'Centralized visibility into job stages without manual follow-up.', time: 0.3, unit: 'orders/wk' },
+            { id: 'triage', label: 'Inbound Request Routing', desc: 'Categorizing and assigning client tasks to the right team.', time: 0.2, unit: 'tasks/wk' }
         ]},
-        'logistics': { label: 'Order Tracking', icon: 'truck', items: [
-            { id: 'tracking', label: 'Status Logistics', desc: 'Checking carrier or job sites for latest status and updating logs.', time: 0.3, unit: 'orders/wk' },
-            { id: 'notif', label: 'Client Notifications', desc: 'Sending manual "shipped" or "arrived" alerts to customers.', time: 0.1, unit: 'alerts/wk' }
+        'logistics': { label: 'Operational Logistics', icon: 'truck', items: [
+            { id: 'notif', label: 'Automated Status Alerts', desc: 'Keeping clients informed on status changes without typing emails.', time: 0.1, unit: 'alerts/wk' },
+            { id: 'reconcile', label: 'Logistics Reconciliation', desc: 'Matching job completion logs with billing records.', time: 0.1, unit: 'records/wk' }
         ]},
-        'support': { label: 'Intelligent Support', icon: 'message-square', items: [
-            { id: 'faq', label: 'Automated CS (AI FAQ)', desc: 'Answering routine questions about your business rules instantly.', time: 0.15, unit: 'queries/wk' },
-            { id: 'routing', label: 'Ticket Routing', desc: 'Moving inbound requests to the right staff member folder.', time: 0.1, unit: 'tickets/wk' }
+        'support': { label: 'Automated CS', icon: 'message-square', items: [
+            { id: 'faq', label: 'Data-Driven FAQ', desc: 'Answering 80% of routine questions using your specific business data.', time: 0.15, unit: 'queries/wk' },
+            { id: 'onboarding', label: 'Client Onboarding Ops', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
         ]},
-        'backoffice': { label: 'Back Office Ops', icon: 'landmark', items: [
-            { id: 'onboard', label: 'Client Onboarding', desc: 'Setting up new folders and accounts for new customers manually.', time: 1.5, unit: 'onboards/wk' },
-            { id: 'reconcile', label: 'Bill Reconciliation', desc: 'Matching transaction records to outgoing billing manually.', time: 1.0, unit: 'invoices/wk' }
+        'finance': { label: 'Back Office Ops', icon: 'landmark', items: [
+            { id: 'billing', label: 'Manual Billing Reconciliation', desc: 'Reconciling vendor invoices and outgoing client billing.', time: 1.0, unit: 'invoices/wk' },
+            { id: 'chase', label: 'Document Chase', desc: 'Emailing clients for missing tax forms, signatures, or data.', time: 0.5, unit: 'requests/wk' }
         ]}
     };
 
     let state = { domains: new Set(), tasks: new Set(), inputs: {} };
 
+    // --- INITIALIZATION ---
     document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
         renderDomains();
@@ -229,10 +258,10 @@
         const grid = document.getElementById('domain-grid');
         grid.innerHTML = Object.keys(DATA).map(key => `
             <div class="card ${state.domains.has(key) ? 'selected' : ''}" onclick="toggleDomain('${key}', this)">
-                <div class="select-dot"><i data-lucide="check" size="14" style="color:white;"></i></div>
-                <i data-lucide="${DATA[key].icon}" size="40"></i>
+                <div class="check-pill"><i data-lucide="check" size="16" style="color:white;"></i></div>
+                <i data-lucide="${DATA[key].icon}" size="44"></i>
                 <h3>${DATA[key].label}</h3>
-                <p>Architectural solutions for ${DATA[key].label.toLowerCase()} friction.</p>
+                <p>Architectural solutions to remove manual friction in ${DATA[key].label.toLowerCase()}.</p>
             </div>
         `).join('');
         lucide.createIcons();
@@ -260,13 +289,16 @@
 
     function renderTasks() {
         const list = document.getElementById('task-list');
-        let aggregatedItems = [];
-        state.domains.forEach(d => aggregatedItems = aggregatedItems.concat(DATA[d].items));
+        let aggregated = [];
+        state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
 
-        list.innerHTML = aggregatedItems.map(i => `
+        list.innerHTML = aggregated.map(i => `
             <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', this)">
-                <div class="check-ui"><i data-lucide="check" size="16" style="color:white;"></i></div>
-                <div><div style="font-weight:700; font-size:1.1rem;">${i.label}</div><div style="color:var(--text-muted); font-size:0.9rem;">${i.desc}</div></div>
+                <div class="check-box"><i data-lucide="check" size="16" style="color:white;"></i></div>
+                <div style="flex:1;">
+                    <div style="font-weight:800; font-size:1.15rem; margin-bottom:4px;">${i.label}</div>
+                    <div style="color:var(--text-muted); font-size:1rem; line-height:1.4;">${i.desc}</div>
+                </div>
             </div>
         `).join('');
         lucide.createIcons();
@@ -294,18 +326,18 @@
 
     function renderSliders() {
         const container = document.getElementById('slider-box');
-        let activeItems = [];
+        let active = [];
         state.domains.forEach(d => {
-            DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => activeItems.push(ai));
+            DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai));
         });
 
-        container.innerHTML = activeItems.map(i => `
-            <div class="data-card">
-                <div style="display:flex; justify-content:space-between; font-weight:700;">
-                    <span>${i.label} (Qty/Week)</span>
+        container.innerHTML = active.map(i => `
+            <div class="volume-card">
+                <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem;">
+                    <span>${i.label} (${i.unit})</span>
                     <span id="val-${i.id}" style="color: var(--primary);">0</span>
                 </div>
-                <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);">
+                <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%;">
             </div>
         `).join('');
     }
@@ -346,7 +378,7 @@
         setTimeout(() => {
             btn.innerText = "Blueprint Requested";
             btn.style.background = "#10b981";
-            document.getElementById('status').innerText = "[SUCCESS] Audit received. Our collective is reviewing your Operational Blueprint.";
+            document.getElementById('status').innerText = "[SUCCESS] Metrics delivered. Our architecture team is reviewing your audit.";
         }, 1800);
     }
 </script>
