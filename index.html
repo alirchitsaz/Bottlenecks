@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MagicFolder | Professional Data & Workflow Logistics</title>
+    <title>MagicFolder | Professional Workflow & Knowledge Architecture</title>
     
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
     <style>
         :root {
             --primary: #4f46e5;
-            --primary-soft: rgba(79, 70, 229, 0.08);
+            --primary-glow: rgba(79, 70, 229, 0.15);
             --bg: #ffffff;
             --surface: #f8fafc;
             --text-dark: #0f172a;
@@ -23,34 +23,32 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; }
 
-        /* --- HEADER --- */
+        /* --- NAVIGATION --- */
         nav { padding: 24px 0; border-bottom: 1px solid var(--border); background: #fff; position: sticky; top: 0; z-index: 100; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.5rem; text-decoration: none; color: var(--text-dark); }
-        .logo i { color: var(--primary); }
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; text-decoration: none; color: var(--text-dark); }
+        .logo svg { width: 36px; height: 36px; fill: var(--primary); }
 
         /* --- HERO --- */
-        .hero { padding: 100px 0 60px; text-align: center; }
+        .hero { padding: 100px 0 80px; text-align: center; }
         .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 24px; }
         .hero p { max-width: 700px; margin: 0 auto 48px; font-size: 1.25rem; color: var(--text-muted); }
-        
-        /* --- PRODUCT SELECTOR (STEP 1) --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
-        .product-card { 
-            background: white; border: 1px solid var(--border); padding: 40px; border-radius: 28px; 
-            cursor: pointer; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-align: left;
-            position: relative; overflow: hidden;
-        }
-        .product-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .product-card.featured { border: 2px solid var(--primary); background: var(--primary-soft); }
-        .product-card i { color: var(--primary); margin-bottom: 24px; }
-        .product-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
-        .badge-small { position: absolute; top: 20px; right: 20px; background: var(--primary); color: white; padding: 4px 10px; border-radius: 50px; font-size: 0.65rem; font-weight: 800; }
 
-        /* --- STEP STYLES --- */
+        /* --- SERVICES GRID --- */
+        .section-label { text-align: center; margin-bottom: 40px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 80px; }
+        .card { 
+            background: var(--surface); border: 1px solid var(--border); padding: 44px; border-radius: 32px; 
+            cursor: pointer; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-align: left;
+        }
+        .card:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .card i { color: var(--primary); margin-bottom: 24px; }
+        .card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+
+        /* --- STEPPER --- */
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.6s ease forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -60,75 +58,95 @@
             border-radius: 20px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center;
         }
         .audit-item.selected { border-color: var(--primary); background: #f5f3ff; }
-        .check { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; }
-        .audit-item.selected .check { background: var(--primary); border-color: var(--primary); }
+        .check-ui { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; }
+        .audit-item.selected .check-ui { background: var(--primary); border-color: var(--primary); }
 
-        /* --- INPUTS --- */
-        .data-card { background: var(--surface); padding: 32px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 24px; }
+        /* --- DATA & SLIDERS --- */
+        .data-card { background: var(--surface); padding: 32px; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 24px; }
         input[type=range] { width: 100%; accent-color: var(--primary); height: 8px; margin-top: 16px; }
         
         .btn { 
             background: var(--primary); color: white; padding: 20px 40px; border-radius: 50px; 
             font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px;
         }
-        .btn:hover { background: #4338ca; transform: translateY(-2px); }
+        .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-glow); }
 
         /* --- RESULTS --- */
-        .results-box { background: #0f172a; color: white; padding: 80px; border-radius: 40px; text-align: center; }
-        .big-save { font-size: clamp(3.5rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 10px 0; }
+        .results-box { background: #0f172a; color: white; padding: 80px; border-radius: 44px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.2); }
+        .big-save { font-size: clamp(4rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 10px 0; letter-spacing: -2px; }
 
-        .form-area { background: var(--surface); padding: 60px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 60px; }
-        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 600px; margin: 32px auto 0; }
-        input[type=text], input[type=email] { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; }
+        /* --- LEAD CAPTURE --- */
+        .form-section { background: var(--surface); padding: 60px; border-radius: 36px; border: 1px solid var(--border); text-align: center; margin-top: 80px; }
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 600px; margin: 32px auto 0; }
+        input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; }
     </style>
 </head>
 <body>
 
 <nav>
     <div class="container nav-inner">
-        <a href="#" class="logo"><i data-lucide="sparkle"></i> MagicFolder</a>
-        <div class="mono" style="color: var(--text-muted);">Partner Collective</div>
+        <a href="#" class="logo">
+            <svg viewBox="0 0 24 24">
+                <path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/>
+                <path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/>
+                <path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/>
+            </svg>
+            MagicFolder
+        </a>
+        <div class="mono" style="color: var(--text-muted);">Expert Workflow Architects</div>
     </div>
 </nav>
 
 <main class="container">
 
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px;">Professional Workflow Optimization</div>
-        <h1>Scale your business,<br>not your manual work.</h1>
-        <p>We provide the architecture and expertise to help growing firms automate the mundane. Choose a starting point to see how we can help.</p>
-        <button class="btn" onclick="startAudit()">Begin Your Discovery Audit <i data-lucide="arrow-right"></i></button>
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px;">Enterprise Clarity for the Mid-Market</div>
+        <h1>Scale your capacity,<br>not your manual work.</h1>
+        <p>We provide the architecture and specialized expertise to turn messy data into intelligent, automated growth. It isn't magic—it just feels that way.</p>
+        <button class="btn" onclick="startAudit()">Begin Your Operational Audit <i data-lucide="arrow-right"></i></button>
     </div>
 
     <div id="step-1" class="hidden fade-in">
-        <h2 style="text-align: center; margin-bottom: 40px;">Select a Solution Module</h2>
-        <div class="product-grid">
-            <div class="product-card featured" onclick="selectArea('magicfolder')">
-                <div class="badge-small">CORE PRODUCT</div>
-                <i data-lucide="folder-kanban" size="40"></i>
-                <h3>The Magic Folder</h3>
-                <p><strong>Intelligent Data Logistics.</strong> Automatically identify, extract data from, and route documents like invoices, contracts, and receipts.</p>
+        <div class="section-label">
+            <div class="mono" style="color: var(--text-muted); margin-bottom: 8px;">Phase 01</div>
+            <h2>Where is your primary friction?</h2>
+        </div>
+        <div class="grid">
+            <div class="card" onclick="selectArea('magicfolder')">
+                <i data-lucide="folder-search" size="40"></i>
+                <h3>Document Intelligence</h3>
+                <p>The core "Magic Folder." Automatically identify, extract, and route data from invoices, contracts, and receipts.</p>
             </div>
-            <div class="product-card" onclick="selectArea('knowledge')">
+            <div class="card" onclick="selectArea('knowledge')">
                 <i data-lucide="brain-circuit" size="40"></i>
-                <h3>Knowledge Hub</h3>
-                <p><strong>RAG-Based Intelligence.</strong> Chat with your company's past data. Find clauses and details in thousands of PDFs instantly.</p>
+                <h3>Knowledge RAG</h3>
+                <p>Search and chat with your business history. Find specific clauses or facts across 10 years of PDFs instantly.</p>
             </div>
-            <div class="product-card" onclick="selectArea('requests')">
+            <div class="card" onclick="selectArea('requests')">
                 <i data-lucide="clipboard-list" size="40"></i>
-                <h3>Request Command</h3>
-                <p><strong>Order & Service Tracking.</strong> A centralized hub to manage every client task and job status without losing anything in email.</p>
+                <h3>Request Management</h3>
+                <p>A central hub for every client task, order, or ticket. Total visibility without manual follow-up.</p>
             </div>
-            <div class="product-card" onclick="selectArea('operations')">
-                <i data-lucide="cpu" size="40"></i>
-                <h3>Automated Ops</h3>
-                <p><strong>General Workflow.</strong> Intelligent meeting scheduling, automated customer FAQs, and client onboarding sequences.</p>
+            <div class="card" onclick="selectArea('logistics')">
+                <i data-lucide="truck" size="40"></i>
+                <h3>Order Tracking</h3>
+                <p>Automated status updates for jobs or shipments. Keep clients informed without lifting a finger.</p>
+            </div>
+            <div class="card" onclick="selectArea('support')">
+                <i data-lucide="message-square" size="40"></i>
+                <h3>Intelligent Support</h3>
+                <p>Automated first-response systems that actually know your business rules, inventory, and data.</p>
+            </div>
+            <div class="card" onclick="selectArea('backoffice')">
+                <i data-lucide="landmark" size="40"></i>
+                <h3>Back Office Ops</h3>
+                <p>Automated client onboarding, billing reconciliation, and manual data-entry elimination.</p>
             </div>
         </div>
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
-        <h2 id="s2-title" style="margin-bottom: 32px;">Identify the Friction</h2>
+        <h2 id="s2-title" style="margin-bottom: 32px;">Identify the structural friction.</h2>
         <div id="task-list"></div>
         <div style="margin-top: 48px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button>
@@ -137,37 +155,37 @@
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
-        <h2>The Frequency Audit</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px;">To help our partners architect a solution, we need to understand your current volume.</p>
+        <h2>Frequency & Scale</h2>
+        <p style="color: var(--text-muted); margin-bottom: 40px;">Estimate your weekly frequency to determine the potential ROI of our architecture.</p>
         <div id="slider-box"></div>
         <div class="data-card" style="border-style: dashed;">
             <div style="display:flex; justify-content:space-between; font-weight:700;">
                 <span>Staff Hourly Value (USD)</span>
                 <span style="color: var(--primary);">$<span id="rate-disp">150</span></span>
             </div>
-            <input type="range" id="hourly-rate" min="50" max="500" value="150" oninput="document.getElementById('rate-disp').innerText = this.value">
+            <input type="range" id="hourly-rate" min="50" max="500" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%;">
         </div>
         <div style="margin-top: 48px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="runAnalysis()">Analyze Impact <i data-lucide="zap"></i></button>
+            <button class="btn" onclick="runAnalysis()">Analyze Efficiency <i data-lucide="zap"></i></button>
         </div>
     </div>
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0;">
         <div class="results-box">
-            <p class="mono" style="opacity: 0.6; letter-spacing: 2px;">Estimated Annual Value Reclaimed</p>
+            <p class="mono" style="opacity: 0.6; letter-spacing: 2px;">Potential Annual Reclaimable Value</p>
             <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.25rem; opacity: 0.8;">That represents over <strong id="final-weeks" style="color:white;">0</strong> full work weeks redeployed.</p>
+            <p style="font-size: 1.25rem; opacity: 0.8;">That's <strong id="final-hours" style="color:white;">0</strong> high-value hours redeployed to business growth.</p>
         </div>
 
-        <div class="form-area">
-            <h2>Request Your Partner Blueprint</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 550px; margin-left: auto; margin-right: auto;">Our collective will review your audit and provide a professional implementation guide tailored to your business.</p>
-            <div class="row">
+        <div class="form-section">
+            <h2>Receive the Implementation Blueprint</h2>
+            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 550px; margin-left: auto; margin-right: auto;">Our collective of experts will review your metrics and provide a professional guide to help you remove these specific bottlenecks.</p>
+            <div class="input-row">
                 <input type="text" id="name" placeholder="Full Name">
                 <input type="email" id="email" placeholder="Work Email">
             </div>
-            <button class="btn" style="width: 100%; max-width: 600px; margin-top: 12px; justify-content: center;" onclick="sendData()" id="send-btn">Request My Blueprint</button>
+            <button class="btn" style="width: 100%; max-width: 600px; margin-top: 12px; justify-content: center;" onclick="sendData()" id="send-btn">Send My Blueprint</button>
             <div id="status" class="mono" style="margin-top: 24px; color: #10b981;"></div>
         </div>
     </div>
@@ -176,25 +194,30 @@
 
 <script>
     const DATA = {
-        'magicfolder': { label: 'Magic Folder Logistics', items: [
-            { id: 'invoices', label: 'Invoice Processing', desc: 'Automatically extracting data from vendor bills and routing to billing.', time: 0.25, unit: 'invoices/wk' },
-            { id: 'contracts', label: 'Contract Data Entry', desc: 'Identifying key terms in legal docs and syncing to your CRM.', time: 1.0, unit: 'docs/wk' },
-            { id: 'forms', label: 'Form Extraction', desc: 'Turning manual client intake forms into structured data records.', time: 0.5, unit: 'forms/wk' }
+        'magicfolder': { label: 'Document Intelligence', items: [
+            { id: 'invoices', label: 'Invoice Processing', desc: 'Automatically extracting data from vendor bills and syncing to billing.', time: 0.25, unit: 'invoices/wk' },
+            { id: 'contracts', label: 'Agreement Identification', desc: 'Recognizing contract types and filing them in the right project folder.', time: 0.15, unit: 'files/wk' },
+            { id: 'forms', label: 'Client Intake Forms', desc: 'Extracting info from manual PDFs or images into your digital CRM.', time: 0.5, unit: 'forms/wk' }
         ]},
-        'knowledge': { label: 'Knowledge Intelligence', items: [
-            { id: 'rag-search', label: 'Document Search (RAG)', desc: 'Finding specific clauses or facts in discovery files instantly.', time: 0.4, unit: 'searches/wk' },
-            { id: 'briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts or depositions via AI.', time: 1.5, unit: 'docs/wk' },
-            { id: 'archive', label: 'Data Retrieval', desc: 'Locating information from years of archived emails or records.', time: 0.2, unit: 'lookups/wk' }
+        'knowledge': { label: 'Knowledge RAG', items: [
+            { id: 'rag-search', label: 'RAG Knowledge Search', desc: 'Finding specific legal clauses or past history across thousands of files.', time: 0.4, unit: 'searches/wk' },
+            { id: 'briefing', label: 'Automated Briefing', desc: 'Summarizing long transcripts or depositions into actionable points.', time: 1.5, unit: 'docs/wk' }
         ]},
-        'requests': { label: 'Request & Hub Ops', items: [
-            { id: 'tracking', label: 'Job/Order Tracking', desc: 'Monitoring job status without manual spreadsheet updates.', time: 0.3, unit: 'orders/wk' },
-            { id: 'notif', label: 'Automated Status Alerts', desc: 'Keeping clients updated on milestones automatically.', time: 0.2, unit: 'alerts/wk' },
-            { id: 'vendor', label: 'Vendor Triage', desc: 'Routing task requests to the right external contractor.', time: 0.5, unit: 'tasks/wk' }
+        'requests': { label: 'Request Management', items: [
+            { id: 'triage', label: 'Task Intake & Triage', desc: 'Categorizing and assigning inbound client tasks manually.', time: 0.2, unit: 'tasks/wk' },
+            { id: 'chase', label: 'Document Chasing', desc: 'Emailing clients for missing signatures, tax forms, or data.', time: 0.5, unit: 'requests/wk' }
         ]},
-        'operations': { label: 'Operational Automations', items: [
-            { id: 'onboarding', label: 'Client Onboarding', desc: 'Setting up new folders and accounts for customers.', time: 1.5, unit: 'onboards/wk' },
-            { id: 'schedule', label: 'Meeting Logistics', desc: 'The manual dance to find open spots on calendars.', time: 0.2, unit: 'meetings/wk' },
-            { id: 'faq', label: 'Customer FAQ', desc: 'Answering routine client questions about your rules or history.', time: 0.1, unit: 'queries/wk' }
+        'logistics': { label: 'Order Tracking', items: [
+            { id: 'tracking', label: 'Status Logistics', desc: 'Checking carrier or job sites for latest status and updating logs.', time: 0.3, unit: 'orders/wk' },
+            { id: 'notif', label: 'Client Notifications', desc: 'Sending manual "shipped" or "arrived" alerts to customers.', time: 0.1, unit: 'alerts/wk' }
+        ]},
+        'support': { label: 'Intelligent Support', items: [
+            { id: 'faq', label: 'Automated CS (AI FAQ)', desc: 'Answering routine questions about your business rules instantly.', time: 0.15, unit: 'queries/wk' },
+            { id: 'routing', label: 'Ticket Routing', desc: 'Moving inbound requests to the right staff member folder.', time: 0.1, unit: 'tickets/wk' }
+        ]},
+        'backoffice': { label: 'Back Office Ops', items: [
+            { id: 'onboard', label: 'Client Onboarding', desc: 'Setting up new folders and accounts for new customers manually.', time: 1.5, unit: 'onboards/wk' },
+            { id: 'reconcile', label: 'Bill Reconciliation', desc: 'Matching transaction records to outgoing billing manually.', time: 1.0, unit: 'invoices/wk' }
         ]}
     };
 
@@ -209,7 +232,7 @@
         const list = document.getElementById('task-list');
         list.innerHTML = DATA[key].items.map(i => `
             <div class="audit-item" onclick="toggleI('${i.id}', this)">
-                <div class="check"><i data-lucide="check" size="16" style="color:white;"></i></div>
+                <div class="check-ui"><i data-lucide="check" size="16" style="color:white;"></i></div>
                 <div><div style="font-weight:700; font-size:1.1rem;">${i.label}</div><div style="color:var(--text-muted); font-size:0.9rem;">${i.desc}</div></div>
             </div>
         `).join('');
@@ -250,17 +273,17 @@
             h += hours; v += (hours * rate);
         });
         document.getElementById('final-amt').innerText = '$' + Math.round(v).toLocaleString();
-        document.getElementById('final-weeks').innerText = (h / 40).toFixed(1);
+        document.getElementById('final-hours').innerText = Math.round(h).toLocaleString();
         setStep(4);
     }
 
     function sendData() {
         const btn = document.getElementById('send-btn');
-        btn.innerText = "Requesting Blueprint...";
+        btn.innerText = "Transmitting Data...";
         setTimeout(() => {
             btn.innerText = "Blueprint Requested";
             btn.style.background = "#10b981";
-            document.getElementById('status').innerText = "[SUCCESS] Audit received. Our collective will review and provide your Blueprint.";
+            document.getElementById('status').innerText = "[SUCCESS] Audit received. Our collective is reviewing your Operational Blueprint.";
         }, 1800);
     }
 </script>
