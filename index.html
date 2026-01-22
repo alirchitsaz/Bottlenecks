@@ -3,124 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
     <title>MagicFolder | Intelligently effortless.</title>
+    
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
+
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --primary: #4f46e5; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-dark: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
+        :root {
+            --primary: #4f46e5;
+            --primary-soft: rgba(79, 70, 229, 0.08);
+            --bg: #ffffff;
+            --surface: #f8fafc;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; flex: 1; width: 100%; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
-        nav { padding: 32px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+
+        nav { padding: 24px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; text-decoration: none; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 34px; height: 34px; fill: var(--primary); }
-        .hero { padding: 80px 0 60px; text-align: center; min-height: 550px; position: relative; touch-action: pan-y; }
+
+        .hero { padding: 60px 0 40px; text-align: center; min-height: 500px; position: relative; touch-action: pan-y; }
         .headline-container { min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; user-select: none; }
-        .hero h1 { font-size: clamp(2.8rem, 9vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.05em; transition: opacity 0.5s ease; margin-bottom: 20px; }
-        .hero .sub-hero { max-width: 750px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.5s ease; min-height: 3.5em; }
-        .dot-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 48px; }
-        .dot-wrapper { width: 50px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
+        .hero h1 { font-size: clamp(2.4rem, 8vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.05em; transition: opacity 0.5s ease; margin-bottom: 20px; }
+        .hero .sub-hero { max-width: 750px; margin: 0 auto; font-size: 1.25rem; color: var(--text-muted); transition: opacity 0.5s ease; min-height: 3.5em; }
+
+        .dot-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
+        .dot-wrapper { width: 40px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
         .dot-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); transition: width 0.1s linear; }
         .dot-wrapper.active .dot-progress { width: 100%; }
-        .nav-arrow { position: absolute; top: 40%; transform: translateY(-50%); padding: 20px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.3s; z-index: 10; }
-        @media (min-width: 1024px) { .hero:hover .nav-arrow { opacity: 0.5; } .nav-arrow:hover { opacity: 1 !important; color: var(--primary); } }
-        @media (max-width: 1023px) { .nav-arrow { display: none; } }
-        .arrow-left { left: -40px; } .arrow-right { right: -40px; }
-        .industry-bar { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; margin-top: 60px; }
-        .industry-label { font-weight: 700; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 24px; display: block; }
-        .industry-grid { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
-        .industry-tag { background: var(--surface); padding: 8px 20px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; color: var(--text-muted); border: 1px solid var(--border); }
-        .grid-container { padding: 80px 0; max-width: 1100px; margin: 0 auto; }
-        .section-title-area { text-align: center; margin-bottom: 60px; }
-        .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; justify-content: center; }
-        .card { background: var(--surface); border: 1px solid var(--border); padding: 56px 48px; border-radius: 40px; cursor: pointer; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative; }
-        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
+
+        .industry-bar { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; margin-top: 40px; }
+        .industry-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+        .industry-tag { background: var(--surface); padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; color: var(--text-muted); border: 1px solid var(--border); }
+
+        .grid-container { padding: 60px 0; max-width: 1100px; margin: 0 auto; }
+        .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; justify-content: center; }
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 32px; cursor: pointer; transition: 0.4s; text-align: left; position: relative; }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
         .card i, .card h3, .card p { pointer-events: none; }
-        .card h3 { font-size: 1.6rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.03em; }
-        .card p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.4; }
-        .check-pill { position: absolute; top: 32px; right: 32px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; pointer-events: none; }
+        .card h3 { font-size: 1.4rem; margin-bottom: 8px; font-weight: 700; letter-spacing: -0.03em; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.4; }
+        .check-pill { position: absolute; top: 24px; right: 24px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; pointer-events: none; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
+
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .audit-item { display: flex; gap: 24px; padding: 32px; background: var(--surface); border: 2px solid transparent; border-radius: 28px; margin-bottom: 20px; cursor: pointer; transition: 0.2s; align-items: center; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
-        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 50px; text-align: center; margin-top: 40px; }
-        .big-save { font-size: clamp(4.5rem, 12vw, 8rem); color: #818cf8; font-weight: 800; margin: 20px 0; letter-spacing: -5px; line-height: 1; }
-        .cta-card { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 40px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 700px; margin: 40px auto 0; }
-        input { padding: 22px; border-radius: 16px; border: 1px solid var(--border); font-size: 1.1rem; width: 100%; outline: none; }
-        input:focus { border-color: var(--primary); }
-        .btn { background: var(--primary); color: white; padding: 22px 52px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.2rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s; }
-        .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-soft); }
-        .btn-count { background: rgba(255,255,255,0.25); padding: 4px 10px; border-radius: 8px; font-size: 0.9rem; margin-left: 10px; }
-        footer { padding: 120px 0 60px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; }
-        @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .form-row { grid-template-columns: 1fr; } }
+
+        .results-hero { background: #0f172a; color: white; padding: 80px 32px; border-radius: 40px; text-align: center; margin-top: 40px; }
+        .big-save { font-size: clamp(3.5rem, 10vw, 6.5rem); color: #818cf8; font-weight: 800; margin: 15px 0; letter-spacing: -4px; line-height: 1; }
+        
+        .cta-card { background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 40px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 600px; margin: 24px auto 0; }
+        input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+
+        .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; }
+        .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-soft); }
+        .btn-count { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; margin-left: 8px; font-weight: 800; }
+
+        footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 80px; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+        .footer-links a { display: block; color: var(--text-dark); font-size: 0.9rem; margin-bottom: 12px; font-weight: 600; text-decoration: none; transition: 0.2s; }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-bottom { border-top: 1px solid var(--border); margin-top: 60px; padding-top: 32px; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
+        
+        @media (max-width: 768px) { 
+            .footer-inner { grid-template-columns: 1fr; text-align: center; } 
+            .form-row { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+        }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="nav-inner"><div class="logo" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/><path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/><path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/></svg>MagicFolder</div><div class="mono" style="color: var(--text-muted); font-weight: 700; font-size: 0.8rem;">Modern Workflow Systems</div></div>
+    <div class="nav-inner"><div class="logo" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/><path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/><path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/></svg>MagicFolder</div><div class="mono" style="color: var(--text-muted); font-weight: 700; font-size: 0.7rem;">Modern Business Systems</div></div>
 </nav>
 
 <div class="container">
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 800; letter-spacing: 3px;">Business Architecture for Professionals</div>
-        <div class="nav-arrow arrow-left" onclick="prevSlide()"><i data-lucide="chevron-left" size="48"></i></div>
-        <div class="nav-arrow arrow-right" onclick="nextSlide()"><i data-lucide="chevron-right" size="48"></i></div>
-        <div id="swipe-zone" class="headline-container" onclick="handleHeroClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()"><h1 id="slideshow-title">Intelligently<br>effortless.</h1><p id="slideshow-sub" class="sub-hero">We build high-performance workflow systems that help professionals scale their revenue while 100% removing manual error.</p></div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 20px; font-weight: 800; letter-spacing: 2px;">Business Intelligence Architects</div>
+        <div id="swipe-zone" class="headline-container" onclick="handleHeroClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()"><h1 id="slideshow-title">Intelligently<br>effortless.</h1><p id="slideshow-sub" class="sub-hero">We build high-performance systems that help professionals scale revenue while removing 100% of manual error.</p></div>
         <div class="dot-container" id="dot-container"></div>
-        <button class="btn" onclick="setStep(1)">Project Your Potential <i data-lucide="sparkle"></i></button>
+        <button class="btn" onclick="setStep(1)">See What's Possible <i data-lucide="sparkle"></i></button>
         <div class="industry-bar">
-            <span class="industry-label">Solving Friction Across Industries</span>
+            <span class="industry-label">Engineering Reliability For:</span>
             <div class="industry-grid">
-                <div class="industry-tag">Legal & Law Firms</div><div class="industry-tag">Real Estate</div><div class="industry-tag">Service Industries</div><div class="industry-tag">Logistics</div><div class="industry-tag">Professional Services</div>
+                <div class="industry-tag">Law Firms</div><div class="industry-tag">Real Estate</div><div class="industry-tag">Service Industries</div><div class="industry-tag">Logistics</div>
             </div>
         </div>
     </div>
 
     <div id="step-1" class="hidden fade-in grid-container">
-        <div class="section-title-area"><div class="mono" style="color: var(--text-muted); margin-bottom: 16px; font-weight: 700;">Phase 01</div><h2 style="font-size: 2.5rem; letter-spacing: -0.04em;">Where can we help you grow?</h2><p style="color: var(--text-muted); font-size: 1.25rem; max-width: 650px; margin: 20px auto 0;">Select your priority domains to see how automation creates revenue velocity and absolute reliability.</p></div>
+        <div class="section-title-area"><div class="mono" style="color: var(--text-muted); margin-bottom: 12px; font-weight: 700;">Phase 01</div><h2 style="font-size: 2.2rem; letter-spacing: -0.04em;">Where can we help you grow?</h2><p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 16px auto 0;">Select your operational priorities to see the impact of architected automation.</p></div>
         <div class="domain-grid" id="domain-grid"></div>
-        <div style="text-align: center; margin-top: 80px;"><button class="btn" onclick="validateStep1()">Map My Growth Potential <span id="domain-count" class="btn-count">0</span></button><div id="err-1" style="color:#ef4444; margin-top:24px; display:none; font-weight: 800;">Please select a focus area.</div></div>
+        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="validateStep1()">Map My Growth <span id="domain-count" class="btn-count">0</span></button><div id="err-1" style="color:#ef4444; margin-top:16px; display:none; font-weight: 800;">Please select at least one priority.</div></div>
     </div>
 
-    <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 120px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 02: Reliability Mapping</div>
-        <h2 id="s2-title" style="font-size: 2.5rem; letter-spacing: -0.04em;">What's slowing you down?</h2>
-        <div id="task-list" style="margin-top: 50px;"></div>
-        <div style="margin-top: 80px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button><button class="btn" onclick="validateStep2()">Calculate the Unlock <span id="task-count" class="btn-count">0</span></button></div>
+    <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 02: Bottleneck Identification</div>
+        <h2 id="s2-title" style="font-size: 2.2rem; letter-spacing: -0.04em;">What's slowing you down?</h2>
+        <div id="task-list" style="margin-top: 40px;"></div>
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button><button class="btn" onclick="validateStep2()">Calculate The Impact <span id="task-count" class="btn-count">0</span></button></div>
     </div>
 
-    <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 03: Growth Projection</div>
-        <h2 style="font-size: 2.5rem;">Project Your Gains</h2>
-        <div id="slider-box" style="margin-top: 50px;"></div>
-        <div style="background: var(--surface); padding: 56px; border-radius: 40px; border: 1px solid var(--border); margin-bottom: 32px; border-style: dashed;"><div style="display:flex; justify-content:space-between; font-weight:800;"><span class="mono">Resource/Staff Hourly Value</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div><input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:24px; accent-color:var(--primary);"></div>
-        <div style="margin-top: 80px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button><button class="btn" onclick="setStep(4)">View My Strategy Blueprint <i data-lucide="arrow-right"></i></button></div>
+    <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 60px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 03: Projection Calculator</div>
+        <h2 style="font-size: 2.2rem;">Project Your Gains</h2>
+        <div id="slider-box" style="margin-top: 40px;"></div>
+        <div style="background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;"><div style="display:flex; justify-content:space-between; font-weight:800;"><span class="mono">Resource Hourly Value (USD)</span><span style="color: var(--primary); font-size: 1.1rem;">$<span id="rate-disp">150</span></span></div><input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:20px; accent-color:var(--primary);"></div>
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button><button class="btn" onclick="setStep(4)">View My Blueprint <i data-lucide="arrow-right"></i></button></div>
     </div>
 
-    <div id="step-4" class="hidden fade-in" style="padding: 100px 0; max-width: 800px; margin: 0 auto;">
-        <div style="text-align: center; margin-bottom: 48px;"><div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 16px;">Final Step</div><h2>Unlock Your Strategy Report</h2><p style="color: var(--text-muted); font-size: 1.2rem; margin-top: 12px;">Identify the path to 24/7 availability and 100% accuracy for your firm.</p></div>
+    <div id="step-4" class="hidden fade-in" style="padding: 60px 0; max-width: 700px; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 40px;"><div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 12px;">Final Step</div><h2>Unlock Your Results</h2><p style="color: var(--text-muted); font-size: 1.1rem;">Provide your details to receive your customized Strategy Blueprint.</p></div>
         <div class="cta-card">
             <div class="form-row"><input type="text" id="user-name" placeholder="Full Name"><input type="text" id="user-company" placeholder="Company Name"></div>
-            <div style="max-width: 700px; margin: 16px auto;"><input type="email" id="user-email" placeholder="Business Email"></div>
+            <div style="max-width: 600px; margin: 12px auto;"><input type="email" id="user-email" placeholder="Business Email"></div>
             <div style="display:none;"><input type="text" id="gotcha-field" value=""></div>
-            <button class="btn" style="width: 100%; max-width: 700px; margin-top: 16px; justify-content: center;" onclick="submitToFormspree()" id="submit-btn">Generate My Blueprint <i data-lucide="unlock"></i></button>
-            <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields correctly.</div>
+            <button class="btn" style="width: 100%; max-width: 600px; margin-top: 16px; justify-content: center;" onclick="submitToFormspree()" id="submit-btn">Unlock My Report <i data-lucide="unlock"></i></button>
+            <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields.</div>
         </div>
     </div>
 
-    <div id="step-5" class="hidden fade-in" style="padding: 80px 0;">
-        <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Annual Opportunity Potential</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.6rem; opacity: 0.9;">Redeploying <strong id="final-hours" style="color:white;">0</strong> high-value hours to growth and reliability.</p></div>
-        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download SME Strategy Blueprint (PDF)</button><p style="margin-top: 32px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">Your blueprint includes projections for Revenue Velocity, Accuracy Gains, and 24/7 Availability metrics.</p></div>
+    <div id="step-5" class="hidden fade-in" style="padding: 60px 0;">
+        <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Annual Opportunity Projection</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.4rem; opacity: 0.9;">Recovering <strong id="final-hours" style="color:white;">0</strong> high-value hours for revenue growth.</p></div>
+        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download Blueprint (PDF)</button><p style="margin-top: 24px; color: var(--text-muted); max-width: 500px; margin-left: auto; margin-right: auto;">Our Experts have received your data and will contact you shortly.</p></div>
     </div>
 </div>
 
@@ -129,41 +155,39 @@
 <script>
     (function() {
         const slides = [
-            { title: "Intelligently<br>effortless.", sub: "We build world-class workflow systems that scale your capacity while increasing 24/7 reliability." },
-            { title: "Accelerate your<br>revenue.", sub: "Automate client quoting, lead follow-up, and proposal generation to close more jobs faster." },
-            { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route your document data from any source with 100% accuracy." },
+            { title: "Intelligently<br>effortless.", sub: "We build high-performance systems that scale your capacity while increasing 24/7 reliability." },
+            { title: "Accelerate your<br>revenue.", sub: "Automate client quoting and lead follow-up to close more jobs faster without hiring more staff." },
+            { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route document data from any source with 100% accuracy." },
             { title: "Scale your capacity,<br>not your stress.", sub: "Move from manual firefighting to automated precision with enterprise-standard logic." }
         ];
 
         let slideIndex = 0; let progress = 0; let isPaused = false;
-        const DURATION = 9000; const INTERVAL = 100;
+        const DURATION = 8000; const INTERVAL = 100;
 
         const DATA = {
-            'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and response systems.', items: [
-                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on complex pricing rules.', time: 0.5, unit: 'quotes/wk' },
-                { id: 'rev-proposal', label: 'Proposal Generation', desc: 'Auto-create high-end project proposals using past project data.', time: 1.0, unit: 'proposals/wk' },
-                { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route new customer inquiries automatically.', time: 0.2, unit: 'leads/wk' }
+            'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Accelerate the sales cycle with automated quoting and lead response.', items: [
+                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate quotes based on your specific rules.', time: 0.5, unit: 'quotes/wk' },
+                { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically 24/7.', time: 0.2, unit: 'leads/wk' }
             ]},
-            'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting forever.', items: [
-                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills with intelligent validation.', time: 0.25, unit: 'invoices/wk' },
-                { id: 'mf-contracts', label: 'Contract Management', desc: 'Identifying and filing based on specific document terms.', time: 0.2, unit: 'docs/wk' },
-                { id: 'mf-forms', label: 'Data Extraction', desc: 'Turning manual forms into structured, verified digital records.', time: 0.5, unit: 'forms/wk' }
+            'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Achieve 100% data integrity with automated document sorting.', items: [
+                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Automated bill parsing with intelligent validation.', time: 0.25, unit: 'invoices/wk' },
+                { id: 'mf-contracts', label: 'Contract Management', desc: 'Terms analysis and automated filing.', time: 0.2, unit: 'docs/wk' }
             ]},
-            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn firm archives into an instant, searchable high-value resource.', items: [
-                { id: 'kn-rag', label: 'Intelligent Document Search', desc: 'Find specific facts across thousands of documents instantly.', time: 0.4, unit: 'searches/wk' },
-                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condensing transcripts or archives into actionable points.', time: 1.5, unit: 'docs/wk' }
+            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Centralize firm intelligence with instant document search.', items: [
+                { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Find facts across thousands of archives instantly.', time: 0.4, unit: 'searches/wk' },
+                { id: 'kn-briefing', label: 'Case Summarization', desc: 'Condensing transcripts into actionable logic points.', time: 1.5, unit: 'docs/wk' }
             ]},
-            'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs for total project visibility.', items: [
-                { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Real-time status visibility without manual spreadsheet updates.', time: 0.3, unit: 'orders/wk' },
-                { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assigning tasks to your team based on their capacity.', time: 0.2, unit: 'tasks/wk' }
+            'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Orchestrate request fulfillment with total project visibility.', items: [
+                { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Real-time status without manual updates.', time: 0.3, unit: 'orders/wk' },
+                { id: 'req-triage', label: 'Automated Job Routing', desc: 'Task assignment based on team capacity.', time: 0.2, unit: 'tasks/wk' }
             ]},
-            'support': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with automated intake and 24/7 support rules.', items: [
-                { id: 'sup-faq', label: 'Automated Customer FAQ', desc: 'Answering routine questions using your specific business data.', time: 0.15, unit: 'queries/wk' },
-                { id: 'sup-onboard', label: 'Client Onboarding Systems', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
+            'experience': { label: 'Client Experience', icon: 'message-square', text: 'Automate client engagement for 24/7 responsiveness.', items: [
+                { id: 'sup-faq', label: 'Model-Driven FAQ', desc: '24/7 support using your specific firm data.', time: 0.15, unit: 'queries/wk' },
+                { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated collection and folder creation.', time: 1.5, unit: 'onboards/wk' }
             ]},
-            'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing reconciliation and administrative paperwork.', items: [
-                { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with incoming revenue billing.', time: 1.0, unit: 'invoices/wk' },
-                { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching of records across different software systems.', time: 0.1, unit: 'records/wk' }
+            'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Harden your operational back-office with automated reconciliation.', items: [
+                { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with revenue billing.', time: 1.0, unit: 'invoices/wk' },
+                { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Syncing records across siloed firm software.', time: 0.1, unit: 'records/wk' }
             ]}
         };
 
@@ -201,65 +225,48 @@
         };
 
         window.submitToFormspree = function() {
-            const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value; const gotcha = document.getElementById('gotcha-field').value;
-            if(!name || !email || !comp || gotcha !== "") { document.getElementById('form-err').style.display='block'; return; }
-            runAnalysis(); const btn = document.getElementById('submit-btn'); btn.innerText = "Transmitting...";
+            const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value;
+            if(!name || !email || !comp) { document.getElementById('form-err').style.display='block'; return; }
+            runAnalysis(); 
             fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, domains: Array.from(state.domains).join(', ') }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
-        // ENHANCED PDF EXPORT
         window.generatePDFBlueprint = function() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const name = document.getElementById('user-name').value;
-            const comp = document.getElementById('user-company').value;
+            const { jsPDF } = window.jspdf; const doc = new jsPDF();
+            const name = document.getElementById('user-name').value; const comp = document.getElementById('user-company').value;
             
-            // LOGO & HEADER
-            doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 40, 'F');
-            doc.setTextColor(255, 255, 255); doc.setFontSize(22); doc.setFont("helvetica", "bold");
-            doc.text('MAGICFOLDER', 20, 26);
-            doc.setFontSize(10); doc.text('STRATEGIC ARCHITECTURE REPORT', 140, 26);
+            // Header
+            doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 45, 'F');
+            doc.setTextColor(255, 255, 255); doc.setFontSize(22); doc.setFont("helvetica", "bold"); doc.text('MAGICFOLDER', 20, 28);
+            doc.setFontSize(10); doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 28);
             
-            // CLIENT METADATA
-            doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.text(`Prepared for: ${name}`, 20, 55);
-            doc.text(`Organization: ${comp}`, 20, 62);
-            doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 55);
+            // Client Metadata
+            doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.text(`CLIENT: ${name}`, 20, 58); doc.text(`ORGANIZATION: ${comp}`, 20, 65); doc.setTextColor(100, 116, 139); doc.text(`DATE: ${new Date().toLocaleDateString()}`, 160, 58);
+            doc.setDrawColor(226, 232, 240); doc.line(20, 72, 190, 72);
             
-            // TRIPLE METRIC SECTION
-            doc.setDrawColor(226, 232, 240); doc.line(20, 70, 190, 70);
+            // Triple Metrics
+            doc.setTextColor(79, 70, 229); doc.setFontSize(13); doc.text('1. REVENUE VELOCITY (ANNUAL)', 20, 85);
+            doc.setFontSize(20); doc.text(state.results.amt, 20, 96);
             
-            // Financial Gain
-            doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.text('Annual Revenue Capacity Gain', 20, 85);
-            doc.setFontSize(20); doc.text(state.results.amt, 20, 95);
+            doc.setTextColor(16, 185, 129); doc.setFontSize(13); doc.text('2. STRUCTURAL RELIABILITY', 110, 85);
+            doc.setFontSize(20); doc.text('99.9% ACCURACY', 110, 96);
             
-            // Accuracy gain (Logic based)
-            doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('Error Reduction (Reliability)', 110, 85);
-            doc.setFontSize(20); doc.text('99.9%', 110, 95);
-            
-            // 24/7 Availability
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('Operational Availability', 20, 115);
-            doc.setFontSize(11); doc.setTextColor(100, 116, 139);
-            doc.text('System uptime is projected at 100% via automated orchestration, providing clients with 24/7 intake and response capability.', 20, 122, { maxWidth: 170 });
+            doc.setTextColor(15, 23, 42); doc.setFontSize(13); doc.text('3. OPERATIONAL AVAILABILITY', 20, 112);
+            doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.text('Automated intake systems provide 24/7/365 responsiveness, ensuring zero leads or documents are lost to off-hours bottlenecks.', 20, 119, { maxWidth: 170 });
 
-            // METHODOLOGY & LOGIC
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('CALCULATION METHODOLOGY', 20, 145);
-            doc.setFontSize(10); doc.setTextColor(100, 116, 139);
-            doc.text('Gains are projected based on manual labor recapture across 52 weeks per annum. Beyond direct hours, "The Magic Folder" logic eliminates rework costs associated with human data entry—typically 3-5% of total administrative overhead.', 20, 152, { maxWidth: 170 });
+            // Methodology
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('METHODOLOGY & SME LOGIC', 20, 142);
+            doc.setFontSize(9); doc.setTextColor(100, 116, 139);
+            doc.text('Calculations are based on industry benchmarks for administrative recapture. Revenue Velocity assumes a lead conversion lift of 12% through sub-5-minute response times. Accuracy gains are derived from the elimination of human data-entry variance.', 20, 149, { maxWidth: 170 });
 
-            // STRATEGIC PILLARS
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('ARCHITECTURAL FOCUS AREAS', 20, 175);
-            let y = 185;
+            // Pillars
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('IDENTIFIED STRATEGIC DOMAINS', 20, 172);
+            let y = 182;
             state.domains.forEach(d => {
                 doc.setFont("helvetica", "bold"); doc.setTextColor(79, 70, 229); doc.text(DATA[d].label, 20, y);
-                doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139); doc.text(DATA[d].text, 20, y + 6, { maxWidth: 170 });
-                y += 18;
+                doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139); doc.text(DATA[d].text, 20, y + 5, { maxWidth: 170 });
+                y += 15;
             });
-
-            // FINAL CALL TO ACTION
-            doc.setFillColor(248, 250, 252); doc.rect(0, 260, 210, 37, 'F');
-            doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.text('NEXT STEP: SME ALIGNMENT CALL', 20, 275);
-            doc.setFontSize(10); doc.text('Review this blueprint with our architecture team to define implementation priority.', 20, 282);
-            
             doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
         };
 
