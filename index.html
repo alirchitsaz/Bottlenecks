@@ -14,30 +14,24 @@
         body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; flex: 1; width: 100%; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
-        
         nav { padding: 24px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 32px; height: 32px; fill: var(--primary); }
-
         .hero { padding: 60px 0 30px; text-align: center; min-height: 480px; }
         .headline-container { min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; }
         .hero h1 { font-size: clamp(3rem, 7vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 16px; transition: opacity 0.4s; }
         .hero .sub-hero { max-width: 720px; margin: 0 auto; font-size: 1.3rem; color: var(--text-muted); transition: opacity 0.4s; min-height: 3em; }
-        
         .dot-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; }
         .dot-wrapper { width: 40px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; }
         .dot-wrapper.active .dot-progress { width: 100%; background: var(--primary); height: 100%; }
-        
         .industry-bar { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; margin-top: 40px; }
         .industry-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
         .industry-tag { background: var(--surface); padding: 6px 18px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border); }
-
         .grid-container { padding: 50px 0; max-width: 1200px; margin: 0 auto; }
         .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         @media (max-width: 1024px) { .domain-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { .domain-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2.5rem; } }
-
         .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 32px; cursor: pointer; transition: 0.3s; position: relative; height: 100%; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
@@ -45,26 +39,20 @@
         .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.5; flex-grow: 1; }
         .check-pill { position: absolute; top: 32px; right: 32px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
-
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
         .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; border-radius: 20px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
-
         .results-hero { background: #0f172a; color: white; padding: 80px 32px; border-radius: 40px; text-align: center; margin-top: 32px; }
         .big-save { font-size: clamp(3.5rem, 10vw, 6.5rem); color: #818cf8; font-weight: 800; margin: 16px 0; letter-spacing: -3px; line-height: 1; }
-        
         .cta-card { background: var(--surface); padding: 48px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 32px; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 24px auto 0; }
         input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1.05rem; width: 100%; outline: none; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
-
         .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; }
         .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-soft); }
         .btn-count { background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; margin-left: 8px; font-weight: 800; }
-
         footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 80px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 2fr; gap: 60px; }
         .footer-platforms { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
@@ -130,9 +118,12 @@
 
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 40px 0;">
         <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Phase 03: Projection</div>
-        <h2 style="font-size: 2.5rem;">Measure the Impact</h2>
-        <div id="slider-box" style="margin-top: 40px;"></div>
-        <div style="background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;">
+        <h2 style="font-size: 2.5rem;">Estimate Weekly Volume</h2>
+        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">How many items do you process per week in these areas?</p>
+        
+        <div id="slider-box"></div>
+        
+        <div style="background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed; margin-top: 40px;">
             <div style="display:flex; justify-content:space-between; font-weight:700;"><span class="mono">Resource Hourly Value</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:20px; accent-color:var(--primary);">
         </div>
@@ -205,28 +196,28 @@
 
         const DATA = {
             'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and response systems.', items: [
-                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on pricing rules.', time: 0.5 },
-                { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically 24/7.', time: 0.2 }
+                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes.', time: 0.5, unit: 'Quotes/Week' },
+                { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week' }
             ]},
             'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting forever.', items: [
-                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25 },
-                { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2 }
+                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week' },
+                { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week' }
             ]},
             'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn firm archives into an instant, searchable high-value resource.', items: [
-                { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Search specific facts across thousands of documents.', time: 0.4 },
-                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condense transcripts into actionable logic points.', time: 1.5 }
+                { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Search specific facts across archives.', time: 0.4, unit: 'Searches/Week' },
+                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condense transcripts into logic points.', time: 1.5, unit: 'Docs/Week' }
             ]},
             'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs for total project visibility.', items: [
-                { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3 },
-                { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assign tasks based on team capacity.', time: 0.2 }
+                { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week' },
+                { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assign tasks based on team capacity.', time: 0.2, unit: 'Tasks/Week' }
             ]},
             'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with automated intake and 24/7 responsiveness.', items: [
-                { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15 },
-                { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated folder creation and collection.', time: 1.5 }
+                { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week' },
+                { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated folder creation and collection.', time: 1.5, unit: 'Onboards/Week' }
             ]},
             'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing reconciliation and administrative paperwork.', items: [
-                { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0 },
-                { id: 'bo-reconcile', label: 'Data Integrity', desc: 'Manual matching across different systems.', time: 0.1 }
+                { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week' },
+                { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching across different systems.', time: 0.1, unit: 'Records/Week' }
             ]}
         };
 
@@ -245,10 +236,23 @@
         window.toggleTask = function(id, e) { const item = e.currentTarget; if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); item.classList.toggle('selected'); document.getElementById('task-count').innerText = state.tasks.size; const cb = item.querySelector('.check-box'); cb.style.background = item.classList.contains('selected') ? 'var(--primary)' : 'transparent'; };
         
         window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
+        
         function renderSliders() {
-            const cont = document.getElementById('slider-box'); let active = []; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
-            cont.innerHTML = active.map(i => `<div class="audit-item" style="display:block; cursor:default; background:var(--surface);"><div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:8px;"><span>${i.label}</span><span id="val-${i.id}" style="color: var(--primary);">0</span></div><input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);"></div>`).join('');
+            const cont = document.getElementById('slider-box'); 
+            let active = []; 
+            state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
+            
+            cont.innerHTML = active.map(i => `
+                <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
+                    <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:8px;">
+                        <span>${i.label}</span>
+                        <span style="color: var(--primary);"><span id="val-${i.id}">0</span> ${i.unit}</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);">
+                </div>
+            `).join('');
         }
+        
         window.updateVal = function(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; };
         
         window.runAnalysis = function() {
@@ -267,14 +271,12 @@
 
         // --- BRANDED PDF ENGINE ---
         window.generatePDFBlueprint = function() {
-            // Draw logo to hidden canvas first
+            // Draw logo to hidden canvas
             const canvas = document.getElementById('logo-canvas');
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, 200, 50);
             ctx.font = 'bold 24px Arial'; ctx.fillStyle = '#4f46e5'; ctx.fillText('MagicFolder', 45, 33);
-            // Draw Icon (Simplified Folder)
             ctx.fillStyle = '#4f46e5'; ctx.fillRect(5, 10, 30, 22); ctx.fillStyle = '#ffffff'; ctx.fillRect(15, 18, 10, 6);
-            
             const logoData = canvas.toDataURL('image/png');
             
             const { jsPDF } = window.jspdf;
@@ -282,13 +284,13 @@
             const name = document.getElementById('user-name').value;
             const comp = document.getElementById('user-company').value;
             
-            // Header with LOGO
-            doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 40, 'F');
+            // Header
+            doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 40, 'F');
             doc.addImage(logoData, 'PNG', 15, 10, 50, 15);
-            doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.text('STRATEGY BLUEPRINT', 150, 22);
+            doc.setFontSize(10); doc.setTextColor(226, 232, 240); doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 22);
             
-            // Client Data
-            doc.setTextColor(15, 23, 42); doc.setFont("helvetica", "bold"); doc.setFontSize(14);
+            // Metadata
+            doc.setTextColor(15, 23, 42); doc.setFont("helvetica", "bold"); doc.setFontSize(12);
             doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 60);
             doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
             doc.text(`Organization: ${comp}`, 20, 68);
@@ -321,7 +323,6 @@
             doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
         };
 
-        // UI HELPERS
         window.nextSlide = function() { slideIndex = (slideIndex + 1) % slides.length; progress = 0; updateContent(); };
         window.prevSlide = function() { slideIndex = (slideIndex - 1 + slides.length) % slides.length; progress = 0; updateContent(); };
         window.handleHeroClick = function() { if (window.innerWidth >= 1024) nextSlide(); };
