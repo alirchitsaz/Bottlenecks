@@ -24,8 +24,9 @@
 
         .hero { padding: 60px 0 30px; text-align: center; min-height: 480px; }
         .headline-container { min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; }
-        .hero h1 { font-size: clamp(3rem, 7vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 16px; transition: opacity 0.4s; }
-        .hero .sub-hero { max-width: 720px; margin: 0 auto; font-size: 1.3rem; color: var(--text-muted); transition: opacity 0.4s; min-height: 3em; }
+        /* INCREASED FONT SIZE HERE */
+        .hero h1 { font-size: clamp(3.2rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 16px; transition: opacity 0.4s; }
+        .hero .sub-hero { max-width: 720px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.4s; min-height: 3em; }
         
         .dot-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; }
         .dot-wrapper { width: 40px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; }
@@ -165,7 +166,7 @@
             <p style="font-size: 1.5rem; opacity: 0.9;">Recovering <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
         </div>
         <div style="text-align: center; margin-top: 50px;">
-            <button class="btn" onclick="generatePDFBlueprint()" id="download-btn" style="background: var(--text-dark);"><i data-lucide="download"></i> Download SME Strategy Blueprint (PDF)</button>
+            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download SME Strategy Blueprint (PDF)</button>
             <p style="margin-top: 24px; color: var(--text-muted); font-size: 0.95rem;">Our Subject Matter Experts will contact you shortly to discuss your custom architecture.</p>
         </div>
     </div>
@@ -203,6 +204,9 @@
 
         let slideIndex = 0; let progress = 0; let isPaused = false;
         const DURATION = 8000; const INTERVAL = 100;
+        
+        // This is your EXACT SVG logo converted to a base64 PNG for the PDF.
+        let PDF_LOGO_DATA = "";
 
         const DATA = {
             'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and response systems.', items: [
@@ -279,79 +283,68 @@
             fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, domains: Array.from(state.domains).join(', ') }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
+        // --- BRANDED PDF ENGINE WITH AUTO-RASTERIZATION ---
         window.generatePDFBlueprint = function() {
-            try {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                const name = document.getElementById('user-name').value || "Client";
-                const comp = document.getElementById('user-company').value || "Company";
-                
-                // HEADER BRANDING (VECTOR DRAWING)
-                doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 45, 'F'); // Indigo Header Background
-                
-                // Draw Icon: Folder Body
-                doc.setFillColor(255, 255, 255); 
-                doc.roundedRect(15, 12, 10, 8, 1, 1, 'F'); // Top tab
-                doc.roundedRect(15, 15, 22, 16, 1, 1, 'F'); // Main body
-                
-                // Draw Icon: Checkmark
-                doc.setFillColor(79, 70, 229);
-                doc.triangle(22, 22, 25, 26, 30, 19, 'F'); // Abstract checkmark
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const name = document.getElementById('user-name').value;
+            const comp = document.getElementById('user-company').value;
+            
+            // Header
+            doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 45, 'F');
+            // Use the pre-rendered PNG logo
+            if(PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 10, 15, 15); }
+            
+            doc.setTextColor(255, 255, 255); doc.setFontSize(24); doc.setFont("helvetica", "bold");
+            doc.text('MAGICFOLDER', 35, 20);
+            
+            doc.setFontSize(10); 
+            doc.text('TECHNICAL STRATEGY BLUEPRINT', 35, 27);
+            
+            // Metadata
+            doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
+            doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 60); 
+            doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
+            doc.text(`Organization: ${comp}`, 20, 68);
+            doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 60);
+            
+            doc.setDrawColor(226, 232, 240); doc.line(20, 80, 190, 80);
+            
+            // Metrics
+            doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+            doc.text('1. ANNUAL GROWTH POTENTIAL', 20, 92);
+            doc.setFontSize(22); doc.text(state.results.amt, 20, 105);
+            
+            doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. OPERATIONAL ACCURACY', 110, 92);
+            doc.setFontSize(22); doc.text('99.9%', 110, 105);
+            
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. 24/7 INTAKE AVAILABILITY', 20, 128);
+            doc.setFontSize(11); doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139);
+            doc.text('Automated intake ensures zero leads or documents are lost to off-hours bottlenecks.', 20, 136, { maxWidth: 170 });
 
-                doc.setFontSize(24); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
-                doc.text('MAGICFOLDER', 42, 27);
-                doc.setFontSize(10); doc.setFont("helvetica", "normal");
-                doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 27);
-                
-                // Metadata
-                doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
-                doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 60); 
-                doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
-                doc.text(`Organization: ${comp}`, 20, 68);
-                doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 60);
-                
-                doc.setDrawColor(226, 232, 240); doc.line(20, 78, 190, 78);
-                
-                // Metrics
-                doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-                doc.text('1. ANNUAL GROWTH POTENTIAL', 20, 92);
-                doc.setFontSize(22); doc.text(state.results.amt, 20, 105);
-                
-                doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. OPERATIONAL ACCURACY', 110, 92);
-                doc.setFontSize(22); doc.text('99.9%', 110, 105);
-                
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. 24/7 AVAILABILITY', 20, 128);
-                doc.setFontSize(11); doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139);
-                doc.text('Automated intake ensures zero leads or documents are lost to off-hours bottlenecks, providing your firm with instant responsiveness.', 20, 136, { maxWidth: 170 });
+            // Methodology
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+            doc.text('STRATEGIC METHODOLOGY', 20, 158);
+            doc.setFontSize(10); doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139);
+            doc.text('Projections are based on SME benchmarks for administrative recapture. Growth Potential assumes a lead conversion lift of 12% through faster response times. Accuracy gains are derived from the absolute removal of human data-entry variance.', 20, 166, { maxWidth: 170 });
 
-                // Methodology
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-                doc.text('STRATEGIC METHODOLOGY', 20, 158);
-                doc.setFontSize(10); doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139);
-                doc.text('Projections are based on SME benchmarks for administrative recapture. Growth Potential assumes a lead conversion lift of 12% through faster response times. Accuracy gains are derived from the absolute removal of human data-entry variance.', 20, 166, { maxWidth: 170 });
-
-                // Domains
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-                doc.text('IDENTIFIED STRATEGIC DOMAINS', 20, 195);
-                doc.setDrawColor(79, 70, 229); doc.line(20, 198, 100, 198);
-                
-                let y = 210;
-                state.domains.forEach(d => {
-                    if (y > 270) { doc.addPage(); y = 20; }
-                    doc.setFont("helvetica", "bold"); doc.setTextColor(79, 70, 229); doc.text(DATA[d].label, 20, y);
-                    doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139); doc.text(DATA[d].text, 20, y + 6, { maxWidth: 170 });
-                    y += 18;
-                });
-                
-                doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
-            } catch (e) {
-                alert("PDF Generation Error: " + e.message + ". Please try again.");
-                const btn = document.getElementById('download-btn');
-                btn.style.background = '#ef4444';
-                btn.innerText = "Error - Try Again";
-            }
+            // Domains
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+            doc.text('IDENTIFIED STRATEGIC DOMAINS', 20, 195);
+            doc.setDrawColor(79, 70, 229); doc.line(20, 198, 100, 198);
+            
+            let y = 210;
+            state.domains.forEach(d => {
+                if(y > 270) { doc.addPage(); y = 20; }
+                doc.setFont("helvetica", "bold"); doc.setTextColor(79, 70, 229); doc.text(DATA[d].label, 20, y);
+                doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139); doc.text(DATA[d].text, 20, y + 6, { maxWidth: 170 });
+                y += 18;
+            });
+            
+            doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
         };
 
+        // UI HELPERS
         window.nextSlide = function() { slideIndex = (slideIndex + 1) % slides.length; progress = 0; updateContent(); };
         window.prevSlide = function() { slideIndex = (slideIndex - 1 + slides.length) % slides.length; progress = 0; updateContent(); };
         window.handleHeroClick = function() { if (window.innerWidth >= 1024) nextSlide(); };
@@ -360,6 +353,18 @@
         function updateProgressUI() { document.querySelectorAll('.dot-progress').forEach((bar, i) => { if (i < slideIndex) bar.style.width = '100%'; else if (i === slideIndex) bar.style.width = progress + '%'; else bar.style.width = '0%'; }); }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // GENERATE PDF LOGO FROM SVG SOURCE
+            const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24"><path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="%234f46e5" opacity="0.2"/><path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="%234f46e5"/><path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/></svg>`;
+            const img = new Image();
+            img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                canvas.width = 200; canvas.height = 200;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                PDF_LOGO_DATA = canvas.toDataURL('image/png');
+            };
+
             const grid = document.getElementById('domain-grid');
             grid.innerHTML = Object.keys(DATA).map(key => `<div class="card" onclick="toggleDomain('${key}', event)"><div class="check-pill" style="border-radius:50%; border:2px solid var(--border); display:grid; place-items:center; width:28px; height:28px; position:absolute; top:24px; right:24px;"><i data-lucide="check" size="14" style="color:white;"></i></div><i data-lucide="${DATA[key].icon}" size="40"></i><h3>${DATA[key].label}</h3><p>${DATA[key].text}</p></div>`).join('');
             document.getElementById('dot-container').innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
