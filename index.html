@@ -3,335 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <title>MagicFolder | Intelligently effortless.</title>
-    
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
-
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-soft: rgba(79, 70, 229, 0.08);
-            --bg: #ffffff;
-            --surface: #f8fafc;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --success: #10b981;
-            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
-        }
-
+        :root { --primary: #4f46e5; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-dark: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; flex: 1; width: 100%; }
-        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
-
-        nav { padding: 32px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; flex: 1; width: 100%; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
+        nav { padding: 20px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; text-decoration: none; color: var(--text-dark); cursor: pointer; }
-        .logo svg { width: 36px; height: 36px; fill: var(--primary); }
-
-        .hero { padding: 100px 0 60px; text-align: center; min-height: 500px; position: relative; touch-action: pan-y; }
-        .headline-container { min-height: 240px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 24px; cursor: pointer; user-select: none; }
-        .hero h1 { font-size: clamp(2.8rem, 8vw, 5.2rem); font-weight: 800; line-height: 1; letter-spacing: -0.06em; transition: opacity 0.5s ease; margin-bottom: 24px; }
-        .hero .sub-hero { max-width: 800px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.5s ease; min-height: 3.5em; }
-
-        .dot-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 48px; }
-        .dot-wrapper { width: 45px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; color: var(--text-dark); cursor: pointer; }
+        .logo svg { width: 30px; height: 30px; fill: var(--primary); }
+        .hero { padding: 40px 0; text-align: center; min-height: 400px; position: relative; }
+        .headline-container { min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+        .hero h1 { font-size: clamp(2.2rem, 7vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.05em; transition: opacity 0.5s ease; margin-bottom: 16px; }
+        .hero .sub-hero { max-width: 700px; margin: 0 auto; font-size: 1.2rem; color: var(--text-muted); transition: opacity 0.5s ease; min-height: 3.5em; }
+        .dot-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; }
+        .dot-wrapper { width: 35px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; overflow: hidden; position: relative; }
         .dot-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--primary); transition: width 0.1s linear; }
         .dot-wrapper.active .dot-progress { width: 100%; }
-
-        .industry-bar { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; margin-top: 60px; }
-        .industry-grid { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 20px; }
-        .industry-tag { background: var(--surface); padding: 8px 24px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; color: var(--text-muted); border: 1px solid var(--border); }
-
-        .grid-container { padding: 80px 0; max-width: 1200px; margin: 0 auto; }
-        /* FIXED 3X2 GRID ON DESKTOP */
-        .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .industry-bar { padding: 24px 0; border-top: 1px solid var(--border); text-align: center; margin-top: 32px; }
+        .industry-grid { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+        .industry-tag { background: var(--surface); padding: 5px 14px; border-radius: 50px; font-weight: 700; font-size: 0.75rem; color: var(--text-muted); border: 1px solid var(--border); }
+        .grid-container { padding: 40px 0; max-width: 1100px; margin: 0 auto; }
+        .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         @media (max-width: 1024px) { .domain-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .domain-grid { grid-template-columns: 1fr; } }
-
-        .card { background: var(--surface); border: 1px solid var(--border); padding: 56px 40px; border-radius: 40px; cursor: pointer; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; position: relative; display: flex; flex-direction: column; height: 100%; }
-        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
+        @media (max-width: 768px) { .domain-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2rem; } }
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 28px; cursor: pointer; transition: 0.3s; text-align: left; position: relative; display: flex; flex-direction: column; height: 100%; }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
-        .card i, .card h3, .card p { pointer-events: none; }
-        .card h3 { font-size: 1.6rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.03em; }
-        .card p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.4; flex-grow: 1; }
-        
-        .check-pill { position: absolute; top: 32px; right: 32px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; pointer-events: none; }
+        .card h3 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 700; letter-spacing: -0.03em; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.4; flex-grow: 1; }
+        .check-pill { position: absolute; top: 24px; right: 24px; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; transition: 0.2s; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
-
         .hidden { display: none !important; }
-        .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        .audit-item { display: flex; gap: 24px; padding: 32px; background: var(--surface); border: 2px solid transparent; border-radius: 28px; margin-bottom: 20px; cursor: pointer; transition: 0.2s; align-items: center; }
+        .fade-in { animation: fadeInUp 0.5s ease forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .audit-item { display: flex; gap: 16px; padding: 20px; background: var(--surface); border: 2px solid transparent; border-radius: 20px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; align-items: center; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
-
-        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 50px; text-align: center; margin-top: 40px; }
-        .big-save { font-size: clamp(4rem, 12vw, 7.5rem); color: #818cf8; font-weight: 800; margin: 15px 0; letter-spacing: -4px; line-height: 1; }
-        
-        .cta-card { background: var(--surface); padding: 80px 40px; border-radius: 40px; border: 1px solid var(--border); text-align: center; margin-top: 40px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 700px; margin: 40px auto 0; }
-        input { padding: 22px; border-radius: 16px; border: 1px solid var(--border); font-size: 1.1rem; width: 100%; outline: none; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
-
-        .btn { background: var(--primary); color: white; padding: 22px 52px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.2rem; display: inline-flex; align-items: center; gap: 14px; transition: 0.3s; }
-        .btn:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 30px var(--primary-soft); }
-        .btn-count { background: rgba(255,255,255,0.25); padding: 4px 10px; border-radius: 8px; font-size: 0.9rem; margin-left: 10px; font-weight: 800; }
-
-        footer { padding: 100px 0 60px; background: #fff; border-top: 1px solid var(--border); margin-top: 120px; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1.5fr; gap: 100px; }
-        .footer-brand h4 { font-weight: 800; font-size: 1.6rem; margin-bottom: 16px; }
-        .footer-links h5 { font-weight: 700; margin-bottom: 24px; font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; }
-        .footer-platforms { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .footer-platforms a { display: block; color: var(--text-dark); font-size: 1rem; font-weight: 600; text-decoration: none; transition: 0.2s; }
-        .footer-platforms a:hover { color: var(--primary); }
-        .footer-bottom { border-top: 1px solid var(--border); margin-top: 100px; padding-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
-
-        @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .footer-platforms { justify-content: center; } .form-row { grid-template-columns: 1fr; } }
+        .results-hero { background: #0f172a; color: white; padding: 60px 24px; border-radius: 40px; text-align: center; margin-top: 32px; }
+        .big-save { font-size: clamp(3rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 10px 0; letter-spacing: -3px; line-height: 1; }
+        .cta-card { background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 32px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 600px; margin: 24px auto 0; }
+        input { padding: 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+        .btn { background: var(--primary); color: white; padding: 16px 36px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-soft); }
+        .btn-count { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; margin-left: 8px; font-weight: 800; }
+        footer { padding: 60px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 60px; }
+        .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 1fr; gap: 60px; }
+        .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+        .footer-links a { color: var(--text-dark); font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: 0.2s; }
+        .footer-links a:hover { color: var(--primary); }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="nav-inner">
-        <div class="logo" onclick="goHome()">
-            <svg viewBox="0 0 24 24">
-                <path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/>
-                <path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/>
-                <path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/>
-            </svg>
-            MagicFolder
-        </div>
-        <div class="mono" style="color: var(--text-muted); font-weight: 700; font-size: 0.8rem;">Modern Business Systems</div>
-    </div>
+    <div class="nav-inner"><div class="logo" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/><path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/><path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/></svg>MagicFolder</div><div class="mono" style="color: var(--text-muted); font-weight: 700;">Modern Business Systems</div></div>
 </nav>
 
 <div class="container">
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 800; letter-spacing: 3px;">Business Architecture for Professionals</div>
-        <div id="swipe-zone" class="headline-container" onclick="handleHeroClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
-            <h1 id="slideshow-title">Intelligently<br>effortless.</h1>
-            <p id="slideshow-sub" class="sub-hero">We build high-performance workflow systems that help professionals scale their revenue while 100% removing manual error.</p>
-        </div>
+        <div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 12px;">Operational Architecture for SME's</div>
+        <div id="swipe-zone" class="headline-container" onclick="handleHeroClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()"><h1 id="slideshow-title">Intelligently<br>effortless.</h1><p id="slideshow-sub" class="sub-hero">We build high-performance workflow systems that scale revenue while removing 100% of manual error.</p></div>
         <div class="dot-container" id="dot-container"></div>
         <button class="btn" onclick="setStep(1)">Project Your Potential <i data-lucide="sparkle"></i></button>
         <div class="industry-bar">
-            <span class="industry-label">Engineering Reliability For:</span>
+            <span class="mono" style="color: var(--text-muted); font-weight: 700;">Supporting:</span>
             <div class="industry-grid">
-                <div class="industry-tag">Legal & Law Firms</div>
-                <div class="industry-tag">Real Estate</div>
-                <div class="industry-tag">Service Industries</div>
-                <div class="industry-tag">Logistics</div>
-                <div class="industry-tag">Professional Services</div>
+                <div class="industry-tag">Law Firms</div><div class="industry-tag">Real Estate</div><div class="industry-tag">Service Industries</div><div class="industry-tag">Logistics</div><div class="industry-tag">Professional Services</div>
             </div>
         </div>
     </div>
 
     <div id="step-1" class="hidden fade-in grid-container">
-        <div class="section-title-area">
-            <div class="mono" style="color: var(--text-muted); margin-bottom: 16px; font-weight: 700;">Phase 01</div>
-            <h2 style="font-size: 2.5rem; letter-spacing: -0.04em;">Where can we help you grow?</h2>
-            <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 650px; margin: 20px auto 0;">Select your priority domains to see how automation creates revenue velocity and absolute reliability.</p>
-        </div>
+        <div style="text-align: center; margin-bottom: 40px;"><div class="mono" style="color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Phase 01</div><h2 style="font-size: 2.2rem; letter-spacing: -0.04em;">Where can we help you grow?</h2><p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 10px;">Select your priority domains to identify potential revenue and reliability gains.</p></div>
         <div class="domain-grid" id="domain-grid"></div>
-        <div style="text-align: center; margin-top: 80px;">
-            <button class="btn" onclick="validateStep1()">Map My Growth Potential <span id="domain-count" class="btn-count">0</span></button>
-            <div id="err-1" style="color:#ef4444; margin-top:24px; display:none; font-weight: 800;">Please select a focus area.</div>
-        </div>
+        <div style="text-align: center; margin-top: 50px;"><button class="btn" onclick="validateStep1()">Map My Growth <span id="domain-count" class="btn-count">0</span></button></div>
     </div>
 
-    <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 120px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 02: Reliability Mapping</div>
-        <h2 id="s2-title" style="font-size: 2.5rem; letter-spacing: -0.04em;">What's slowing you down?</h2>
-        <div id="task-list" style="margin-top: 50px;"></div>
-        <div style="margin-top: 80px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(1)">Back</button><button class="btn" onclick="validateStep2()">Calculate the Unlock <span id="task-count" class="btn-count">0</span></button></div>
+    <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 40px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Phase 02: Analysis</div><h2 style="font-size: 2.2rem; letter-spacing: -0.04em;">Identify the Bottlenecks</h2>
+        <div id="task-list" style="margin-top: 32px;"></div>
+        <div style="margin-top: 48px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-dark); border:1px solid var(--border);" onclick="setStep(1)">Back</button><button class="btn" onclick="validateStep2()">Calculate Gains <span id="task-count" class="btn-count">0</span></button></div>
     </div>
 
-    <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto; padding: 100px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 800;">Phase 03: Growth Projection</div>
-        <h2 style="font-size: 2.5rem;">Project Your Gains</h2>
-        <div id="slider-box" style="margin-top: 50px;"></div>
-        <div style="background: var(--surface); padding: 56px; border-radius: 40px; border: 1px solid var(--border); margin-bottom: 32px; border-style: dashed;"><div style="display:flex; justify-content:space-between; font-weight:800;"><span class="mono">Resource/Staff Hourly Value</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div><input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:24px; accent-color:var(--primary);"></div>
-        <div style="margin-top: 80px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-muted); border: 1px solid var(--border);" onclick="setStep(2)">Back</button><button class="btn" onclick="setStep(4)">View My Strategy Blueprint <i data-lucide="arrow-right"></i></button></div>
+    <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 40px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Phase 03: Projection</div><h2 style="font-size: 2.2rem;">Measure the Impact</h2>
+        <div id="slider-box" style="margin-top: 32px;"></div>
+        <div style="background: var(--surface); padding: 32px; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed;"><div style="display:flex; justify-content:space-between; font-weight:700;"><span class="mono">Resource Hourly Value</span><span style="color: var(--primary); font-size: 1.1rem;">$<span id="rate-disp">150</span></span></div><input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:16px; accent-color:var(--primary);"></div>
+        <div style="margin-top: 48px; display: flex; justify-content: space-between;"><button class="btn" style="background:transparent; color:var(--text-dark); border:1px solid var(--border);" onclick="setStep(2)">Back</button><button class="btn" onclick="setStep(4)">Generate My Blueprint <i data-lucide="arrow-right"></i></button></div>
     </div>
 
-    <div id="step-4" class="hidden fade-in" style="padding: 100px 0; max-width: 800px; margin: 0 auto;">
-        <div style="text-align: center; margin-bottom: 48px;"><div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 16px;">Final Step</div><h2>Unlock Your Strategy Report</h2><p style="color: var(--text-muted); font-size: 1.2rem; margin-top: 12px;">Identify the path to 24/7 availability and 100% accuracy for your firm.</p></div>
-        <div class="cta-card">
-            <div class="form-row"><input type="text" id="user-name" placeholder="Full Name"><input type="text" id="user-company" placeholder="Company Name"></div>
-            <div style="max-width: 700px; margin: 16px auto;"><input type="email" id="user-email" placeholder="Business Email"></div>
-            <div style="display:none;"><input type="text" id="gotcha-field" value=""></div>
-            <button class="btn" style="width: 100%; max-width: 700px; margin-top: 16px; justify-content: center;" onclick="submitToFormspree()" id="submit-btn">Generate My Blueprint <i data-lucide="unlock"></i></button>
-            <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields correctly.</div>
-        </div>
+    <div id="step-4" class="hidden fade-in" style="padding: 60px 0; max-width: 700px; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 32px;"><div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 12px;">Final Step</div><h2>Unlock Your Strategy Report</h2></div>
+        <div class="cta-card"><div class="form-row"><input type="text" id="user-name" placeholder="Full Name"><input type="text" id="user-company" placeholder="Company Name"></div><div style="max-width: 600px; margin: 12px auto;"><input type="email" id="user-email" placeholder="Business Email"></div><button class="btn" style="width: 100%; max-width: 600px; margin-top: 12px; justify-content: center;" onclick="submitToFormspree()" id="submit-btn">Unlock Report <i data-lucide="unlock"></i></button></div>
     </div>
 
-    <div id="step-5" class="hidden fade-in" style="padding: 80px 0;">
-        <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Annual Opportunity Potential</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.6rem; opacity: 0.9;">Redeploying <strong id="final-hours" style="color:white;">0</strong> high-value hours to growth and reliability.</p></div>
-        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download SME Strategy Blueprint (PDF)</button><p style="margin-top: 32px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto;">Your blueprint includes projections for Revenue Velocity, Accuracy Gains, and 24/7 Availability metrics.</p></div>
+    <div id="step-5" class="hidden fade-in" style="padding: 40px 0;">
+        <div class="results-hero"><p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Annual Opportunity Projection</p><div class="big-save" id="final-amt">$0</div><p style="font-size: 1.4rem; opacity: 0.9;">Recovering <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p></div>
+        <div style="text-align: center; margin-top: 40px;"><button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download SME Strategy Blueprint (PDF)</button><p style="margin-top: 24px; color: var(--text-muted); font-size: 0.9rem;">Our experts will contact you shortly to discuss your custom architecture.</p></div>
     </div>
 </div>
 
-<footer>
-    <div class="footer-inner">
-        <div class="footer-brand"><h4>MagicFolder</h4><p>Professional workflow architecture for firms and professionals. Efficiency that creates real revenue.</p></div>
-        <div class="footer-links">
-            <h5>Partner Platforms</h5>
-            <div class="footer-platforms">
-                <a href="https://openai.com" target="_blank">OpenAI</a>
-                <a href="https://anthropic.com" target="_blank">Anthropic</a>
-                <a href="https://cloud.google.com" target="_blank">Google</a>
-                <a href="https://www.servicenow.com" target="_blank">ServiceNow</a>
-                <a href="https://www.make.com" target="_blank">Make.com</a>
-                <a href="https://www.salesforce.com" target="_blank">Salesforce</a>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div>
-</footer>
+<footer><div class="footer-inner"><div><h4>MagicFolder</h4><p style="font-size: 0.9rem; color: var(--text-muted); max-width: 400px;">Expert workflow systems for firms and professionals. Efficiency that creates real revenue.</p></div><div><h5 class="mono" style="margin-bottom: 15px;">Partner Platforms</h5><div class="footer-links"><a href="https://openai.com">OpenAI</a><a href="https://anthropic.com">Anthropic</a><a href="https://cloud.google.com">Google</a><a href="https://www.servicenow.com">ServiceNow</a><a href="https://www.make.com">Make.com</a><a href="https://www.salesforce.com">Salesforce</a></div></div></div></footer>
 
 <script>
     (function() {
         const slides = [
-            { title: "Intelligently<br>effortless.", sub: "We build world-class workflow systems that scale your capacity while increasing 24/7 reliability." },
-            { title: "Accelerate your<br>revenue.", sub: "Automate client quoting, lead follow-up, and proposal generation to close more jobs faster." },
-            { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route your document data from any source with 100% accuracy." },
+            { title: "Intelligently<br>effortless.", sub: "We build high-performance systems that scale your capacity while increasing 24/7 reliability." },
+            { title: "Accelerate your<br>revenue.", sub: "Automate client quoting and lead follow-up to close more jobs faster without hiring more staff." },
+            { title: "Data logistics that<br>feel like magic.", sub: "Automatically identify, extract, and route document data from any source with 100% accuracy." },
             { title: "Scale your capacity,<br>not your stress.", sub: "Move from manual firefighting to automated precision with enterprise-standard logic." }
         ];
 
         let slideIndex = 0; let progress = 0; let isPaused = false;
-        const DURATION = 9000; const INTERVAL = 100;
+        const DURATION = 8000; const INTERVAL = 100;
 
         const DATA = {
             'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and response systems.', items: [
-                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on your specific pricing rules.', time: 0.5, unit: 'quotes/wk' },
-                { id: 'rev-proposal', label: 'Proposal Generation', desc: 'Auto-create professional project proposals using your past data.', time: 1.0, unit: 'proposals/wk' },
-                { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route new customer inquiries automatically.', time: 0.2, unit: 'leads/wk' }
+                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Generate quotes instantly based on specific rules.', time: 0.5 },
+                { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify inquiries automatically 24/7.', time: 0.2 }
             ]},
-            'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting forever.', items: [
-                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extracting vendor bills with intelligent validation.', time: 0.25, unit: 'invoices/wk' },
-                { id: 'mf-contracts', label: 'Contract Management', desc: 'Identifying and filing based on specific document terms.', time: 0.2, unit: 'docs/wk' },
-                { id: 'mf-forms', label: 'Data Extraction', desc: 'Turning manual forms into structured, verified digital records.', time: 0.5, unit: 'forms/wk' }
+            'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and sorting forever with intelligent filing.', items: [
+                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Parsing and bill validation.', time: 0.25 },
+                { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2 }
             ]},
-            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn firm archives into an instant, searchable high-value resource.', items: [
-                { id: 'kn-rag', label: 'Intelligent Document Search', desc: 'Find specific facts across thousands of documents instantly.', time: 0.4, unit: 'searches/wk' },
-                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condensing transcripts or archives into actionable points.', time: 1.5, unit: 'docs/wk' }
+            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives into an instant, searchable high-value resource.', items: [
+                { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Search years of history instantly.', time: 0.4 },
+                { id: 'kn-briefing', label: 'Case Summarization', desc: 'Condense transcripts into logic points.', time: 1.5 }
             ]},
             'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs for total project visibility.', items: [
-                { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Real-time status visibility without manual spreadsheet updates.', time: 0.3, unit: 'orders/wk' },
-                { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assigning tasks to your team based on their capacity.', time: 0.2, unit: 'tasks/wk' }
+                { id: 'req-tracking', label: 'Order Tracking', desc: 'Status visibility without manual updates.', time: 0.3 },
+                { id: 'req-triage', label: 'Job Routing', desc: 'Assigning tasks based on staff capacity.', time: 0.2 }
             ]},
-            'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with automated intake and 24/7 support rules.', items: [
-                { id: 'sup-faq', label: 'Automated Customer FAQ', desc: 'Answering routine questions using your specific business data.', time: 0.15, unit: 'queries/wk' },
-                { id: 'sup-onboard', label: 'Client Onboarding Systems', desc: 'Automated folder creation and data collection for new customers.', time: 1.5, unit: 'onboards/wk' }
+            'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with automated intake and 24/7 responsiveness.', items: [
+                { id: 'sup-faq', label: 'Automated FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15 },
+                { id: 'sup-onboard', label: 'Onboarding Systems', desc: 'Automated document collection.', time: 1.5 }
             ]},
             'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing reconciliation and administrative paperwork.', items: [
-                { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Matching transaction records with incoming revenue billing.', time: 1.0, unit: 'invoices/wk' },
-                { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching of records across different software systems.', time: 0.1, unit: 'records/wk' }
+                { id: 'bo-billing', label: 'Billing Rec', desc: 'Match transaction records with billing.', time: 1.0 },
+                { id: 'bo-reconcile', label: 'Data Integrity', desc: 'Manual matching across siloed systems.', time: 0.1 }
             ]}
         };
 
-        let state = { domains: new Set(), tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0', rawVal: 0 } };
+        let state = { domains: new Set(), tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
 
         window.goHome = function() { location.reload(); };
         window.setStep = function(n) { document.getElementById('hero').classList.add('hidden'); [1,2,3,4,5].forEach(s => { const el = document.getElementById(`step-${s}`); if(el) el.classList.add('hidden'); }); const t = document.getElementById(`step-${n}`); if(t) t.classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); };
-
         window.toggleDomain = function(key, e) { const card = e.currentTarget; if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); card.classList.toggle('selected'); document.getElementById('domain-count').innerText = state.domains.size; };
-        window.validateStep1 = function() { if(state.domains.size === 0) { document.getElementById('err-1').style.display='block'; return; } renderTasks(); setStep(2); };
-
+        window.validateStep1 = function() { if(state.domains.size === 0) return; renderTasks(); setStep(2); };
         function renderTasks() {
-            const list = document.getElementById('task-list');
-            let aggregated = []; state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
-            list.innerHTML = aggregated.map(i => `<div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', event)"><div class="check-box" style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;"><i data-lucide="check" size="14" style="color:white;"></i></div><div style="flex:1;"><div style="font-weight:700; font-size:1.15rem;">${i.label}</div><div style="color:var(--text-muted); font-size:1rem;">${i.desc}</div></div></div>`).join('');
-            lucide.createIcons();
-            document.getElementById('task-count').innerText = state.tasks.size;
+            const list = document.getElementById('task-list'); let aggregated = []; state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
+            list.innerHTML = aggregated.map(i => `<div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', event)"><div class="check-box" style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;"><i data-lucide="check" size="14" style="color:white;"></i></div><div style="flex:1;"><div style="font-weight:700;">${i.label}</div><div style="color:var(--text-muted); font-size:0.9rem;">${i.desc}</div></div></div>`).join('');
+            lucide.createIcons(); document.getElementById('task-count').innerText = state.tasks.size;
         }
-
         window.toggleTask = function(id, e) { const item = e.currentTarget; if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); item.classList.toggle('selected'); document.getElementById('task-count').innerText = state.tasks.size; const cb = item.querySelector('.check-box'); cb.style.background = item.classList.contains('selected') ? 'var(--primary)' : 'transparent'; };
-
         window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
         function renderSliders() {
             const cont = document.getElementById('slider-box'); let active = []; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
-            cont.innerHTML = active.map(i => `<div class="audit-item" style="display:block; cursor:default; background:var(--surface);"><div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:12px;"><span>${i.label} (${i.unit})</span><span id="val-${i.id}" style="color: var(--primary);">0</span></div><input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);"></div>`).join('');
+            cont.innerHTML = active.map(i => `<div class="audit-item" style="display:block; cursor:default; background:var(--surface);"><div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:8px;"><span>${i.label}</span><span id="val-${i.id}" style="color: var(--primary);">0</span></div><input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);"></div>`).join('');
         }
-
         window.updateVal = function(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; };
-        
         window.runAnalysis = function() {
             const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0;
             state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { const qty = state.inputs[i.id] || 0; h += (qty * i.time * 52); v += (qty * i.time * 52 * rate); }); });
-            state.results.amt = '$' + Math.round(v).toLocaleString(); state.results.hours = Math.round(h).toLocaleString(); state.results.rawVal = v;
+            state.results.amt = '$' + Math.round(v).toLocaleString(); state.results.hours = Math.round(h).toLocaleString();
             document.getElementById('final-amt').innerText = state.results.amt; document.getElementById('final-hours').innerText = state.results.hours;
         };
-
         window.submitToFormspree = function() {
-            const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value; const gotcha = document.getElementById('gotcha-field').value;
-            if(!name || !email || !comp || gotcha !== "") { document.getElementById('form-err').style.display='block'; return; }
-            runAnalysis(); 
-            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, domains: Array.from(state.domains).join(', ') }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
+            const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value;
+            if(!name || !email || !comp) return; runAnalysis();
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential: state.results.amt, hours: state.results.hours, domains: Array.from(state.domains).join(', ') }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
-        // NEW: BOARD-READY PDF EXPORT WITH SME LOGIC
         window.generatePDFBlueprint = function() {
             const { jsPDF } = window.jspdf; const doc = new jsPDF();
             const name = document.getElementById('user-name').value; const comp = document.getElementById('user-company').value;
-            
-            // Branding & Header
             doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 45, 'F');
             doc.setTextColor(255, 255, 255); doc.setFontSize(22); doc.setFont("helvetica", "bold"); doc.text('MAGICFOLDER', 20, 28);
-            doc.setFontSize(10); doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 28);
-            
-            // Client Metadata
-            doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.text(`CLIENT: ${name}`, 20, 58); doc.text(`ORGANIZATION: ${comp}`, 20, 65); doc.setTextColor(100, 116, 139); doc.text(`DATE: ${new Date().toLocaleDateString()}`, 160, 58);
+            doc.setFontSize(10); doc.text('STRATEGY BLUEPRINT', 150, 28);
+            doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.text(`CLIENT: ${name}`, 20, 58); doc.text(`ORGANIZATION: ${comp}`, 20, 65);
+            doc.setTextColor(100, 116, 139); doc.text(`DATE: ${new Date().toLocaleDateString()}`, 160, 58);
             doc.setDrawColor(226, 232, 240); doc.line(20, 72, 190, 72);
-            
-            // Triple-Metric Section
-            doc.setTextColor(79, 70, 229); doc.setFontSize(13); doc.text('1. REVENUE VELOCITY (ANNUAL)', 20, 85);
-            doc.setFontSize(20); doc.text(state.results.amt, 20, 96);
-            
-            doc.setTextColor(16, 185, 129); doc.setFontSize(13); doc.text('2. STRUCTURAL RELIABILITY', 110, 85);
-            doc.setFontSize(20); doc.text('99.9% ACCURACY', 110, 96);
-            
-            doc.setTextColor(15, 23, 42); doc.setFontSize(13); doc.text('3. OPERATIONAL AVAILABILITY', 20, 112);
-            doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.text('Automated intake systems provide 24/7/365 responsiveness, ensuring zero leads or documents are lost to off-hours bottlenecks.', 20, 119, { maxWidth: 170 });
-
-            // Methodology Block
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('METHODOLOGY & SME LOGIC', 20, 142);
-            doc.setFontSize(9); doc.setTextColor(100, 116, 139);
-            doc.text('Calculations are based on industry benchmarks for administrative recapture. Revenue Velocity assumes a lead conversion lift of 12% through sub-5-minute response times. Accuracy gains are derived from the elimination of human data-entry variance.', 20, 149, { maxWidth: 170 });
-
-            // Domain Strategic Breakdown
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('IDENTIFIED STRATEGIC DOMAINS', 20, 172);
-            let y = 182;
-            state.domains.forEach(d => {
-                doc.setFont("helvetica", "bold"); doc.setTextColor(79, 70, 229); doc.text(DATA[d].label, 20, y);
-                doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139); doc.text(DATA[d].text, 20, y + 5, { maxWidth: 170 });
-                y += 15;
-            });
-
-            doc.save(`MagicFolder-Strategy-${comp}.pdf`);
+            doc.setTextColor(79, 70, 229); doc.setFontSize(13); doc.text('1. ANNUAL GROWTH POTENTIAL', 20, 85); doc.setFontSize(20); doc.text(state.results.amt, 20, 96);
+            doc.setTextColor(16, 185, 129); doc.setFontSize(13); doc.text('2. ELIMINATION OF MANUAL ERROR', 110, 85); doc.setFontSize(20); doc.text('99.9% ACCURACY', 110, 96);
+            doc.setTextColor(15, 23, 42); doc.setFontSize(13); doc.text('3. 24/7 INTAKE AVAILABILITY', 20, 112);
+            doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.text('Automation ensures zero leads or documents are lost to off-hours bottlenecks, providing instant firm-wide responsiveness.', 20, 119, { maxWidth: 170 });
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('STRATEGIC FOCUS:', 20, 142);
+            let y = 152;
+            state.domains.forEach(d => { doc.setFont("helvetica", "bold"); doc.setTextColor(79, 70, 229); doc.text(DATA[d].label, 20, y); doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139); doc.text(DATA[d].text, 20, y + 5, { maxWidth: 170 }); y += 15; });
+            doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
         };
 
-        // UI HELPERS
         window.nextSlide = function() { slideIndex = (slideIndex + 1) % slides.length; progress = 0; updateContent(); };
         window.prevSlide = function() { slideIndex = (slideIndex - 1 + slides.length) % slides.length; progress = 0; updateContent(); };
         window.handleHeroClick = function() { if (window.innerWidth >= 1024) nextSlide(); };
         window.pauseCycle = function() { isPaused = true; }; window.resumeCycle = function() { isPaused = false; };
         function updateContent() { const t = document.getElementById('slideshow-title'); const s = document.getElementById('slideshow-sub'); if(!t) return; t.style.opacity = 0; s.style.opacity = 0; setTimeout(() => { t.innerHTML = slides[slideIndex].title; s.innerHTML = slides[slideIndex].sub; t.style.opacity = 1; s.style.opacity = 1; updateProgressUI(); }, 500); }
         function updateProgressUI() { document.querySelectorAll('.dot-progress').forEach((bar, i) => { if (i < slideIndex) bar.style.width = '100%'; else if (i === slideIndex) bar.style.width = progress + '%'; else bar.style.width = '0%'; }); }
-
         document.addEventListener('DOMContentLoaded', () => {
-            const grid = document.getElementById('domain-grid');
-            grid.innerHTML = Object.keys(DATA).map(key => `<div class="card" onclick="toggleDomain('${key}', event)"><div class="check-pill" style="border-radius:50%; border:2px solid var(--border); display:grid; place-items:center; width:32px; height:32px; position:absolute; top:32px; right:32px;"><i data-lucide="check" size="16" style="color:white;"></i></div><i data-lucide="${DATA[key].icon}" size="48"></i><h3>${DATA[key].label}</h3><p>${DATA[key].text}</p></div>`).join('');
+            const grid = document.getElementById('domain-grid'); grid.innerHTML = Object.keys(DATA).map(key => `<div class="card" onclick="toggleDomain('${key}', event)"><div class="check-pill" style="border-radius:50%; border:2px solid var(--border); display:grid; place-items:center; width:28px; height:28px; position:absolute; top:24px; right:24px;"><i data-lucide="check" size="14" style="color:white;"></i></div><i data-lucide="${DATA[key].icon}" size="40"></i><h3>${DATA[key].label}</h3><p>${DATA[key].text}</p></div>`).join('');
             document.getElementById('dot-container').innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
-            lucide.createIcons();
-            setInterval(() => { if (!isPaused) { progress += (INTERVAL / DURATION) * 100; if (progress >= 100) nextSlide(); else updateProgressUI(); } }, INTERVAL);
+            lucide.createIcons(); setInterval(() => { if (!isPaused) { progress += (INTERVAL / DURATION) * 100; if (progress >= 100) nextSlide(); else updateProgressUI(); } }, INTERVAL);
         });
     })();
 </script>
