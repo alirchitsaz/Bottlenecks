@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MagicFolder | Intelligently effortless.</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
+    
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    
     <style>
         :root { --primary: #4f46e5; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-dark: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -130,9 +132,7 @@
         <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Phase 03: Projection</div>
         <h2 style="font-size: 2.5rem;">Estimate Weekly Volume</h2>
         <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">How many items do you process per week in these areas?</p>
-        
         <div id="slider-box"></div>
-        
         <div style="background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed; margin-top: 40px;">
             <div style="display:flex; justify-content:space-between; font-weight:700;"><span class="mono">Resource Hourly Value</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:20px; accent-color:var(--primary);">
@@ -165,7 +165,7 @@
             <p style="font-size: 1.5rem; opacity: 0.9;">Recovering <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
         </div>
         <div style="text-align: center; margin-top: 50px;">
-            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download SME Strategy Blueprint (PDF)</button>
+            <button class="btn" onclick="generatePDFBlueprint()" id="download-btn" style="background: var(--text-dark);"><i data-lucide="download"></i> Download SME Strategy Blueprint (PDF)</button>
             <p style="margin-top: 24px; color: var(--text-muted); font-size: 0.95rem;">Our Subject Matter Experts will contact you shortly to discuss your custom architecture.</p>
         </div>
     </div>
@@ -279,63 +279,79 @@
             fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, domains: Array.from(state.domains).join(', ') }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
-        // --- FIXED PDF LOGO (BASE64 DIRECT) ---
-        // This is a Base64 string of a clean Indigo Folder icon. It will render instantly in the PDF.
-        const LOGO_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAI0SURBVHgB7VrbccIwEHV2/iMToINQCqGDQCoIdhBKAemAUEGgA0IFoQJCBUE6CKSC4MeQjZJjX59lJDP4yU93r3e1F8kS4j/+E+E/E/E+E/E+E/E+E/E+E/E+E/E+E/E+E/G+q0T0fd+z1noWBEGr1Wq92La98X3/YIwZaa3Hw+Hw6rrui1KqJ0S01oOqqhYxxlEp9WyM6YmoqmodYxyVUoM4jh+stcO1RHRd95Bl2ZtSakBE/X6/F0J0hIiiKDomSdLzPO8gIopjWZb3McZHKfVCRJtN0zyXZfkQY3yUUi9EtN1u91yW5UOM8VFKY0T0fD6fz+fz5bruQ0R73/cPxphB13VPiCjIsuy9lHInhOicEFEQBO+llDsXElEcx4+2bQ9CiM6FiK7r3kspNyJEP/V6vW69Xm+ICCF6QkQI0RMiQoieEBFCRE+ICCF6QkQI0RMiQoieEBFCRE+ICCF6QkQI0RMiQoieEBFCRE+ICCF6QkQI0ZOrRJRSg6ZpHmKMj1JqQETb7XbLZVkeYoyPUmpARM/n8/l8Pl+u6z5EtPd9/2CMGXRd94SIgizL3kspdyJEP/V6vW69Xm+ICCF6ckFE13XvpZQbEaIfEaIgCN5LKXcupOi67iHLsjel1ICI+v1+L4ToCBFFUXRMkqTneV5LRGvtcM44KqWejTE9IVVVLWKMo1Jq4LruixBCa63Hw+Hw6vv+wRgzkvf+y7bsjTFWWusZ55+I9/03EVE/AG+1y57+yY/kAAAAAElFTkSuQmCC";
-
         window.generatePDFBlueprint = function() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const name = document.getElementById('user-name').value;
-            const comp = document.getElementById('user-company').value;
-            
-            // Header with LOGO
-            doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 45, 'F');
-            doc.addImage(LOGO_BASE64, 'PNG', 15, 10, 15, 15); // Add Logo at x=15, y=10, w=15, h=15
-            doc.setTextColor(255, 255, 255); doc.setFontSize(24); doc.setFont("helvetica", "bold");
-            doc.text('MAGICFOLDER', 35, 20); // Align text next to logo
-            
-            doc.setFontSize(10); 
-            doc.text('TECHNICAL STRATEGY BLUEPRINT', 35, 27);
-            
-            // Metadata
-            doc.setTextColor(15, 23, 42); doc.setFontSize(12);
-            doc.text(`CLIENT: ${name.toUpperCase()}`, 20, 60); doc.text(`ORGANIZATION: ${comp}`, 20, 67);
-            doc.setTextColor(100, 116, 139); doc.text(`DATE: ${new Date().toLocaleDateString()}`, 160, 60);
-            
-            doc.setDrawColor(226, 232, 240); doc.line(20, 75, 190, 75);
-            
-            // Metrics
-            doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.text('1. ANNUAL GROWTH POTENTIAL', 20, 88);
-            doc.setFontSize(22); doc.text(state.results.amt, 20, 100);
-            
-            doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. ELIMINATION OF MANUAL ERROR', 110, 88);
-            doc.setFontSize(22); doc.text('99.9% ACCURACY', 110, 100);
-            
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. 24/7 INTAKE AVAILABILITY', 20, 120);
-            doc.setFontSize(11); doc.setTextColor(100, 116, 139);
-            doc.text('Strategic automation ensures zero leads or documents are lost to off-hours bottlenecks, providing your firm with instant responsiveness.', 20, 128, { maxWidth: 170 });
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const name = document.getElementById('user-name').value || "Client";
+                const comp = document.getElementById('user-company').value || "Company";
+                
+                // HEADER BRANDING (VECTOR DRAWING)
+                doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 45, 'F'); // Indigo Header Background
+                
+                // Draw Icon: Folder Body
+                doc.setFillColor(255, 255, 255); 
+                doc.roundedRect(15, 12, 10, 8, 1, 1, 'F'); // Top tab
+                doc.roundedRect(15, 15, 22, 16, 1, 1, 'F'); // Main body
+                
+                // Draw Icon: Checkmark
+                doc.setFillColor(79, 70, 229);
+                doc.triangle(22, 22, 25, 26, 30, 19, 'F'); // Abstract checkmark
 
-            // Methodology Block
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('STRATEGIC METHODOLOGY', 20, 150);
-            doc.setFontSize(10); doc.setTextColor(100, 116, 139);
-            doc.text('Projections are based on SME benchmarks for administrative recapture. Growth Potential assumes a lead conversion lift of 12% through faster response times. Accuracy gains are derived from the absolute removal of human data-entry variance.', 20, 158, { maxWidth: 170 });
+                doc.setFontSize(24); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
+                doc.text('MAGICFOLDER', 42, 27);
+                doc.setFontSize(10); doc.setFont("helvetica", "normal");
+                doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 27);
+                
+                // Metadata
+                doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
+                doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 60); 
+                doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
+                doc.text(`Organization: ${comp}`, 20, 68);
+                doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 60);
+                
+                doc.setDrawColor(226, 232, 240); doc.line(20, 78, 190, 78);
+                
+                // Metrics
+                doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+                doc.text('1. ANNUAL GROWTH POTENTIAL', 20, 92);
+                doc.setFontSize(22); doc.text(state.results.amt, 20, 105);
+                
+                doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. OPERATIONAL ACCURACY', 110, 92);
+                doc.setFontSize(22); doc.text('99.9%', 110, 105);
+                
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. 24/7 AVAILABILITY', 20, 128);
+                doc.setFontSize(11); doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139);
+                doc.text('Automated intake ensures zero leads or documents are lost to off-hours bottlenecks, providing your firm with instant responsiveness.', 20, 136, { maxWidth: 170 });
 
-            // Domains
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('IDENTIFIED STRATEGIC DOMAINS', 20, 185);
-            doc.setDrawColor(79, 70, 229); doc.line(20, 188, 100, 188);
-            
-            let y = 198;
-            state.domains.forEach(d => {
-                doc.setFont("helvetica", "bold"); doc.setTextColor(79, 70, 229); doc.text(DATA[d].label, 20, y);
-                doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139); doc.text(DATA[d].text, 20, y + 6, { maxWidth: 170 });
-                y += 18;
-            });
-            
-            doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
+                // Methodology
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+                doc.text('STRATEGIC METHODOLOGY', 20, 158);
+                doc.setFontSize(10); doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139);
+                doc.text('Projections are based on SME benchmarks for administrative recapture. Growth Potential assumes a lead conversion lift of 12% through faster response times. Accuracy gains are derived from the absolute removal of human data-entry variance.', 20, 166, { maxWidth: 170 });
+
+                // Domains
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+                doc.text('IDENTIFIED STRATEGIC DOMAINS', 20, 195);
+                doc.setDrawColor(79, 70, 229); doc.line(20, 198, 100, 198);
+                
+                let y = 210;
+                state.domains.forEach(d => {
+                    if (y > 270) { doc.addPage(); y = 20; }
+                    doc.setFont("helvetica", "bold"); doc.setTextColor(79, 70, 229); doc.text(DATA[d].label, 20, y);
+                    doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139); doc.text(DATA[d].text, 20, y + 6, { maxWidth: 170 });
+                    y += 18;
+                });
+                
+                doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
+            } catch (e) {
+                alert("PDF Generation Error: " + e.message + ". Please try again.");
+                const btn = document.getElementById('download-btn');
+                btn.style.background = '#ef4444';
+                btn.innerText = "Error - Try Again";
+            }
         };
 
-        // UI HELPERS
         window.nextSlide = function() { slideIndex = (slideIndex + 1) % slides.length; progress = 0; updateContent(); };
         window.prevSlide = function() { slideIndex = (slideIndex - 1 + slides.length) % slides.length; progress = 0; updateContent(); };
         window.handleHeroClick = function() { if (window.innerWidth >= 1024) nextSlide(); };
