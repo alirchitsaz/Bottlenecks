@@ -64,7 +64,7 @@
 </head>
 <body>
 
-<canvas id="logo-canvas" width="600" height="150" style="display:none;"></canvas>
+<canvas id="logo-canvas" width="800" height="200" style="display:none;"></canvas>
 
 <nav>
     <div class="nav-inner">
@@ -196,28 +196,28 @@
 
         const DATA = {
             'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and response systems.', items: [
-                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on pricing rules.', time: 0.5, unit: 'Quotes/Week', blueprint: "Reduces quote-to-cash cycle by 90% via automated rule-based generation." },
-                { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week', blueprint: "Ensures 5-minute response time for all inbound leads via Make.com orchestration." }
+                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on pricing rules.', time: 0.5, unit: 'Quotes/Week' },
+                { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week' }
             ]},
             'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting forever.', items: [
-                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week', blueprint: "Automated OCR extraction with confidence scoring prevents 99% of manual entry errors." },
-                { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing ensures contracts are stored with correct meta-data tags automatically." }
+                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week' },
+                { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week' }
             ]},
             'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn firm archives into an instant, searchable high-value resource.', items: [
-                { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Search specific facts across thousands of documents.', time: 0.4, unit: 'Searches/Week', blueprint: "Semantic RAG search reduces research time from hours to seconds." },
-                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condense transcripts into actionable logic points.', time: 1.5, unit: 'Docs/Week', blueprint: "LLM-driven summaries extract key entities and dates without human reading time." }
+                { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Search specific facts across thousands of documents.', time: 0.4, unit: 'Searches/Week' },
+                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condense transcripts into actionable logic points.', time: 1.5, unit: 'Docs/Week' }
             ]},
             'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs for total project visibility.', items: [
-                { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week', blueprint: "Real-time dashboarding eliminates 'What is the status?' emails." },
-                { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assign tasks based on team capacity.', time: 0.2, unit: 'Tasks/Week', blueprint: "Logic-based routing assigns work to the correct SME instantly." }
+                { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week' },
+                { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assign tasks based on team capacity.', time: 0.2, unit: 'Tasks/Week' }
             ]},
             'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with automated intake and 24/7 responsiveness.', items: [
-                { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week', blueprint: "Deflects 80% of routine Tier-1 inquiries with accurate, sourced answers." },
-                { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated folder creation and collection.', time: 1.5, unit: 'Onboards/Week', blueprint: "Zero-touch onboarding sequence standardizes client intake folder structures." }
+                { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week' },
+                { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated folder creation and collection.', time: 1.5, unit: 'Onboards/Week' }
             ]},
             'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing reconciliation and administrative paperwork.', items: [
-                { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week', blueprint: "Cross-system reconciliation highlights revenue leakage automatically." },
-                { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching across different systems.', time: 0.1, unit: 'Records/Week', blueprint: "Syncs disparate system data (CRM <> ERP) to ensure single source of truth." }
+                { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week' },
+                { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching across different systems.', time: 0.1, unit: 'Records/Week' }
             ]}
         };
 
@@ -264,90 +264,77 @@
 
         window.submitToFormspree = function() {
             const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value; const gotcha = document.getElementById('gotcha-field').value;
-            if(!name || !email || !comp || gotcha !== "") { document.getElementById('form-err').style.display='block'; return; }
-            runAnalysis(); 
-            // Collect line item details
-            let details = "";
-            state.domains.forEach(d => {
-                DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-                    const qty = state.inputs[i.id] || 0;
-                    details += `${i.label}: ${qty} ${i.unit}\n`;
-                });
-            });
+            
+            // FORM VALIDATION: Armor the input
+            if(!name || name.length < 2) { document.getElementById('form-err').innerText = "Please enter a valid name."; document.getElementById('form-err').style.display='block'; return; }
+            if(!email || !email.includes('@') || !email.includes('.')) { document.getElementById('form-err').innerText = "Please enter a valid business email."; document.getElementById('form-err').style.display='block'; return; }
+            if(!comp) { document.getElementById('form-err').innerText = "Company name is required."; document.getElementById('form-err').style.display='block'; return; }
+            if(gotcha !== "") { return; } // Silent fail for bots
 
-            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, details: details }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
+            runAnalysis(); 
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, domains: Array.from(state.domains).join(', ') }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
-        // --- BRANDED PDF ENGINE WITH RENDERED LOGO ---
+        // --- BRANDED PDF ENGINE WITH AUTO-RASTERIZATION & SCALING ---
         window.generatePDFBlueprint = function() {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 const name = document.getElementById('user-name').value || "Client";
                 const comp = document.getElementById('user-company').value || "Company";
-                const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
                 
                 // HEADER BRANDING (Uses pre-rendered canvas logo)
-                doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 45, 'F'); 
-                if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 50, 12); } 
+                doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 50, 'F'); 
+                // Increased logo size: 80 width, 20 height
+                if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); } 
                 
+                // Shifted "Strategy Blueprint" text to align with larger header
                 doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "normal");
-                doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 23);
+                doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 25);
                 
                 // Metadata
                 doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
-                doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 60); 
+                doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 65); 
                 doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
-                doc.text(`Organization: ${comp}`, 20, 68);
-                doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 60);
+                doc.text(`Organization: ${comp}`, 20, 73);
+                doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 65);
                 
-                doc.setDrawColor(226, 232, 240); doc.line(20, 78, 190, 78);
+                doc.setDrawColor(226, 232, 240); doc.line(20, 82, 190, 82);
                 
                 // Metrics
                 doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-                doc.text('1. ANNUAL GROWTH POTENTIAL', 20, 92);
-                doc.setFontSize(22); doc.text(state.results.amt, 20, 105);
+                doc.text('1. ANNUAL GROWTH POTENTIAL', 20, 96);
+                doc.setFontSize(22); doc.text(state.results.amt, 20, 109);
                 
-                doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. ACCURACY RATE', 110, 92);
-                doc.setFontSize(22); doc.text('99.9%', 110, 105);
+                doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. ACCURACY RATE', 110, 96);
+                doc.setFontSize(22); doc.text('99.9%', 110, 109);
                 
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. 24/7 AVAILABILITY', 20, 128);
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. 24/7 AVAILABILITY', 20, 132);
                 doc.setFontSize(11); doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139);
-                doc.text('Automated intake ensures zero leads or documents are lost to off-hours bottlenecks.', 20, 136, { maxWidth: 170 });
+                doc.text('Automated intake ensures zero leads or documents are lost to off-hours bottlenecks, providing your firm with instant responsiveness.', 20, 140, { maxWidth: 170 });
 
-                // DETAILED LINE ITEM BREAKDOWN
+                // Methodology
                 doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-                doc.text('ARCHITECTURAL ANALYSIS & ROI', 20, 165);
-                doc.setDrawColor(79, 70, 229); doc.line(20, 168, 100, 168);
+                doc.text('STRATEGIC METHODOLOGY', 20, 162);
+                doc.setFontSize(10); doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139);
+                doc.text('Projections are based on SME benchmarks for administrative recapture. Growth Potential assumes a lead conversion lift of 12% through faster response times. Accuracy gains are derived from the absolute removal of human data-entry variance.', 20, 170, { maxWidth: 170 });
+
+                // Domains
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+                doc.text('IDENTIFIED STRATEGIC DOMAINS', 20, 198);
+                doc.setDrawColor(79, 70, 229); doc.line(20, 201, 100, 201);
                 
-                let y = 185;
+                let y = 215;
                 state.domains.forEach(d => {
-                    DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-                        if (y > 260) { doc.addPage(); y = 20; }
-                        
-                        const qty = state.inputs[i.id] || 0;
-                        const hrs = (qty * i.time * 52);
-                        const val = (hrs * rate);
-                        
-                        // Title
-                        doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(15, 23, 42);
-                        doc.text(i.label.toUpperCase(), 20, y);
-                        
-                        // Stats Line
-                        doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(79, 70, 229);
-                        doc.text(`Savings: $${Math.round(val).toLocaleString()} / yr  (${Math.round(hrs)} Hours)`, 20, y + 6);
-                        
-                        // Blueprint Note
-                        doc.setFont("helvetica", "italic"); doc.setFontSize(10); doc.setTextColor(100, 116, 139);
-                        doc.text(`Logic: ${i.blueprint}`, 20, y + 12);
-                        
-                        y += 24;
-                    });
+                    if (y > 270) { doc.addPage(); y = 20; }
+                    doc.setFont("helvetica", "bold"); doc.setTextColor(79, 70, 229); doc.text(DATA[d].label, 20, y);
+                    doc.setFont("helvetica", "normal"); doc.setTextColor(100, 116, 139); doc.text(DATA[d].text, 20, y + 6, { maxWidth: 170 });
+                    y += 18;
                 });
                 
                 doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
             } catch (e) {
-                alert("PDF Error: " + e.message);
+                alert("PDF Generation Error: " + e.message);
             }
         };
 
@@ -359,24 +346,21 @@
         function updateProgressUI() { document.querySelectorAll('.dot-progress').forEach((bar, i) => { if (i < slideIndex) bar.style.width = '100%'; else if (i === slideIndex) bar.style.width = progress + '%'; else bar.style.width = '0%'; }); }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // RENDER LOGO ON CANVAS FOR PDF USE
+            // GENERATE BRAND LOGO ON HIDDEN CANVAS (Double Resolution)
             const canvas = document.getElementById('logo-canvas');
             const ctx = canvas.getContext('2d');
-            // Wait for font
-            document.fonts.ready.then(() => {
-                ctx.clearRect(0, 0, 600, 150);
-                
-                // Draw Icon (Scaled Up)
+            // Load Font
+            document.fonts.load('800 48px "Plus Jakarta Sans"').then(() => {
+                ctx.clearRect(0, 0, 800, 200);
+                // Icon (Indigo Folder)
                 ctx.fillStyle = '#4f46e5'; 
                 ctx.beginPath(); ctx.roundRect(10, 20, 70, 60, 8); ctx.fill(); // Body
                 ctx.fillStyle = '#ffffff'; 
                 ctx.beginPath(); ctx.roundRect(30, 40, 30, 20, 4); ctx.fill(); // Detail
-                
-                // Draw Text (Scaled Up)
+                // Text
                 ctx.fillStyle = '#0f172a';
                 ctx.font = '800 48px "Plus Jakarta Sans", sans-serif'; // High Res Font
                 ctx.fillText('MagicFolder', 100, 68);
-                
                 PDF_LOGO_DATA = canvas.toDataURL('image/png');
             });
 
