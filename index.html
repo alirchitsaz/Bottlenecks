@@ -11,26 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --primary: #4f46e5; 
-            --primary-dark: #4338ca; 
-            --primary-soft: rgba(79, 70, 229, 0.08); 
-            --bg: #ffffff; 
-            --surface: #f8fafc; 
-            --text-dark: #0f172a; 
-            --text-muted: #64748b; 
-            --border: #e2e8f0; 
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); 
-        }
-
-        /* --- RESET & BASE --- */
+        :root { --primary: #4f46e5; --primary-dark: #4338ca; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-dark: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05); --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; position: relative; z-index: 2; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
         
-        /* --- NAVIGATION --- */
         nav { padding: 16px 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; color: var(--text-dark); cursor: pointer; letter-spacing: -0.02em; }
@@ -41,116 +27,59 @@
         .nav-btn { background: var(--text-dark); color: white; padding: 10px 24px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; transition: 0.2s; }
         .nav-btn:hover { background: #334155; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         
-        /* --- HERO SECTION --- */
         .hero-section { padding: 120px 0 80px; text-align: center; position: relative; }
         .hero-bg { position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 100vw; height: 1000px; background: radial-gradient(circle, rgba(79,70,229,0.04) 0%, rgba(255,255,255,0) 60%); z-index: 0; pointer-events: none; }
         .hero-h1 { font-size: clamp(3.5rem, 8vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 24px; color: var(--text-dark); position: relative; z-index: 2; }
         .hero-p { font-size: 1.35rem; color: var(--text-muted); max-width: 720px; margin: 0 auto 48px; position: relative; z-index: 2; line-height: 1.5; }
         
-        /* --- BUTTONS --- */
         .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3); }
         .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4); }
         .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: var(--shadow-sm); }
         .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
 
-        /* --- TRUST MARQUEE (The "Real" Look) --- */
         .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 50px 0; background: #fff; overflow: hidden; }
         .marquee-header { text-align: center; color: #94a3b8; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-family: 'JetBrains Mono', monospace; }
+        .logo-row { display: flex; justify-content: center; gap: 60px; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .logo-img { display: block; width: auto; transition: opacity 0.2s; opacity: 0.6; }
+        .logo-img:hover { opacity: 1; }
         
-        .logo-row { 
-            display: flex; 
-            justify-content: center; 
-            gap: 60px; 
-            align-items: center; 
-            flex-wrap: wrap; 
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo-img { 
-            display: block; 
-            width: auto; 
-            transition: opacity 0.2s, filter 0.2s;
-            opacity: 0.6; /* Balanced opacity */
-        }
-        .logo-img:hover { opacity: 1; filter: grayscale(0%); }
-        
-        /* === OPTICAL BALANCING === */
-        /* Heights adjusted to align visually */
+        /* OPTICAL BALANCING: Heights for perfect visual alignment */
         .h-servicenow { height: 26px; } 
         .h-make { height: 24px; } 
-        .h-salesforce { height: 44px; position: relative; top: -3px; } 
+        .h-salesforce { height: 42px; position: relative; top: -3px; } 
         .h-google { height: 28px; } 
         .h-openai { height: 26px; } 
-        .h-anthropic { height: 22px; } 
+        .h-anthropic { height: 20px; } 
 
-        /* --- FEATURE GRID --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; padding-bottom: 100px; }
         .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
         .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
         .feature-h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
         .feature-p { color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; }
 
-        /* --- METHODOLOGY SECTION --- */
         .dark-section { background: #0f172a; color: white; padding: 100px 0; position: relative; overflow: hidden; }
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
         
-        /* --- CALCULATOR UI --- */
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .calc-card { 
-            background: var(--surface); 
-            border: 1px solid var(--border); 
-            padding: 32px; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-            position: relative; 
-            height: 100%;
-        }
+        .calc-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; position: relative; height: 100%; }
         .calc-card:hover { background: white; border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
         .calc-card.selected { border-color: var(--primary); background: white; box-shadow: 0 0 0 2px var(--primary); }
-        
-        .check-pill { 
-            width: 24px; height: 24px; 
-            border-radius: 50%; 
-            border: 2px solid var(--border); 
-            position: absolute; top: 24px; right: 24px; 
-            display: grid; place-items: center;
-            transition: 0.2s;
-        }
+        .check-pill { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); position: absolute; top: 24px; right: 24px; display: grid; place-items: center; transition: 0.2s; }
         .calc-card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
-
-        .audit-item { 
-            display: flex; gap: 20px; padding: 24px; 
-            background: var(--surface); border: 1px solid transparent; 
-            border-radius: 16px; margin-bottom: 16px; 
-            cursor: pointer; align-items: center; transition: 0.2s; 
-        }
-        .audit-item:hover { background: white; border-color: var(--border); }
+        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 1px solid transparent; border-radius: 16px; margin-bottom: 16px; cursor: pointer; align-items: center; transition: 0.2s; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
         .results-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 80px 32px; border-radius: 32px; text-align: center; margin-top: 32px; }
-        
         input { padding: 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; font-family: inherit; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
-
         footer { background: white; padding: 80px 0 40px; border-top: 1px solid var(--border); margin-top: auto; }
-        .footer-logo-row { display: flex; gap: 24px; margin-top: 24px; opacity: 0.6; }
 
-        @media (max-width: 768px) {
-            .hero-h1 { font-size: 3rem; }
-            .feature-grid, .split-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            .logo-row { gap: 30px; }
-        }
+        @media (max-width: 768px) { .hero-h1 { font-size: 3rem; } .feature-grid, .split-grid { grid-template-columns: 1fr; } .nav-links { display: none; } .logo-row { gap: 30px; } }
     </style>
 </head>
 <body>
-
 <canvas id="logo-canvas" width="800" height="200" style="display:none;"></canvas>
 
 <nav>
@@ -161,14 +90,13 @@
         </div>
         <div class="nav-links">
             <a onclick="scrollToSection('solutions')">Solutions</a>
-            <a onclick="scrollToSection('methodology')">Methodology</a>
+            <a onclick="scrollToSection('methodology')">Our Approach</a>
             <button class="nav-btn" onclick="startApp()">ROI Calculator</button>
         </div>
     </div>
 </nav>
 
 <div id="marketing-view">
-    
     <section class="hero-section">
         <div class="hero-bg"></div>
         <div class="container">
@@ -177,7 +105,7 @@
             <p class="hero-p">We turn your manual tasks into automated systems. Scale your revenue without adding headcount.</p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn" onclick="startApp()">Calculate Your ROI <i data-lucide="calculator" size="20"></i></button>
-                <button class="btn btn-outline" onclick="scrollToSection('methodology')">Our Approach</button>
+                <button class="btn btn-outline" onclick="scrollToSection('methodology')">Our Methodology</button>
             </div>
         </div>
     </section>
@@ -185,31 +113,12 @@
     <div class="marquee-section">
         <div class="marquee-header">Engineered on the world's most advanced infrastructure</div>
         <div class="logo-row">
-            
-            <a href="https://www.servicenow.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/ServiceNow_Logo.svg" alt="ServiceNow" class="logo-img h-servicenow">
-            </a>
-
-            <a href="https://www.make.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Make_logo.svg" alt="Make" class="logo-img h-make">
-            </a>
-
-            <a href="https://www.salesforce.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="logo-img h-salesforce">
-            </a>
-
-            <a href="https://cloud.google.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" class="logo-img h-google">
-            </a>
-
-            <a href="https://openai.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="logo-img h-openai">
-            </a>
-
-            <a href="https://www.anthropic.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="logo-img h-anthropic">
-            </a>
-            
+            <a href="https://www.servicenow.com" target="_blank" rel="noopener"><img src="https://www.vectorlogo.zone/logos/servicenow/servicenow-ar21.svg" alt="ServiceNow" class="logo-img h-servicenow"></a>
+            <a href="https://www.make.com" target="_blank" rel="noopener"><img src="https://www.vectorlogo.zone/logos/make/make-ar21.svg" alt="Make" class="logo-img h-make"></a>
+            <a href="https://www.salesforce.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="logo-img h-salesforce"></a>
+            <a href="https://cloud.google.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" class="logo-img h-google"></a>
+            <a href="https://openai.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="logo-img h-openai"></a>
+            <a href="https://www.anthropic.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="logo-img h-anthropic"></a>
         </div>
     </div>
 
@@ -218,23 +127,10 @@
             <div class="mono" style="color: var(--primary); font-weight: 700;">System Capabilities</div>
             <h2 style="font-size: 2.5rem; margin-bottom: 24px; font-weight: 700;">Stop being a "Data Janitor."</h2>
             <p style="color: var(--text-muted); max-width: 650px; font-size: 1.15rem;">Your team spends 20% of their week moving data from Email to PDF to Excel. We eliminate the friction so you can focus on strategy.</p>
-            
             <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="icon-box"><i data-lucide="folder-search" size="28"></i></div>
-                    <h3 class="feature-h3">The Magic Folder</h3>
-                    <p class="feature-p">Drop any file (Invoice, Contract, Brief) into a folder. Our system automatically identifies it, extracts the data, validates it, and files it. Zero manual entry.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box"><i data-lucide="trending-up" size="28"></i></div>
-                    <h3 class="feature-h3">Revenue Logistics</h3>
-                    <p class="feature-p">Automate the "Quote-to-Cash" cycle. Leads are qualified instantly, quotes are generated via logic, and invoices are chased automatically.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box"><i data-lucide="brain-circuit" size="28"></i></div>
-                    <h3 class="feature-h3">Knowledge Hub</h3>
-                    <p class="feature-p">Turn your firm's archives into an instant, queryable brain. Ask questions about past cases or contracts and get cited answers in seconds.</p>
-                </div>
+                <div class="feature-card"><div class="icon-box"><i data-lucide="folder-search" size="28"></i></div><h3 class="feature-h3">The Magic Folder</h3><p class="feature-p">Drop any file into a folder. Our system automatically identifies it, extracts the data, and files it. Zero manual entry.</p></div>
+                <div class="feature-card"><div class="icon-box"><i data-lucide="trending-up" size="28"></i></div><h3 class="feature-h3">Revenue Logistics</h3><p class="feature-p">Automate the "Quote-to-Cash" cycle. Leads are qualified instantly, quotes are generated, and invoices are chased automatically.</p></div>
+                <div class="feature-card"><div class="icon-box"><i data-lucide="brain-circuit" size="28"></i></div><h3 class="feature-h3">Knowledge Hub</h3><p class="feature-p">Turn your archives into an instant resource. Ask questions about past cases or contracts and get cited answers in seconds.</p></div>
             </div>
         </div>
     </section>
@@ -244,394 +140,97 @@
             <div>
                 <div class="mono" style="color: #818cf8; margin-bottom: 16px;">Our Approach</div>
                 <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">Fortune 500 Efficiency,<br>Right-Sized for You.</h2>
-                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to small and mid-sized firms. No complex jargon, just systems that work.</p>
-                <p style="color: #94a3b8; font-size: 1.2rem;">We don't just patch software together. We build reliable engines that run your business in the background.</p>
+                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to growing firms. No complex jargon, just systems that scale your capacity.</p>
                 <div style="margin-top: 40px; display: flex; gap: 40px;">
                     <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">100%</h4><span style="color: #64748b;">Accuracy Target</span></div>
-                    <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Uptime</span></div>
+                    <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Availability</span></div>
                 </div>
             </div>
             <div style="background: rgba(255,255,255,0.03); padding: 48px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
                 <i data-lucide="shield-check" size="48" style="color: #818cf8; margin-bottom: 24px;"></i>
                 <h3 style="margin-bottom: 16px; font-size: 1.5rem; font-weight: 700;">Security First</h3>
-                <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 24px;">Your client data is your most valuable asset. We architect solutions with enterprise-grade security and data isolation protocols from Day 1.</p>
+                <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 24px;">Your data is your most valuable asset. We architect solutions with enterprise security and data isolation from Day 1.</p>
             </div>
         </div>
     </div>
 
     <section class="container" style="text-align: center; padding: 120px 0;">
         <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px;">Ready to find your lost revenue?</h2>
-        <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 600px; margin: 0 auto 40px;">Find out exactly how much money you are losing to manual processes.</p>
         <button class="btn" onclick="startApp()" style="font-size: 1.2rem; padding: 20px 48px;">Start Assessment <i data-lucide="arrow-right"></i></button>
     </section>
-
 </div>
 
 <div id="app-view" class="container hidden" style="padding-top: 60px; padding-bottom: 100px;">
-    
     <div id="step-1" class="fade-in">
         <div style="text-align: center; margin-bottom: 60px;">
             <div class="mono" style="color: var(--text-muted); margin-bottom: 16px; font-weight: 700;">Phase 01</div>
             <h2 style="font-size: 3rem; letter-spacing: -0.04em; font-weight: 800; margin-bottom: 16px;">Where can we help you grow?</h2>
-            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Select your priority domains to identify potential revenue and reliability gains.</p>
         </div>
         <div class="feature-grid" id="domain-grid"></div>
-        <div style="text-align: center; margin-top: 40px;">
-            <button class="btn" onclick="validateStep1()">Map My Growth <i data-lucide="arrow-right"></i></button>
-            <div id="err-1" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please select at least one area.</div>
-        </div>
+        <div style="text-align: center; margin-top: 40px;"><button class="btn" onclick="validateStep1()">Map My Growth <i data-lucide="arrow-right"></i></button></div>
     </div>
-
     <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Phase 02: Analysis</div>
         <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 40px;">Identify the Bottlenecks</h2>
         <div id="task-list"></div>
-        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
-            <button class="btn btn-outline" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Next Step <i data-lucide="arrow-right"></i></button>
-        </div>
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;"><button class="btn btn-outline" onclick="setStep(1)">Back</button><button class="btn" onclick="validateStep2()">Next Step <i data-lucide="arrow-right"></i></button></div>
     </div>
-
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Phase 03: Projection</div>
-        <h2 style="font-size: 2.5rem; font-weight: 700;">Estimate Volume</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">How many items do you process per week?</p>
+        <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 40px;">Estimate Weekly Volume</h2>
         <div id="slider-box"></div>
         <div style="background: var(--surface); padding: 32px; border-radius: 24px; border: 1px dashed var(--border); margin-top: 40px;">
-            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom: 16px;">
-                <span class="mono">Resource Hourly Value</span>
-                <span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span>
-            </div>
+            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom: 16px;"><span class="mono">Hourly Value</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; accent-color:var(--primary);">
         </div>
-        <div style="margin-top: 60px; display: flex; justify-content: space-between;">
-            <button class="btn btn-outline" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="setStep(4)">View Blueprint <i data-lucide="arrow-right"></i></button>
-        </div>
+        <div style="margin-top: 60px; display: flex; justify-content: space-between;"><button class="btn btn-outline" onclick="setStep(2)">Back</button><button class="btn" onclick="setStep(4)">View My Blueprint <i data-lucide="arrow-right"></i></button></div>
     </div>
-
     <div id="step-4" class="hidden fade-in" style="max-width: 600px; margin: 0 auto; text-align: center;">
-        <div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 12px;">Final Step</div>
-        <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px;">Unlock Your Strategy Report</h2>
-        <p style="color: var(--text-muted); margin-bottom: 32px;">Identify the path to 24/7 availability and 100% accuracy.</p>
-        <div style="background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border);">
+        <h2>Unlock Your Strategy Report</h2>
+        <div style="background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border); margin-top: 32px;">
             <input type="text" id="user-name" placeholder="Full Name" style="margin-bottom:12px;">
             <input type="text" id="user-company" placeholder="Company Name" style="margin-bottom:12px;">
             <input type="email" id="user-email" placeholder="Business Email" style="margin-bottom:12px;">
-            <input type="text" id="gotcha-field" style="display:none;">
             <button class="btn" style="width: 100%; justify-content: center; margin-top: 16px;" onclick="submitToFormspree()">Unlock Report <i data-lucide="unlock"></i></button>
-            <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields.</div>
         </div>
     </div>
-
     <div id="step-5" class="hidden fade-in">
         <div class="results-box">
             <p class="mono" style="opacity: 0.7; letter-spacing: 2px;">Annual Opportunity Projection</p>
-            <div class="big-save" id="final-amt" style="font-size: 5rem; font-weight: 800; color: #818cf8; line-height: 1; margin: 24px 0;">$0</div>
+            <div id="final-amt" style="font-size: 5rem; font-weight: 800; color: #818cf8; margin: 24px 0;">$0</div>
             <p style="font-size: 1.5rem; opacity: 0.9;">Recovering <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
         </div>
-        <div style="text-align: center; margin-top: 50px;">
-            <button class="btn" style="background: var(--text-dark);" onclick="generatePDFBlueprint()"><i data-lucide="download"></i> Download Strategy Blueprint (PDF)</button>
-            <div style="margin-top: 32px;">
-                <button class="btn btn-outline" onclick="goHome()">Back to Home</button>
-            </div>
-        </div>
+        <div style="text-align: center; margin-top: 50px;"><button class="btn" style="background: var(--text-dark);" onclick="generatePDFBlueprint()"><i data-lucide="download"></i> Download PDF Blueprint</button></div>
     </div>
-
 </div>
 
 <footer>
     <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
-        <div>
-            <div class="logo" style="margin-bottom: 24px;">
-                <svg viewBox="0 0 24 24"><path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/><path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/><path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/></svg>
-                MagicFolder
-            </div>
-            <p style="color: var(--text-muted); max-width: 300px; font-size: 0.95rem;">Expert workflow systems for firms and professionals. Efficiency that creates real revenue.</p>
-        </div>
-        <div>
-            <p class="mono" style="color: var(--text-dark); font-weight: 700;">Partner Ecosystem</p>
-            <div class="footer-logo-row">
-                <small style="color: var(--text-muted);">Google Cloud &bull; OpenAI &bull; Anthropic &bull; ServiceNow &bull; Make</small>
-            </div>
-        </div>
+        <div><div class="logo">MagicFolder</div><p style="color: var(--text-muted); max-width: 300px; margin-top: 16px;">Expert workflow systems for firms and professionals.</p></div>
+        <div><p class="mono" style="color: var(--text-dark); font-weight: 700;">Partner Ecosystem</p><small style="color: var(--text-muted); display: block; margin-top: 16px;">Google Cloud &bull; OpenAI &bull; Anthropic &bull; ServiceNow &bull; Make</small></div>
     </div>
-    <div class="container" style="border-top: 1px solid var(--border); margin-top: 60px; padding-top: 32px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-        &copy; 2026 MagicFolder AI. Professional Operational Architecture.
-    </div>
+    <div class="container" style="border-top: 1px solid var(--border); margin-top: 60px; padding-top: 32px; text-align: center; color: var(--text-muted); font-size: 0.8rem;">&copy; 2026 MagicFolder AI. Professional Operational Architecture.</div>
 </footer>
 
 <script>
     (function() {
-        // --- CORE DATA ---
-        let PDF_LOGO_DATA = "";
         const DATA = {
-            'revenue': { label: 'Revenue Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting.', items: [
-                { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate quotes based on rules.', time: 0.5, unit: 'Quotes/Week', blueprint: "Reduces quote-to-cash cycle by 90% via automated generation.", availability: "Instant" },
-                { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week', blueprint: "Ensures 5-minute response time via Make.com.", availability: "24/7" }
-            ]},
-            'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry forever.', items: [
-                { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week', blueprint: "Automated OCR extraction with confidence scoring.", availability: "Real-Time" },
-                { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing ensures contracts are stored correctly.", availability: "Real-Time" }
-            ]},
-            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives into an instant resource.', items: [
-                { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Search facts across thousands of documents.', time: 0.4, unit: 'Searches/Week', blueprint: "Semantic RAG search reduces research time.", availability: "99.9% Uptime" },
-                { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condense transcripts into logic points.', time: 1.5, unit: 'Docs/Week', blueprint: "LLM-driven summaries extract key entities.", availability: "Instant" }
-            ]},
-            'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs.', items: [
-                { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week', blueprint: "Real-time dashboarding eliminates status emails.", availability: "Real-Time" },
-                { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assign tasks based on team capacity.', time: 0.2, unit: 'Tasks/Week', blueprint: "Logic-based routing assigns work instantly.", availability: "Instant" }
-            ]},
-            'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with 24/7 response.', items: [
-                { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week', blueprint: "Deflects routine inquiries with sourced answers.", availability: "24/7" },
-                { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated folder creation and collection.', time: 1.5, unit: 'Onboards/Week', blueprint: "Zero-touch onboarding sequence.", availability: "24/7" }
-            ]},
-            'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of admin paperwork.', items: [
-                { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week', blueprint: "Cross-system reconciliation highlights leakage.", availability: "Daily Sync" },
-                { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching across different systems.', time: 0.1, unit: 'Records/Week', blueprint: "Syncs disparate system data to single source.", availability: "Real-Time" }
-            ]}
+            'revenue': { label: 'Revenue Growth', icon: 'trending-up', text: 'Automated client quoting and lead response systems.', items: [{ id: 'rev-quote', label: 'Automated Quoting', desc: 'Generate accurate quotes based on logic.', time: 0.5, unit: 'Quotes/Week' }] },
+            'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting.', items: [{ id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week' }] },
+            'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn your archives into an instant queryable brain.', items: [{ id: 'kn-rag', label: 'Firm Knowledge Search', desc: 'Search specific facts across documents.', time: 0.4, unit: 'Searches/Week' }] }
         };
-
         let state = { domains: new Set(), tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
-
-        // --- NAVIGATION & VIEW LOGIC ---
-        window.goHome = function() {
-            document.getElementById('marketing-view').classList.remove('hidden');
-            document.getElementById('app-view').classList.add('hidden');
-            window.scrollTo({top:0, behavior:'smooth'});
-        };
-
-        window.scrollToSection = function(id) {
-            document.getElementById('marketing-view').classList.remove('hidden');
-            document.getElementById('app-view').classList.add('hidden');
-            setTimeout(() => {
-                const el = document.getElementById(id);
-                if(el) el.scrollIntoView({behavior: 'smooth'});
-            }, 50);
-        };
-
-        window.startApp = function() {
-            document.getElementById('marketing-view').classList.add('hidden');
-            document.getElementById('app-view').classList.remove('hidden');
-            window.setStep(1);
-        };
-
-        window.setStep = function(n) { 
-            [1,2,3,4,5].forEach(s => { 
-                const el = document.getElementById(`step-${s}`); 
-                if(el) el.classList.add('hidden'); 
-            }); 
-            const t = document.getElementById(`step-${n}`); 
-            if(t) {
-                t.classList.remove('hidden');
-                t.classList.add('fade-in');
-            }
-            window.scrollTo({top:0, behavior:'smooth'}); 
-        };
-
-        // --- CALCULATOR LOGIC ---
-        window.toggleDomain = function(key, e) { 
-            const card = e.currentTarget; 
-            if(state.domains.has(key)) state.domains.delete(key); 
-            else state.domains.add(key); 
-            card.classList.toggle('selected'); 
-        };
-        
-        window.validateStep1 = function() { 
-            if(state.domains.size === 0) { document.getElementById('err-1').style.display='block'; return; } 
-            renderTasks(); 
-            setStep(2); 
-        };
-
-        function renderTasks() {
-            const list = document.getElementById('task-list'); 
-            let aggregated = []; 
-            state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
-            list.innerHTML = aggregated.map(i => `
-                <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', event)">
-                    <div class="check-box" style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center; background:${state.tasks.has(i.id) ? 'var(--primary)' : 'transparent'}; border-color:${state.tasks.has(i.id) ? 'var(--primary)' : 'var(--border)'}">
-                        <i data-lucide="check" size="14" style="color:white;"></i>
-                    </div>
-                    <div style="flex:1;">
-                        <div style="font-weight:700; font-size:1.1rem;">${i.label}</div>
-                        <div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div>
-                    </div>
-                </div>`).join('');
-            lucide.createIcons();
-        }
-
-        window.toggleTask = function(id, e) { 
-            const item = e.currentTarget; 
-            const cb = item.querySelector('.check-box');
-            if(state.tasks.has(id)) {
-                state.tasks.delete(id); 
-                item.classList.remove('selected');
-                cb.style.background = 'transparent';
-                cb.style.borderColor = 'var(--border)';
-            } else {
-                state.tasks.add(id); 
-                item.classList.add('selected');
-                cb.style.background = 'var(--primary)';
-                cb.style.borderColor = 'var(--primary)';
-            }
-        };
-        
+        window.goHome = function() { location.reload(); };
+        window.scrollToSection = function(id) { document.getElementById('marketing-view').classList.remove('hidden'); document.getElementById('app-view').classList.add('hidden'); setTimeout(() => { const el = document.getElementById(id); if(el) el.scrollIntoView({behavior: 'smooth'}); }, 50); };
+        window.startApp = function() { document.getElementById('marketing-view').classList.add('hidden'); document.getElementById('app-view').classList.remove('hidden'); setStep(1); };
+        window.setStep = function(n) { [1,2,3,4,5].forEach(s => { const el = document.getElementById(`step-${s}`); if(el) el.classList.add('hidden'); }); document.getElementById(`step-${n}`).classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); };
+        window.toggleDomain = function(key, e) { const card = e.currentTarget; if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); card.classList.toggle('selected'); };
+        window.validateStep1 = function() { if(state.domains.size === 0) return; renderTasks(); setStep(2); };
+        function renderTasks() { const list = document.getElementById('task-list'); let aggregated = []; state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items)); list.innerHTML = aggregated.map(i => `<div class="audit-item" onclick="toggleTask('${i.id}', event)"><div class="check-box" style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;"><i data-lucide="check" size="14" style="color:white;"></i></div><div><div style="font-weight:700;">${i.label}</div><div style="color:var(--text-muted); font-size:0.9rem;">${i.desc}</div></div></div>`).join(''); lucide.createIcons(); }
+        window.toggleTask = function(id, e) { const item = e.currentTarget; if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); item.classList.toggle('selected'); const cb = item.querySelector('.check-box'); cb.style.background = item.classList.contains('selected') ? 'var(--primary)' : 'transparent'; };
         window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
-
-        function renderSliders() {
-            const cont = document.getElementById('slider-box'); 
-            let active = []; 
-            state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
-            cont.innerHTML = active.map(i => `
-                <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
-                    <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:8px;">
-                        <span>${i.label}</span>
-                        <span style="color: var(--primary);"><span id="val-${i.id}">0</span> ${i.unit}</span>
-                    </div>
-                    <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);">
-                </div>
-            `).join('');
-        }
-        
-        window.updateVal = function(id, val) { 
-            state.inputs[id] = parseInt(val); 
-            document.getElementById(`val-${id}`).innerText = val; 
-        };
-
-        window.runAnalysis = function() {
-            const rate = parseInt(document.getElementById('hourly-rate').value); 
-            let h = 0; let v = 0;
-            state.domains.forEach(d => { 
-                DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { 
-                    const qty = state.inputs[i.id] || 0; 
-                    h += (qty * i.time * 52); 
-                    v += (qty * i.time * 52 * rate); 
-                }); 
-            });
-            state.results.amt = '$' + Math.round(v).toLocaleString(); 
-            state.results.hours = Math.round(h).toLocaleString();
-            document.getElementById('final-amt').innerText = state.results.amt; 
-            document.getElementById('final-hours').innerText = state.results.hours;
-        };
-
-        window.submitToFormspree = function() {
-            const name = document.getElementById('user-name').value; 
-            const email = document.getElementById('user-email').value; 
-            const comp = document.getElementById('user-company').value; 
-            const gotcha = document.getElementById('gotcha-field').value;
-            
-            if(!name || !email || !comp || gotcha !== "") { 
-                document.getElementById('form-err').style.display='block'; return; 
-            }
-            
-            runAnalysis(); 
-            
-            let emailDetails = "";
-            state.domains.forEach(d => {
-                DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-                    const qty = state.inputs[i.id] || 0;
-                    emailDetails += `${i.label}: ${qty} ${i.unit}\n`;
-                });
-            });
-
-            // Replace with your Formspree Endpoint
-            fetch('https://formspree.io/f/mgooqqjg', { 
-                method: 'POST', 
-                body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, details: emailDetails }), 
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
-            }).finally(() => { setStep(5); });
-        };
-
-        window.generatePDFBlueprint = function() {
-            try {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                const name = document.getElementById('user-name').value || "Client";
-                const comp = document.getElementById('user-company').value || "Company";
-                const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
-                
-                doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 50, 'F'); 
-                if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); } 
-                
-                doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "normal");
-                doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 25);
-                
-                doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
-                doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 65); 
-                doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
-                doc.text(`Organization: ${comp}`, 20, 73);
-                doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 65);
-                
-                doc.setDrawColor(226, 232, 240); doc.line(20, 82, 190, 82);
-                
-                doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-                doc.text('1. ANNUAL GROWTH POTENTIAL', 20, 96);
-                doc.setFontSize(22); doc.text(state.results.amt, 20, 109);
-                
-                doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. ACCURACY RATE', 110, 96);
-                doc.setFontSize(22); doc.text('99.9%', 110, 109);
-                
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. CAPACITY RECLAIMED', 20, 132);
-                doc.setFontSize(22); doc.text(`${state.results.hours} HOURS / YR`, 20, 145);
-
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-                doc.text('ARCHITECTURAL ANALYSIS', 20, 165);
-                doc.setDrawColor(79, 70, 229); doc.line(20, 168, 100, 168);
-                
-                let y = 185;
-                state.domains.forEach(d => {
-                    DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-                        if (y > 260) { doc.addPage(); y = 20; }
-                        const qty = state.inputs[i.id] || 0;
-                        const hrs = (qty * i.time * 52);
-                        const val = (hrs * rate);
-                        
-                        doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(15, 23, 42);
-                        doc.text(i.label.toUpperCase(), 20, y);
-                        
-                        doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(79, 70, 229);
-                        doc.text(`Savings: $${Math.round(val).toLocaleString()} / yr  (${Math.round(hrs)} Hours)`, 20, y + 6);
-                        
-                        doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(100, 116, 139);
-                        doc.text(`Logic: ${i.blueprint}`, 20, y + 12, { maxWidth: 170 });
-                        y += 24;
-                    });
-                });
-                
-                doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
-            } catch (e) {
-                alert("PDF Generation Error: " + e.message);
-            }
-        };
-
-        // --- INITIALIZATION ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.getElementById('logo-canvas');
-            const ctx = canvas.getContext('2d');
-            document.fonts.load('800 48px "Plus Jakarta Sans"').then(() => {
-                ctx.clearRect(0, 0, 800, 200);
-                ctx.fillStyle = '#4f46e5'; 
-                ctx.beginPath(); ctx.roundRect(10, 20, 70, 60, 8); ctx.fill();
-                ctx.fillStyle = '#ffffff'; 
-                ctx.beginPath(); ctx.roundRect(30, 40, 30, 20, 4); ctx.fill();
-                ctx.fillStyle = '#0f172a';
-                ctx.font = '800 48px "Plus Jakarta Sans", sans-serif'; 
-                ctx.fillText('MagicFolder', 100, 68);
-                PDF_LOGO_DATA = canvas.toDataURL('image/png');
-            });
-
-            const grid = document.getElementById('domain-grid');
-            grid.innerHTML = Object.keys(DATA).map(key => `
-                <div class="calc-card" onclick="toggleDomain('${key}', event)">
-                    <div class="check-pill"><i data-lucide="check" size="14" style="color:white;"></i></div>
-                    <i data-lucide="${DATA[key].icon}" size="40" style="color: var(--primary); margin-bottom:16px;"></i>
-                    <h3 style="font-weight:700; margin-bottom:8px; font-size:1.25rem;">${DATA[key].label}</h3>
-                    <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.5;">${DATA[key].text}</p>
-                </div>
-            `).join('');
-            
-            lucide.createIcons();
-        });
+        function renderSliders() { const cont = document.getElementById('slider-box'); let active = []; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); }); cont.innerHTML = active.map(i => `<div class="audit-item" style="display:block; cursor:default; background:var(--surface);"><div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:8px;"><span>${i.label}</span><span style="color: var(--primary);"><span id="val-${i.id}">0</span> ${i.unit}</span></div><input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);"></div>`).join(''); }
+        window.updateVal = function(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; };
+        window.submitToFormspree = function() { const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0; state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { const qty = state.inputs[i.id] || 0; h += (qty * i.time * 52); v += (qty * i.time * 52 * rate); }); }); state.results.amt = '$' + Math.round(v).toLocaleString(); state.results.hours = Math.round(h).toLocaleString(); document.getElementById('final-amt').innerText = state.results.amt; document.getElementById('final-hours').innerText = state.results.hours; setStep(5); };
+        document.addEventListener('DOMContentLoaded', () => { const grid = document.getElementById('domain-grid'); grid.innerHTML = Object.keys(DATA).map(key => `<div class="calc-card" onclick="toggleDomain('${key}', event)"><div class="check-pill"><i data-lucide="check" size="14" style="color:white;"></i></div><i data-lucide="${DATA[key].icon}" size="40" style="color: var(--primary); margin-bottom:16px;"></i><h3 style="font-weight:700;">${DATA[key].label}</h3><p style="color:var(--text-muted); font-size:0.95rem;">${DATA[key].text}</p></div>`).join(''); lucide.createIcons(); });
     })();
 </script>
 </body>
