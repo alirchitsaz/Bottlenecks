@@ -3,110 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Operational Architecture</title>
+    <title>MagicFolder | Enterprise Operational Architecture</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
+    
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --primary: #4f46e5; --primary-dark: #4338ca; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-dark: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
+        :root { 
+            --primary: #4f46e5; 
+            --primary-dark: #4338ca; 
+            --primary-soft: rgba(79, 70, 229, 0.08); 
+            --bg: #ffffff; 
+            --surface: #f8fafc; 
+            --text-dark: #0f172a; 
+            --text-muted: #64748b; 
+            --border: #e2e8f0; 
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); 
+        }
+
+        /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; position: relative; z-index: 2; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
         
-        /* Navigation */
-        nav { padding: 16px 0; background: rgba(255,255,255,0.8); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        /* --- NAVIGATION --- */
+        nav { padding: 16px 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; color: var(--text-dark); cursor: pointer; letter-spacing: -0.02em; }
         .logo svg { width: 28px; height: 28px; fill: var(--primary); }
         .nav-links { display: flex; gap: 40px; align-items: center; }
         .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.2s; cursor: pointer; }
         .nav-links a:hover { color: var(--primary); }
-        .nav-btn { background: var(--text-dark); color: white; padding: 10px 24px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .nav-btn:hover { background: #334155; transform: translateY(-1px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .nav-btn { background: var(--text-dark); color: white; padding: 10px 24px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; transition: 0.2s; }
+        .nav-btn:hover { background: #334155; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         
-        /* Typography & Layout */
-        section { padding: 100px 0; position: relative; }
-        .hero-section { padding: 120px 0 80px; text-align: center; overflow: hidden; }
-        .hero-bg { position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 100vw; height: 1000px; background: radial-gradient(circle, rgba(79,70,229,0.05) 0%, rgba(255,255,255,0) 60%); z-index: 0; pointer-events: none; }
-        .hero-h1 { font-size: clamp(3.5rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 24px; color: var(--text-dark); position: relative; z-index: 2; }
-        .hero-p { font-size: 1.35rem; color: var(--text-muted); max-width: 720px; margin: 0 auto 48px; position: relative; z-index: 2; }
+        /* --- HERO SECTION --- */
+        .hero-section { padding: 120px 0 80px; text-align: center; position: relative; }
+        .hero-bg { position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 100vw; height: 1000px; background: radial-gradient(circle, rgba(79,70,229,0.04) 0%, rgba(255,255,255,0) 60%); z-index: 0; pointer-events: none; }
+        .hero-h1 { font-size: clamp(3.5rem, 8vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 24px; color: var(--text-dark); position: relative; z-index: 2; }
+        .hero-p { font-size: 1.35rem; color: var(--text-muted); max-width: 720px; margin: 0 auto 48px; position: relative; z-index: 2; line-height: 1.5; }
         
-        /* Buttons */
-        .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2); }
-        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.3); }
-        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        /* --- BUTTONS --- */
+        .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3); }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4); }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: var(--shadow-sm); }
         .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
+
+        /* --- TRUST MARQUEE (The "Real" Look) --- */
+        .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 50px 0; background: #fff; overflow: hidden; }
+        .marquee-header { text-align: center; color: #94a3b8; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px; font-family: 'JetBrains Mono', monospace; }
         
-        /* Infinite Marquee (Tech Stack) */
-        .marquee-container { background: white; padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; position: relative; }
-        .marquee-content { display: flex; gap: 100px; animation: scroll 40s linear infinite; width: max-content; align-items: center; }
-        
-        .marquee-item { 
-            height: 32px; 
+        .logo-row { 
             display: flex; 
+            justify-content: center; 
+            gap: 60px; 
             align-items: center; 
-            opacity: 0.5; 
-            transition: all 0.3s ease; 
+            flex-wrap: wrap; 
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Strict Logo Sizing for Alignment */
+        .logo-img { 
+            display: block; 
+            width: auto; 
+            transition: opacity 0.2s, filter 0.2s;
             filter: grayscale(100%);
+            opacity: 0.6;
         }
+        .logo-img:hover { filter: grayscale(0%); opacity: 1; }
         
-        .marquee-item:hover { 
-            opacity: 1; 
-            filter: grayscale(0%); 
-            transform: scale(1.05);
-        }
-        
-        /* Specific logo sizing adjustments to make them optically equal */
-        .marquee-item img { height: 100%; width: auto; display: block; }
-        .logo-google { height: 32px; }
-        .logo-openai { height: 28px; } /* Optical adjustment */
-        .logo-anthropic { height: 24px; } /* Optical adjustment */
-        .logo-servicenow { height: 26px; } 
-        .logo-make { height: 26px; }
-        .logo-salesforce { height: 42px; position: relative; top: -4px; } /* Salesforce cloud needs more height */
+        /* Optical Balancing */
+        .h-servicenow { height: 26px; }
+        .h-make { height: 24px; }
+        .h-salesforce { height: 40px; position: relative; top: -2px; } /* Cloud needs more height */
+        .h-google { height: 28px; }
+        .h-openai { height: 28px; }
+        .h-anthropic { height: 24px; }
 
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        /* --- FEATURE GRID (Static) --- */
+        /* Note: Removed hover transforms/pointer cursors because these are informational, not links */
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; padding-bottom: 100px; }
+        .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
+        .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
+        .feature-h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+        .feature-p { color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; }
+
+        /* --- METHODOLOGY SECTION --- */
+        .dark-section { background: #0f172a; color: white; padding: 100px 0; position: relative; overflow: hidden; }
+        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
         
-        /* Feature Grid */
-        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
-        .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); position: relative; overflow: hidden; }
-        .feature-card:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 20px 40px -5px rgba(0,0,0,0.08); }
-        .icon-box { width: 64px; height: 64px; background: var(--surface); border-radius: 16px; display: grid; place-items: center; color: var(--primary); margin-bottom: 32px; border: 1px solid var(--border); }
-        
-        /* Methodology Section */
-        .dark-section { background: #0f172a; color: white; position: relative; overflow: hidden; }
-        .dark-pattern { position: absolute; inset: 0; opacity: 0.1; background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 32px 32px; }
-        
-        /* Calculator Specifics */
+        /* --- CALCULATOR UI (Interactive) --- */
         .hidden { display: none !important; }
-        .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .calc-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 20px; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; height: 100%; position: relative; }
-        .calc-card:hover { background: white; border-color: var(--primary); box-shadow: var(--shadow-lg); }
+        .fade-in { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Interactive Cards (These DO get hover effects) */
+        .calc-card { 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            padding: 32px; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            position: relative; 
+            height: 100%;
+        }
+        .calc-card:hover { background: white; border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
         .calc-card.selected { border-color: var(--primary); background: white; box-shadow: 0 0 0 2px var(--primary); }
-        .check-pill { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; position: absolute; top: 24px; right: 24px; transition: 0.2s; }
+        
+        .check-pill { 
+            width: 24px; height: 24px; 
+            border-radius: 50%; 
+            border: 2px solid var(--border); 
+            position: absolute; top: 24px; right: 24px; 
+            display: grid; place-items: center;
+            transition: 0.2s;
+        }
         .calc-card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
-        
-        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 1px solid transparent; border-radius: 16px; margin-bottom: 16px; cursor: pointer; align-items: center; transition: 0.2s; }
+
+        /* Audit Items */
+        .audit-item { 
+            display: flex; gap: 20px; padding: 24px; 
+            background: var(--surface); border: 1px solid transparent; 
+            border-radius: 16px; margin-bottom: 16px; 
+            cursor: pointer; align-items: center; transition: 0.2s; 
+        }
         .audit-item:hover { background: white; border-color: var(--border); }
-        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-        .results-hero { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 80px 32px; border-radius: 40px; text-align: center; margin-top: 32px; border: 1px solid rgba(255,255,255,0.1); }
-        .big-save { font-size: clamp(4rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 24px 0; line-height: 1; letter-spacing: -2px; }
+        /* Results */
+        .results-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 80px 32px; border-radius: 32px; text-align: center; margin-top: 32px; }
         
-        input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1.05rem; width: 100%; outline: none; margin-bottom: 16px; font-family: inherit; transition: 0.2s; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
+        /* Inputs */
+        input { padding: 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; font-family: inherit; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
 
+        /* Footer */
         footer { background: white; padding: 80px 0 40px; border-top: 1px solid var(--border); margin-top: auto; }
-        
+        .footer-logo-row { display: flex; gap: 24px; margin-top: 24px; opacity: 0.6; }
+
         @media (max-width: 768px) {
             .hero-h1 { font-size: 3rem; }
-            .feature-grid { grid-template-columns: 1fr; }
+            .feature-grid, .split-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
-            .marquee-content { gap: 40px; }
+            .logo-row { gap: 30px; }
         }
     </style>
 </head>
@@ -133,110 +179,85 @@
     <section class="hero-section">
         <div class="hero-bg"></div>
         <div class="container">
-            <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 700; opacity: 0.9;">Global ITSM & Digital Workplace Architecture</div>
+            <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 700;">Global ITSM & Digital Workplace Architecture</div>
             <h1 class="hero-h1">Intelligently effortless.</h1>
             <p class="hero-p">We architect high-availability workflow systems that scale professional capacity while removing 100% of manual error.</p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <button class="btn" onclick="startApp()">Calculate Your ROI <i data-lucide="calculator"></i></button>
+                <button class="btn" onclick="startApp()">Calculate Your ROI <i data-lucide="calculator" size="20"></i></button>
                 <button class="btn btn-outline" onclick="scrollToSection('methodology')">Our Methodology</button>
             </div>
         </div>
     </section>
 
-    <div class="marquee-container">
-        <p class="mono" style="text-align: center; color: var(--text-muted); margin-bottom: 24px; opacity: 0.6;">Engineered on the world's most advanced infrastructure</p>
-        <div class="marquee-content">
-            
-            <a href="https://cloud.google.com" target="_blank" rel="noopener noreferrer" class="marquee-item" title="Google Cloud">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" class="logo-google">
+    <div class="marquee-section">
+        <div class="marquee-header">Engineered on the world's most advanced infrastructure</div>
+        <div class="logo-row">
+            <a href="https://www.servicenow.com" target="_blank" rel="noopener">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/ServiceNow_logo.svg" alt="ServiceNow" class="logo-img h-servicenow">
             </a>
-            
-            <a href="https://openai.com" target="_blank" rel="noopener noreferrer" class="marquee-item" title="OpenAI">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="logo-openai">
+            <a href="https://www.make.com" target="_blank" rel="noopener">
+                <img src="https://images.ctfassets.net/unrbf663yeec/1Do2O17x5e6S8q6y88C4Q6/0d3f27f00c144d18471715967520448b/make-logo.svg" alt="Make" class="logo-img h-make">
             </a>
-            
-            <a href="https://www.anthropic.com" target="_blank" rel="noopener noreferrer" class="marquee-item" title="Anthropic">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="logo-anthropic">
+            <a href="https://www.salesforce.com" target="_blank" rel="noopener">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="logo-img h-salesforce">
             </a>
-            
-            <a href="https://www.servicenow.com" target="_blank" rel="noopener noreferrer" class="marquee-item" title="ServiceNow">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/ServiceNow_logo.svg" alt="ServiceNow" class="logo-servicenow">
+            <a href="https://cloud.google.com" target="_blank" rel="noopener">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" class="logo-img h-google">
             </a>
-            
-            <a href="https://www.make.com" target="_blank" rel="noopener noreferrer" class="marquee-item" title="Make">
-                <img src="https://images.ctfassets.net/unrbf663yeec/1Do2O17x5e6S8q6y88C4Q6/0d3f27f00c144d18471715967520448b/make-logo.svg" alt="Make" class="logo-make">
+            <a href="https://openai.com" target="_blank" rel="noopener">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="logo-img h-openai">
             </a>
-            
-            <a href="https://www.salesforce.com" target="_blank" rel="noopener noreferrer" class="marquee-item" title="Salesforce">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="logo-salesforce">
-            </a>
-
-            <a href="https://cloud.google.com" target="_blank" rel="noopener noreferrer" class="marquee-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" class="logo-google">
-            </a>
-            <a href="https://openai.com" target="_blank" rel="noopener noreferrer" class="marquee-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="logo-openai">
-            </a>
-            <a href="https://www.anthropic.com" target="_blank" rel="noopener noreferrer" class="marquee-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="logo-anthropic">
-            </a>
-            <a href="https://www.servicenow.com" target="_blank" rel="noopener noreferrer" class="marquee-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/ServiceNow_logo.svg" alt="ServiceNow" class="logo-servicenow">
-            </a>
-            <a href="https://www.make.com" target="_blank" rel="noopener noreferrer" class="marquee-item">
-                <img src="https://images.ctfassets.net/unrbf663yeec/1Do2O17x5e6S8q6y88C4Q6/0d3f27f00c144d18471715967520448b/make-logo.svg" alt="Make" class="logo-make">
+            <a href="https://www.anthropic.com" target="_blank" rel="noopener">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="logo-img h-anthropic">
             </a>
         </div>
     </div>
 
     <section id="solutions" class="container">
-        <div class="mono" style="color: var(--primary); font-weight: 700;">System Capabilities</div>
-        <h2 style="font-size: 2.5rem; margin-bottom: 24px; font-weight: 700; letter-spacing: -0.02em;">Stop being a "Data Janitor."</h2>
-        <p style="color: var(--text-muted); max-width: 650px; font-size: 1.15rem;">Your highly-paid experts spend 20% of their week moving data from Email to PDF to Excel. We eliminate the friction so they can focus on strategy.</p>
-        
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="icon-box"><i data-lucide="folder-search" size="32"></i></div>
-                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 12px;">The Magic Folder</h3>
-                <p style="color: var(--text-muted); line-height: 1.7;">Drop any file (Invoice, Contract, Brief) into a folder. Our system automatically identifies it, extracts the data, validates it against your rules, and files it. Zero manual entry.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box"><i data-lucide="trending-up" size="32"></i></div>
-                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 12px;">Revenue Logistics</h3>
-                <p style="color: var(--text-muted); line-height: 1.7;">Automate the "Quote-to-Cash" cycle. Leads are qualified instantly, quotes are generated via logic, and invoices are chased automatically.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box"><i data-lucide="brain-circuit" size="32"></i></div>
-                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 12px;">Knowledge Hub</h3>
-                <p style="color: var(--text-muted); line-height: 1.7;">Turn your firm's archives into an instant, queryable brain. Ask questions about past cases or contracts and get cited answers in seconds using RAG.</p>
+        <div style="margin-top: 80px;">
+            <div class="mono" style="color: var(--primary); font-weight: 700;">System Capabilities</div>
+            <h2 style="font-size: 2.5rem; margin-bottom: 24px; font-weight: 700;">Stop being a "Data Janitor."</h2>
+            <p style="color: var(--text-muted); max-width: 650px; font-size: 1.15rem;">Your highly-paid experts spend 20% of their week moving data from Email to PDF to Excel. We eliminate the friction so they can focus on strategy.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon-box"><i data-lucide="folder-search" size="28"></i></div>
+                    <h3 class="feature-h3">The Magic Folder</h3>
+                    <p class="feature-p">Drop any file (Invoice, Contract, Brief) into a folder. Our system automatically identifies it, extracts the data, validates it against your rules, and files it. Zero manual entry.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i data-lucide="trending-up" size="28"></i></div>
+                    <h3 class="feature-h3">Revenue Logistics</h3>
+                    <p class="feature-p">Automate the "Quote-to-Cash" cycle. Leads are qualified instantly, quotes are generated via logic, and invoices are chased automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i data-lucide="brain-circuit" size="28"></i></div>
+                    <h3 class="feature-h3">Knowledge Hub</h3>
+                    <p class="feature-p">Turn your firm's archives into an instant, queryable brain. Ask questions about past cases or contracts and get cited answers in seconds using RAG.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="methodology" class="dark-section">
-        <div class="dark-pattern"></div>
-        <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2;">
+    <div id="methodology" class="dark-section">
+        <div class="container split-grid">
             <div>
                 <div class="mono" style="color: #818cf8; margin-bottom: 16px;">Our Methodology</div>
                 <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">Built by Enterprise Architects.</h2>
                 <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We aren't just developers. We are IT Strategists with backgrounds in Global Service Management and Digital Workplace architecture.</p>
                 <p style="color: #94a3b8; font-size: 1.2rem;">We apply the same rigor used by Fortune 500 companies to streamline professional service firms. No hacks, just scalable, secure systems.</p>
-                <div style="margin-top: 40px; display: flex; gap: 24px;">
-                    <div><h4 style="font-size: 2rem; font-weight: 800; color: white;">100%</h4><span style="color: #64748b;">Accuracy Target</span></div>
-                    <div><h4 style="font-size: 2rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Uptime</span></div>
+                <div style="margin-top: 40px; display: flex; gap: 40px;">
+                    <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">100%</h4><span style="color: #64748b;">Accuracy Target</span></div>
+                    <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Uptime</span></div>
                 </div>
             </div>
             <div style="background: rgba(255,255,255,0.03); padding: 48px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
                 <i data-lucide="shield-check" size="48" style="color: #818cf8; margin-bottom: 24px;"></i>
                 <h3 style="margin-bottom: 16px; font-size: 1.5rem; font-weight: 700;">Security First Architecture</h3>
                 <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 24px;">Your data is your asset. We architect solutions with enterprise-grade governance, data isolation, and RBAC protocols from Day 1.</p>
-                <div style="display: flex; gap: 12px;">
-                    <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">SOC2 Ready</span>
-                    <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">Encryption at Rest</span>
-                </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <section class="container" style="text-align: center; padding: 120px 0;">
         <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px;">Ready to audit your operations?</h2>
@@ -255,8 +276,8 @@
             <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Select your priority domains to identify potential revenue and reliability gains.</p>
         </div>
         <div class="feature-grid" id="domain-grid"></div>
-        <div style="text-align: center; margin-top: 60px;">
-            <button class="btn" onclick="validateStep1()">Map My Growth <span id="domain-count" style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; margin-left: 8px;">0</span></button>
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="btn" onclick="validateStep1()">Map My Growth <i data-lucide="arrow-right"></i></button>
             <div id="err-1" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please select at least one area.</div>
         </div>
     </div>
@@ -274,10 +295,8 @@
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
         <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Phase 03: Projection</div>
         <h2 style="font-size: 2.5rem; font-weight: 700;">Estimate Volume</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">How many items do you process per week in these areas?</p>
-        
+        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">How many items do you process per week?</p>
         <div id="slider-box"></div>
-        
         <div style="background: var(--surface); padding: 32px; border-radius: 24px; border: 1px dashed var(--border); margin-top: 40px;">
             <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom: 16px;">
                 <span class="mono">Resource Hourly Value</span>
@@ -285,7 +304,6 @@
             </div>
             <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; accent-color:var(--primary);">
         </div>
-        
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(2)">Back</button>
             <button class="btn" onclick="setStep(4)">View Blueprint <i data-lucide="arrow-right"></i></button>
@@ -295,27 +313,25 @@
     <div id="step-4" class="hidden fade-in" style="max-width: 600px; margin: 0 auto; text-align: center;">
         <div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 12px;">Final Step</div>
         <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px;">Unlock Your Strategy Report</h2>
-        <p style="color: var(--text-muted);">Identify the path to 24/7 availability and 100% accuracy.</p>
-        
-        <div class="cta-box">
-            <input type="text" id="user-name" placeholder="Full Name">
-            <input type="text" id="user-company" placeholder="Company Name">
-            <input type="email" id="user-email" placeholder="Business Email">
-            <input type="text" id="gotcha-field" style="display:none;"> <button class="btn" style="width: 100%; justify-content: center; margin-top: 16px;" onclick="submitToFormspree()">
-                Unlock Report <i data-lucide="unlock"></i>
-            </button>
+        <p style="color: var(--text-muted); margin-bottom: 32px;">Identify the path to 24/7 availability and 100% accuracy.</p>
+        <div style="background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border);">
+            <input type="text" id="user-name" placeholder="Full Name" style="margin-bottom:12px;">
+            <input type="text" id="user-company" placeholder="Company Name" style="margin-bottom:12px;">
+            <input type="email" id="user-email" placeholder="Business Email" style="margin-bottom:12px;">
+            <input type="text" id="gotcha-field" style="display:none;">
+            <button class="btn" style="width: 100%; justify-content: center; margin-top: 16px;" onclick="submitToFormspree()">Unlock Report <i data-lucide="unlock"></i></button>
             <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields.</div>
         </div>
     </div>
 
     <div id="step-5" class="hidden fade-in">
-        <div class="results-hero">
+        <div class="results-box">
             <p class="mono" style="opacity: 0.7; letter-spacing: 2px;">Annual Opportunity Projection</p>
-            <div class="big-save" id="final-amt">$0</div>
+            <div class="big-save" id="final-amt" style="font-size: 5rem; font-weight: 800; color: #818cf8; line-height: 1; margin: 24px 0;">$0</div>
             <p style="font-size: 1.5rem; opacity: 0.9;">Recovering <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
         </div>
         <div style="text-align: center; margin-top: 50px;">
-            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download Strategy Blueprint (PDF)</button>
+            <button class="btn" style="background: var(--text-dark);" onclick="generatePDFBlueprint()"><i data-lucide="download"></i> Download Strategy Blueprint (PDF)</button>
             <div style="margin-top: 32px;">
                 <button class="btn btn-outline" onclick="goHome()">Back to Home</button>
             </div>
@@ -334,13 +350,9 @@
             <p style="color: var(--text-muted); max-width: 300px; font-size: 0.95rem;">Expert workflow systems for firms and professionals. Efficiency that creates real revenue.</p>
         </div>
         <div>
-            <p class="mono" style="color: var(--text-dark); font-weight: 700; margin-bottom: 24px;">Ecosystem</p>
-            <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.95rem;">
-                <span style="color: var(--text-muted);">Google Cloud</span>
-                <span style="color: var(--text-muted);">OpenAI</span>
-                <span style="color: var(--text-muted);">Anthropic</span>
-                <span style="color: var(--text-muted);">ServiceNow</span>
-                <span style="color: var(--text-muted);">Make.com</span>
+            <p class="mono" style="color: var(--text-dark); font-weight: 700;">Partner Ecosystem</p>
+            <div class="footer-logo-row">
+                <small style="color: var(--text-muted);">Google Cloud &bull; OpenAI &bull; Anthropic &bull; ServiceNow &bull; Make</small>
             </div>
         </div>
     </div>
@@ -351,7 +363,7 @@
 
 <script>
     (function() {
-        // --- DATA & STATE ---
+        // --- CORE DATA ---
         let PDF_LOGO_DATA = "";
         const DATA = {
             'revenue': { label: 'Revenue Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting.', items: [
@@ -382,7 +394,7 @@
 
         let state = { domains: new Set(), tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
 
-        // --- NAVIGATION LOGIC ---
+        // --- NAVIGATION & VIEW LOGIC ---
         window.goHome = function() {
             document.getElementById('marketing-view').classList.remove('hidden');
             document.getElementById('app-view').classList.add('hidden');
@@ -401,7 +413,7 @@
         window.startApp = function() {
             document.getElementById('marketing-view').classList.add('hidden');
             document.getElementById('app-view').classList.remove('hidden');
-            setStep(1);
+            window.setStep(1);
         };
 
         window.setStep = function(n) { 
@@ -417,13 +429,12 @@
             window.scrollTo({top:0, behavior:'smooth'}); 
         };
 
-        // --- STEP 1: DOMAINS ---
+        // --- CALCULATOR LOGIC ---
         window.toggleDomain = function(key, e) { 
             const card = e.currentTarget; 
             if(state.domains.has(key)) state.domains.delete(key); 
             else state.domains.add(key); 
             card.classList.toggle('selected'); 
-            document.getElementById('domain-count').innerText = state.domains.size; 
         };
         
         window.validateStep1 = function() { 
@@ -432,14 +443,13 @@
             setStep(2); 
         };
 
-        // --- STEP 2: TASKS ---
         function renderTasks() {
             const list = document.getElementById('task-list'); 
             let aggregated = []; 
             state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
             list.innerHTML = aggregated.map(i => `
                 <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', event)">
-                    <div style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;" class="cb-vis">
+                    <div class="check-box" style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center; background:${state.tasks.has(i.id) ? 'var(--primary)' : 'transparent'}; border-color:${state.tasks.has(i.id) ? 'var(--primary)' : 'var(--border)'}">
                         <i data-lucide="check" size="14" style="color:white;"></i>
                     </div>
                     <div style="flex:1;">
@@ -448,21 +458,11 @@
                     </div>
                 </div>`).join('');
             lucide.createIcons();
-            
-            // Re-apply check styles
-            const items = list.querySelectorAll('.audit-item');
-            items.forEach((el, idx) => {
-                const id = aggregated[idx].id;
-                if(state.tasks.has(id)) {
-                    el.querySelector('.cb-vis').style.background = 'var(--primary)';
-                    el.querySelector('.cb-vis').style.borderColor = 'var(--primary)';
-                }
-            });
         }
 
         window.toggleTask = function(id, e) { 
             const item = e.currentTarget; 
-            const cb = item.querySelector('.cb-vis');
+            const cb = item.querySelector('.check-box');
             if(state.tasks.has(id)) {
                 state.tasks.delete(id); 
                 item.classList.remove('selected');
@@ -478,12 +478,10 @@
         
         window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
 
-        // --- STEP 3: SLIDERS ---
         function renderSliders() {
             const cont = document.getElementById('slider-box'); 
             let active = []; 
             state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
-            
             cont.innerHTML = active.map(i => `
                 <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
                     <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:8px;">
@@ -500,7 +498,6 @@
             document.getElementById(`val-${id}`).innerText = val; 
         };
 
-        // --- CALCULATION & SUBMISSION ---
         window.runAnalysis = function() {
             const rate = parseInt(document.getElementById('hourly-rate').value); 
             let h = 0; let v = 0;
@@ -545,7 +542,6 @@
             }).finally(() => { setStep(5); });
         };
 
-        // --- PDF GENERATION ---
         window.generatePDFBlueprint = function() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -554,14 +550,12 @@
                 const comp = document.getElementById('user-company').value || "Company";
                 const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
                 
-                // HEADER
                 doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 50, 'F'); 
                 if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); } 
                 
                 doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "normal");
                 doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 25);
                 
-                // METADATA
                 doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
                 doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 65); 
                 doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
@@ -570,7 +564,6 @@
                 
                 doc.setDrawColor(226, 232, 240); doc.line(20, 82, 190, 82);
                 
-                // SUMMARY
                 doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
                 doc.text('1. ANNUAL GROWTH POTENTIAL', 20, 96);
                 doc.setFontSize(22); doc.text(state.results.amt, 20, 109);
@@ -581,7 +574,6 @@
                 doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. CAPACITY RECLAIMED', 20, 132);
                 doc.setFontSize(22); doc.text(`${state.results.hours} HOURS / YR`, 20, 145);
 
-                // TABLE
                 doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
                 doc.text('ARCHITECTURAL ANALYSIS', 20, 165);
                 doc.setDrawColor(79, 70, 229); doc.line(20, 168, 100, 168);
@@ -590,7 +582,6 @@
                 state.domains.forEach(d => {
                     DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
                         if (y > 260) { doc.addPage(); y = 20; }
-                        
                         const qty = state.inputs[i.id] || 0;
                         const hrs = (qty * i.time * 52);
                         const val = (hrs * rate);
@@ -603,7 +594,6 @@
                         
                         doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(100, 116, 139);
                         doc.text(`Logic: ${i.blueprint}`, 20, y + 12, { maxWidth: 170 });
-                        
                         y += 24;
                     });
                 });
@@ -616,7 +606,6 @@
 
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Draw Logo on Canvas for PDF
             const canvas = document.getElementById('logo-canvas');
             const ctx = canvas.getContext('2d');
             document.fonts.load('800 48px "Plus Jakarta Sans"').then(() => {
@@ -631,7 +620,6 @@
                 PDF_LOGO_DATA = canvas.toDataURL('image/png');
             });
 
-            // Initialize App Grid
             const grid = document.getElementById('domain-grid');
             grid.innerHTML = Object.keys(DATA).map(key => `
                 <div class="calc-card" onclick="toggleDomain('${key}', event)">
@@ -644,7 +632,6 @@
             
             lucide.createIcons();
         });
-
     })();
 </script>
 </body>
