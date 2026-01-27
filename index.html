@@ -80,7 +80,7 @@
         .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Interactive Elements only get hover/pointer */
+        /* Interactive Calculator Elements */
         .calc-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; position: relative; height: 100%; }
         .calc-card:hover { background: white; border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
         .calc-card.selected { border-color: var(--primary); background: white; box-shadow: 0 0 0 2px var(--primary); }
@@ -91,7 +91,7 @@
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         
         .results-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 80px 32px; border-radius: 32px; text-align: center; margin-top: 32px; }
-        .big-save { font-size: clamp(3.5rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 24px 0; line-height: 1; }
+        .big-save { font-size: clamp(3.5rem, 10vw, 6.5rem); color: #818cf8; font-weight: 800; margin: 24px 0; line-height: 1; }
         
         input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; font-family: inherit; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
@@ -103,7 +103,6 @@
             .hero-h1 { font-size: 3rem; }
             .feature-grid, .split-grid, .footer-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
-            .logo-row { gap: 30px; }
         }
     </style>
 </head>
@@ -213,19 +212,19 @@
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 02</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 02: Analysis</div>
         <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 40px;">Identify the Bottlenecks</h2>
         <div id="task-list"></div>
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Next Step <i data-lucide="arrow-right"></i></button>
+            <button class="btn" onclick="validateStep2()">Calculate Gains <span id="task-count" class="mono" style="margin-left:8px; opacity:0.7;">0</span></button>
         </div>
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 03</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 03: Projection</div>
         <h2 style="font-size: 2.5rem; font-weight: 700;">Estimate Volume</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px;">How many items do you process per week?</p>
+        <p style="color: var(--text-muted); margin-bottom: 40px;">How many items do you process per week in these areas?</p>
         <div id="slider-box"></div>
         <div style="background: var(--surface); padding: 32px; border-radius: 24px; border: 1px dashed var(--border); margin-top: 40px;">
             <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom: 16px;">
@@ -241,6 +240,7 @@
     </div>
 
     <div id="step-4" class="hidden fade-in" style="max-width: 600px; margin: 0 auto; text-align: center;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Final Step</div>
         <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px;">Unlock Your Strategy Report</h2>
         <p style="color: var(--text-muted); margin-bottom: 32px;">Identify the path to 24/7 availability and 100% accuracy.</p>
         <div style="background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border);">
@@ -288,28 +288,28 @@
     // AUDITED: RESTORED FULL 12 USE CASES
     const DATA = {
         'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and lead response.', items: [
-            { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on rules.', time: 0.5, unit: 'Quotes/Week', blueprint: "Reduces quote-to-cash cycle by 90%." },
-            { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week', blueprint: "Ensures 5-minute response time via automation." }
+            { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on rules.', time: 0.5, unit: 'Quotes/Week', blueprint: "Reduces quote-to-cash cycle by 90% via automation." },
+            { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week', blueprint: "Ensures 5-minute response time via triage engines." }
         ]},
         'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting forever.', items: [
-            { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week', blueprint: "Automated OCR extraction prevents manual entry errors." },
-            { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing ensures contracts are stored correctly." }
+            { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week', blueprint: "OCR extraction prevents manual entry errors." },
+            { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing standardizes document metadata." }
         ]},
         'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives into an instant queryable brain.', items: [
-            { id: 'kn-rag', label: 'Intelligent Search', desc: 'Search facts across thousands of documents.', time: 0.4, unit: 'Searches/Week', blueprint: "Semantic search reduces research time from hours to seconds." },
-            { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condense transcripts into logic points.', time: 1.5, unit: 'Docs/Week', blueprint: "LLM-driven summaries extract key entities." }
+            { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Search facts across thousands of documents.', time: 0.4, unit: 'Searches/Week', blueprint: "Semantic Search reduces research time from hours to seconds." },
+            { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condense transcripts into logic points.', time: 1.5, unit: 'Docs/Week', blueprint: "LLM-driven summaries extract key entities instantly." }
         ]},
-        'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks for total visibility.', items: [
-            { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week', blueprint: "Real-time dashboarding eliminates status emails." },
-            { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assign tasks based on team capacity.', time: 0.2, unit: 'Tasks/Week', blueprint: "Logic-based routing assigns work instantly." }
+        'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs.', items: [
+            { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week', blueprint: "Real-time dashboarding eliminates status-update overhead." },
+            { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assign tasks based on team capacity.', time: 0.2, unit: 'Tasks/Week', blueprint: "Logic-based routing assigns work instantly to correct SME." }
         ]},
         'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with 24/7 responsiveness.', items: [
-            { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week', blueprint: "Deflects routine inquiries with sourced answers." },
-            { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated folder creation and collection.', time: 1.5, unit: 'Onboards/Week', blueprint: "Zero-touch onboarding sequence." }
+            { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week', blueprint: "Deflects routine inquiries with sourced, accurate answers." },
+            { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated folder creation and collection.', time: 1.5, unit: 'Onboards/Week', blueprint: "Zero-touch onboarding sequence standardizes intake." }
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing and paperwork.', items: [
-            { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week', blueprint: "Cross-system reconciliation highlights leakage." },
-            { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching across different systems.', time: 0.1, unit: 'Records/Week', blueprint: "Syncs disparate system data to single source." }
+            { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week', blueprint: "Cross-system reconciliation highlights revenue leakage." },
+            { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching across systems.', time: 0.1, unit: 'Records/Week', blueprint: "Ensures single source of truth across system silos." }
         ]}
     };
 
@@ -371,25 +371,90 @@
 
     window.updateVal = function(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; };
 
-    window.submitToFormspree = function() {
+    window.runAnalysis = function() {
         const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0;
         state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
             const qty = state.inputs[i.id] || 0; h += (qty * i.time * 52); v += (qty * i.time * 52 * rate);
         }); });
         state.results.amt = '$' + Math.round(v).toLocaleString(); state.results.hours = Math.round(h).toLocaleString();
         document.getElementById('final-amt').innerText = state.results.amt; document.getElementById('final-hours').innerText = state.results.hours;
-        setStep(5);
     };
 
+    window.submitToFormspree = function() {
+        const name = document.getElementById('user-name').value; 
+        const email = document.getElementById('user-email').value; 
+        const comp = document.getElementById('user-company').value; 
+        if(!name || !email || !comp) return;
+        runAnalysis(); 
+        let emailDetails = "";
+        state.domains.forEach(d => {
+            DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
+                const qty = state.inputs[i.id] || 0;
+                emailDetails += `${i.label}: ${qty} ${i.unit}\n`;
+            });
+        });
+        fetch('https://formspree.io/f/mgooqqjg', { 
+            method: 'POST', 
+            body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, details: emailDetails }), 
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
+        }).finally(() => { setStep(5); });
+    };
+
+    // RESTORED: DETAILED PDF GENERATOR
     window.generatePDFBlueprint = function() {
-        const { jsPDF } = window.jspdf; const doc = new jsPDF();
-        const comp = document.getElementById('user-company').value || "Your Firm";
-        doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 50, 'F');
-        if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); }
-        doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 25);
-        doc.setTextColor(15, 23, 42); doc.setFontSize(22); doc.text(state.results.amt, 20, 100);
-        doc.setFontSize(14); doc.text('ANNUAL OPPORTUNITY', 20, 110);
-        doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const name = document.getElementById('user-name').value || "Client";
+            const comp = document.getElementById('user-company').value || "Company";
+            const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
+            
+            // Header
+            doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 50, 'F'); 
+            if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); } 
+            doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 25);
+            
+            // Metadata
+            doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
+            doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 65); 
+            doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
+            doc.text(`Organization: ${comp}`, 20, 73);
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 65);
+            doc.setDrawColor(226, 232, 240); doc.line(20, 82, 190, 82);
+            
+            // Metrics Summary
+            doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+            doc.text('ANNUAL OPPORTUNITY', 20, 96);
+            doc.setFontSize(22); doc.text(state.results.amt, 20, 109);
+            
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14);
+            doc.text('CAPACITY RECLAIMED', 110, 96);
+            doc.setFontSize(22); doc.text(`${state.results.hours} HOURS`, 110, 109);
+
+            // Detailed Breakdown List
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+            doc.text('LINE ITEM ANALYSIS', 20, 130);
+            doc.line(20, 133, 80, 133);
+            
+            let y = 145;
+            state.domains.forEach(d => {
+                DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
+                    if (y > 260) { doc.addPage(); y = 20; }
+                    const qty = state.inputs[i.id] || 0;
+                    const hrs = (qty * i.time * 52);
+                    const val = (hrs * rate);
+                    
+                    doc.setFont("helvetica", "bold"); doc.setFontSize(11);
+                    doc.text(i.label.toUpperCase(), 20, y);
+                    doc.setTextColor(79, 70, 229);
+                    doc.text(`$${Math.round(val).toLocaleString()} / yr`, 150, y);
+                    doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "normal"); doc.setFontSize(10);
+                    doc.text(`Logic: ${i.blueprint} (${Math.round(hrs)} hours saved)`, 20, y + 6);
+                    y += 18;
+                });
+            });
+            doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
+        } catch (e) { alert("PDF Error: " + e.message); }
     };
 
     document.addEventListener('DOMContentLoaded', () => {
