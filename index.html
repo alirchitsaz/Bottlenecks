@@ -60,7 +60,7 @@
         .logo-row { 
             display: flex; 
             justify-content: center; 
-            gap: 60px; 
+            gap: 50px; 
             align-items: center; 
             flex-wrap: wrap; 
             max-width: 1200px;
@@ -75,15 +75,28 @@
             opacity: 0.6; /* Balanced opacity */
         }
         .logo-img:hover { opacity: 1; }
+
+        /* Fallback Logo Style for MAKE */
+        .logo-fallback {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #333;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .logo-fallback:hover { opacity: 1; }
         
         /* === OPTICAL BALANCING === */
         .h-servicenow { height: 26px; } 
-        .h-make { height: 24px; } 
         .h-salesforce { height: 42px; position: relative; top: -3px; } 
         .h-google { height: 28px; } 
         .h-openai { height: 26px; } 
         /* Small to match text balance */
-        .h-anthropic { height: 22px; } 
+        .h-anthropic { height: 20px; } 
 
         /* --- FEATURE GRID --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; padding-bottom: 100px; }
@@ -185,24 +198,32 @@
     <div class="marquee-section">
         <div class="marquee-header">Engineered on the world's most advanced infrastructure</div>
         <div class="logo-row">
+            
             <a href="https://www.servicenow.com" target="_blank" rel="noopener">
                 <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMzMuMzMgMjEuNzkiPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik0yMS4yOSAyMS43OUgxNC44VjE0LjE0SDIxLjI5VjIxLjc5Wk0yMS4yOSA3LjY1SDE0LjhWMEgyMS4yOVY3LjY1Wk0xMS42OCAxMC45QzExLjY4IDQuODggNi43OSAwIDAuNzcgMEgwVjIxLjc5SDAuNzdDNi43OSAyMS43OSAxMS42OCAxNi45MiAxMS42OCAxMC45WiIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik0zMy4xMyAxMS4yQzMzLjEzIDEzLjAxIDMzLjEzIDE0Ljc2IDM0LjMgMTYuMjhMMzguMjMgMTQuNTlDMzcuOTggMTMuNjkgMzcuNzkgMTIuNzMgMzcuNzkgMTEuNkMzNy43OSA4LjM4IDM5LjczIDYuMjMgNDIuOTIgNi4yM0M0NS4wNSA2LjIzIDQ2LjI2IDcuMjYgNDYuMjYgOC44OUM0Ni4yNiA5LjQ5IDQ2LjA1IDkuOTggNDUuNjcgMTAuNDNMNDEuMzcgMTQuOTNDMzcuNzkgMTguNTcgMzUuNjggMjEuODUgMzUuNjggMjUuNzJIMzEuMDhWMjUuMzRDMzEuMDggMjEuNiAzMy4zMSAxOC41NSAzNy4wMiAxNC42M0w0MC44OCAxMC41NEM0MC45MSAxMC41IDQwLjk1IDEwLjQzIDQwLjk1IDEwLjM3QzQwLjk1IDEwLjIyIDQwLjgzIDEwLjE1IDQwLjY1IDEwLjE1QzM5LjU2IDEwLjE1IDM3Ljc5IDEwLjg0IDM3Ljc5IDE0LjEyVjE0LjIzSDMzLjEzVjE0LjEyQzMzLjEzIDguOTIgMzcuMzMgMi40MSA0NC45MiAyLjQxQzQ5LjE1IDIuNDEgNTIuMjQgNC45IDUyLjI0IDkuMDVDNTIuMjQgMTEuOTQgNTAuNDYgMTQuNDkgNDcuNjEgMTYuMzhMNDYuODkgMTYuODRDNDkuNTMgMTcuNzUgNTEuNDMgMjAuMjUgNTEuNDMgMjMuMTRDNTEuNDMgMjcuNzggNDcuNDcgMzEuNzIgNDIuMTcgMzEuNzJDNDAuNzIgMzEuNzIgMzkuMzYgMzEuMzcgMzguMTIgMzAuNzhMMzkuMzYgMjYuNzdDNDAuMTggMjcuMTYgNDEuMSAyNy40IDQyLjA1IDI3LjRDNDQuMzQgMjcuNCA0NS44NSAyNS45MyA0NS44NSAyMy42MkM0NS44NSAyMS4yNSA0NC4zNCAxOS43OCA0Mi4wNSAxOS43OEM0MC45OSAxOS43OCAzOS45MyAyMC4xNyAzOS4xMiAyMC44N0wzOC4xNSAxNy40N0M0MC45MyAxNi4wMiA0Mi44MyAxMy4yOCA0Mi44MyAxMC4xOEM0Mi44MyA2Ljc5IDQwLjk5IDMuOTEgMzcuOTQgMy45MUMzNS4xIDMuOTEgMzMuMTMgNS45IDMzLjEzIDguOTJWMTEuMloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExIC01KSIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik01OS44NSAyMS43OUg1NS4yOFY5Ljg5SDU5Ljg1VjIxLjc5Wk01OS44NSA0Ljk0SDU1LjI4VjAuMTlINTkuODVWNC45NFoiLz48cGF0aCBmaWxsPSIjMjkzZTQwIiBkPSJNNzMuMzYgOS44OUw2Ny43MiAyMS43OUg2Mi45OUw2OC42MyA5Ljg5SDczLjM2WiIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik04Mi43NSAxMy4yNkw4NS4wMSA5Ljg5SDgwLjM5TDc2LjA4IDE2LjQ2VjIxLjc5SDcxLjUxVjE2LjQ2TDY3LjIxIDkuODlINjIuNWw0LjY0IDcuMDhMNzQuMzMgMTguMDhMNzcuNTUgMTMuMjZaIi8+PHBhdGggZmlsbD0iIzI5M2U0MCIgZD0iTTg3LjY4IDIxLjc5SDkyLjI1VjkuODlIODcuNjhWMjEuNzlaTTg3LjY4IDQuOTRIOTIuMjVWMCAuMTlIODcuNjhWNC45NFoiLz48cGF0aCBmaWxsPSIjMjkzZTQwIiBkPSJNMTA0LjYgMjIuMTRDMTAwLjUzIDIyLjE0IDk3LjA3IDE5LjIyIDk3LjA3IDE1LjgzQzk3LjA3IDEyLjQ0IDEwMC41MyA5LjUyIDEwNC42IDkuNTJDMTA4LjE4IDkuNTIgMTExLjE1IDExLjgxIDExMS44OCAxNC44N0gxMDcuMTRDMTA2LjYyIDEzLjYyIDEwNS43NSAxMy4wOCAxMDQuNiAxMy4wOEMxMDMuMDggMTMuMDggMTAxLjg0IDE0LjE1IDEwMS44NCAxNS44M0MxMDEuODQgMTcuNTIgMTAzLjA4IDE4LjU4IDEwNC42IDE4LjU4QzEwNS43NSAxOC41OCAxMDYuNjUgMTguMDUgMTA3LjE3IDE2LjdIMTExLjkxQzExMS4yMSAxOS44OCAxMDguMjEgMjIuMTQgMTA0LjYgMjIuMTRaIi8+PHBhdGggZmlsbD0iIzI5M2U0MCIgZD0iTTEyNS44OSAyMS43OUwxMTkuMjggOS44OUgxMTQuMzhWMjEuNzlIMTE4Ljk1VjEzLjY1TDEyNC4xNSAyMS43OUgxMjUuODlWMjEuNzlIMTI3LjYyTDEzMi44MyAxMy42NVYyMS43OUgxMzcuNFY5Ljg5SDEzMi41TDEyNS44OSAyMS43OVoiLz48L3N2Zz4=" alt="ServiceNow" class="logo-img h-servicenow">
             </a>
-            <a href="https://www.make.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Make_logo_2022.svg" alt="Make" class="logo-img h-make">
+
+            <a href="https://www.make.com" target="_blank" rel="noopener" class="logo-fallback">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6d28d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+                <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #0f172a; letter-spacing: -0.03em;">Make</span>
             </a>
+
             <a href="https://www.salesforce.com" target="_blank" rel="noopener">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="logo-img h-salesforce">
             </a>
+
             <a href="https://cloud.google.com" target="_blank" rel="noopener">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" class="logo-img h-google">
             </a>
+
             <a href="https://openai.com" target="_blank" rel="noopener">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="logo-img h-openai">
             </a>
+
             <a href="https://www.anthropic.com" target="_blank" rel="noopener">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="logo-img h-anthropic">
             </a>
+            
         </div>
     </div>
 
