@@ -64,7 +64,7 @@
         .h-salesforce { height: 42px !important; margin-top: -4px; }
         .h-anthropic { height: 20px !important; }
 
-        /* --- FEATURES --- */
+        /* --- FEATURES (STATIC) --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
         .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
         .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
@@ -79,13 +79,17 @@
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Interactive Elements only get hover/pointer */
         .calc-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; position: relative; height: 100%; }
         .calc-card:hover { background: white; border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
         .calc-card.selected { border-color: var(--primary); background: white; box-shadow: 0 0 0 2px var(--primary); }
         .check-pill { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); position: absolute; top: 24px; right: 24px; display: grid; place-items: center; transition: 0.2s; }
         .calc-card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
+        
         .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; border-radius: 16px; margin-bottom: 12px; cursor: pointer; align-items: center; transition: 0.2s; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        
         .results-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 80px 32px; border-radius: 32px; text-align: center; margin-top: 32px; }
         .big-save { font-size: clamp(3.5rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 24px 0; line-height: 1; }
         
@@ -127,7 +131,7 @@
         <div class="container">
             <div class="mono" style="color: var(--primary); margin-bottom: 24px; opacity: 0.9;">Professional Workflow Automation</div>
             <h1 class="hero-h1">Intelligently effortless.</h1>
-            <p class="hero-p">Scale your revenue without adding headcount. We turn manual document chaos into automated systems that run your business in the background.</p>
+            <p class="hero-p">Scale your revenue without adding headcount. We turn manual document firefighting into automated systems that run your business in the background.</p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn" onclick="startApp()">Calculate Your ROI <i data-lucide="calculator" size="20"></i></button>
                 <button class="btn btn-outline" onclick="scrollToSection('methodology')">How We Work</button>
@@ -139,7 +143,7 @@
         <div class="marquee-header">Engineered on the world's most advanced infrastructure</div>
         <div class="logo-row">
             <a href="https://www.salesforce.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="h-salesforce"></a>
-            <a href="https://cloud.google.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud"></a>
+            <a href="https://cloud.google.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google"></a>
             <a href="https://openai.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI"></a>
             <a href="https://www.anthropic.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="h-anthropic"></a>
         </div>
@@ -199,6 +203,7 @@
         <div style="text-align: center; margin-bottom: 60px;">
             <div class="mono" style="color: var(--text-muted); margin-bottom: 16px;">Phase 01</div>
             <h2 style="font-size: 3rem; letter-spacing: -0.04em; font-weight: 800;">Where can we help you grow?</h2>
+            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 650px; margin: 16px auto 0;">Select your priority domains to identify potential revenue and reliability gains.</p>
         </div>
         <div class="feature-grid" id="domain-grid"></div>
         <div style="text-align: center; margin-top: 60px;">
@@ -213,7 +218,7 @@
         <div id="task-list"></div>
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Calculate Gains <span id="task-count" class="mono" style="margin-left:8px; opacity:0.7;">0</span></button>
+            <button class="btn" onclick="validateStep2()">Next Step <i data-lucide="arrow-right"></i></button>
         </div>
     </div>
 
@@ -280,7 +285,7 @@
 <script>
 (function() {
     let PDF_LOGO_DATA = "";
-    // RESTORED: FULL DATA OBJECT WITH 12 ITEMS
+    // AUDITED: RESTORED FULL 12 USE CASES
     const DATA = {
         'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and lead response.', items: [
             { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on rules.', time: 0.5, unit: 'Quotes/Week', blueprint: "Reduces quote-to-cash cycle by 90%." },
