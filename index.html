@@ -53,7 +53,7 @@
         .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: var(--shadow-sm); }
         .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); }
 
-        /* --- TRUST MARQUEE (The Fix) --- */
+        /* --- LOGO STRIP --- */
         .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 60px 0; background: #fff; overflow: hidden; }
         .marquee-header { text-align: center; color: #94a3b8; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-family: 'JetBrains Mono', monospace; }
         .logo-row { display: flex; justify-content: center; gap: 60px; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -125,9 +125,9 @@
     <section class="hero-section">
         <div class="hero-bg"></div>
         <div class="container">
-            <div class="mono" style="color: var(--primary); margin-bottom: 24px; opacity: 0.9;">Global Operational Architecture</div>
+            <div class="mono" style="color: var(--primary); margin-bottom: 24px; opacity: 0.9;">Professional Workflow Automation</div>
             <h1 class="hero-h1">Intelligently effortless.</h1>
-            <p class="hero-p">We turn manual document chaos into automated revenue engines. Scale your business capacity without adding headcount.</p>
+            <p class="hero-p">Scale your revenue without adding headcount. We turn manual firefighting into automated systems that run your business in the background.</p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn" onclick="startApp()">Calculate Your ROI <i data-lucide="calculator" size="20"></i></button>
                 <button class="btn btn-outline" onclick="scrollToSection('methodology')">How We Work</button>
@@ -139,10 +139,7 @@
         <div class="marquee-header">Engineered on the world's most advanced infrastructure</div>
         <div class="logo-row">
             <a href="https://www.servicenow.com" target="_blank" rel="noopener">
-                <svg viewBox="0 0 133.33 21.79" style="height: 24px;"><path fill="#293e40" d="M21.29 21.79H14.8V14.14SD21.29V21.79ZM21.29 7.65H14.8V0H21.29V7.65ZM11.68 10.9C11.68 4.88 6.79 0 0.77 0H0V21.79H0.77C6.79 21.79 11.68 16.92 11.68 10.9Z"/><path fill="#81b5a1" d="M33.13 11.2C33.13 13.01 33.13 14.76 34.3 16.28L38.23 14.59C37.98 13.69 37.79 12.73 37.79 11.6C37.79 8.38 39.73 6.23 42.92 6.23C45.05 6.23 46.26 7.26 46.26 8.89C46.26 9.49 46.05 9.98 45.67 10.43L41.37 14.93C37.79 18.57 35.68 21.85 35.68 25.72H31.08V25.34C31.08 21.6 33.31 18.55 37.02 14.63L40.88 10.54C40.91 10.5 40.95 10.43 40.95 10.37C40.95 10.22 40.83 10.15 40.65 10.15C39.56 10.15 37.79 10.84 37.79 14.12V14.23H33.13V14.12C33.13 8.92 37.33 2.41 44.92 2.41C49.15 2.41 52.24 4.9 52.24 9.05C52.24 11.94 50.46 14.49 47.61 16.38L46.89 16.84C49.53 17.75 51.43 20.25 51.43 23.14C51.43 27.78 47.47 31.72 42.17 31.72C40.72 31.72 39.36 31.37 38.12 30.78L39.36 26.77C40.18 27.16 41.1 27.4 42.05 27.4C44.34 27.4 45.85 25.93 45.85 23.62C45.85 21.25 44.34 19.78 42.05 19.78C40.99 19.78 39.93 20.17 39.12 20.87L38.15 17.47C40.93 16.02 42.83 13.28 42.83 10.18C42.83 6.79 40.99 3.91 37.94 3.91C35.1 3.91 33.13 5.9 33.13 8.92V11.2Z" transform="translate(11 -5)"/><path fill="#293e40" d="M59.85 21.79H55.28V9.89H59.85V21.79ZM59.85 4.94H55.28V0.19H59.85V4.94Z" transform="translate(11 -5)"/></svg>
-            </a>
-            <a href="https://www.make.com" target="_blank" rel="noopener">
-                <svg viewBox="0 0 105 24" style="height: 24px;"><path fill="#6d28d9" d="M22.08 0C25.46 0 28.2 2.74 28.2 6.12V18.3H24.36V6.12C24.36 4.85 23.33 3.82 22.06 3.82C20.79 3.82 19.76 4.85 19.76 6.12V18.3H15.92V6.12C15.92 4.85 14.89 3.82 13.62 3.82C12.35 3.82 11.32 4.85 11.32 6.12V18.3H7.48V6.12C7.48 2.74 10.22 0 13.6 0C15.96 0 18.02 1.41 19.16 3.51C20.3 1.41 22.36 0 24.72 0H22.08Z"/></svg>
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMzMuMzMgMjEuNzkiPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik0yMS4yOSAyMS43OUgxNC44VjE0LjE0SDIxLjI5VjIxLjc5Wk0yMS4yOSA3LjY1SDE0LjhWMEgyMS4yOVY3LjY1Wk0xMS42OCAxMC45QzExLjY4IDQuODggNi43OSAwIDAuNzcgMEgwVjIxLjc5SDAuNzdDNi43OSAyMS43OSAxMS42OCAxNi45MiAxMS42OCAxMC45WiIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik0zMy4xMyAxMS4yQzMzLjEzIDEzLjAxIDMzLjEzIDE0Ljc2IDM0LjMgMTYuMjhMMzguMjMgMTQuNTlDMzcuOTggMTMuNjkgMzcuNzkgMTIuNzMgMzcuNzkgMTEuNkMzNy43OSA4LjM4IDM5LjczIDYuMjMgNDIuOTIgNi4yM0M0NS4wNSA2LjIzIDQ2LjI2IDcuMjYgNDYuMjYgOC44OUM0Ni4yNiA5LjQ5IDQ2LjA1IDkuOTggNDUuNjcgMTAuNDNMNDEuMzcgMTQuOTNDMzcuNzkgMTguNTcgMzUuNjggMjEuODUgMzUuNjggMjUuNzJIMzEuMDhWMjUuMzRDMzEuMDggMjEuNiAzMy4zMSAxOC41NSAzNy4wMiAxNC42M0w0MC44OCAxMC41NEM0MC45MSAxMC41IDQwLjk1IDEwLjQzIDQwLjk1IDEwLjM3QzQwLjk1IDEwLjIyIDQwLjgzIDEwLjE1IDQwLjY1IDEwLjE1QzM5LjU2IDEwLjE1IDM3Ljc5IDEwLjg0IDM3Ljc5IDE0LjEyVjE0LjIzSDMzLjEzVjE0LjEyQzMzLjEzIDguOTIgMzcuMzMgMi40MSA0NC45MiAyLjQxQzQ5LjE1IDIuNDEgNTIuMjQgNC45IDUyLjI0IDkuMDVDNTIuMjQgMTEuOTQgNTAuNDYgMTQuNDkgNDcuNjEgMTYuMzhMNDYuODkgMTYuODRDNDkuNTMgMTcuNzUgNTEuNDMgMjAuMjUgNTEuNDMgMjMuMTRDNTEuNDMgMjcuNzggNDcuNDcgMzEuNzIgNDIuMTcgMzEuNzJDNDAuNzIgMzEuNzIgMzkuMzYgMzEuMzcgMzguMTIgMzAuNzhMMzkuMzYgMjYuNzdDNDAuMTggMjcuMTYgNDEuMSAyNy40IDQyLjA1IDI3LjRDNDQuMzQgMjcuNCA0NS44NSAyNS45MyA0NS44NSAyMy42MkM0NS44NSAyMS4yNSA0NC4zNCAxOS43OCA0Mi4wNSAxOS43OEM0MC45OSAxOS43OCAzOS45MyAyMC4xNyAzOS4xMiAyMC44N0wzOC4xNSAxNy40N0M0MC45MyAxNi4wMiA0Mi44MyAxMy4yOCA0Mi44MyAxMC4xOEM0Mi44MyA2Ljc5IDQwLjk5IDMuOTEgMzcuOTQgMy45MUMzNS4xIDMuOTEgMzMuMTMgNS45IDMzLjEzIDguOTJWMTEuMloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExIC01KSIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik01OS44NSAyMS43OUg1NS4yOFY5Ljg5SDU5Ljg1VjIxLjc5Wk01OS44NSA0Ljk0SDU1LjI4VjAuMTlINTkuODVWNC45NFoiLz48cGF0aCBmaWxsPSIjMjkzZTQwIiBkPSJNNzMuMzYgOS44OUw2Ny43MiAyMS43OUg2Mi45OUw2OC42MyA5Ljg5SDczLjM2WiIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik04Mi43NSAxMy4yNkw4NS4wMSA5Ljg5SDgwLjM5TDc2LjA4IDE2LjQ2VjIxLjc5SDcxLjUxVjE2LjQ2TDY3LjIxIDkuODlINjIuNWw0LjY0IDcuMDhMNzQuMzMgMTguMDhMNzcuNTUgMTMuMjZaIi8+PHBhdGggZmlsbD0iIzI5M2U0MCIgZD0iTTg3LjY4IDIxLjc5SDkyLjI1VjkuODlIODcuNjhWMjEuNzlaTTg3LjY4IDQuOTRIOTIuMjVWMCAuMTlIODcuNjhWNC45NFoiLz48cGF0aCBmaWxsPSIjMjkzZTQwIiBkPSJNMTA0LjYgMjIuMTRDMTAwLjUzIDIyLjE0IDk3LjA3IDE5LjIyIDk3LjA3IDE1LjgzQzk3LjA3IDEyLjQ0IDEwMC41MyA5LjUyIDEwNC42IDkuNTJDMTA4LjE4IDkuNTIgMTExLjE1IDExLjgxIDExMS44OCAxNC44N0gxMDcuMTRDMTA2LjYyIDEzLjYyIDEwNS43NSAxMy4wOCAxMDQuNiAxMy4wOEMxMDMuMDggMTMuMDggMTAxLjg0IDE0LjE1IDEwMS44NCAxNS44M0MxMDEuODQgMTcuNTIgMTAzLjA4IDE4LjU4IDEwNC42IDE4LjU4QzEwNS43NSAxOC41OCAxMDYuNjUgMTguMDUgMTA3LjE3IDE2LjdIMTExLjkxQzExMS4yMSAxOS44OCAxMDguMjEgMjIuMTQgMTA0LjYgMjIuMTRaIi8+PHBhdGggZmlsbD0iIzI5M2U0MCIgZD0iTTEyNS44OSAyMS43OUwxMTkuMjggOS44OUgxMTQuMzhWMjEuNzlIMTE4Ljk1VjEzLjY1TDEyNC4xNSAyMS43OUgxMjUuODlWMjEuNzlIMTI3LjYyTDEyMy44MyAxMy42NVYyMS43OUgxMzcuNFY5Ljg5SDEzMi41TDEyNS44OSAyMS43OVoiLz48L3N2Zz4=" alt="ServiceNow">
             </a>
             <a href="https://www.salesforce.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="h-salesforce"></a>
             <a href="https://cloud.google.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google"></a>
@@ -180,7 +177,7 @@
             <div>
                 <div class="mono" style="color: #818cf8; margin-bottom: 16px;">The Methodology</div>
                 <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">Fortune 500 Rigor,<br>Right-Sized for You.</h2>
-                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to small and mid-sized firms. No complex jargon, just reliable systems that work in the background.</p>
+                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to growing firms. No complex jargon, just reliable systems that work in the background.</p>
                 <div style="margin-top: 40px; display: flex; gap: 40px;">
                     <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">100%</h4><span style="color: #64748b;">Accuracy Target</span></div>
                     <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Uptime</span></div>
@@ -274,7 +271,7 @@
         <div>
             <p class="mono" style="color: var(--text-dark); margin-bottom: 16px;">Ecosystem</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.9rem; color: var(--text-muted);">
-                <span>Google Cloud</span><span>OpenAI</span><span>Anthropic</span><span>ServiceNow</span><span>Make.com</span><span>Salesforce</span>
+                <span>Google Cloud</span><span>OpenAI</span><span>Anthropic</span><span>ServiceNow</span><span>Salesforce</span>
             </div>
         </div>
     </div>
@@ -293,7 +290,7 @@
         ]},
         'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting forever.', items: [
             { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week', blueprint: "Automated OCR extraction prevents manual entry errors." },
-            { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing ensures contracts are stored with correct meta-data." }
+            { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing ensures contracts are stored correctly." }
         ]},
         'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives into an instant queryable brain.', items: [
             { id: 'kn-rag', label: 'Intelligent Search', desc: 'Search facts across thousands of documents.', time: 0.4, unit: 'Searches/Week', blueprint: "Semantic search reduces research time from hours to seconds." }
