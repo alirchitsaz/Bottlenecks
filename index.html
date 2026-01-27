@@ -53,14 +53,14 @@
         .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: var(--shadow-sm); }
         .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
 
-        /* --- TRUST MARQUEE --- */
-        .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 60px 0; background: #fff; overflow: hidden; }
+        /* --- TRUST MARQUEE (The "Real" Look) --- */
+        .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 50px 0; background: #fff; overflow: hidden; }
         .marquee-header { text-align: center; color: #94a3b8; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-family: 'JetBrains Mono', monospace; }
         
         .logo-row { 
             display: flex; 
             justify-content: center; 
-            gap: 50px; 
+            gap: 60px; 
             align-items: center; 
             flex-wrap: wrap; 
             max-width: 1200px;
@@ -73,25 +73,21 @@
             width: auto; 
             transition: opacity 0.2s, filter 0.2s;
             opacity: 0.6; /* Balanced opacity */
-            /* filter: grayscale(100%); Removed to ensure visibility first */
         }
         .logo-img:hover { opacity: 1; filter: grayscale(0%); }
         
-        /* === LOGO SIZING (OPTICAL BALANCE) === */
+        /* === OPTICAL BALANCING === */
+        /* Heights adjusted to align visually */
         .h-servicenow { height: 26px; } 
         .h-make { height: 24px; } 
-        .h-salesforce { height: 42px; position: relative; top: -3px; } 
+        .h-salesforce { height: 44px; position: relative; top: -3px; } 
         .h-google { height: 28px; } 
         .h-openai { height: 26px; } 
-        /* Anthropic set to 22px to prevent it from looking huge */
         .h-anthropic { height: 22px; } 
 
-        /* --- FEATURE GRID (STATIC) --- */
+        /* --- FEATURE GRID --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; padding-bottom: 100px; }
-        
-        /* Removed cursor pointer and hover effects for non-links */
         .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
-        
         .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
         .feature-h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
         .feature-p { color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; }
@@ -100,12 +96,11 @@
         .dark-section { background: #0f172a; color: white; padding: 100px 0; position: relative; overflow: hidden; }
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
         
-        /* --- CALCULATOR UI (INTERACTIVE) --- */
+        /* --- CALCULATOR UI --- */
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Interactive App Cards (Keep hover effects here) */
         .calc-card { 
             background: var(--surface); 
             border: 1px solid var(--border); 
@@ -192,11 +187,11 @@
         <div class="logo-row">
             
             <a href="https://www.servicenow.com" target="_blank" rel="noopener">
-                <img src="https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/images/logos/servicenow-header-logo.svg" alt="ServiceNow" class="logo-img h-servicenow">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/ServiceNow_Logo.svg" alt="ServiceNow" class="logo-img h-servicenow">
             </a>
 
             <a href="https://www.make.com" target="_blank" rel="noopener">
-                <img src="https://images.ctfassets.net/unrbf663yeec/1Do2O17x5e6S8q6y88C4Q6/0d3f27f00c144d18471715967520448b/make-logo.svg" alt="Make" class="logo-img h-make">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Make_logo.svg" alt="Make" class="logo-img h-make">
             </a>
 
             <a href="https://www.salesforce.com" target="_blank" rel="noopener">
