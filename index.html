@@ -76,16 +76,23 @@
         }
         .logo-img:hover { opacity: 1; }
         
-        /* === OPTICAL BALANCING === */
+        /* === LOGO SIZING FIXES === */
+        /* ServiceNow: Base64 works, keep size standard */
         .h-servicenow { height: 24px; } 
+        /* Make: Standard icon height */
         .h-make { height: 24px; } 
+        /* Salesforce: Cloud is tall, needs ~40px to match optical weight of others */
         .h-salesforce { height: 42px; position: relative; top: -3px; } 
+        /* Google: Text based, standard height */
         .h-google { height: 28px; } 
+        /* OpenAI: Icon + Text, standard height */
         .h-openai { height: 26px; } 
-        .h-anthropic { height: 22px; } /* Kept small to match text height */
+        /* ANTHROPIC FIX: Drastically reduced height to 22px to fix the "Huge" issue */
+        .h-anthropic { height: 22px; } 
 
         /* --- FEATURE GRID --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; padding-bottom: 100px; }
+        /* Removed :hover transform/shadow for static features */
         .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
         .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
         .feature-h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
@@ -190,7 +197,7 @@
             </a>
 
             <a href="https://www.make.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Make_logo_2022.svg" alt="Make" class="logo-img h-make">
+                <img src="https://logo.clearbit.com/make.com" alt="Make" class="logo-img h-make">
             </a>
 
             <a href="https://www.salesforce.com" target="_blank" rel="noopener">
