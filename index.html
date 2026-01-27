@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Scale Capacity & Revenue</title>
+    <title>MagicFolder | Professional Workflow Architecture</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
     
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -64,7 +64,7 @@
         .h-salesforce { height: 42px !important; margin-top: -4px; }
         .h-anthropic { height: 20px !important; }
 
-        /* --- FEATURES (STATIC) --- */
+        /* --- FEATURES --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
         .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
         .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
@@ -80,7 +80,6 @@
         .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Interactive Calculator Elements */
         .calc-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; position: relative; height: 100%; }
         .calc-card:hover { background: white; border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
         .calc-card.selected { border-color: var(--primary); background: white; box-shadow: 0 0 0 2px var(--primary); }
@@ -149,25 +148,25 @@
     </div>
 
     <section id="solutions" class="container">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px;">Core Capabilities</div>
-        <h2 style="font-size: 2.5rem; margin-bottom: 24px; font-weight: 700;">Stop being a "Data Janitor."</h2>
-        <p style="color: var(--text-muted); max-width: 650px; font-size: 1.15rem; margin-bottom: 60px;">Your experts spend 20% of their week moving data from Email to PDF to Excel. We eliminate the friction so they can focus on strategy.</p>
+        <div class="mono" style="color: var(--primary); margin-bottom: 16px;">The Namesake</div>
+        <h2 style="font-size: 2.5rem; margin-bottom: 24px; font-weight: 700;">The "Magic Folder" Principle.</h2>
+        <p style="color: var(--text-muted); max-width: 650px; font-size: 1.15rem; margin-bottom: 60px;">Drop any file into a monitored folder. Our system automatically identifies, extracts, routes, and files the data with 100% accuracy. Zero manual entry.</p>
         
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="icon-box"><i data-lucide="folder-search" size="28"></i></div>
-                <h3 class="feature-h3">The Magic Folder</h3>
-                <p class="feature-p">Drop any file into a monitored folder. Our system automatically identifies, extracts, and routes the data with 100% accuracy. Zero manual entry.</p>
+                <h3 class="feature-h3">Magic Intake</h3>
+                <p class="feature-p">Drop invoices, tax forms, or IDs. They are identified instantly and mapped to your core business systems without a human touch.</p>
             </div>
             <div class="feature-card">
                 <div class="icon-box"><i data-lucide="trending-up" size="28"></i></div>
                 <h3 class="feature-h3">Revenue Logistics</h3>
-                <p class="feature-p">Automate the "Quote-to-Cash" cycle. Leads are qualified instantly, quotes are generated via logic, and invoices are chased automatically.</p>
+                <p class="feature-p">Automate the "Quote-to-Cash" cycle. Quotes are generated via logic, leads are qualified, and invoices are chased automatically.</p>
             </div>
             <div class="feature-card">
                 <div class="icon-box"><i data-lucide="brain-circuit" size="28"></i></div>
                 <h3 class="feature-h3">Knowledge Hub</h3>
-                <p class="feature-p">Turn your firm's archives into an instant, queryable brain. Ask complex questions and get cited answers from your data in seconds.</p>
+                <p class="feature-p">Turn your firm's archives into an instant queryable brain. Ask complex questions and get cited answers from your data in seconds.</p>
             </div>
         </div>
     </section>
@@ -217,7 +216,7 @@
         <div id="task-list"></div>
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Calculate Gains <span id="task-count" class="mono" style="margin-left:8px; opacity:0.7;">0</span></button>
+            <button class="btn" onclick="validateStep2()">Next Step <span id="task-count" class="mono" style="margin-left:8px; opacity:0.7;">0</span></button>
         </div>
     </div>
 
@@ -285,15 +284,18 @@
 <script>
 (function() {
     let PDF_LOGO_DATA = "";
-    // AUDITED: RESTORED FULL 12 USE CASES
+    // EXPANDED DATA OBJECT: 15 USE CASES TOTAL
     const DATA = {
         'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and lead response.', items: [
             { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on rules.', time: 0.5, unit: 'Quotes/Week', blueprint: "Reduces quote-to-cash cycle by 90% via automation." },
             { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week', blueprint: "Ensures 5-minute response time via triage engines." }
         ]},
-        'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting forever.', items: [
+        'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual entry and document sorting forever.', items: [
             { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week', blueprint: "OCR extraction prevents manual entry errors." },
-            { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing standardizes document metadata." }
+            { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing standardizes document metadata." },
+            { id: 'mf-expenses', label: 'Expense Automation', desc: 'Sync receipts to accounting line-items.', time: 0.2, unit: 'Receipts/Week', blueprint: "Direct multi-system sync for expense reconciliation." },
+            { id: 'mf-onboard', label: 'Magic Intake', desc: 'Processing IDs and Tax Forms automatically.', time: 0.5, unit: 'Files/Week', blueprint: "Auto-routing of onboarding documents to secure folders." },
+            { id: 'mf-sync', label: 'Cross-System Syncing', desc: 'Trigger CRM updates via folder activity.', time: 0.3, unit: 'Syncs/Week', blueprint: "Real-time CRM record updates from local activity." }
         ]},
         'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives into an instant queryable brain.', items: [
             { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Search facts across thousands of documents.', time: 0.4, unit: 'Searches/Week', blueprint: "Semantic Search reduces research time from hours to seconds." },
@@ -305,7 +307,7 @@
         ]},
         'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with 24/7 responsiveness.', items: [
             { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week', blueprint: "Deflects routine inquiries with sourced, accurate answers." },
-            { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated folder creation and collection.', time: 1.5, unit: 'Onboards/Week', blueprint: "Zero-touch onboarding sequence standardizes intake." }
+            { id: 'sup-onboard', label: 'Client Success Setup', desc: 'Automated folder creation for new clients.', time: 1.5, unit: 'Onboards/Week', blueprint: "Zero-touch onboarding sequence standardizes intake." }
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing and paperwork.', items: [
             { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week', blueprint: "Cross-system reconciliation highlights revenue leakage." },
@@ -327,8 +329,12 @@
         setStep(1);
     };
     window.setStep = function(n) { 
-        [1,2,3,4,5].forEach(s => { document.getElementById(`step-${s}`).classList.add('hidden'); });
-        document.getElementById(`step-${n}`).classList.remove('hidden');
+        [1,2,3,4,5].forEach(s => { 
+            const el = document.getElementById(`step-${s}`);
+            if(el) el.classList.add('hidden'); 
+        });
+        const target = document.getElementById(`step-${n}`);
+        if(target) target.classList.remove('hidden');
         window.scrollTo({top:0, behavior:'smooth'});
     };
 
@@ -337,28 +343,38 @@
         if(state.domains.has(key)) state.domains.delete(key); 
         else state.domains.add(key); 
         card.classList.toggle('selected'); 
-        document.getElementById('domain-count').innerText = state.domains.size;
+        const count = document.getElementById('domain-count');
+        if(count) count.innerText = state.domains.size;
     };
 
     window.validateStep1 = function() { 
-        if(state.domains.size === 0) { document.getElementById('err-1').style.display='block'; return; }
-        renderTasks(); setStep(2);
+        if(state.domains.size === 0) { 
+            const err = document.getElementById('err-1');
+            if(err) err.style.display='block'; 
+            return; 
+        }
+        renderTasks(); 
+        setStep(2);
     };
 
     function renderTasks() {
-        const list = document.getElementById('task-list'); let aggregated = []; 
+        const list = document.getElementById('task-list'); 
+        let aggregated = []; 
         state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
         list.innerHTML = aggregated.map(i => `<div class="audit-item" onclick="toggleTask('${i.id}', event)"><div class="check-box" style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;"><i data-lucide="check" size="14" style="color:white;"></i></div><div style="flex:1;"><div style="font-weight:700;">${i.label}</div><div style="color:var(--text-muted); font-size:0.9rem;">${i.desc}</div></div></div>`).join('');
         lucide.createIcons();
-        document.getElementById('task-count').innerText = state.tasks.size;
+        const tc = document.getElementById('task-count');
+        if(tc) tc.innerText = state.tasks.size;
     }
 
     window.toggleTask = function(id, e) {
         const item = e.currentTarget;
         if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id);
         item.classList.toggle('selected');
-        document.getElementById('task-count').innerText = state.tasks.size;
-        item.querySelector('.check-box').style.background = item.classList.contains('selected') ? 'var(--primary)' : 'transparent';
+        const tc = document.getElementById('task-count');
+        if(tc) tc.innerText = state.tasks.size;
+        const cb = item.querySelector('.check-box');
+        if(cb) cb.style.background = item.classList.contains('selected') ? 'var(--primary)' : 'transparent';
     };
 
     window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
@@ -373,11 +389,15 @@
 
     window.runAnalysis = function() {
         const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0;
-        state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-            const qty = state.inputs[i.id] || 0; h += (qty * i.time * 52); v += (qty * i.time * 52 * rate);
-        }); });
-        state.results.amt = '$' + Math.round(v).toLocaleString(); state.results.hours = Math.round(h).toLocaleString();
-        document.getElementById('final-amt').innerText = state.results.amt; document.getElementById('final-hours').innerText = state.results.hours;
+        state.domains.forEach(d => { 
+            DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
+                const qty = state.inputs[i.id] || 0; h += (qty * i.time * 52); v += (qty * i.time * 52 * rate);
+            }); 
+        });
+        state.results.amt = '$' + Math.round(v).toLocaleString(); 
+        state.results.hours = Math.round(h).toLocaleString();
+        document.getElementById('final-amt').innerText = state.results.amt; 
+        document.getElementById('final-hours').innerText = state.results.hours;
     };
 
     window.submitToFormspree = function() {
@@ -400,7 +420,7 @@
         }).finally(() => { setStep(5); });
     };
 
-    // RESTORED: DETAILED PDF GENERATOR
+    // RESTORED: EXPANDED 15-ITEM PDF GENERATOR
     window.generatePDFBlueprint = function() {
         try {
             const { jsPDF } = window.jspdf;
@@ -409,12 +429,10 @@
             const comp = document.getElementById('user-company').value || "Company";
             const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
             
-            // Header
             doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 50, 'F'); 
             if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); } 
             doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 25);
             
-            // Metadata
             doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
             doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 65); 
             doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
@@ -422,7 +440,6 @@
             doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 65);
             doc.setDrawColor(226, 232, 240); doc.line(20, 82, 190, 82);
             
-            // Metrics Summary
             doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
             doc.text('ANNUAL OPPORTUNITY', 20, 96);
             doc.setFontSize(22); doc.text(state.results.amt, 20, 109);
@@ -431,7 +448,6 @@
             doc.text('CAPACITY RECLAIMED', 110, 96);
             doc.setFontSize(22); doc.text(`${state.results.hours} HOURS`, 110, 109);
 
-            // Detailed Breakdown List
             doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
             doc.text('LINE ITEM ANALYSIS', 20, 130);
             doc.line(20, 133, 80, 133);
