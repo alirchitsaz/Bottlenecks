@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Enterprise Operational Architecture</title>
+    <title>MagicFolder | Automation for Growing Firms</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
     
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -53,7 +53,7 @@
         .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: var(--shadow-sm); }
         .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
 
-        /* --- TRUST MARQUEE (The "Real" Look) --- */
+        /* --- TRUST MARQUEE (WorldVectorLogo) --- */
         .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 50px 0; background: #fff; overflow: hidden; }
         .marquee-header { text-align: center; color: #94a3b8; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px; font-family: 'JetBrains Mono', monospace; }
         
@@ -68,7 +68,6 @@
             padding: 0 20px;
         }
 
-        /* Strict Logo Sizing for Alignment */
         .logo-img { 
             display: block; 
             width: auto; 
@@ -81,13 +80,12 @@
         /* Optical Balancing */
         .h-servicenow { height: 26px; }
         .h-make { height: 24px; }
-        .h-salesforce { height: 40px; position: relative; top: -2px; } /* Cloud needs more height */
+        .h-salesforce { height: 40px; position: relative; top: -2px; }
         .h-google { height: 28px; }
         .h-openai { height: 28px; }
-        .h-anthropic { height: 24px; }
+        .h-anthropic { height: 26px; }
 
-        /* --- FEATURE GRID (Static) --- */
-        /* Note: Removed hover transforms/pointer cursors because these are informational, not links */
+        /* --- FEATURE GRID --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; padding-bottom: 100px; }
         .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
         .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
@@ -98,12 +96,11 @@
         .dark-section { background: #0f172a; color: white; padding: 100px 0; position: relative; overflow: hidden; }
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
         
-        /* --- CALCULATOR UI (Interactive) --- */
+        /* --- CALCULATOR UI --- */
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Interactive Cards (These DO get hover effects) */
         .calc-card { 
             background: var(--surface); 
             border: 1px solid var(--border); 
@@ -127,7 +124,6 @@
         }
         .calc-card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
 
-        /* Audit Items */
         .audit-item { 
             display: flex; gap: 20px; padding: 24px; 
             background: var(--surface); border: 1px solid transparent; 
@@ -137,14 +133,11 @@
         .audit-item:hover { background: white; border-color: var(--border); }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-        /* Results */
         .results-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 80px 32px; border-radius: 32px; text-align: center; margin-top: 32px; }
         
-        /* Inputs */
         input { padding: 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; font-family: inherit; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
 
-        /* Footer */
         footer { background: white; padding: 80px 0 40px; border-top: 1px solid var(--border); margin-top: auto; }
         .footer-logo-row { display: flex; gap: 24px; margin-top: 24px; opacity: 0.6; }
 
@@ -179,12 +172,12 @@
     <section class="hero-section">
         <div class="hero-bg"></div>
         <div class="container">
-            <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 700;">Global ITSM & Digital Workplace Architecture</div>
+            <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 700;">Professional Workflow Automation</div>
             <h1 class="hero-h1">Intelligently effortless.</h1>
-            <p class="hero-p">We architect high-availability workflow systems that scale professional capacity while removing 100% of manual error.</p>
+            <p class="hero-p">We turn your manual tasks into automated systems. Grow your revenue and reliability without adding headcount.</p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn" onclick="startApp()">Calculate Your ROI <i data-lucide="calculator" size="20"></i></button>
-                <button class="btn btn-outline" onclick="scrollToSection('methodology')">Our Methodology</button>
+                <button class="btn btn-outline" onclick="scrollToSection('methodology')">Our Approach</button>
             </div>
         </div>
     </section>
@@ -193,19 +186,19 @@
         <div class="marquee-header">Engineered on the world's most advanced infrastructure</div>
         <div class="logo-row">
             <a href="https://www.servicenow.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/ServiceNow_logo.svg" alt="ServiceNow" class="logo-img h-servicenow">
+                <img src="https://cdn.worldvectorlogo.com/logos/servicenow-2.svg" alt="ServiceNow" class="logo-img h-servicenow">
             </a>
             <a href="https://www.make.com" target="_blank" rel="noopener">
-                <img src="https://images.ctfassets.net/unrbf663yeec/1Do2O17x5e6S8q6y88C4Q6/0d3f27f00c144d18471715967520448b/make-logo.svg" alt="Make" class="logo-img h-make">
+                <img src="https://cdn.worldvectorlogo.com/logos/make-6.svg" alt="Make" class="logo-img h-make">
             </a>
             <a href="https://www.salesforce.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="logo-img h-salesforce">
+                <img src="https://cdn.worldvectorlogo.com/logos/salesforce-2.svg" alt="Salesforce" class="logo-img h-salesforce">
             </a>
             <a href="https://cloud.google.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" class="logo-img h-google">
+                <img src="https://cdn.worldvectorlogo.com/logos/google-cloud-1.svg" alt="Google Cloud" class="logo-img h-google">
             </a>
             <a href="https://openai.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="logo-img h-openai">
+                <img src="https://cdn.worldvectorlogo.com/logos/openai-2.svg" alt="OpenAI" class="logo-img h-openai">
             </a>
             <a href="https://www.anthropic.com" target="_blank" rel="noopener">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="logo-img h-anthropic">
@@ -217,13 +210,13 @@
         <div style="margin-top: 80px;">
             <div class="mono" style="color: var(--primary); font-weight: 700;">System Capabilities</div>
             <h2 style="font-size: 2.5rem; margin-bottom: 24px; font-weight: 700;">Stop being a "Data Janitor."</h2>
-            <p style="color: var(--text-muted); max-width: 650px; font-size: 1.15rem;">Your highly-paid experts spend 20% of their week moving data from Email to PDF to Excel. We eliminate the friction so they can focus on strategy.</p>
+            <p style="color: var(--text-muted); max-width: 650px; font-size: 1.15rem;">Your team spends 20% of their week moving data from Email to PDF to Excel. We eliminate the friction so you can focus on strategy.</p>
             
             <div class="feature-grid">
                 <div class="feature-card">
                     <div class="icon-box"><i data-lucide="folder-search" size="28"></i></div>
                     <h3 class="feature-h3">The Magic Folder</h3>
-                    <p class="feature-p">Drop any file (Invoice, Contract, Brief) into a folder. Our system automatically identifies it, extracts the data, validates it against your rules, and files it. Zero manual entry.</p>
+                    <p class="feature-p">Drop any file (Invoice, Contract, Brief) into a folder. Our system automatically identifies it, extracts the data, validates it, and files it. Zero manual entry.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-box"><i data-lucide="trending-up" size="28"></i></div>
@@ -233,7 +226,7 @@
                 <div class="feature-card">
                     <div class="icon-box"><i data-lucide="brain-circuit" size="28"></i></div>
                     <h3 class="feature-h3">Knowledge Hub</h3>
-                    <p class="feature-p">Turn your firm's archives into an instant, queryable brain. Ask questions about past cases or contracts and get cited answers in seconds using RAG.</p>
+                    <p class="feature-p">Turn your firm's archives into an instant, queryable brain. Ask questions about past cases or contracts and get cited answers in seconds.</p>
                 </div>
             </div>
         </div>
@@ -242,10 +235,10 @@
     <div id="methodology" class="dark-section">
         <div class="container split-grid">
             <div>
-                <div class="mono" style="color: #818cf8; margin-bottom: 16px;">Our Methodology</div>
-                <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">Built by Enterprise Architects.</h2>
-                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We aren't just developers. We are IT Strategists with backgrounds in Global Service Management and Digital Workplace architecture.</p>
-                <p style="color: #94a3b8; font-size: 1.2rem;">We apply the same rigor used by Fortune 500 companies to streamline professional service firms. No hacks, just scalable, secure systems.</p>
+                <div class="mono" style="color: #818cf8; margin-bottom: 16px;">Our Approach</div>
+                <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">Fortune 500 Efficiency,<br>Right-Sized for You.</h2>
+                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to small and mid-sized firms. No complex jargon, just systems that work.</p>
+                <p style="color: #94a3b8; font-size: 1.2rem;">We don't just patch software together. We build reliable engines that run your business in the background.</p>
                 <div style="margin-top: 40px; display: flex; gap: 40px;">
                     <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">100%</h4><span style="color: #64748b;">Accuracy Target</span></div>
                     <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Uptime</span></div>
@@ -253,15 +246,15 @@
             </div>
             <div style="background: rgba(255,255,255,0.03); padding: 48px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
                 <i data-lucide="shield-check" size="48" style="color: #818cf8; margin-bottom: 24px;"></i>
-                <h3 style="margin-bottom: 16px; font-size: 1.5rem; font-weight: 700;">Security First Architecture</h3>
-                <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 24px;">Your data is your asset. We architect solutions with enterprise-grade governance, data isolation, and RBAC protocols from Day 1.</p>
+                <h3 style="margin-bottom: 16px; font-size: 1.5rem; font-weight: 700;">Security First</h3>
+                <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 24px;">Your client data is your most valuable asset. We architect solutions with enterprise-grade security and data isolation protocols from Day 1.</p>
             </div>
         </div>
     </div>
 
     <section class="container" style="text-align: center; padding: 120px 0;">
-        <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px;">Ready to audit your operations?</h2>
-        <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 600px; margin: 0 auto 40px;">Find out exactly how much revenue you are losing to manual processes.</p>
+        <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px;">Ready to find your lost revenue?</h2>
+        <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 600px; margin: 0 auto 40px;">Find out exactly how much money you are losing to manual processes.</p>
         <button class="btn" onclick="startApp()" style="font-size: 1.2rem; padding: 20px 48px;">Start Assessment <i data-lucide="arrow-right"></i></button>
     </section>
 
