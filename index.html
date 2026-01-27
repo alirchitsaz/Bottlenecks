@@ -53,21 +53,16 @@
         .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: var(--shadow-sm); }
         .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); }
 
-        /* --- LOGO SECTION (Fixed Sizing) --- */
-        .infrastructure-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 60px 0; background: #fff; }
-        .infrastructure-header { text-align: center; color: #94a3b8; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-family: 'JetBrains Mono', monospace; }
-        .logo-container { display: flex; justify-content: center; gap: 50px; align-items: center; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; }
-        .logo-container a { display: block; opacity: 0.6; transition: 0.2s ease; filter: grayscale(100%); }
-        .logo-container a:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
-        
-        /* Optical Alignment Heights */
-        .logo-container img { width: auto; display: block; }
-        .h-make { height: 24px; }
-        .h-salesforce { height: 44px; margin-top: -4px; }
-        .h-google { height: 28px; }
-        .h-openai { height: 26px; }
-        .h-anthropic { height: 20px; }
-        .h-servicenow { height: 22px; }
+        /* --- LOGO STRIP --- */
+        .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 60px 0; background: #fff; overflow: hidden; }
+        .marquee-header { text-align: center; color: #94a3b8; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-family: 'JetBrains Mono', monospace; }
+        .logo-row { display: flex; justify-content: center; gap: 60px; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .logo-row a { display: block; transition: 0.2s ease; opacity: 0.5; filter: grayscale(100%); }
+        .logo-row a:hover { opacity: 1; filter: grayscale(0%); }
+        .logo-row img { height: 28px; width: auto; display: block; }
+        /* Optical balance */
+        .h-salesforce { height: 42px !important; margin-top: -4px; }
+        .h-anthropic { height: 20px !important; }
 
         /* --- FEATURES --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
@@ -84,30 +79,27 @@
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Interactive Calculator Cards */
         .calc-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; position: relative; height: 100%; }
         .calc-card:hover { background: white; border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
         .calc-card.selected { border-color: var(--primary); background: white; box-shadow: 0 0 0 2px var(--primary); }
         .check-pill { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); position: absolute; top: 24px; right: 24px; display: grid; place-items: center; transition: 0.2s; }
         .calc-card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
-        
-        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 1px solid transparent; border-radius: 16px; margin-bottom: 12px; cursor: pointer; align-items: center; transition: 0.2s; }
+        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; border-radius: 16px; margin-bottom: 12px; cursor: pointer; align-items: center; transition: 0.2s; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        
         .results-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 80px 32px; border-radius: 32px; text-align: center; margin-top: 32px; }
-        .big-save { font-size: clamp(3.5rem, 10vw, 6.5rem); color: #818cf8; font-weight: 800; margin: 16px 0; line-height: 1; }
+        .big-save { font-size: clamp(3.5rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 24px 0; line-height: 1; }
         
         input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; font-family: inherit; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
 
         footer { background: white; padding: 80px 0 40px; border-top: 1px solid var(--border); margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 60px; }
 
         @media (max-width: 768px) {
             .hero-h1 { font-size: 3rem; }
-            .feature-grid, .split-grid { grid-template-columns: 1fr; }
+            .feature-grid, .split-grid, .footer-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
-            .logo-container { gap: 30px; }
+            .logo-row { gap: 30px; }
         }
     </style>
 </head>
@@ -135,7 +127,7 @@
         <div class="container">
             <div class="mono" style="color: var(--primary); margin-bottom: 24px; opacity: 0.9;">Professional Workflow Automation</div>
             <h1 class="hero-h1">Intelligently effortless.</h1>
-            <p class="hero-p">Scale your revenue without adding headcount. We turn manual document firefighting into automated systems that run your business in the background.</p>
+            <p class="hero-p">Scale your revenue without adding headcount. We turn manual document chaos into automated systems that run your business in the background.</p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn" onclick="startApp()">Calculate Your ROI <i data-lucide="calculator" size="20"></i></button>
                 <button class="btn btn-outline" onclick="scrollToSection('methodology')">How We Work</button>
@@ -143,27 +135,13 @@
         </div>
     </section>
 
-    <div class="infrastructure-section">
-        <h3 class="infrastructure-header">ENGINEERED ON THE WORLD'S MOST ADVANCED INFRASTRUCTURE</h3>
-        <div class="logo-container">
-            <a href="https://www.make.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Make_logo.svg" alt="Make" class="h-make">
-            </a>
-            <a href="https://www.salesforce.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="h-salesforce">
-            </a>
-            <a href="https://cloud.google.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" class="h-google">
-            </a>
-            <a href="https://openai.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="h-openai">
-            </a>
-            <a href="https://www.anthropic.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="h-anthropic">
-            </a>
-            <a href="https://www.servicenow.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/ServiceNow_Logo.svg" alt="ServiceNow" class="h-servicenow">
-            </a>
+    <div class="marquee-section">
+        <div class="marquee-header">Engineered on the world's most advanced infrastructure</div>
+        <div class="logo-row">
+            <a href="https://www.salesforce.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="h-salesforce"></a>
+            <a href="https://cloud.google.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google"></a>
+            <a href="https://openai.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI"></a>
+            <a href="https://www.anthropic.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="h-anthropic"></a>
         </div>
     </div>
 
@@ -196,13 +174,13 @@
             <div>
                 <div class="mono" style="color: #818cf8; margin-bottom: 16px;">The Methodology</div>
                 <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">Fortune 500 Rigor,<br>Right-Sized for You.</h2>
-                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to small and mid-sized firms. No complex jargon, just reliable systems that work in the background.</p>
+                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to growing firms. No complex jargon, just reliable systems that work in the background.</p>
                 <div style="margin-top: 40px; display: flex; gap: 40px;">
                     <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">100%</h4><span style="color: #64748b;">Accuracy Target</span></div>
                     <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Uptime</span></div>
                 </div>
             </div>
-            <div style="background: rgba(255,255,255,0.03); padding: 48px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+            <div style="background: rgba(255,255,255,0.03); padding: 48px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(12px);">
                 <i data-lucide="shield-check" size="48" style="color: #818cf8; margin-bottom: 24px;"></i>
                 <h3 style="margin-bottom: 16px; font-size: 1.5rem; font-weight: 700;">Security First Architecture</h3>
                 <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 24px;">Your client data is your most valuable asset. We architect solutions with enterprise-grade governance and data isolation protocols from Day 1.</p>
@@ -221,7 +199,6 @@
         <div style="text-align: center; margin-bottom: 60px;">
             <div class="mono" style="color: var(--text-muted); margin-bottom: 16px;">Phase 01</div>
             <h2 style="font-size: 3rem; letter-spacing: -0.04em; font-weight: 800;">Where can we help you grow?</h2>
-            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 650px; margin: 16px auto 0;">Select your priority domains to identify potential revenue and reliability gains.</p>
         </div>
         <div class="feature-grid" id="domain-grid"></div>
         <div style="text-align: center; margin-top: 60px;">
@@ -231,7 +208,7 @@
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 02: Analysis</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 02</div>
         <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 40px;">Identify the Bottlenecks</h2>
         <div id="task-list"></div>
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
@@ -241,9 +218,9 @@
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 03: Projection</div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 03</div>
         <h2 style="font-size: 2.5rem; font-weight: 700;">Estimate Volume</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px;">How many items do you process per week in these areas?</p>
+        <p style="color: var(--text-muted); margin-bottom: 40px;">How many items do you process per week?</p>
         <div id="slider-box"></div>
         <div style="background: var(--surface); padding: 32px; border-radius: 24px; border: 1px dashed var(--border); margin-top: 40px;">
             <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom: 16px;">
@@ -259,7 +236,6 @@
     </div>
 
     <div id="step-4" class="hidden fade-in" style="max-width: 600px; margin: 0 auto; text-align: center;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Final Step</div>
         <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px;">Unlock Your Strategy Report</h2>
         <p style="color: var(--text-muted); margin-bottom: 32px;">Identify the path to 24/7 availability and 100% accuracy.</p>
         <div style="background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border);">
@@ -284,15 +260,15 @@
 </div>
 
 <footer>
-    <div class="container" style="display: grid; grid-template-columns: 2fr 1fr; gap: 60px;">
+    <div class="container footer-grid">
         <div>
             <div class="logo">MagicFolder</div>
             <p style="color: var(--text-muted); max-width: 300px; margin-top: 16px; font-size: 0.95rem;">Expert workflow systems for firms and professionals. Efficiency that creates real revenue.</p>
         </div>
         <div>
             <p class="mono" style="color: var(--text-dark); margin-bottom: 16px;">Ecosystem</p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.9rem; color: var(--text-muted);">
-                <span>Google Cloud</span><span>OpenAI</span><span>Anthropic</span><span>ServiceNow</span><span>Make.com</span><span>Salesforce</span>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 8px; font-size: 0.9rem; color: var(--text-muted);">
+                <span>Google Cloud</span><span>OpenAI</span><span>Anthropic</span><span>Salesforce</span>
             </div>
         </div>
     </div>
@@ -306,24 +282,23 @@
     let PDF_LOGO_DATA = "";
     const DATA = {
         'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and lead response.', items: [
-            { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on rule-based logic.', time: 0.5, unit: 'Quotes/Week', blueprint: "Reduces quote-to-cash cycle by 90%." },
-            { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week', blueprint: "Ensures 5-minute response time via orchestration." }
+            { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on rules.', time: 0.5, unit: 'Quotes/Week' },
+            { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week' }
         ]},
         'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting forever.', items: [
-            { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week', blueprint: "Automated OCR extraction prevents manual entry errors." },
-            { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing ensures contracts are stored correctly." }
+            { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week' }
         ]},
         'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives into an instant queryable brain.', items: [
-            { id: 'kn-rag', label: 'Intelligent Search', desc: 'Search facts across thousands of documents.', time: 0.4, unit: 'Searches/Week', blueprint: "Semantic search reduces research time from hours to seconds." }
+            { id: 'kn-rag', label: 'Firm Knowledge Search', desc: 'Search specific facts across thousands of documents.', time: 0.4, unit: 'Searches/Week' }
         ]},
-        'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks for total visibility.', items: [
-            { id: 'req-tracking', label: 'Job Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week', blueprint: "Real-time dashboarding eliminates status emails." }
+        'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks for total project visibility.', items: [
+            { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week' }
         ]},
         'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with 24/7 responsiveness.', items: [
-            { id: 'sup-faq', label: 'Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week', blueprint: "Deflects routine inquiries with sourced answers." }
+            { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week' }
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing and paperwork.', items: [
-            { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week', blueprint: "Cross-system reconciliation highlights revenue leakage." }
+            { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week' }
         ]}
     };
 
