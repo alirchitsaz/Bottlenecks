@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Enterprise Workflow Architecture</title>
+    <title>MagicFolder | Operational Architecture</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -12,76 +12,79 @@
         :root { --primary: #4f46e5; --primary-dark: #4338ca; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-dark: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; position: relative; z-index: 2; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
         
         /* Navigation */
-        nav { padding: 20px 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        nav { padding: 16px 0; background: rgba(255,255,255,0.8); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; color: var(--text-dark); cursor: pointer; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; color: var(--text-dark); cursor: pointer; letter-spacing: -0.02em; }
         .logo svg { width: 28px; height: 28px; fill: var(--primary); }
-        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links { display: flex; gap: 40px; align-items: center; }
         .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.2s; cursor: pointer; }
         .nav-links a:hover { color: var(--primary); }
-        .nav-btn { background: var(--text-dark); color: white; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; transition: 0.2s; }
-        .nav-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .nav-btn { background: var(--text-dark); color: white; padding: 10px 24px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .nav-btn:hover { background: #334155; transform: translateY(-1px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         
-        /* Sections */
-        section { padding: 80px 0; }
-        .hero-section { padding: 100px 0 60px; text-align: center; }
-        .hero-h1 { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 24px; color: var(--text-dark); }
-        .hero-p { font-size: 1.25rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; }
+        /* Typography & Layout */
+        section { padding: 100px 0; position: relative; }
+        .hero-section { padding: 120px 0 80px; text-align: center; overflow: hidden; }
+        .hero-bg { position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 100vw; height: 1000px; background: radial-gradient(circle, rgba(79,70,229,0.05) 0%, rgba(255,255,255,0) 60%); z-index: 0; pointer-events: none; }
+        .hero-h1 { font-size: clamp(3.5rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 24px; color: var(--text-dark); position: relative; z-index: 2; }
+        .hero-p { font-size: 1.35rem; color: var(--text-muted); max-width: 720px; margin: 0 auto 48px; position: relative; z-index: 2; }
         
         /* Buttons */
-        .btn { background: var(--primary); color: white; padding: 16px 36px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; }
-        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-soft); }
-        .btn-outline { background: white; border: 2px solid var(--border); color: var(--text-dark); }
-        .btn-outline:hover { border-color: var(--text-dark); background: transparent; transform: translateY(-2px); }
+        .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2); }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.3); }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
         
-        /* Trust Bar */
-        .trust-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 32px 0; background: var(--surface); margin-top: 40px; }
-        .trust-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; opacity: 0.7; grayscale: 100%; align-items: center; }
-        .trust-item { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        /* Infinite Marquee (Tech Stack) */
+        .marquee-container { background: white; padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; position: relative; }
+        .marquee-content { display: flex; gap: 80px; animation: scroll 40s linear infinite; width: max-content; align-items: center; }
+        .marquee-item { height: 32px; display: flex; align-items: center; opacity: 0.5; transition: 0.3s; grayscale: 100%; filter: grayscale(100%); }
+        .marquee-item:hover { opacity: 1; filter: grayscale(0%); cursor: pointer; }
+        .marquee-item svg { height: 100%; width: auto; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         
         /* Feature Grid */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
-        .feature-card { background: white; padding: 40px; border-radius: 24px; border: 1px solid var(--border); transition: 0.3s; }
-        .feature-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-        .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 16px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; }
+        .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); position: relative; overflow: hidden; }
+        .feature-card:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 20px 40px -5px rgba(0,0,0,0.08); }
+        .icon-box { width: 64px; height: 64px; background: var(--surface); border-radius: 16px; display: grid; place-items: center; color: var(--primary); margin-bottom: 32px; border: 1px solid var(--border); }
         
-        /* About/Split Section */
-        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .bg-dark { background: #0f172a; color: white; }
-        .bg-dark .text-muted { color: #94a3b8; }
+        /* Methodology Section */
+        .dark-section { background: #0f172a; color: white; position: relative; overflow: hidden; }
+        .dark-pattern { position: absolute; inset: 0; opacity: 0.1; background-image: radial-gradient(#6366f1 1px, transparent 1px); background-size: 32px 32px; }
         
-        /* Calculator Specifics (Hidden by default) */
+        /* Calculator Specifics */
         .hidden { display: none !important; }
-        .fade-in { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Calculator Styles Preserved */
-        .calc-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 24px; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; height: 100%; }
+        .calc-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 20px; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; height: 100%; position: relative; }
         .calc-card:hover { background: white; border-color: var(--primary); box-shadow: var(--shadow-lg); }
-        .calc-card.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); border-width: 2px; }
-        .check-pill { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; position: absolute; top: 24px; right: 24px; }
+        .calc-card.selected { border-color: var(--primary); background: white; box-shadow: 0 0 0 2px var(--primary); }
+        .check-pill { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; position: absolute; top: 24px; right: 24px; transition: 0.2s; }
         .calc-card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
         
-        .audit-item { display: flex; gap: 16px; padding: 20px; background: var(--surface); border: 1px solid transparent; border-radius: 16px; margin-bottom: 12px; cursor: pointer; align-items: center; }
-        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 1px solid transparent; border-radius: 16px; margin-bottom: 16px; cursor: pointer; align-items: center; transition: 0.2s; }
+        .audit-item:hover { background: white; border-color: var(--border); }
+        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
 
-        .results-hero { background: #0f172a; color: white; padding: 60px 32px; border-radius: 32px; text-align: center; margin-top: 32px; }
-        .big-save { font-size: clamp(3rem, 8vw, 5rem); color: #818cf8; font-weight: 800; margin: 16px 0; line-height: 1; }
+        .results-hero { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 80px 32px; border-radius: 40px; text-align: center; margin-top: 32px; border: 1px solid rgba(255,255,255,0.1); }
+        .big-save { font-size: clamp(4rem, 10vw, 6rem); color: #818cf8; font-weight: 800; margin: 24px 0; line-height: 1; letter-spacing: -2px; }
         
-        .cta-box { background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border); text-align: center; margin-top: 32px; }
-        input { padding: 16px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; margin-bottom: 12px; font-family: inherit; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+        input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1.05rem; width: 100%; outline: none; margin-bottom: 16px; font-family: inherit; transition: 0.2s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
 
-        footer { background: white; padding: 60px 0; border-top: 1px solid var(--border); margin-top: auto; }
+        footer { background: white; padding: 80px 0 40px; border-top: 1px solid var(--border); margin-top: auto; }
         
         @media (max-width: 768px) {
-            .hero-h1 { font-size: 2.5rem; }
-            .feature-grid, .split-section { grid-template-columns: 1fr; }
-            .nav-links { display: none; } /* Simplified mobile nav */
+            .hero-h1 { font-size: 3rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .marquee-content { gap: 40px; }
         }
     </style>
 </head>
@@ -106,84 +109,104 @@
 <div id="marketing-view">
     
     <section class="hero-section">
+        <div class="hero-bg"></div>
         <div class="container">
-            <div class="mono" style="color: var(--primary); margin-bottom: 16px; font-weight: 700;">Operational Architecture for Professionals</div>
+            <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 700; opacity: 0.9;">Global ITSM & Digital Workplace Architecture</div>
             <h1 class="hero-h1">Intelligently effortless.</h1>
-            <p class="hero-p">We build high-performance workflow systems that help professionals scale revenue while removing 100% of manual error.</p>
-            <div style="display: flex; gap: 16px; justify-content: center;">
+            <p class="hero-p">We architect high-availability workflow systems that scale professional capacity while removing 100% of manual error.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn" onclick="startApp()">Calculate Your ROI <i data-lucide="calculator"></i></button>
-                <button class="btn btn-outline" onclick="scrollToSection('methodology')">Our Philosophy</button>
+                <button class="btn btn-outline" onclick="scrollToSection('methodology')">Our Methodology</button>
             </div>
         </div>
     </section>
 
-    <div class="trust-bar">
-        <div class="container">
-            <p class="mono" style="text-align: center; color: var(--text-muted); margin-bottom: 24px;">Built on Enterprise Standards</p>
-            <div class="trust-grid">
-                <div class="trust-item"><i data-lucide="cloud"></i> Google Cloud</div>
-                <div class="trust-item"><i data-lucide="shield"></i> Microsoft Azure</div>
-                <div class="trust-item"><i data-lucide="cpu"></i> OpenAI</div>
-                <div class="trust-item"><i data-lucide="database"></i> ServiceNow</div>
-                <div class="trust-item"><i data-lucide="workflow"></i> Make.com</div>
-            </div>
+    <div class="marquee-container">
+        <p class="mono" style="text-align: center; color: var(--text-muted); margin-bottom: 24px; opacity: 0.6;">Engineered on the world's most advanced infrastructure</p>
+        <div class="marquee-content">
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill-opacity="0"/><path d="M21.36 10.73h-9.2v2.83h5.27c-.24 1.25-.94 2.3-2 3.01v2.5h3.24c1.89-1.74 2.98-4.3 2.98-7.28 0-.73-.07-1.42-.19-2.06z" fill="#4285F4"/><path d="M12.16 20c2.58 0 4.75-.85 6.34-2.32l-3.24-2.5c-.86.58-1.95.92-3.1.92-2.5 0-4.63-1.69-5.39-3.96H3.45v2.58C5.04 17.9 8.35 20 12.16 20z" fill="#34A853"/><path d="M6.77 12.14c-.19-.58-.3-1.19-.3-1.82s.11-1.24.3-1.82V5.92H3.45C2.75 7.31 2.36 8.87 2.36 12.32s.39 5.01 1.09 6.4l3.32-2.58z" fill="#FBBC05"/><path d="M12.16 6.88c1.4 0 2.66.48 3.65 1.43l2.73-2.73C16.91 3.99 14.74 3.06 12.16 3.06 8.35 3.06 5.04 5.16 3.45 8.5l3.32 2.58c.76-2.27 2.89-3.96 5.39-3.96z" fill="#EA4335"/></svg><span style="margin-left:8px; font-weight:700; color:#5f6368;">Google Cloud</span></div>
+            
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#000000"><path d="M21.1 11.6a1.9 1.9 0 0 0 .1-1.3 5.5 5.5 0 0 0-3.3-4.5 5.5 5.5 0 0 0-6.5.9 5.5 5.5 0 0 0-4.4-1.2A5.5 5.5 0 0 0 2.4 8a1.9 1.9 0 0 0-.1 1.3 5.5 5.5 0 0 0 3.3 4.5 5.5 5.5 0 0 0 6.5-.9 5.5 5.5 0 0 0 4.4 1.2 5.5 5.5 0 0 0 4.6-2.5zm-8.6 8.8c-1.8 0-3.4-.6-4.7-1.7l1.3-2.2c1 .8 2.2 1.3 3.4 1.3a3.9 3.9 0 0 0 3.9-3.9v-.4l1.8 1.1c-.5 3.3-3.1 5.8-5.7 5.8zm-7.9-5.4a3.9 3.9 0 0 0 3.9-3.9c0-1.2-.5-2.4-1.3-3.4L8.4 9a3.9 3.9 0 0 0 2.6 3.6l-1.8 1.1a5.6 5.6 0 0 1-4.6 1.3zm1.6-9.7a3.9 3.9 0 0 0 3.9 3.9 3.9 3.9 0 0 0 3.4-1.3l1.1 1.8c-1 .8-2.3 1.3-3.6 1.3a5.6 5.6 0 0 1-4.8-2.8l-1.3-2.2c.4-.3.9-.6 1.3-.7zm9.7 1.6l-1.3 2.2a3.9 3.9 0 0 0-3.4-1.3 3.9 3.9 0 0 0-3.9 3.9v.4l-1.8-1.1a5.6 5.6 0 0 1 5.7-5.8c1.8 0 3.4.6 4.7 1.7zm1.6 8.1c-1 .8-2.2 1.3-3.4 1.3a3.9 3.9 0 0 0-3.9-3.9 3.9 3.9 0 0 0 0-.4l1.3-2.2a5.6 5.6 0 0 1 5.7 5.8c0 .2 0 .4.3-.6z"/></svg><span style="margin-left:8px; font-weight:700; color:#0f172a;">OpenAI</span></div>
+            
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#000000"><path d="M17.41 19.46H19.9L13.1 3H10.9L4.1 19.46H6.59L8.23 15.3H15.77L17.41 19.46ZM12 6.16L14.86 13.2H9.14L12 6.16Z"/></svg><span style="margin-left:8px; font-weight:700; color:#0f172a;">Anthropic</span></div>
+            
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#81b5a1"><circle cx="12" cy="12" r="10" fill="#293e40"/><path d="M15.5 12l-5-3.5v7l5-3.5z" fill="#81b5a1"/></svg><span style="margin-left:8px; font-weight:700; color:#293e40;">ServiceNow</span></div>
+            
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#6d28d9"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg><span style="margin-left:8px; font-weight:700; color:#6d28d9;">Make</span></div>
+            
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#00A1E0"><path d="M16.1 7.6c-.3-1.6-1.7-2.8-3.3-2.8-1.4 0-2.6.9-3.1 2.2-.4-.2-.8-.3-1.2-.3-2.2 0-4 1.8-4 4 0 .3.1.7.2 1-.8.5-1.4 1.4-1.4 2.4 0 1.7 1.3 3 3 3h10.5c2.5 0 4.5-2 4.5-4.5 0-2.3-1.7-4.2-4-4.5-.1-.2-.2-.4-.2-.5z"/></svg><span style="margin-left:8px; font-weight:700; color:#00A1E0;">Salesforce</span></div>
+
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#5f6368"><path d="M21.36 10.73h-9.2v2.83h5.27c-.24 1.25-.94 2.3-2 3.01v2.5h3.24c1.89-1.74 2.98-4.3 2.98-7.28 0-.73-.07-1.42-.19-2.06z" fill="#4285F4"/><path d="M12.16 20c2.58 0 4.75-.85 6.34-2.32l-3.24-2.5c-.86.58-1.95.92-3.1.92-2.5 0-4.63-1.69-5.39-3.96H3.45v2.58C5.04 17.9 8.35 20 12.16 20z" fill="#34A853"/><path d="M6.77 12.14c-.19-.58-.3-1.19-.3-1.82s.11-1.24.3-1.82V5.92H3.45C2.75 7.31 2.36 8.87 2.36 12.32s.39 5.01 1.09 6.4l3.32-2.58z" fill="#FBBC05"/><path d="M12.16 6.88c1.4 0 2.66.48 3.65 1.43l2.73-2.73C16.91 3.99 14.74 3.06 12.16 3.06 8.35 3.06 5.04 5.16 3.45 8.5l3.32 2.58c.76-2.27 2.89-3.96 5.39-3.96z" fill="#EA4335"/></svg><span style="margin-left:8px; font-weight:700; color:#5f6368;">Google Cloud</span></div>
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#000000"><path d="M21.1 11.6a1.9 1.9 0 0 0 .1-1.3 5.5 5.5 0 0 0-3.3-4.5 5.5 5.5 0 0 0-6.5.9 5.5 5.5 0 0 0-4.4-1.2A5.5 5.5 0 0 0 2.4 8a1.9 1.9 0 0 0-.1 1.3 5.5 5.5 0 0 0 3.3 4.5 5.5 5.5 0 0 0 6.5-.9 5.5 5.5 0 0 0 4.4 1.2 5.5 5.5 0 0 0 4.6-2.5zm-8.6 8.8c-1.8 0-3.4-.6-4.7-1.7l1.3-2.2c1 .8 2.2 1.3 3.4 1.3a3.9 3.9 0 0 0 3.9-3.9v-.4l1.8 1.1c-.5 3.3-3.1 5.8-5.7 5.8zm-7.9-5.4a3.9 3.9 0 0 0 3.9-3.9c0-1.2-.5-2.4-1.3-3.4L8.4 9a3.9 3.9 0 0 0 2.6 3.6l-1.8 1.1a5.6 5.6 0 0 1-4.6 1.3zm1.6-9.7a3.9 3.9 0 0 0 3.9 3.9 3.9 3.9 0 0 0 3.4-1.3l1.1 1.8c-1 .8-2.3 1.3-3.6 1.3a5.6 5.6 0 0 1-4.8-2.8l-1.3-2.2c.4-.3.9-.6 1.3-.7zm9.7 1.6l-1.3 2.2a3.9 3.9 0 0 0-3.4-1.3 3.9 3.9 0 0 0-3.9 3.9v.4l-1.8-1.1a5.6 5.6 0 0 1 5.7-5.8c1.8 0 3.4.6 4.7 1.7zm1.6 8.1c-1 .8-2.2 1.3-3.4 1.3a3.9 3.9 0 0 0-3.9-3.9 3.9 3.9 0 0 0 0-.4l1.3-2.2a5.6 5.6 0 0 1 5.7 5.8c0 .2 0 .4.3-.6z"/></svg><span style="margin-left:8px; font-weight:700; color:#0f172a;">OpenAI</span></div>
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#000000"><path d="M17.41 19.46H19.9L13.1 3H10.9L4.1 19.46H6.59L8.23 15.3H15.77L17.41 19.46ZM12 6.16L14.86 13.2H9.14L12 6.16Z"/></svg><span style="margin-left:8px; font-weight:700; color:#0f172a;">Anthropic</span></div>
+            <div class="marquee-item"><svg viewBox="0 0 24 24" fill="#81b5a1"><circle cx="12" cy="12" r="10" fill="#293e40"/><path d="M15.5 12l-5-3.5v7l5-3.5z" fill="#81b5a1"/></svg><span style="margin-left:8px; font-weight:700; color:#293e40;">ServiceNow</span></div>
         </div>
     </div>
 
     <section id="solutions" class="container">
         <div class="mono" style="color: var(--primary); font-weight: 700;">System Capabilities</div>
-        <h2 style="font-size: 2.5rem; margin-bottom: 16px; font-weight: 700;">Stop being a "Data Janitor."</h2>
-        <p style="color: var(--text-muted); max-width: 600px;">Your team spends 20% of their week moving data from Email to PDF to Excel. We eliminate the friction.</p>
+        <h2 style="font-size: 2.5rem; margin-bottom: 24px; font-weight: 700; letter-spacing: -0.02em;">Stop being a "Data Janitor."</h2>
+        <p style="color: var(--text-muted); max-width: 650px; font-size: 1.15rem;">Your highly-paid experts spend 20% of their week moving data from Email to PDF to Excel. We eliminate the friction so they can focus on strategy.</p>
         
         <div class="feature-grid">
             <div class="feature-card">
-                <div class="icon-box"><i data-lucide="folder-search"></i></div>
-                <h3>The Magic Folder</h3>
-                <p style="color: var(--text-muted); margin-top: 12px;">Drop any file (Invoice, Contract, Brief) into a folder. Our system extracts the data, validates it, and files it. Zero manual entry.</p>
+                <div class="icon-box"><i data-lucide="folder-search" size="32"></i></div>
+                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 12px;">The Magic Folder</h3>
+                <p style="color: var(--text-muted); line-height: 1.7;">Drop any file (Invoice, Contract, Brief) into a folder. Our system automatically identifies it, extracts the data, validates it against your rules, and files it. Zero manual entry.</p>
             </div>
             <div class="feature-card">
-                <div class="icon-box"><i data-lucide="trending-up"></i></div>
-                <h3>Revenue Logistics</h3>
-                <p style="color: var(--text-muted); margin-top: 12px;">Automate the "Quote-to-Cash" cycle. Leads are qualified, quotes are generated, and invoices are chased automatically.</p>
+                <div class="icon-box"><i data-lucide="trending-up" size="32"></i></div>
+                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 12px;">Revenue Logistics</h3>
+                <p style="color: var(--text-muted); line-height: 1.7;">Automate the "Quote-to-Cash" cycle. Leads are qualified instantly, quotes are generated via logic, and invoices are chased automatically.</p>
             </div>
             <div class="feature-card">
-                <div class="icon-box"><i data-lucide="brain-circuit"></i></div>
-                <h3>Knowledge Hub</h3>
-                <p style="color: var(--text-muted); margin-top: 12px;">Turn your firm's archives into an instant brain. Ask questions about past cases or contracts and get cited answers in seconds.</p>
+                <div class="icon-box"><i data-lucide="brain-circuit" size="32"></i></div>
+                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 12px;">Knowledge Hub</h3>
+                <p style="color: var(--text-muted); line-height: 1.7;">Turn your firm's archives into an instant, queryable brain. Ask questions about past cases or contracts and get cited answers in seconds using RAG.</p>
             </div>
         </div>
     </section>
 
-    <section id="methodology" class="bg-dark">
-        <div class="container split-section">
+    <section id="methodology" class="dark-section">
+        <div class="dark-pattern"></div>
+        <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2;">
             <div>
                 <div class="mono" style="color: #818cf8; margin-bottom: 16px;">Our Methodology</div>
-                <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 24px;">Built by Enterprise Architects.</h2>
-                <p class="text-muted" style="margin-bottom: 24px; font-size: 1.1rem;">We aren't just developers. We are IT Strategists with backgrounds in Global Service Management and Digital Workplace architecture.</p>
-                <p class="text-muted" style="margin-bottom: 24px; font-size: 1.1rem;">We apply the same rigor used by Fortune 500 companies to streamline professional service firms. No hacks, just scalable systems.</p>
+                <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">Built by Enterprise Architects.</h2>
+                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We aren't just developers. We are IT Strategists with backgrounds in Global Service Management and Digital Workplace architecture.</p>
+                <p style="color: #94a3b8; font-size: 1.2rem;">We apply the same rigor used by Fortune 500 companies to streamline professional service firms. No hacks, just scalable, secure systems.</p>
+                <div style="margin-top: 40px; display: flex; gap: 24px;">
+                    <div><h4 style="font-size: 2rem; font-weight: 800; color: white;">100%</h4><span style="color: #64748b;">Accuracy Target</span></div>
+                    <div><h4 style="font-size: 2rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Uptime</span></div>
+                </div>
             </div>
-            <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);">
+            <div style="background: rgba(255,255,255,0.03); padding: 48px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
                 <i data-lucide="shield-check" size="48" style="color: #818cf8; margin-bottom: 24px;"></i>
-                <h3 style="margin-bottom: 12px;">Security First</h3>
-                <p class="text-muted">Your data is your asset. We architect solutions with enterprise-grade governance and data isolation protocols from Day 1.</p>
+                <h3 style="margin-bottom: 16px; font-size: 1.5rem; font-weight: 700;">Security First Architecture</h3>
+                <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 24px;">Your data is your asset. We architect solutions with enterprise-grade governance, data isolation, and RBAC protocols from Day 1.</p>
+                <div style="display: flex; gap: 12px;">
+                    <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">SOC2 Ready</span>
+                    <span style="background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;">Encryption at Rest</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="container" style="text-align: center; padding: 100px 0;">
-        <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 24px;">Ready to audit your operations?</h2>
-        <button class="btn" onclick="startApp()">Start Assessment <i data-lucide="arrow-right"></i></button>
+    <section class="container" style="text-align: center; padding: 120px 0;">
+        <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px;">Ready to audit your operations?</h2>
+        <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 600px; margin: 0 auto 40px;">Find out exactly how much revenue you are losing to manual processes.</p>
+        <button class="btn" onclick="startApp()" style="font-size: 1.2rem; padding: 20px 48px;">Start Assessment <i data-lucide="arrow-right"></i></button>
     </section>
 
 </div>
 
-<div id="app-view" class="container hidden" style="padding-top: 40px; padding-bottom: 100px;">
+<div id="app-view" class="container hidden" style="padding-top: 60px; padding-bottom: 100px;">
     
     <div id="step-1" class="fade-in">
-        <div style="text-align: center; margin-bottom: 50px;">
-            <div class="mono" style="color: var(--text-muted); margin-bottom: 12px; font-weight: 700;">Phase 01</div>
-            <h2 style="font-size: 2.5rem; letter-spacing: -0.04em; font-weight: 700;">Where can we help you grow?</h2>
-            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 16px auto 0;">Select your priority domains to identify potential revenue and reliability gains.</p>
+        <div style="text-align: center; margin-bottom: 60px;">
+            <div class="mono" style="color: var(--text-muted); margin-bottom: 16px; font-weight: 700;">Phase 01</div>
+            <h2 style="font-size: 3rem; letter-spacing: -0.04em; font-weight: 800; margin-bottom: 16px;">Where can we help you grow?</h2>
+            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Select your priority domains to identify potential revenue and reliability gains.</p>
         </div>
         <div class="feature-grid" id="domain-grid"></div>
         <div style="text-align: center; margin-top: 60px;">
@@ -205,7 +228,7 @@
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
         <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Phase 03: Projection</div>
         <h2 style="font-size: 2.5rem; font-weight: 700;">Estimate Volume</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px;">How many items do you process per week in these areas?</p>
+        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">How many items do you process per week in these areas?</p>
         
         <div id="slider-box"></div>
         
@@ -241,7 +264,7 @@
 
     <div id="step-5" class="hidden fade-in">
         <div class="results-hero">
-            <p class="mono" style="opacity: 0.7;">Annual Opportunity Projection</p>
+            <p class="mono" style="opacity: 0.7; letter-spacing: 2px;">Annual Opportunity Projection</p>
             <div class="big-save" id="final-amt">$0</div>
             <p style="font-size: 1.5rem; opacity: 0.9;">Recovering <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
         </div>
@@ -258,23 +281,24 @@
 <footer>
     <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
         <div>
-            <div class="logo" style="margin-bottom: 16px;">
+            <div class="logo" style="margin-bottom: 24px;">
                 <svg viewBox="0 0 24 24"><path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/><path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/><path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/></svg>
                 MagicFolder
             </div>
-            <p style="color: var(--text-muted); max-width: 300px;">Expert workflow systems for firms and professionals. Efficiency that creates real revenue.</p>
+            <p style="color: var(--text-muted); max-width: 300px; font-size: 0.95rem;">Expert workflow systems for firms and professionals. Efficiency that creates real revenue.</p>
         </div>
         <div>
-            <p class="mono" style="color: var(--text-dark); font-weight: 700; margin-bottom: 16px;">Ecosystem</p>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
+            <p class="mono" style="color: var(--text-dark); font-weight: 700; margin-bottom: 24px;">Ecosystem</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.95rem;">
                 <span style="color: var(--text-muted);">Google Cloud</span>
                 <span style="color: var(--text-muted);">OpenAI</span>
-                <span style="color: var(--text-muted);">Microsoft Azure</span>
+                <span style="color: var(--text-muted);">Anthropic</span>
+                <span style="color: var(--text-muted);">ServiceNow</span>
                 <span style="color: var(--text-muted);">Make.com</span>
             </div>
         </div>
     </div>
-    <div class="container" style="border-top: 1px solid var(--border); margin-top: 40px; padding-top: 32px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+    <div class="container" style="border-top: 1px solid var(--border); margin-top: 60px; padding-top: 32px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
         &copy; 2026 MagicFolder AI. Professional Operational Architecture.
     </div>
 </footer>
@@ -322,7 +346,6 @@
         window.scrollToSection = function(id) {
             document.getElementById('marketing-view').classList.remove('hidden');
             document.getElementById('app-view').classList.add('hidden');
-            // Allow DOM update then scroll
             setTimeout(() => {
                 const el = document.getElementById(id);
                 if(el) el.scrollIntoView({behavior: 'smooth'});
@@ -374,8 +397,8 @@
                         <i data-lucide="check" size="14" style="color:white;"></i>
                     </div>
                     <div style="flex:1;">
-                        <div style="font-weight:700;">${i.label}</div>
-                        <div style="color:var(--text-muted); font-size:0.9rem;">${i.desc}</div>
+                        <div style="font-weight:700; font-size:1.1rem;">${i.label}</div>
+                        <div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div>
                     </div>
                 </div>`).join('');
             lucide.createIcons();
@@ -568,8 +591,8 @@
                 <div class="calc-card" onclick="toggleDomain('${key}', event)">
                     <div class="check-pill"><i data-lucide="check" size="14" style="color:white;"></i></div>
                     <i data-lucide="${DATA[key].icon}" size="40" style="color: var(--primary); margin-bottom:16px;"></i>
-                    <h3 style="font-weight:700; margin-bottom:8px;">${DATA[key].label}</h3>
-                    <p style="color:var(--text-muted); font-size:0.9rem;">${DATA[key].text}</p>
+                    <h3 style="font-weight:700; margin-bottom:8px; font-size:1.25rem;">${DATA[key].label}</h3>
+                    <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.5;">${DATA[key].text}</p>
                 </div>
             `).join('');
             
