@@ -139,7 +139,7 @@
         <div class="marquee-header">Engineered on the world's most advanced infrastructure</div>
         <div class="logo-row">
             <a href="https://www.salesforce.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="h-salesforce"></a>
-            <a href="https://cloud.google.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google"></a>
+            <a href="https://cloud.google.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud"></a>
             <a href="https://openai.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI"></a>
             <a href="https://www.anthropic.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="h-anthropic"></a>
         </div>
@@ -174,7 +174,7 @@
             <div>
                 <div class="mono" style="color: #818cf8; margin-bottom: 16px;">The Methodology</div>
                 <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">Fortune 500 Rigor,<br>Right-Sized for You.</h2>
-                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to growing firms. No complex jargon, just reliable systems that work in the background.</p>
+                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to growing firms. No complex jargon, just reliable systems that scale your capacity.</p>
                 <div style="margin-top: 40px; display: flex; gap: 40px;">
                     <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">100%</h4><span style="color: #64748b;">Accuracy Target</span></div>
                     <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Uptime</span></div>
@@ -267,7 +267,7 @@
         </div>
         <div>
             <p class="mono" style="color: var(--text-dark); margin-bottom: 16px;">Ecosystem</p>
-            <div style="display: grid; grid-template-columns: 1fr; gap: 8px; font-size: 0.9rem; color: var(--text-muted);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.9rem; color: var(--text-muted);">
                 <span>Google Cloud</span><span>OpenAI</span><span>Anthropic</span><span>Salesforce</span>
             </div>
         </div>
@@ -280,25 +280,31 @@
 <script>
 (function() {
     let PDF_LOGO_DATA = "";
+    // RESTORED: FULL DATA OBJECT WITH 12 ITEMS
     const DATA = {
         'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and lead response.', items: [
-            { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on rules.', time: 0.5, unit: 'Quotes/Week' },
-            { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week' }
+            { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on rules.', time: 0.5, unit: 'Quotes/Week', blueprint: "Reduces quote-to-cash cycle by 90%." },
+            { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week', blueprint: "Ensures 5-minute response time via automation." }
         ]},
         'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual data entry and document sorting forever.', items: [
-            { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week' }
+            { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week', blueprint: "Automated OCR extraction prevents manual entry errors." },
+            { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing ensures contracts are stored correctly." }
         ]},
         'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives into an instant queryable brain.', items: [
-            { id: 'kn-rag', label: 'Firm Knowledge Search', desc: 'Search specific facts across thousands of documents.', time: 0.4, unit: 'Searches/Week' }
+            { id: 'kn-rag', label: 'Intelligent Search', desc: 'Search facts across thousands of documents.', time: 0.4, unit: 'Searches/Week', blueprint: "Semantic search reduces research time from hours to seconds." },
+            { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condense transcripts into logic points.', time: 1.5, unit: 'Docs/Week', blueprint: "LLM-driven summaries extract key entities." }
         ]},
-        'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks for total project visibility.', items: [
-            { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week' }
+        'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks for total visibility.', items: [
+            { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week', blueprint: "Real-time dashboarding eliminates status emails." },
+            { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assign tasks based on team capacity.', time: 0.2, unit: 'Tasks/Week', blueprint: "Logic-based routing assigns work instantly." }
         ]},
         'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with 24/7 responsiveness.', items: [
-            { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week' }
+            { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week', blueprint: "Deflects routine inquiries with sourced answers." },
+            { id: 'sup-onboard', label: 'Client Onboarding', desc: 'Automated folder creation and collection.', time: 1.5, unit: 'Onboards/Week', blueprint: "Zero-touch onboarding sequence." }
         ]},
         'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing and paperwork.', items: [
-            { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week' }
+            { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week', blueprint: "Cross-system reconciliation highlights leakage." },
+            { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching across different systems.', time: 0.1, unit: 'Records/Week', blueprint: "Syncs disparate system data to single source." }
         ]}
     };
 
