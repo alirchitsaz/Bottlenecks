@@ -53,7 +53,7 @@
         .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: var(--shadow-sm); }
         .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
 
-        /* --- TRUST MARQUEE --- */
+        /* --- TRUST MARQUEE (REPAIRED) --- */
         .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 50px 0; background: #fff; overflow: hidden; }
         .marquee-header { text-align: center; color: #94a3b8; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-family: 'JetBrains Mono', monospace; }
         
@@ -72,27 +72,21 @@
             display: block; 
             width: auto; 
             transition: opacity 0.2s;
-            opacity: 0.6; /* Balanced opacity */
+            opacity: 0.6; /* Professional muted look */
         }
         .logo-img:hover { opacity: 1; }
         
-        /* === LOGO SIZING FIXES === */
-        /* ServiceNow: Base64 works, keep size standard */
-        .h-servicenow { height: 24px; } 
-        /* Make: Standard icon height */
+        /* === LOGO SIZING (Corrected) === */
+        .h-servicenow { height: 26px; } 
         .h-make { height: 24px; } 
-        /* Salesforce: Cloud is tall, needs ~40px to match optical weight of others */
         .h-salesforce { height: 42px; position: relative; top: -3px; } 
-        /* Google: Text based, standard height */
         .h-google { height: 28px; } 
-        /* OpenAI: Icon + Text, standard height */
         .h-openai { height: 26px; } 
-        /* ANTHROPIC FIX: Drastically reduced height to 22px to fix the "Huge" issue */
-        .h-anthropic { height: 22px; } 
+        .h-anthropic { height: 22px; } /* Small to match text balance */
 
         /* --- FEATURE GRID --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; padding-bottom: 100px; }
-        /* Removed :hover transform/shadow for static features */
+        /* Static features - no hover effect to avoid confusion */
         .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
         .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
         .feature-h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
@@ -107,6 +101,7 @@
         .fade-in { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Interactive Elements */
         .calc-card { 
             background: var(--surface); 
             border: 1px solid var(--border); 
@@ -193,11 +188,11 @@
         <div class="logo-row">
             
             <a href="https://www.servicenow.com" target="_blank" rel="noopener">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMzMuMzMgMjEuNzkiPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik0yMS4yOSAyMS43OUgxNC44VjE0LjE0SDIxLjI5VjIxLjc5Wk0yMS4yOSA3LjY1SDE0LjhWMEgyMS4yOVY3LjY1Wk0xMS42OCAxMC45QzExLjY4IDQuODggNi43OSAwIDAuNzcgMEgwVjIxLjc5SDAuNzdDNi43OSAyMS43OSAxMS42OCAxNi45MiAxMS42OCAxMC45WiIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik0zMy4xMyAxMS4yQzMzLjEzIDEzLjAxIDMzLjEzIDE0Ljc2IDM0LjMgMTYuMjhMMzguMjMgMTQuNTlDMzcuOTggMTMuNjkgMzcuNzkgMTIuNzMgMzcuNzkgMTEuNkMzNy43OSA4LjM4IDM5LjczIDYuMjMgNDIuOTIgNi4yM0M0NS4wNSA2LjIzIDQ2LjI2IDcuMjYgNDYuMjYgOC44OUM0Ni4yNiA5LjQ5IDQ2LjA1IDkuOTggNDUuNjcgMTAuNDNMNDEuMzcgMTQuOTNDMzcuNzkgMTguNTcgMzUuNjggMjEuODUgMzUuNjggMjUuNzJIMzEuMDhWMjUuMzRDMzEuMDggMjEuNiAzMy4zMSAxOC41NSAzNy4wMiAxNC42M0w0MC44OCAxMC41NEM0MC45MSAxMC41IDQwLjk1IDEwLjQzIDQwLjk1IDEwLjM3QzQwLjk1IDEwLjIyIDQwLjgzIDEwLjE1IDQwLjY1IDEwLjE1QzM5LjU2IDEwLjE1IDM3Ljc5IDEwLjg0IDM3Ljc5IDE0LjEyVjE0LjIzSDMzLjEzVjE0LjEyQzMzLjEzIDguOTIgMzcuMzMgMi40MSA0NC45MiAyLjQxQzQ5LjE1IDIuNDEgNTIuMjQgNC45IDUyLjI0IDkuMDVDNTIuMjQgMTEuOTQgNTAuNDYgMTQuNDkgNDcuNjEgMTYuMzhMNDYuODkgMTYuODRDNDkuNTMgMTcuNzUgNTEuNDMgMjAuMjUgNTEuNDMgMjMuMTRDNTEuNDMgMjcuNzggNDcuNDcgMzEuNzIgNDIuMTcgMzEuNzJDNDAuNzIgMzEuNzIgMzkuMzYgMzEuMzcgMzguMTIgMzAuNzhMMzkuMzYgMjYuNzdDNDAuMTggMjcuMTYgNDEuMSAyNy40IDQyLjA1IDI3LjRDNDQuMzQgMjcuNCA0NS44NSAyNS45MyA0NS44NSAyMy42MkM0NS44NSAyMS4yNSA0NC4zNCAxOS43OCA0Mi4wNSAxOS43OEM0MC45OSAxOS43OCAzOS45MyAyMC4xNyAzOS4xMiAyMC44N0wzOC4xNSAxNy40N0M0MC45MyAxNi4wMiA0Mi44MyAxMy4yOCA0Mi44MyAxMC4xOEM0Mi44MyA2Ljc5IDQwLjk5IDMuOTEgMzcuOTQgMy45MUMzNS4xIDMuOTEgMzMuMTMgNS45IDMzLjEzIDguOTJWMTEuMloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExIC01KSIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik01OS44NSAyMS43OUg1NS4yOFY5Ljg5SDU5Ljg1VjIxLjc5Wk01OS44NSA0Ljk0SDU1LjI4VjAuMTlINTkuODVWNC45NFoiLz48cGF0aCBmaWxsPSIjMjkzZTQwIiBkPSJNNzMuMzYgOS44OUw2Ny43MiAyMS43OUg2Mi45OUw2OC42MyA5Ljg5SDczLjM2WiIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik04Mi43NSAxMy4yNkw4NS4wMSA5Ljg5SDgwLjM5TDc2LjA4IDE2LjQ2VjIxLjc5SDcxLjUxVjE2LjQ2TDY3LjIxIDkuODlINjIuNWw0LjY0IDcuMDhMNzQuMzMgMTguMDhMNzcuNTUgMTMuMjZaIi8+PHBhdGggZmlsbD0iIzI5M2U0MCIgZD0iTTg3LjY4IDIxLjc5SDkyLjI1VjkuODlIODcuNjhWMjEuNzlaTTg3LjY4IDQuOTRIOTIuMjVWMCAuMTlIODcuNjhWNC45NFoiLz48cGF0aCBmaWxsPSIjMjkzZTQwIiBkPSJNMTA0LjYgMjIuMTRDMTAwLjUzIDIyLjE0IDk3LjA3IDE5LjIyIDk3LjA3IDE1LjgzQzk3LjA3IDEyLjQ0IDEwMC41MyA5LjUyIDEwNC42IDkuNTJDMTA4LjE4IDkuNTIgMTExLjE1IDExLjgxIDExMS44OCAxNC44N0gxMDcuMTRDMTA2LjYyIDEzLjYyIDEwNS43NSAxMy4wOCAxMDQuNiAxMy4wOEMxMDMuMDggMTMuMDggMTAxLjg0IDE0LjE1IDEwMS44NCAxNS44M0MxMDEuODQgMTcuNTIgMTAzLjA4IDE4LjU4IDEwNC42IDE4LjU4QzEwNS43NSAxOC41OCAxMDYuNjUgMTguMDUgMTA3LjE3IDE2LjdIMTExLjkxQzExMS4yMSAxOS44OCAxMDguMjEgMjIuMTQgMTA0LjYgMjIuMTRaIi8+PHBhdGggZmlsbD0iIzI5M2U0MCIgZD0iTTEyNS44OSAyMS43OUwxMTkuMjggOS44OUgxMTQuMzhWMjEuNzlIMTE4Ljk1VjEzLjY1TDEyNC4xNSAyMS43OUgxMjUuODlWMjEuNzlIMTI3LjYyTDEzMi44MyAxMy42NVYyMS43OUgxMzcuNFY5Ljg5SDEzMi41TDEyNS44OSAyMS43OVoiLz48L3N2Zz4=" alt="ServiceNow" class="logo-img h-servicenow">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/ServiceNow_logo.svg" alt="ServiceNow" class="logo-img h-servicenow">
             </a>
 
             <a href="https://www.make.com" target="_blank" rel="noopener">
-                <img src="https://logo.clearbit.com/make.com" alt="Make" class="logo-img h-make">
+                <img src="https://images.ctfassets.net/unrbf663yeec/1Do2O17x5e6S8q6y88C4Q6/0d3f27f00c144d18471715967520448b/make-logo.svg" alt="Make" class="logo-img h-make">
             </a>
 
             <a href="https://www.salesforce.com" target="_blank" rel="noopener">
