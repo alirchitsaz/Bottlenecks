@@ -60,7 +60,7 @@
         .logo-row { 
             display: flex; 
             justify-content: center; 
-            gap: 60px; 
+            gap: 50px; 
             align-items: center; 
             flex-wrap: wrap; 
             max-width: 1200px;
@@ -68,25 +68,35 @@
             padding: 0 20px;
         }
 
+        /* Style for IMG tags */
         .logo-img { 
             display: block; 
             width: auto; 
-            opacity: 0.8; /* Slight opacity to blend, but high enough to be visible */
+            opacity: 0.8; 
             transition: opacity 0.2s;
         }
         .logo-img:hover { opacity: 1; }
+
+        /* Style for inline SVG tags (MAKE Logo) */
+        .logo-svg {
+            display: block;
+            width: auto;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .logo-svg:hover { opacity: 1; }
         
-        /* Specific Heights to Optical Balance the row */
-        .h-servicenow { height: 22px; }
-        .h-make { height: 22px; }
-        .h-salesforce { height: 45px; position: relative; top: -2px; }
-        .h-google { height: 30px; }
-        .h-openai { height: 28px; }
-        .h-anthropic { height: 26px; }
+        /* === OPTICAL BALANCING (CRITICAL FIXES) === */
+        .h-servicenow { height: 24px; } 
+        .h-make { height: 24px; } 
+        .h-salesforce { height: 42px; position: relative; top: -3px; } 
+        .h-google { height: 28px; } 
+        .h-openai { height: 26px; } 
+        /* ANTHROPIC FIX: Drastically reduced height so it doesn't look huge */
+        .h-anthropic { height: 19px; } 
 
         /* --- FEATURE GRID --- */
         .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; padding-bottom: 100px; }
-        /* Removed :hover transform/shadow for static features to avoid "AI Tell" */
         .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
         .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
         .feature-h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
@@ -101,7 +111,6 @@
         .fade-in { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* INTERACTIVE Cards (These retain hover effects because they are buttons) */
         .calc-card { 
             background: var(--surface); 
             border: 1px solid var(--border); 
@@ -146,7 +155,7 @@
             .hero-h1 { font-size: 3rem; }
             .feature-grid, .split-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
-            .logo-row { gap: 30px; }
+            .logo-row { gap: 40px; }
         }
     </style>
 </head>
@@ -188,27 +197,32 @@
         <div class="logo-row">
             
             <a href="https://www.servicenow.com" target="_blank" rel="noopener">
-                <img src="https://www.vectorlogo.zone/logos/servicenow/servicenow-ar21.svg" alt="ServiceNow" class="logo-img h-servicenow">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMzMuMzMgMjEuNzkiPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik0yMS4yOSAyMS43OUgxNC44VjE0LjE0SDIxLjI5VjIxLjc5Wk0yMS4yOSA3LjY1SDE0LjhWMEgyMS4yOVY3LjY1Wk0xMS42OCAxMC45QzExLjY4IDQuODggNi43OSAwIDAuNzcgMEgwVjIxLjc5SDAuNzdDNi43OSAyMS43OSAxMS42OCAxNi45MiAxMS42OCAxMC45WiIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik0zMy4xMyAxMS4yQzMzLjEzIDEzLjAxIDMzLjEzIDE0Ljc2IDM0LjMgMTYuMjhMMzguMjMgMTQuNTlDMzcuOTggMTMuNjkgMzcuNzkgMTIuNzMgMzcuNzkgMTEuNkMzNy43OSA4LjM4IDM5LjczIDYuMjMgNDIuOTIgNi4yM0M0NS4wNSA2LjIzIDQ2LjI2IDcuMjYgNDYuMjYgOC44OUM0Ni4yNiA5LjQ5IDQ2LjA1IDkuOTggNDUuNjcgMTAuNDNMNDEuMzcgMTQuOTNDMzcuNzkgMTguNTcgMzUuNjggMjEuODUgMzUuNjggMjUuNzJIMzEuMDhWMjUuMzRDMzEuMDggMjEuNiAzMy4zMSAxOC41NSAzNy4wMiAxNC42M0w0MC44OCAxMC41NEM0MC45MSAxMC41IDQwLjk1IDEwLjQzIDQwLjk1IDEwLjM3QzQwLjk1IDEwLjIyIDQwLjgzIDEwLjE1IDQwLjk1IDEwLjE1QzM5LjU2IDEwLjE1IDM3Ljc5IDEwLjg0IDM3Ljc5IDE0LjEyVjE0LjIzSDMzLjEzVjE0LjEyQzMzLjEzIDguOTIgMzcuMzMgMi40MSA0NC45MiAyLjQxQzQ5LjE1IDIuNDEgNTIuMjQgNC45IDUyLjI0IDkuMDVDNTIuMjQgMTEuOTQgNTAuNDYgMTQuNDkgNDcuNjEgMTYuMzhMNDYuODkgMTYuODRDNDkuNTMgMTcuNzUgNTEuNDMgMjAuMjUgNTEuNDMgMjMuMTRDNTEuNDMgMjcuNzggNDcuNDcgMzEuNzIgNDIuMTcgMzEuNzJDNDAuNzIgMzEuNzIgMzkuMzYgMzEuMzcgMzguMTIgMzAuNzhMMzkuMzYgMjYuNzdDNDAuMTggMjcuMTYgNDEuMSAyNy40IDQyLjA1IDI3LjRDNDQuMzQgMjcuNCA0NS44NSAyNS45MyA0NS44NSAyMy42MkM0NS44NSAyMS4yNSA0NC4zNCAxOS43OCA0Mi4wNSAxOS43OEM0MC45OSAxOS43OCAzOS45MyAyMC4xNyAzOS4xMiAyMC44N0wzOC4xNSAxNy40N0M0MC45MyAxNi4wMiA0Mi44MyAxMy4yOCA0Mi44MyAxMC4xOEM0Mi44MyA2Ljc5IDQwLjk5IDMuOTEgMzcuOTQgMy45MUMzNS4xIDMuOTEgMzMuMTMgNS45IDMzLjEzIDguOTJWMTEuMloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExIC01KSIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik01OS44NSAyMS43OUg1NS4yOFY5Ljg5SDU5Ljg1VjIxLjc5Wk01OS44NSA0Ljk0SDU1LjI4VjAuMTlINTkuODVWNC45NFoiLz48cGF0aCBmaWxsPSIjMjkzZTQwIiBkPSJNNzMuMzYgOS44OUw2Ny43MiAyMS43OUg2Mi45OUw2OC42MyA5Ljg5SDczLjM2WiIvPjxwYXRoIGZpbGw9IiMyOTNlNDAiIGQ9Ik04Mi43NSAxMy4yNkw4NS4wMSA5Ljg5SDgwLjM5TDc2LjA4IDE2LjQ2VjIxLjc5SDcxLjUxVjE2LjQ2TDY3LjIxIDkuODlINjIuNWw0LjY0IDcuMDhMNzQuMzMgMTguMDhMNzcuNTUgMTMuMjZaIi8+PHBhdGggZmlsbD0iIzI5M2U0MCIgZD0iTTg3LjY4IDIxLjc5SDkyLjI1VjkuODlIODcuNjhWMjEuNzlaTTg3LjY4IDQuOTRIOTIuMjVWMCAuMTlIODcuNjhWNC45NFoiLz48cGF0aCBmaWxsPSIjMjkzZTQwIiBkPSJNMTA0LjYgMjIuMTRDMTAwLjUzIDIyLjE0IDk3LjA3IDE5LjIyIDk3LjA3IDE1LjgzQzk3LjA3IDEyLjQ0IDEwMC41MyA5LjUyIDEwNC42IDkuNTJDMTA4LjE4IDkuNTIgMTExLjE1IDExLjgxIDExMS44OCAxNC44N0gxMDcuMTRDMTA2LjYyIDEzLjYyIDEwNS43NSAxMy4wOCAxMDQuNiAxMy4wOEMxMDMuMDggMTMuMDggMTAxLjg0IDE0LjE1IDEwMS44NCAxNS44M0MxMDEuODQgMTcuNTIgMTAzLjA4IDE4LjU4IDEwNC42IDE4LjU4QzEwNS43NSAxOC41OCAxMDYuNjUgMTguMDUgMTA3LjE3IDE2LjdIMTExLjkxQzExMS4yMSAxOS44OCAxMDguMjEgMjIuMTQgMTA0LjYgMjIuMTRaIi8+PHBhdGggZmlsbD0iIzI5M2U0MCIgZD0iTTEyNS44OSAyMS43OUwxMTkuMjggOS44OUgxMTQuMzhWMjEuNzlIMTE4Ljk1VjEzLjY1TDEyNC4xNSAyMS43OUgxMjUuODlWMjEuNzlIMTI3LjYyTDEzMi44MyAxMy42NVYyMS43OUgxMzcuNFY5Ljg5SDEzMi41TDEyNS44OSAyMS43OVoiLz48L3N2Zz4=" alt="ServiceNow" class="logo-img h-servicenow">
             </a>
 
-            <a href="https://www.make.com" target="_blank" rel="noopener">
-                <img src="https://www.vectorlogo.zone/logos/make/make-ar21.svg" alt="Make" class="logo-img h-make">
+            <a href="https://www.make.com" target="_blank" rel="noopener" style="color: #000;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 105 24" class="logo-svg h-make">
+                    <path fill="#6d28d9" d="M22.08 0C25.46 0 28.2 2.74 28.2 6.12V18.3H24.36V6.12C24.36 4.85 23.33 3.82 22.06 3.82C20.79 3.82 19.76 4.85 19.76 6.12V18.3H15.92V6.12C15.92 4.85 14.89 3.82 13.62 3.82C12.35 3.82 11.32 4.85 11.32 6.12V18.3H7.48V6.12C7.48 2.74 10.22 0 13.6 0C15.96 0 18.02 1.41 19.16 3.51C20.3 1.41 22.36 0 24.72 0H22.08Z"/>
+                    <path fill="#0f172a" d="M37.66 18.3H33.85C33.85 17.03 34.88 16 36.16 16C37.44 16 38.47 15.03 38.47 13.76V10.66C38.47 7.65 36.56 5.74 33.55 5.74C30.54 5.74 28.63 7.65 28.63 10.66V11.98H32.47V10.66C32.47 9.77 33.07 9.17 33.96 9.17C34.85 9.17 35.45 9.77 35.45 10.66V12.27H31.15C28.14 12.27 26.13 14.28 26.13 17.29C26.13 20.3 28.14 22.31 31.15 22.31C33.09 22.31 34.74 21.35 35.75 19.9L36.35 22.04H37.66V18.3ZM31.15 19.35C30.26 19.35 29.66 18.75 29.66 17.86C29.66 16.97 30.26 16.37 31.15 16.37H35.45V17.86C35.45 18.75 34.85 19.35 33.96 19.35H31.15Z"/>
+                    <path fill="#0f172a" d="M47.78 12.6L51.43 16.25V0.01H47.78V12.6ZM43.94 5.74C40.93 5.74 39.02 7.65 39.02 10.66V18.3H42.86V10.66C42.86 9.77 43.46 9.17 44.35 9.17C45.24 9.17 45.84 9.77 45.84 10.66V18.3H49.68V10.66C49.68 7.65 47.77 5.74 44.76 5.74H43.94Z"/>
+                    <path fill="#0f172a" d="M60.56 14.27H64.6C64.36 10.99 62.47 9.17 59.75 9.17C57.03 9.17 55.14 10.99 54.9 14.27H60.56ZM59.75 5.74C62.76 5.74 64.67 7.65 64.67 10.66V13.45C64.67 13.68 64.66 13.9 64.65 14.12h-6C63.14 17.77 61.55 19.35 59.75 19.35C58.13 19.35 56.66 18.04 55.89 15.86L52.24 17.08C53.51 20.28 56.38 22.31 59.75 22.31C64.52 22.31 68.51 19.12 68.51 14.02V10.66C68.51 7.65 64.6 5.74 60.56 5.74H59.75Z"/>
+                </svg>
             </a>
 
             <a href="https://www.salesforce.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="logo-img h-salesforce">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NSA0NCI+PHBhdGggZmlsbD0iIzAwQTFFMCIgZD0iTTI3LjEgMTQuNUMyNi4yNSAxMi4zMyAyMy4zOCAxMSAyMC4yMiAxMUMxNi40OCAxMSAxMy4zNyAxMy4zIDEyLjA1IDE2LjZDMTAuOTkgMTYuMDggOS4xNCAxNS44MiA3LjE2IDE1LjgyQzEuMzYgMTUuODIgLTMuMzggMjAuNTYgLTMuMzggMjYuMzRDLTMuMzggMjcuMTMgLTMuMTIgMjcuOTIgLTIuODYgMjguN0MxLjE4IDMwLjAyIDIuMjUgMzIuNjggMi4yNSAzNS4wNUMyLjI1IDM5LjUyIC0xLjE3IDQzLjIyIC01LjY1IDQzLjIyQzIxLjk2IDQzLjIyIDI3LjIzIDM3Ljk3IDI3LjIzIDMxLjM4QzI3LjIzIDI1LjMzIDIyLjczIDIwLjMzIDE2LjY4IDE5LjIyQzE2Ljk0IDE4LjcgMTcuNzMgMTguMTcgMTguNTEgMTguMTdDMjAuMTcgMTguMTcgMjIuODUgMTkuNDggMjUuNzUgMjEuODVDMjcuMzMgMjEuMDYgMjkuMTcgMjAuNjcgMzEuMTQgMjAuNjdDMzguNjMgMjAuNjcgNDQuNjggMjYuODMgNDQuNjggMzQuNDVDNDQuNjggNDQuMDIgMzguNjMgNDkuMjcgMjkuMTQgNDkuMjdILTAuODZDLTcuMTIgNDkuMjcgLTEyLjIgNDQuMTggLTEyLjIgMzcuOUMtMTIuMiAzMS42MyAtNy4xMiAyNi41NSAtMC44NiAyNi41NUMtMC4yNiAyNi41NSAwLjMzIDI2LjYyIDAuODkgMjYuNzVIMjcuMVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1IC04KSIvPjxwYXRoIGZpbGw9IiMwMEExRTAiIGQ9Ik00Ny44NiAyM0M0Ni4zOCAyMyA0NS4yNSAyMy42IDQ0LjU1IDI0LjU4TDQzLjMxIDI5LjI1SDQ1LjQ2TDQ2LjM2IDI1LjY1QzQ2LjY2IDI1IDQ3LjExIDI0LjgyIDQ3LjY2IDI0LjgyQzQ4LjcxIDI0LjgyIDQ5LjMxIDI1LjM1IDQ5LjMxIDI2LjJDNGV4LjMxIDI2LjY1IDQ5LjExIDI3LjE1IDQ4Ljg2IDI3LjhMNDcuMDEgMzQuODVINDkuMTZMNDkuMTYgMzQuODVMNTEuMDEgMjcuNzhDNTEuNTYgMjUuNjggNTIuNDEgMjQuNDggNTIuOTYgMjMuOThDNTIuMzEgMjMuMzggNTAuMzEgMjMgNDcuODYgMjNaIi8+PHBhdGggZmlsbD0iIzAwQTFFMCIgZD0iTTU3LjMxIDI5LjQ1QzU2Ljc2IDMxLjY1IDU3Ljk2IDMyLjUgNTkuMjEgMzIuN1M2MS4wNiAzMi4yNSA2MS40MSAzMS43NUw2Mi40NiAzMy4xQzYxLjg2IDMzLjg1IDYwLjU2IDM0LjUgNTkuMTEgMzQuNUM1Ni42NiAzNC41IDU0LjgxIDMyLjkgNTQuODEgMzAuNEM1NC44MSAyNi44NSA1Ny41NiAyNC45IDYwLjY2IDI0LjlDNjIuOTYgMjQuOSA2NC40MSAyNi4wNSA2NC40MSAyNy44QzY0LjQxIDI4LjEgNjQuMzYgMjguNCA2NC4zMSAyOC42NUg1Ny4zMVpNWTkuMTYgMjguMUM1OS4xNiAyNy4xNSA1OC42MSAyNi42IDU3Ljc2IDI2LjZDNTYuNjEgMjYuNiA1Ni4wNiAyNy4zNSA1NS44MSAyOC4xSDU5LjE2WiIvPjwvc3ZnPg==" alt="Salesforce" class="logo-img h-salesforce">
             </a>
 
             <a href="https://cloud.google.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google Cloud" class="logo-img h-google">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzVGNjM2OCIgZD0iTTE2LjEyNSA3LjE4NWE0LjI1NiA0LjI1NiAwIDAgMC0zLjMyOC0xLjc0OCA0LjI1NiA0LjI1NiAwIDAgMC0zLjk1NSAyLjY1MS45OCAwIDAgMS0xLjM1My40NjguOTguOTggMCAwIDEtLjQ2OC0xLjM1MyA2LjIgNi4yIDAgMCAxIDUuNzc2LTMuODgyYzIuNDc4IDAgNC42MzEgMS40OCA1LjY3MiAzLjYzYTYuMSA2LjEgMCAwIDEgMy41MiA1LjU2NGMwIDMuMzktMi43NTMgNi4xMzYtNi4xMzcgNi4xMzZINi4xMzdBNi4xMyA2LjEzIDAgMCAxIDAgMTIuNTE1YTYuMTMgNi4xMyAwIDAgMSA2LjEzNy02LjEzN2MuMzM4IDAgLjY2OC4wMzYuOTkuMDk2YS45OC45OCAwIDEgMS0uMzYgMS45MjYgNC4xOSA0LjE5IDAgMCAwLS42My0uMDY1IDQuMTcyIDQuMTcyIDAgMCAwLTQuMTczIDQuMThjMCAyLjMgMS44NzQgNC4xNzMgNC4xNzMgNC4xNzNoOS44NTFjMi4zIDAgNC4xNzMtMS44NzMgNC4xNzMtNC4xNzMgMC0yLjEyNC0xLjU5LTMuODc2LTMuNjQ5LTQuMTI3YS45OC45OCAwIDAgMS0uODc2LS45NzUuOTkuOTkgMCAwIDEgLjQ5LTEuMTI4WiIvPjwvc3ZnPg==" alt="Google Cloud" class="logo-img h-google">
             </a>
 
             <a href="https://openai.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" class="logo-img h-openai">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzVGNjM2OCIgZD0iTTIyLjI4MTkgOS44MjExYTUuOTg0NyA1Ljk4NDcgMCAwIDAtLjUxNTctNC45MTA4IDYuMDQ2MiA2LjA0NjIgMCAwIDAtNi41MDk4LTIuOUE2LjA2NTEgNi4wNjUxIDAgMCAwIDQuOTgwNyA0LjE4MThhNS45ODQ3IDUuOTg0NyAwIDAgMC0zLjk5NzcgMi45IDYuMDQ2MiA2LjA0NjIgMCAwIDAtLjc0MjcgNy4wOTY2IDUuOTggNS45OCAwIDAgMCAuNTExIDQuOTEwNyA2LjA0NjIgNi4wNDYyIDAgMCAwIDYuNTE0NiAyLjkwMDFBNS45ODQ3IDUuOTg0NyAwIDAgMCAxMy4yNTk5IDI0YTYuMDU1NyA2LjA1NTcgMCAwIDAgNS43NzE4LTQuMjA1OCA1Ljk4OTQgNS45ODk0IDAgMCAwIDMuOTk3Ny0yLjkwMDEgNi4wNTU3IDYuMDU1NyAwIDAgMC0uNzQ3NS03LjA3Mjl6bS05LjAyMiAxMi42MDgxYTQuNDc1NSA0LjQ3NTUgMCAwIDEtMi44NzY0LTEuMDQwOGwuMTQxOS0uMDg0MyAzLjUzODMtMS45NzIzVjEzLjMyMWwzLjQ3My0xLjkyOHY2Ljc5MTZhNC40NTIyIDQuNDUyMiAwIDAgMS00LjI3NjQgNC4yNDQ3aC0uMDAwNHpNMy4yMDUzIDExLjIzNDZhNC40NzA3IDQuNDcwNyAwIDAgMS0uMjI1NS00LjMyMUw2LjM3IDguOTEwMXYzLjk2NTVsLTMuMzc2NSAxLjk0NzlWOC4wNDY0bC0uMTYxMy0uMjcwNmE0LjQ0NzMgNC40NDczIDAgMCAxIC4zNzMxIDMuNDU4OHptMTUuODI4NCAzLjQwN2E0LjQ3IDQuNDcgMCAwIDEgMi4yMjI1LTIuMjk2NWwtLjE2MTMuMjcwNnY2Ljc5MTZsLTMuMzc2Ni0xLjk0Nzl2LTMuOTY1NWwzLjQ3My0xLjkyOHYyLjg1OTZhNC40NTIyIDQuNDUyMiAwIDAgMS0yLjE1NzIgMi4xNjYxaC0uMDAwNHpNMTAuODcxNiAzLjA2NzNhNC40NyA0LjQ3IDAgMCAxIDIuODc2NCAxLjA0MDhsLS4xNDE5LjA4NDMtMy41MzgzIDEuOTcyM3Y2LjAwMjJsLTMuNDczIDEuOTI4VjcuMzIzNGE0LjQ1MjIgNC40NTIyIDAgMCAxIDQuMjc2NC00LjI0NDdoLjAwMDR2LS4wMTE0em04LjM5NzYgNC45MDlhNC40NzA3IDQuNDcwNyAwIDAgMSAuMjI1NSA0LjMyMUwxNi4wMzcgMTAuMzI5di0zLjk2NWwzLjM3NjUtMS45NDc5djYuNzc3bC4xNjEzLjI3MDZhNC40NDczIDQuNDQ3MyAwIDAgMS0uMzczMS0zLjQ1ODdoLS4wMDA1em0tNy42MTEgMi42NTFMOC4xNDA3IDguNjU1bDMuMzc2Ni0xLjk0NzkgMy41MTczIDEuOTY3OHYzLjkwNTZsLTMuMzc2NSAxLjk0NzktMy41MTczLTEuOTY3OHYtMy45MDU2eiIvPjwvc3ZnPg==" alt="OpenAI" class="logo-img h-openai">
             </a>
 
             <a href="https://www.anthropic.com" target="_blank" rel="noopener">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="logo-img h-anthropic">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzVGNjM2OCIgZD0iTTE3LjQxIDE5LjQ2SDE5LjlMMTMuMSAzSDEwLjlMNC4xIDE5LjQ2SDYuNTlMOC4yMyAxNS4zSDE1Ljc3TDE3LjQxIDE5LjQ2Wk0xMiA2LjE2TDE0Ljg2IDEzLjJIOS4xNEwxMiA2LjE2WiIvPjwvc3ZnPg==" alt="Anthropic" class="logo-img h-anthropic">
             </a>
             
         </div>
