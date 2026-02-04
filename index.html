@@ -3,106 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Professional Workflow Architecture</title>
+    <title>MagicFolder | Automate Your Busy Work</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z' fill='%234f46e5'/%3E%3Cpath d='M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z' fill='white'/%3E%3C/svg%3E">
     
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --primary: #4f46e5; 
-            --primary-dark: #4338ca; 
-            --primary-soft: rgba(79, 70, 229, 0.08); 
-            --bg: #ffffff; 
-            --surface: #f8fafc; 
-            --text-dark: #0f172a; 
-            --text-muted: #64748b; 
-            --border: #e2e8f0; 
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); 
-        }
-
-        /* --- BASE STYLES --- */
+        :root { --primary: #4f46e5; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-dark: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; position: relative; z-index: 2; }
-        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        body { background: #fff; color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; flex: 1; width: 100%; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
         
-        /* --- NAVIGATION --- */
-        nav { padding: 16px 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        nav { padding: 24px 0; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; color: var(--text-dark); cursor: pointer; letter-spacing: -0.02em; }
-        .logo svg { width: 28px; height: 28px; fill: var(--primary); }
-        .nav-links { display: flex; gap: 40px; align-items: center; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.2s; cursor: pointer; }
-        .nav-links a:hover { color: var(--primary); }
-        .nav-btn { background: var(--text-dark); color: white; padding: 10px 24px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; transition: 0.2s; }
-        .nav-btn:hover { background: #334155; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        
-        /* --- HERO --- */
-        section { padding: 100px 0; }
-        .hero-section { padding: 120px 0 80px; text-align: center; position: relative; }
-        .hero-bg { position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 100vw; height: 1000px; background: radial-gradient(circle, rgba(79,70,229,0.04) 0%, rgba(255,255,255,0) 60%); z-index: 0; pointer-events: none; }
-        .hero-h1 { font-size: clamp(3.5rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 24px; color: var(--text-dark); }
-        .hero-p { font-size: 1.35rem; color: var(--text-muted); max-width: 720px; margin: 0 auto 48px; line-height: 1.5; }
-        
-        .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3); }
-        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4); }
-        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); box-shadow: var(--shadow-sm); }
-        .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); }
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; color: var(--text-dark); cursor: pointer; }
+        .logo svg { width: 32px; height: 32px; fill: var(--primary); }
 
-        /* --- LOGO STRIP --- */
-        .marquee-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 60px 0; background: #fff; overflow: hidden; }
-        .marquee-header { text-align: center; color: #94a3b8; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; font-family: 'JetBrains Mono', monospace; }
-        .logo-row { display: flex; justify-content: center; gap: 60px; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .logo-row a { display: block; transition: 0.2s ease; opacity: 0.5; filter: grayscale(100%); }
-        .logo-row a:hover { opacity: 1; filter: grayscale(0%); }
-        .logo-row img { height: 28px; width: auto; display: block; }
-        /* Optical balance */
-        .h-salesforce { height: 42px !important; margin-top: -4px; }
-        .h-anthropic { height: 20px !important; }
-
-        /* --- FEATURES --- */
-        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
-        .feature-card { background: white; padding: 48px 40px; border-radius: 24px; border: 1px solid var(--border); position: relative; }
-        .icon-box { width: 56px; height: 56px; background: var(--surface); border-radius: 12px; display: grid; place-items: center; color: var(--primary); margin-bottom: 24px; border: 1px solid var(--border); }
-        .feature-h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
-        .feature-p { color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; }
-
-        /* --- METHODOLOGY --- */
-        .dark-section { background: #0f172a; color: white; padding: 100px 0; position: relative; overflow: hidden; }
-        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
+        .hero { padding: 60px 0 30px; text-align: center; min-height: 480px; }
+        .headline-container { min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; }
+        .hero h1 { font-size: clamp(3.2rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 16px; transition: opacity 0.4s; }
+        .hero .sub-hero { max-width: 720px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.4s; min-height: 3em; }
         
-        /* --- CALCULATOR --- */
+        .dot-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; }
+        .dot-wrapper { width: 40px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; }
+        .dot-wrapper.active .dot-progress { width: 100%; background: var(--primary); height: 100%; }
+        
+        .industry-bar { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; margin-top: 40px; }
+        .industry-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+        .industry-tag { background: var(--surface); padding: 6px 18px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border); }
+
+        .grid-container { padding: 50px 0; max-width: 1200px; margin: 0 auto; }
+        .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        @media (max-width: 1024px) { .domain-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .domain-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2.5rem; } }
+
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 32px; cursor: pointer; transition: 0.3s; position: relative; height: 100%; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
+        .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
+        .card h3 { font-size: 1.5rem; margin-bottom: 8px; font-weight: 700; letter-spacing: -0.03em; }
+        .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.5; flex-grow: 1; }
+        .check-pill { position: absolute; top: 32px; right: 32px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; }
+        .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
+
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; border-radius: 20px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center; }
+        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
+
+        .results-hero { background: #0f172a; color: white; padding: 80px 32px; border-radius: 40px; text-align: center; margin-top: 32px; }
+        .big-save { font-size: clamp(3.5rem, 10vw, 6.5rem); color: #818cf8; font-weight: 800; margin: 16px 0; letter-spacing: -3px; line-height: 1; }
         
-        .calc-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; position: relative; height: 100%; }
-        .calc-card:hover { background: white; border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
-        .calc-card.selected { border-color: var(--primary); background: white; box-shadow: 0 0 0 2px var(--primary); }
-        .check-pill { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); position: absolute; top: 24px; right: 24px; display: grid; place-items: center; transition: 0.2s; }
-        .calc-card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
-        
-        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; border-radius: 16px; margin-bottom: 12px; cursor: pointer; align-items: center; transition: 0.2s; }
-        .audit-item.selected { border-color: var(--primary); background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        
-        .results-box { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 80px 32px; border-radius: 32px; text-align: center; margin-top: 32px; }
-        .big-save { font-size: clamp(3.5rem, 10vw, 6.5rem); color: #818cf8; font-weight: 800; margin: 24px 0; line-height: 1; }
-        
-        input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1rem; width: 100%; outline: none; transition: 0.2s; font-family: inherit; }
+        .cta-card { background: var(--surface); padding: 48px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 32px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 24px auto 0; }
+        input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1.05rem; width: 100%; outline: none; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
 
-        footer { background: white; padding: 80px 0 40px; border-top: 1px solid var(--border); margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 60px; }
+        .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; }
+        .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-soft); }
+        .btn-count { background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; margin-left: 8px; font-weight: 800; }
 
-        @media (max-width: 768px) {
-            .hero-h1 { font-size: 3rem; }
-            .feature-grid, .split-grid, .footer-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-        }
+        footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 80px; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 2fr; gap: 60px; }
+        .footer-platforms { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
+        .footer-platforms a { display: block; color: var(--text-dark); font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: 0.2s; }
+        .footer-platforms a:hover { color: var(--primary); }
+        .footer-bottom { border-top: 1px solid var(--border); margin-top: 60px; padding-top: 32px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+        @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; text-align: center; } .footer-platforms { grid-template-columns: 1fr 1fr; } .form-row { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -115,377 +86,321 @@
             <svg viewBox="0 0 24 24"><path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/><path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/><path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/></svg>
             MagicFolder
         </div>
-        <div class="nav-links">
-            <a onclick="scrollToSection('solutions')">Solutions</a>
-            <a onclick="scrollToSection('methodology')">Our Approach</a>
-            <button class="nav-btn" onclick="startApp()">ROI Calculator</button>
-        </div>
+        <div class="mono" style="color: var(--text-muted); font-weight: 700;">Simple. Smart. Scalable.</div>
     </div>
 </nav>
 
-<div id="marketing-view">
-    <section class="hero-section">
-        <div class="hero-bg"></div>
-        <div class="container">
-            <div class="mono" style="color: var(--primary); margin-bottom: 24px; opacity: 0.9;">Professional Workflow Automation</div>
-            <h1 class="hero-h1">Intelligently effortless.</h1>
-            <p class="hero-p">Scale your revenue without adding headcount. We turn manual document firefighting into automated systems that run your business in the background.</p>
-            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <button class="btn" onclick="startApp()">Calculate Your ROI <i data-lucide="calculator" size="20"></i></button>
-                <button class="btn btn-outline" onclick="scrollToSection('methodology')">How We Work</button>
-            </div>
+<div class="container">
+    <div id="hero" class="hero fade-in">
+        <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 800; letter-spacing: 3px;">AUTOMATION FOR BUSY PEOPLE</div>
+        <div id="swipe-zone" class="headline-container" onclick="handleHeroClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
+            <h1 id="slideshow-title">Stop doing work<br>computers can do.</h1>
+            <p id="slideshow-sub" class="sub-hero">We automate the boring parts of your business so you can focus on the work that actually makes money.</p>
         </div>
-    </section>
-
-    <div class="marquee-section">
-        <div class="marquee-header">Engineered on the world's most advanced infrastructure</div>
-        <div class="logo-row">
-            <a href="https://www.salesforce.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" alt="Salesforce" class="h-salesforce"></a>
-            <a href="https://cloud.google.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" alt="Google"></a>
-            <a href="https://openai.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI"></a>
-            <a href="https://www.anthropic.com" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="h-anthropic"></a>
-        </div>
-    </div>
-
-    <section id="solutions" class="container">
-        <div class="mono" style="color: var(--primary); margin-bottom: 16px;">The Namesake</div>
-        <h2 style="font-size: 2.5rem; margin-bottom: 24px; font-weight: 700;">The "Magic Folder" Principle.</h2>
-        <p style="color: var(--text-muted); max-width: 650px; font-size: 1.15rem; margin-bottom: 60px;">Drop any file into a monitored folder. Our system automatically identifies, extracts, routes, and files the data with 100% accuracy. Zero manual entry.</p>
-        
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="icon-box"><i data-lucide="folder-search" size="28"></i></div>
-                <h3 class="feature-h3">Magic Intake</h3>
-                <p class="feature-p">Drop invoices, tax forms, or IDs. They are identified instantly and mapped to your core business systems without a human touch.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box"><i data-lucide="trending-up" size="28"></i></div>
-                <h3 class="feature-h3">Revenue Logistics</h3>
-                <p class="feature-p">Automate the "Quote-to-Cash" cycle. Quotes are generated via logic, leads are qualified, and invoices are chased automatically.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box"><i data-lucide="brain-circuit" size="28"></i></div>
-                <h3 class="feature-h3">Knowledge Hub</h3>
-                <p class="feature-p">Turn your firm's archives into an instant queryable brain. Ask complex questions and get cited answers from your data in seconds.</p>
-            </div>
-        </div>
-    </section>
-
-    <div id="methodology" class="dark-section">
-        <div class="container split-grid">
-            <div>
-                <div class="mono" style="color: #818cf8; margin-bottom: 16px;">The Methodology</div>
-                <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1;">Fortune 500 Rigor,<br>Right-Sized for You.</h2>
-                <p style="color: #94a3b8; margin-bottom: 24px; font-size: 1.2rem;">We bring enterprise-grade standards to growing firms. No complex jargon, just reliable systems that scale your capacity.</p>
-                <div style="margin-top: 40px; display: flex; gap: 40px;">
-                    <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">100%</h4><span style="color: #64748b;">Accuracy Target</span></div>
-                    <div><h4 style="font-size: 2.5rem; font-weight: 800; color: white;">24/7</h4><span style="color: #64748b;">System Uptime</span></div>
-                </div>
-            </div>
-            <div style="background: rgba(255,255,255,0.03); padding: 48px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(12px);">
-                <i data-lucide="shield-check" size="48" style="color: #818cf8; margin-bottom: 24px;"></i>
-                <h3 style="margin-bottom: 16px; font-size: 1.5rem; font-weight: 700;">Security First Architecture</h3>
-                <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 24px;">Your client data is your most valuable asset. We architect solutions with enterprise-grade governance and data isolation protocols from Day 1.</p>
+        <div class="dot-container" id="dot-container"></div>
+        <button class="btn" onclick="setStep(1)">See What I Can Automate <i data-lucide="arrow-right"></i></button>
+        <div class="industry-bar">
+            <span class="mono" style="color: var(--text-muted); font-weight: 700;">Built For:</span>
+            <div class="industry-grid">
+                <div class="industry-tag">Lawyers</div><div class="industry-tag">Real Estate Agents</div><div class="industry-tag">Consultants</div><div class="industry-tag">Service Businesses</div><div class="industry-tag">Founders</div>
             </div>
         </div>
     </div>
 
-    <section class="container" style="text-align: center; padding: 120px 0;">
-        <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 24px;">Ready to find your lost revenue?</h2>
-        <button class="btn" onclick="startApp()" style="font-size: 1.2rem; padding: 20px 48px;">Start Assessment <i data-lucide="arrow-right"></i></button>
-    </section>
-</div>
-
-<div id="app-view" class="container hidden" style="padding-top: 60px; padding-bottom: 100px;">
-    <div id="step-1" class="fade-in">
-        <div style="text-align: center; margin-bottom: 60px;">
-            <div class="mono" style="color: var(--text-muted); margin-bottom: 16px;">Phase 01</div>
-            <h2 style="font-size: 3rem; letter-spacing: -0.04em; font-weight: 800;">Where can we help you grow?</h2>
-            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 650px; margin: 16px auto 0;">Select your priority domains to identify potential revenue and reliability gains.</p>
+    <div id="step-1" class="hidden fade-in grid-container">
+        <div style="text-align: center; margin-bottom: 50px;">
+            <div class="mono" style="color: var(--text-muted); margin-bottom: 12px; font-weight: 700;">Step 1 of 3</div>
+            <h2 style="font-size: 2.5rem; letter-spacing: -0.04em;">What slows you down?</h2>
+            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 650px; margin: 16px auto 0;">Select the areas where you feel like you're wasting time.</p>
         </div>
-        <div class="feature-grid" id="domain-grid"></div>
+        <div class="domain-grid" id="domain-grid"></div>
         <div style="text-align: center; margin-top: 60px;">
-            <button class="btn" onclick="validateStep1()">Map My Growth <span id="domain-count" class="mono" style="margin-left:8px; opacity:0.7;">0</span></button>
-            <div id="err-1" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please select at least one area.</div>
+            <button class="btn" onclick="validateStep1()">Next: Estimate Volume <span id="domain-count" class="btn-count">0</span></button>
+            <div id="err-1" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please pick at least one area.</div>
         </div>
     </div>
 
-    <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 02: Analysis</div>
-        <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 40px;">Identify the Bottlenecks</h2>
-        <div id="task-list"></div>
+    <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 40px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Step 2 of 3</div>
+        <h2 style="font-size: 2.5rem; letter-spacing: -0.04em;">Specific Tasks</h2>
+        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;">Which of these tasks are eating up your week?</p>
+        <div id="task-list" style="margin-top: 40px;"></div>
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
-            <button class="btn btn-outline" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Next Step <span id="task-count" class="mono" style="margin-left:8px; opacity:0.7;">0</span></button>
+            <button class="btn" style="background:transparent; color:var(--text-dark); border:1px solid var(--border);" onclick="setStep(1)">Back</button>
+            <button class="btn" onclick="validateStep2()">Next: Calculate Savings <span id="task-count" class="btn-count">0</span></button>
         </div>
     </div>
 
-    <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Phase 03: Projection</div>
-        <h2 style="font-size: 2.5rem; font-weight: 700;">Estimate Volume</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px;">How many items do you process per week in these areas?</p>
+    <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 40px 0;">
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Step 3 of 3</div>
+        <h2 style="font-size: 2.5rem;">How much do you do?</h2>
+        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">Give us a rough weekly estimate for each task.</p>
         <div id="slider-box"></div>
-        <div style="background: var(--surface); padding: 32px; border-radius: 24px; border: 1px dashed var(--border); margin-top: 40px;">
-            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom: 16px;">
-                <span class="mono">Resource Hourly Value</span>
-                <span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span>
-            </div>
-            <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; accent-color:var(--primary);">
+        <div style="background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed; margin-top: 40px;">
+            <div style="display:flex; justify-content:space-between; font-weight:700;"><span class="mono">What is an hour of your time worth?</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div>
+            <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:20px; accent-color:var(--primary);">
         </div>
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
-            <button class="btn btn-outline" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="setStep(4)">View Blueprint <i data-lucide="arrow-right"></i></button>
+            <button class="btn" style="background:transparent; color:var(--text-dark); border:1px solid var(--border);" onclick="setStep(2)">Back</button>
+            <button class="btn" onclick="setStep(4)">See My Potential Savings <i data-lucide="arrow-right"></i></button>
         </div>
     </div>
 
-    <div id="step-4" class="hidden fade-in" style="max-width: 600px; margin: 0 auto; text-align: center;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px;">Final Step</div>
-        <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px;">Unlock Your Strategy Report</h2>
-        <p style="color: var(--text-muted); margin-bottom: 32px;">Identify the path to 24/7 availability and 100% accuracy.</p>
-        <div style="background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border);">
-            <input type="text" id="user-name" placeholder="Full Name" style="margin-bottom:12px;">
-            <input type="text" id="user-company" placeholder="Company Name" style="margin-bottom:12px;">
-            <input type="email" id="user-email" placeholder="Business Email" style="margin-bottom:12px;">
-            <button class="btn" style="width: 100%; justify-content: center; margin-top: 16px;" onclick="submitToFormspree()">Unlock Report <i data-lucide="unlock"></i></button>
+    <div id="step-4" class="hidden fade-in" style="padding: 60px 0; max-width: 700px; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 12px;">One Last Thing</div>
+            <h2>Where should we send your plan?</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 10px;">We'll email you a copy of your custom automation blueprint.</p>
+        </div>
+        <div class="cta-card">
+            <div class="form-row"><input type="text" id="user-name" placeholder="Your Name"><input type="text" id="user-company" placeholder="Business Name"></div>
+            <div style="max-width: 650px; margin: 16px auto;"><input type="email" id="user-email" placeholder="Work Email Address"></div>
+            <div style="display:none;"><input type="text" id="gotcha-field" value=""></div>
+            <button class="btn" style="width: 100%; max-width: 650px; margin-top: 16px; justify-content: center;" onclick="submitToFormspree()" id="submit-btn">Unlock My Report <i data-lucide="unlock"></i></button>
+            <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields correctly.</div>
         </div>
     </div>
 
-    <div id="step-5" class="hidden fade-in">
-        <div class="results-box">
-            <p class="mono" style="opacity: 0.7; letter-spacing: 2px;">Annual Opportunity Projection</p>
+    <div id="step-5" class="hidden fade-in" style="padding: 60px 0;">
+        <div class="results-hero">
+            <p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Value You Can Reclaim</p>
             <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.5rem; opacity: 0.9;">Recovering <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
+            <p style="font-size: 1.5rem; opacity: 0.9;">That's <strong id="final-hours" style="color:white;">0</strong> hours of busy work per year.</p>
         </div>
         <div style="text-align: center; margin-top: 50px;">
-            <button class="btn" style="background: var(--text-dark);" onclick="generatePDFBlueprint()"><i data-lucide="download"></i> Download SME Strategy Blueprint (PDF)</button>
-            <div style="margin-top: 32px;"><button class="btn btn-outline" onclick="goHome()">Back to Home</button></div>
+            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download My Blueprint (PDF)</button>
+            <p style="margin-top: 24px; color: var(--text-muted); font-size: 0.95rem;">We'll be in touch to show you exactly how to automate this.</p>
         </div>
     </div>
 </div>
 
 <footer>
-    <div class="container footer-grid">
+    <div class="footer-inner">
         <div>
-            <div class="logo">MagicFolder</div>
-            <p style="color: var(--text-muted); max-width: 300px; margin-top: 16px; font-size: 0.95rem;">Expert workflow systems for firms and professionals. Efficiency that creates real revenue.</p>
+            <h4>MagicFolder</h4>
+            <p style="font-size: 1.05rem; color: var(--text-muted); max-width: 400px; margin-top: 16px; line-height: 1.6;">We build systems that do the work for you. Simple, scalable, and secure.</p>
         </div>
         <div>
-            <p class="mono" style="color: var(--text-dark); margin-bottom: 16px;">Ecosystem</p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.9rem; color: var(--text-muted);">
-                <span>Google Cloud</span><span>OpenAI</span><span>Anthropic</span><span>Salesforce</span>
+            <h5 class="mono">Powered By</h5>
+            <div class="footer-platforms">
+                <a href="https://openai.com" target="_blank">OpenAI</a>
+                <a href="https://anthropic.com" target="_blank">Anthropic</a>
+                <a href="https://cloud.google.com" target="_blank">Google</a>
+                <a href="https://www.servicenow.com" target="_blank">ServiceNow</a>
+                <a href="https://www.make.com" target="_blank">Make.com</a>
+                <a href="https://www.salesforce.com" target="_blank">Salesforce</a>
             </div>
         </div>
     </div>
-    <div class="container" style="border-top: 1px solid var(--border); margin-top: 60px; padding-top: 32px; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
-        &copy; 2026 MagicFolder AI. Professional Operational Architecture.
-    </div>
+    <div class="footer-bottom">&copy; 2026 MagicFolder AI. Automate your busy work.</div>
 </footer>
 
 <script>
-(function() {
-    let PDF_LOGO_DATA = "";
-    // EXPANDED DATA OBJECT: 15 USE CASES TOTAL
-    const DATA = {
-        'revenue': { label: 'Revenue & Growth', icon: 'trending-up', text: 'Maximize your sales cycle with automated quoting and lead response.', items: [
-            { id: 'rev-quote', label: 'Automated Client Quoting', desc: 'Instantly generate accurate quotes based on rules.', time: 0.5, unit: 'Quotes/Week', blueprint: "Reduces quote-to-cash cycle by 90% via automation." },
-            { id: 'rev-lead', label: 'Intelligent Lead Intake', desc: 'Qualify and route inquiries automatically.', time: 0.2, unit: 'Leads/Week', blueprint: "Ensures 5-minute response time via triage engines." }
-        ]},
-        'magicfolder': { label: 'The Magic Folder', icon: 'folder-search', text: 'Eliminate manual entry and document sorting forever.', items: [
-            { id: 'mf-invoices', label: 'Invoice Logistics', desc: 'Auto-extraction and bill validation.', time: 0.25, unit: 'Invoices/Week', blueprint: "OCR extraction prevents manual entry errors." },
-            { id: 'mf-contracts', label: 'Contract Mapping', desc: 'Automatic filing and term analysis.', time: 0.2, unit: 'Docs/Week', blueprint: "Context-aware filing standardizes document metadata." },
-            { id: 'mf-expenses', label: 'Expense Automation', desc: 'Sync receipts to accounting line-items.', time: 0.2, unit: 'Receipts/Week', blueprint: "Direct multi-system sync for expense reconciliation." },
-            { id: 'mf-onboard', label: 'Magic Intake', desc: 'Processing IDs and Tax Forms automatically.', time: 0.5, unit: 'Files/Week', blueprint: "Auto-routing of onboarding documents to secure folders." },
-            { id: 'mf-sync', label: 'Cross-System Syncing', desc: 'Trigger CRM updates via folder activity.', time: 0.3, unit: 'Syncs/Week', blueprint: "Real-time CRM record updates from local activity." }
-        ]},
-        'knowledge': { label: 'Knowledge Hub', icon: 'brain-circuit', text: 'Turn archives into an instant queryable brain.', items: [
-            { id: 'kn-rag', label: 'Intelligent Firm Search', desc: 'Search facts across thousands of documents.', time: 0.4, unit: 'Searches/Week', blueprint: "Semantic Search reduces research time from hours to seconds." },
-            { id: 'kn-briefing', label: 'Document Summarization', desc: 'Condense transcripts into logic points.', time: 1.5, unit: 'Docs/Week', blueprint: "LLM-driven summaries extract key entities instantly." }
-        ]},
-        'requests': { label: 'Request Hub', icon: 'clipboard-list', text: 'Centralize team tasks and customer jobs.', items: [
-            { id: 'req-tracking', label: 'Job & Service Tracking', desc: 'Status visibility without manual updates.', time: 0.3, unit: 'Jobs/Week', blueprint: "Real-time dashboarding eliminates status-update overhead." },
-            { id: 'req-triage', label: 'Automated Job Routing', desc: 'Assign tasks based on team capacity.', time: 0.2, unit: 'Tasks/Week', blueprint: "Logic-based routing assigns work instantly to correct SME." }
-        ]},
-        'experience': { label: 'Client Experience', icon: 'message-square', text: 'Enhance satisfaction with 24/7 responsiveness.', items: [
-            { id: 'sup-faq', label: 'Automated Customer FAQ', desc: '24/7 support using your firm knowledge.', time: 0.15, unit: 'Queries/Week', blueprint: "Deflects routine inquiries with sourced, accurate answers." },
-            { id: 'sup-onboard', label: 'Client Success Setup', desc: 'Automated folder creation for new clients.', time: 1.5, unit: 'Onboards/Week', blueprint: "Zero-touch onboarding sequence standardizes intake." }
-        ]},
-        'backoffice': { label: 'Back Office Ops', icon: 'landmark', text: 'Remove the stress of billing and paperwork.', items: [
-            { id: 'bo-billing', label: 'Billing Reconciliation', desc: 'Match transaction records with billing.', time: 1.0, unit: 'Invoices/Week', blueprint: "Cross-system reconciliation highlights revenue leakage." },
-            { id: 'bo-reconcile', label: 'Data Reconciliation', desc: 'Manual matching across systems.', time: 0.1, unit: 'Records/Week', blueprint: "Ensures single source of truth across system silos." }
-        ]}
-    };
+    (function() {
+        const slides = [
+            { title: "Stop doing work<br>computers can do.", sub: "We automate the boring parts of your business so you can focus on the work that actually makes money." },
+            { title: "Win more clients<br>while you sleep.", sub: "Send instant quotes and follow-ups to every lead, 24/7, without lifting a finger." },
+            { title: "Never organize<br>a file again.", sub: "Our systems automatically name, sort, and file your documents the moment they arrive." },
+            { title: "Scale your business,<br>not your stress.", sub: "Handle 10x the volume without hiring 10x the staff. That is the power of automation." }
+        ];
 
-    let state = { domains: new Set(), tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
+        let slideIndex = 0; let progress = 0; let isPaused = false;
+        const DURATION = 8000; const INTERVAL = 100;
+        
+        let PDF_LOGO_DATA = "";
 
-    window.goHome = function() { location.reload(); };
-    window.scrollToSection = function(id) { 
-        document.getElementById('marketing-view').classList.remove('hidden');
-        document.getElementById('app-view').classList.add('hidden');
-        setTimeout(() => { document.getElementById(id).scrollIntoView({behavior: 'smooth'}); }, 50);
-    };
-    window.startApp = function() { 
-        document.getElementById('marketing-view').classList.add('hidden');
-        document.getElementById('app-view').classList.remove('hidden');
-        setStep(1);
-    };
-    window.setStep = function(n) { 
-        [1,2,3,4,5].forEach(s => { 
-            const el = document.getElementById(`step-${s}`);
-            if(el) el.classList.add('hidden'); 
-        });
-        const target = document.getElementById(`step-${n}`);
-        if(target) target.classList.remove('hidden');
-        window.scrollTo({top:0, behavior:'smooth'});
-    };
+        // PLAIN ENGLISH DATA MAPPING
+        const DATA = {
+            'revenue': { label: 'Win More Clients', icon: 'trending-up', text: 'Automate your quotes, proposals, and lead follow-ups.', items: [
+                { id: 'rev-quote', label: 'Send Quotes Instantly', desc: 'Auto-generate quotes based on your rules.', time: 0.5, unit: 'Quotes/Week', blueprint: "Instant quotes increase conversion by catching leads while they are hot.", availability: "Speed: Instant" },
+                { id: 'rev-lead', label: 'Reply to Leads 24/7', desc: 'Never miss a potential client because you were asleep.', time: 0.2, unit: 'Leads/Week', blueprint: "5-minute response time guarantee via automation.", availability: "Coverage: 24/7" }
+            ]},
+            'magicfolder': { label: 'Never File Again', icon: 'folder-search', text: 'Let AI name, sort, and save your documents for you.', items: [
+                { id: 'mf-invoices', label: 'Process Invoices', desc: 'Read bills and save them to the right folder.', time: 0.25, unit: 'Invoices/Week', blueprint: "Eliminates data entry errors and lost bills.", availability: "Accuracy: 99.9%" },
+                { id: 'mf-contracts', label: 'File Contracts', desc: 'Save signed agreements to the client folder instantly.', time: 0.2, unit: 'Docs/Week', blueprint: "Keeps your client files perfect without human effort.", availability: "Speed: Real-Time" }
+            ]},
+            'knowledge': { label: 'Instant Answers', icon: 'brain-circuit', text: 'Search your entire company history in seconds.', items: [
+                { id: 'kn-rag', label: 'Search Old Files', desc: 'Find that one paragraph from a contract 3 years ago.', time: 0.4, unit: 'Searches/Week', blueprint: "Turns hours of digging into seconds of finding.", availability: "Speed: Instant" },
+                { id: 'kn-briefing', label: 'Summarize Meetings', desc: 'Turn hour-long transcripts into bullet points.', time: 1.5, unit: 'Docs/Week', blueprint: "Get the key facts without reading the whole transcript.", availability: "Speed: Instant" }
+            ]},
+            'requests': { label: 'Track Every Job', icon: 'clipboard-list', text: 'Know exactly who is working on what, automatically.', items: [
+                { id: 'req-tracking', label: 'Update Statuses', desc: 'Stop sending "what is the status?" emails.', time: 0.3, unit: 'Jobs/Week', blueprint: "Dashboards update themselves so you don't have to.", availability: "Updates: Real-Time" },
+                { id: 'req-triage', label: 'Assign Work', desc: 'Route new jobs to the right person instantly.', time: 0.2, unit: 'Tasks/Week', blueprint: "Work gets to the right person immediately.", availability: "Routing: Instant" }
+            ]},
+            'experience': { label: '24/7 Client Support', icon: 'message-square', text: 'Give your clients answers without hiring support staff.', items: [
+                { id: 'sup-faq', label: 'Answer Common Questions', desc: 'Let AI answer the basics for you.', time: 0.15, unit: 'Queries/Week', blueprint: "Clients get instant answers, you get fewer emails.", availability: "Coverage: 24/7" },
+                { id: 'sup-onboard', label: 'Onboard New Clients', desc: 'Collect their info and set up folders automatically.', time: 1.5, unit: 'Onboards/Week', blueprint: "A perfect welcome experience, every single time.", availability: "Speed: Instant" }
+            ]},
+            'backoffice': { label: 'Automate Admin', icon: 'landmark', text: 'Stop copy-pasting data between spreadsheets.', items: [
+                { id: 'bo-billing', label: 'Match Billing', desc: 'Ensure you are billing for every hour worked.', time: 1.0, unit: 'Invoices/Week', blueprint: "Stops revenue leakage by catching unbilled work.", availability: "Accuracy: 100%" },
+                { id: 'bo-reconcile', label: 'Sync Systems', desc: 'Make sure your CRM matches your accounting software.', time: 0.1, unit: 'Records/Week', blueprint: "No more 'bad data' headaches.", availability: "Sync: Real-Time" }
+            ]}
+        };
 
-    window.toggleDomain = function(key, e) { 
-        const card = e.currentTarget; 
-        if(state.domains.has(key)) state.domains.delete(key); 
-        else state.domains.add(key); 
-        card.classList.toggle('selected'); 
-        const count = document.getElementById('domain-count');
-        if(count) count.innerText = state.domains.size;
-    };
+        let state = { domains: new Set(), tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0', rawVal: 0 } };
 
-    window.validateStep1 = function() { 
-        if(state.domains.size === 0) { 
-            const err = document.getElementById('err-1');
-            if(err) err.style.display='block'; 
-            return; 
+        window.goHome = function() { location.reload(); };
+        window.setStep = function(n) { document.getElementById('hero').classList.add('hidden'); [1,2,3,4,5].forEach(s => { const el = document.getElementById(`step-${s}`); if(el) el.classList.add('hidden'); }); const t = document.getElementById(`step-${n}`); if(t) t.classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); };
+        window.toggleDomain = function(key, e) { const card = e.currentTarget; if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); card.classList.toggle('selected'); document.getElementById('domain-count').innerText = state.domains.size; };
+        window.validateStep1 = function() { if(state.domains.size === 0) { document.getElementById('err-1').style.display='block'; return; } renderTasks(); setStep(2); };
+        
+        function renderTasks() {
+            const list = document.getElementById('task-list'); let aggregated = []; state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
+            list.innerHTML = aggregated.map(i => `<div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', event)"><div class="check-box" style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;"><i data-lucide="check" size="14" style="color:white;"></i></div><div style="flex:1;"><div style="font-weight:700;">${i.label}</div><div style="color:var(--text-muted); font-size:0.9rem;">${i.desc}</div></div></div>`).join('');
+            lucide.createIcons(); document.getElementById('task-count').innerText = state.tasks.size;
         }
-        renderTasks(); 
-        setStep(2);
-    };
-
-    function renderTasks() {
-        const list = document.getElementById('task-list'); 
-        let aggregated = []; 
-        state.domains.forEach(d => aggregated = aggregated.concat(DATA[d].items));
-        list.innerHTML = aggregated.map(i => `<div class="audit-item" onclick="toggleTask('${i.id}', event)"><div class="check-box" style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;"><i data-lucide="check" size="14" style="color:white;"></i></div><div style="flex:1;"><div style="font-weight:700;">${i.label}</div><div style="color:var(--text-muted); font-size:0.9rem;">${i.desc}</div></div></div>`).join('');
-        lucide.createIcons();
-        const tc = document.getElementById('task-count');
-        if(tc) tc.innerText = state.tasks.size;
-    }
-
-    window.toggleTask = function(id, e) {
-        const item = e.currentTarget;
-        if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id);
-        item.classList.toggle('selected');
-        const tc = document.getElementById('task-count');
-        if(tc) tc.innerText = state.tasks.size;
-        const cb = item.querySelector('.check-box');
-        if(cb) cb.style.background = item.classList.contains('selected') ? 'var(--primary)' : 'transparent';
-    };
-
-    window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
-
-    function renderSliders() {
-        const cont = document.getElementById('slider-box'); let active = [];
-        state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
-        cont.innerHTML = active.map(i => `<div class="audit-item" style="display:block; cursor:default; background:var(--surface);"><div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:8px;"><span>${i.label}</span><span style="color: var(--primary);"><span id="val-${i.id}">0</span> ${i.unit}</span></div><input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);"></div>`).join('');
-    }
-
-    window.updateVal = function(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; };
-
-    window.runAnalysis = function() {
-        const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0;
-        state.domains.forEach(d => { 
-            DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-                const qty = state.inputs[i.id] || 0; h += (qty * i.time * 52); v += (qty * i.time * 52 * rate);
-            }); 
-        });
-        state.results.amt = '$' + Math.round(v).toLocaleString(); 
-        state.results.hours = Math.round(h).toLocaleString();
-        document.getElementById('final-amt').innerText = state.results.amt; 
-        document.getElementById('final-hours').innerText = state.results.hours;
-    };
-
-    window.submitToFormspree = function() {
-        const name = document.getElementById('user-name').value; 
-        const email = document.getElementById('user-email').value; 
-        const comp = document.getElementById('user-company').value; 
-        if(!name || !email || !comp) return;
-        runAnalysis(); 
-        let emailDetails = "";
-        state.domains.forEach(d => {
-            DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-                const qty = state.inputs[i.id] || 0;
-                emailDetails += `${i.label}: ${qty} ${i.unit}\n`;
-            });
-        });
-        fetch('https://formspree.io/f/mgooqqjg', { 
-            method: 'POST', 
-            body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, details: emailDetails }), 
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
-        }).finally(() => { setStep(5); });
-    };
-
-    // RESTORED: EXPANDED 15-ITEM PDF GENERATOR
-    window.generatePDFBlueprint = function() {
-        try {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const name = document.getElementById('user-name').value || "Client";
-            const comp = document.getElementById('user-company').value || "Company";
-            const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
+        window.toggleTask = function(id, e) { const item = e.currentTarget; if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id); item.classList.toggle('selected'); document.getElementById('task-count').innerText = state.tasks.size; const cb = item.querySelector('.check-box'); cb.style.background = item.classList.contains('selected') ? 'var(--primary)' : 'transparent'; };
+        
+        window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
+        
+        function renderSliders() {
+            const cont = document.getElementById('slider-box'); 
+            let active = []; 
+            state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
             
-            doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 50, 'F'); 
-            if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); } 
-            doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.text('TECHNICAL STRATEGY BLUEPRINT', 135, 25);
-            
-            doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
-            doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 65); 
-            doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
-            doc.text(`Organization: ${comp}`, 20, 73);
-            doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 65);
-            doc.setDrawColor(226, 232, 240); doc.line(20, 82, 190, 82);
-            
-            doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-            doc.text('ANNUAL OPPORTUNITY', 20, 96);
-            doc.setFontSize(22); doc.text(state.results.amt, 20, 109);
-            
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14);
-            doc.text('CAPACITY RECLAIMED', 110, 96);
-            doc.setFontSize(22); doc.text(`${state.results.hours} HOURS`, 110, 109);
+            cont.innerHTML = active.map(i => `
+                <div class="audit-item" style="display:block; cursor:default; background:var(--surface);">
+                    <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:8px;">
+                        <span>${i.label}</span>
+                        <span style="color: var(--primary);"><span id="val-${i.id}">0</span> ${i.unit}</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="0" oninput="updateVal('${i.id}', this.value)" style="width:100%; accent-color:var(--primary);">
+                </div>
+            `).join('');
+        }
+        
+        window.updateVal = function(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; };
+        
+        window.runAnalysis = function() {
+            const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0;
+            state.domains.forEach(d => { DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { const qty = state.inputs[i.id] || 0; h += (qty * i.time * 52); v += (qty * i.time * 52 * rate); }); });
+            state.results.amt = '$' + Math.round(v).toLocaleString(); state.results.hours = Math.round(h).toLocaleString();
+            document.getElementById('final-amt').innerText = state.results.amt; document.getElementById('final-hours').innerText = state.results.hours;
+        };
 
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-            doc.text('LINE ITEM ANALYSIS', 20, 130);
-            doc.line(20, 133, 80, 133);
-            
-            let y = 145;
+        window.submitToFormspree = function() {
+            const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value; const gotcha = document.getElementById('gotcha-field').value;
+            if(!name || !email || !comp || gotcha !== "") { document.getElementById('form-err').style.display='block'; return; }
+            runAnalysis(); 
+            // Collect full details for the email
+            let emailDetails = "";
             state.domains.forEach(d => {
                 DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-                    if (y > 260) { doc.addPage(); y = 20; }
                     const qty = state.inputs[i.id] || 0;
-                    const hrs = (qty * i.time * 52);
-                    const val = (hrs * rate);
-                    
-                    doc.setFont("helvetica", "bold"); doc.setFontSize(11);
-                    doc.text(i.label.toUpperCase(), 20, y);
-                    doc.setTextColor(79, 70, 229);
-                    doc.text(`$${Math.round(val).toLocaleString()} / yr`, 150, y);
-                    doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "normal"); doc.setFontSize(10);
-                    doc.text(`Logic: ${i.blueprint} (${Math.round(hrs)} hours saved)`, 20, y + 6);
-                    y += 18;
+                    emailDetails += `${i.label}: ${qty} ${i.unit}\n`;
                 });
             });
-            doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
-        } catch (e) { alert("PDF Error: " + e.message); }
-    };
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const canvas = document.getElementById('logo-canvas'); const ctx = canvas.getContext('2d');
-        document.fonts.load('800 48px "Plus Jakarta Sans"').then(() => {
-            ctx.clearRect(0, 0, 800, 200); ctx.fillStyle = '#4f46e5'; ctx.beginPath(); ctx.roundRect(10, 20, 70, 60, 8); ctx.fill();
-            ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.roundRect(30, 40, 30, 20, 4); ctx.fill();
-            ctx.fillStyle = '#0f172a'; ctx.font = '800 48px "Plus Jakarta Sans", sans-serif'; ctx.fillText('MagicFolder', 100, 68);
-            PDF_LOGO_DATA = canvas.toDataURL('image/png');
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, details: emailDetails }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
+        };
+
+        // --- BRANDED PDF ENGINE (FIXED) ---
+        window.generatePDFBlueprint = function() {
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const name = document.getElementById('user-name').value || "Client";
+                const comp = document.getElementById('user-company').value || "Company";
+                const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
+                
+                // HEADER BRANDING
+                doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 50, 'F'); 
+                if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); } 
+                
+                doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "normal");
+                doc.text('AUTOMATION BLUEPRINT', 150, 25);
+                
+                // Metadata
+                doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
+                doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 65); 
+                doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
+                doc.text(`Organization: ${comp}`, 20, 73);
+                doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 65);
+                
+                doc.setDrawColor(226, 232, 240); doc.line(20, 82, 190, 82);
+                
+                // Metrics - PLAIN ENGLISH
+                doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+                doc.text('1. YEARLY SAVINGS POTENTIAL', 20, 96);
+                doc.setFontSize(22); doc.text(state.results.amt, 20, 109);
+                
+                doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. ERROR REDUCTION', 110, 96);
+                doc.setFontSize(22); doc.text('99.9%', 110, 109);
+                
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. TIME RECLAIMED', 20, 132);
+                doc.setFontSize(22); doc.text(`${state.results.hours} HOURS / YR`, 20, 145);
+
+                // DETAILED LINE ITEM BREAKDOWN
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
+                doc.text('YOUR CUSTOM BLUEPRINT', 20, 165);
+                doc.setDrawColor(79, 70, 229); doc.line(20, 168, 100, 168);
+                
+                let y = 185;
+                state.domains.forEach(d => {
+                    DATA[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
+                        if (y > 260) { doc.addPage(); y = 20; }
+                        
+                        const qty = state.inputs[i.id] || 0;
+                        const hrs = (qty * i.time * 52);
+                        const val = (hrs * rate);
+                        
+                        // Title
+                        doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(15, 23, 42);
+                        doc.text(i.label.toUpperCase(), 20, y);
+                        
+                        // Stats Line
+                        doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(79, 70, 229);
+                        doc.text(`Savings: $${Math.round(val).toLocaleString()} / yr  (${Math.round(hrs)} Hours)`, 20, y + 6);
+                        
+                        // Availability & Logic Note
+                        doc.setFont("helvetica", "italic"); doc.setFontSize(10); doc.setTextColor(100, 116, 139);
+                        let note = `Benefit: ${i.blueprint}`;
+                        // Simplified 'Availability' to just 'Benefit' context or Speed
+                        // if(i.availability) { note += ` | ${i.availability}`; } 
+                        doc.text(note, 20, y + 12, { maxWidth: 170 });
+                        
+                        y += 24;
+                    });
+                });
+                
+                doc.save(`MagicFolder-Blueprint-${comp}.pdf`);
+            } catch (e) {
+                alert("PDF Generation Error: " + e.message);
+            }
+        };
+
+        window.nextSlide = function() { slideIndex = (slideIndex + 1) % slides.length; progress = 0; updateContent(); };
+        window.prevSlide = function() { slideIndex = (slideIndex - 1 + slides.length) % slides.length; progress = 0; updateContent(); };
+        window.handleHeroClick = function() { if (window.innerWidth >= 1024) nextSlide(); };
+        window.pauseCycle = function() { isPaused = true; }; window.resumeCycle = function() { isPaused = false; };
+        function updateContent() { const t = document.getElementById('slideshow-title'); const s = document.getElementById('slideshow-sub'); if(!t) return; t.style.opacity = 0; s.style.opacity = 0; setTimeout(() => { t.innerHTML = slides[slideIndex].title; s.innerHTML = slides[slideIndex].sub; t.style.opacity = 1; s.style.opacity = 1; updateProgressUI(); }, 500); }
+        function updateProgressUI() { document.querySelectorAll('.dot-progress').forEach((bar, i) => { if (i < slideIndex) bar.style.width = '100%'; else if (i === slideIndex) bar.style.width = progress + '%'; else bar.style.width = '0%'; }); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // GENERATE BRAND LOGO ON HIDDEN CANVAS (Double Resolution)
+            const canvas = document.getElementById('logo-canvas');
+            const ctx = canvas.getContext('2d');
+            document.fonts.load('800 48px "Plus Jakarta Sans"').then(() => {
+                ctx.clearRect(0, 0, 800, 200);
+                // Icon (Indigo Folder)
+                ctx.fillStyle = '#4f46e5'; 
+                ctx.beginPath(); ctx.roundRect(10, 20, 70, 60, 8); ctx.fill();
+                ctx.fillStyle = '#ffffff'; 
+                ctx.beginPath(); ctx.roundRect(30, 40, 30, 20, 4); ctx.fill();
+                // Text
+                ctx.fillStyle = '#0f172a';
+                ctx.font = '800 48px "Plus Jakarta Sans", sans-serif'; 
+                ctx.fillText('MagicFolder', 100, 68);
+                PDF_LOGO_DATA = canvas.toDataURL('image/png');
+            });
+
+            const grid = document.getElementById('domain-grid');
+            grid.innerHTML = Object.keys(DATA).map(key => `<div class="card" onclick="toggleDomain('${key}', event)"><div class="check-pill" style="border-radius:50%; border:2px solid var(--border); display:grid; place-items:center; width:28px; height:28px; position:absolute; top:24px; right:24px;"><i data-lucide="check" size="14" style="color:white;"></i></div><i data-lucide="${DATA[key].icon}" size="40"></i><h3>${DATA[key].label}</h3><p>${DATA[key].text}</p></div>`).join('');
+            document.getElementById('dot-container').innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
+            lucide.createIcons();
+            setInterval(() => { if (!isPaused) { progress += (INTERVAL / DURATION) * 100; if (progress >= 100) nextSlide(); else updateProgressUI(); } }, INTERVAL);
         });
-        const grid = document.getElementById('domain-grid');
-        grid.innerHTML = Object.keys(DATA).map(key => `<div class="calc-card" onclick="toggleDomain('${key}', event)"><div class="check-pill"><i data-lucide="check" size="14" style="color:white;"></i></div><i data-lucide="${DATA[key].icon}" size="40" style="color:var(--primary);margin-bottom:16px;"></i><h3>${DATA[key].label}</h3><p style="color:var(--text-muted); font-size:0.95rem;">${DATA[key].text}</p></div>`).join('');
-        lucide.createIcons();
-    });
-})();
+    })();
 </script>
 </body>
 </html>
