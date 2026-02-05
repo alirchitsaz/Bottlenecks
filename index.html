@@ -18,22 +18,26 @@
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 32px; height: 32px; fill: var(--primary); }
-        .hero { padding: 60px 0 30px; text-align: center; min-height: 480px; }
-        .headline-container { min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; }
-        .hero h1 { font-size: clamp(3.2rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 16px; transition: opacity 0.4s; }
-        .hero .sub-hero { max-width: 720px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.4s; min-height: 3em; }
-        .dot-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; }
-        .dot-wrapper { width: 40px; height: 4px; background: var(--border); border-radius: 4px; cursor: pointer; }
-        .dot-wrapper.active .dot-progress { width: 100%; background: var(--primary); height: 100%; }
-        .industry-bar { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; margin-top: 40px; }
-        .industry-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
-        .industry-tag { background: var(--surface); padding: 8px 24px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); border: 1px solid var(--border); cursor: pointer; transition: 0.2s; }
-        .industry-tag:hover { background: #fff; border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
-        .industry-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .grid-container { padding: 50px 0; max-width: 1200px; margin: 0 auto; }
+        
+        .hero { padding: 80px 0 40px; text-align: center; }
+        .hero h1 { font-size: clamp(3rem, 7vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 16px; }
+        .hero .sub-hero { max-width: 720px; margin: 0 auto; font-size: 1.3rem; color: var(--text-muted); min-height: 3em; }
+        
+        /* NEW: PROMINENT PERSONA SELECTOR */
+        .persona-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 40px 0; }
+        .persona-chip { 
+            background: #fff; border: 2px solid var(--border); padding: 12px 28px; border-radius: 100px; 
+            font-weight: 700; font-size: 1rem; color: var(--text-muted); cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .persona-chip:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+        .persona-chip.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 10px 20px var(--primary-soft); }
+        
+        .grid-container { padding: 40px 0; max-width: 1200px; margin: 0 auto; }
         .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         @media (max-width: 1024px) { .domain-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { .domain-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2.5rem; } }
+
         .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 32px; cursor: pointer; transition: 0.3s; position: relative; height: 100%; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
@@ -41,20 +45,26 @@
         .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.5; flex-grow: 1; }
         .check-pill { position: absolute; top: 32px; right: 32px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
+
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
         .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; border-radius: 20px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
+
         .results-hero { background: #0f172a; color: white; padding: 80px 32px; border-radius: 40px; text-align: center; margin-top: 32px; }
         .big-save { font-size: clamp(3.5rem, 10vw, 6.5rem); color: #818cf8; font-weight: 800; margin: 16px 0; letter-spacing: -3px; line-height: 1; }
+        
         .cta-card { background: var(--surface); padding: 48px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 32px; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 24px auto 0; }
         input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1.05rem; width: 100%; outline: none; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+
         .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; }
         .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-soft); }
         .btn-count { background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; margin-left: 8px; font-weight: 800; }
+
         footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 80px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 2fr; gap: 60px; }
         .footer-platforms { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
@@ -74,94 +84,84 @@
             <svg viewBox="0 0 24 24"><path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/><path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/><path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/></svg>
             MagicFolder
         </div>
-        <div class="mono" style="color: var(--text-muted); font-weight: 700;">Simple. Smart. Scalable.</div>
+        <div class="mono" style="color: var(--text-muted); font-weight: 700;">Automation for Business</div>
     </div>
 </nav>
 
 <div class="container">
     <div id="hero" class="hero fade-in">
-        <div class="mono" style="color: var(--primary); margin-bottom: 24px; font-weight: 800; letter-spacing: 3px;">AUTOMATION FOR BUSY PEOPLE</div>
-        <div id="swipe-zone" class="headline-container" onclick="handleHeroClick()" onmouseover="pauseCycle()" onmouseout="resumeCycle()">
-            <h1 id="slideshow-title">Stop doing work<br>computers can do.</h1>
-            <p id="slideshow-sub" class="sub-hero">We automate the boring parts of your business so you can focus on the work that actually makes money.</p>
-        </div>
-        <div class="dot-container" id="dot-container"></div>
-        <button class="btn" onclick="setStep(1)">Project Your Potential <i data-lucide="sparkle"></i></button>
-        <div class="industry-bar">
-            <span class="mono" style="color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 12px;">Select Your Industry to Personalize:</span>
-            <div class="industry-grid">
-                <div class="industry-tag active" onclick="switchPersona('general', this)">General Business</div>
-                <div class="industry-tag" onclick="switchPersona('legal', this)">Law Firms</div>
-                <div class="industry-tag" onclick="switchPersona('realestate', this)">Real Estate</div>
-                <div class="industry-tag" onclick="switchPersona('service', this)">Service / Trades</div>
-                <div class="industry-tag" onclick="switchPersona('logistics', this)">Logistics</div>
-            </div>
+        <h1 id="hero-title">Stop doing work<br>computers can do.</h1>
+        <p id="hero-sub" class="sub-hero">We automate your busy work so you can focus on revenue.</p>
+        
+        <div class="persona-bar">
+            <div class="persona-chip active" onclick="switchPersona('general', this)">General Business</div>
+            <div class="persona-chip" onclick="switchPersona('legal', this)">Law Firm</div>
+            <div class="persona-chip" onclick="switchPersona('realestate', this)">Real Estate</div>
+            <div class="persona-chip" onclick="switchPersona('service', this)">Service Business</div>
+            <div class="persona-chip" onclick="switchPersona('logistics', this)">Logistics</div>
         </div>
     </div>
 
-    <div id="step-1" class="hidden fade-in grid-container">
+    <div id="step-1" class="fade-in grid-container">
         <div style="text-align: center; margin-bottom: 50px;">
-            <div class="mono" style="color: var(--text-muted); margin-bottom: 12px; font-weight: 700;">Phase 01</div>
-            <h2 id="phase1-title" style="font-size: 2.5rem; letter-spacing: -0.04em;">Where can we help you grow?</h2>
-            <p id="phase1-sub" style="color: var(--text-muted); font-size: 1.2rem; max-width: 650px; margin: 16px auto 0;">Select the areas where you feel like you're wasting time.</p>
+            <div class="mono" style="color: var(--text-muted); margin-bottom: 12px; font-weight: 700;">Step 1: Identify Friction</div>
+            <h2 style="font-size: 2.2rem; letter-spacing: -0.04em;">Where are you losing time?</h2>
         </div>
         <div class="domain-grid" id="domain-grid"></div>
         <div style="text-align: center; margin-top: 60px;">
-            <button class="btn" onclick="validateStep1()">Next: Estimate Volume <span id="domain-count" class="btn-count">0</span></button>
-            <div id="err-1" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please pick at least one area.</div>
+            <button class="btn" onclick="validateStep1()">Next: Analyze Tasks <span id="domain-count" class="btn-count">0</span></button>
+            <div id="err-1" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Select at least one area to continue.</div>
         </div>
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 40px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Step 2 of 3</div>
-        <h2 style="font-size: 2.5rem; letter-spacing: -0.04em;">Specific Tasks</h2>
-        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;">Which of these specific bottlenecks are eating up your week?</p>
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Step 2: Specific Bottlenecks</div>
+        <h2 style="font-size: 2.5rem; letter-spacing: -0.04em;">What specifically eats your time?</h2>
         <div id="task-list" style="margin-top: 40px;"></div>
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-dark); border:1px solid var(--border);" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Next: Calculate Savings <span id="task-count" class="btn-count">0</span></button>
+            <button class="btn" onclick="validateStep2()">Next: Calculate Impact <span id="task-count" class="btn-count">0</span></button>
         </div>
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 800px; margin: 0 auto; padding: 40px 0;">
-        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Step 3 of 3</div>
-        <h2 style="font-size: 2.5rem;">How much do you do?</h2>
-        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">Give us a rough weekly estimate for each task.</p>
-        <div id="slider-box"></div>
+        <div class="mono" style="color: var(--primary); margin-bottom: 12px; font-weight: 800;">Step 3: Volume Estimate</div>
+        <h2 style="font-size: 2.5rem;">How much volume per week?</h2>
+        <div id="slider-box" style="margin-top: 40px;"></div>
         <div style="background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); margin-bottom: 24px; border-style: dashed; margin-top: 40px;">
-            <div style="display:flex; justify-content:space-between; font-weight:700;"><span class="mono">What is an hour of your time worth?</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:700;"><span class="mono">Your Hourly Value</span><span style="color: var(--primary); font-size: 1.2rem;">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="600" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:20px; accent-color:var(--primary);">
         </div>
         <div style="margin-top: 60px; display: flex; justify-content: space-between;">
             <button class="btn" style="background:transparent; color:var(--text-dark); border:1px solid var(--border);" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="setStep(4)">See My Potential Savings <i data-lucide="arrow-right"></i></button>
+            <button class="btn" onclick="setStep(4)">Generate Blueprint <i data-lucide="arrow-right"></i></button>
         </div>
     </div>
 
     <div id="step-4" class="hidden fade-in" style="padding: 60px 0; max-width: 700px; margin: 0 auto;">
         <div style="text-align: center; margin-bottom: 40px;">
-            <div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 12px;">One Last Thing</div>
-            <h2>Where should we send your plan?</h2>
-            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 10px;">We'll email you a copy of your custom automation blueprint.</p>
+            <div class="mono" style="color: var(--primary); font-weight: 800; margin-bottom: 12px;">Final Step</div>
+            <h2>Unlock Your Custom Plan</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 10px;">We've calculated your potential savings. Enter your email to see the breakdown.</p>
         </div>
         <div class="cta-card">
-            <div class="form-row"><input type="text" id="user-name" placeholder="Your Name"><input type="text" id="user-company" placeholder="Business Name"></div>
-            <div style="max-width: 650px; margin: 16px auto;"><input type="email" id="user-email" placeholder="Work Email Address"></div>
+            <div class="form-row"><input type="text" id="user-name" placeholder="Name"><input type="text" id="user-company" placeholder="Company"></div>
+            <div style="max-width: 650px; margin: 16px auto;"><input type="email" id="user-email" placeholder="Work Email"></div>
             <div style="display:none;"><input type="text" id="gotcha-field" value=""></div>
-            <button class="btn" style="width: 100%; max-width: 650px; margin-top: 16px; justify-content: center;" onclick="submitToFormspree()" id="submit-btn">Unlock My Report <i data-lucide="unlock"></i></button>
+            <button class="btn" style="width: 100%; max-width: 650px; margin-top: 16px; justify-content: center;" onclick="submitToFormspree()" id="submit-btn">Unlock Blueprint <i data-lucide="unlock"></i></button>
             <div id="form-err" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please fill in all fields correctly.</div>
         </div>
     </div>
 
     <div id="step-5" class="hidden fade-in" style="padding: 60px 0;">
         <div class="results-hero">
-            <p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Value You Can Reclaim</p>
+            <p class="mono" style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">Potential Annual Savings</p>
             <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.5rem; opacity: 0.9;">That's <strong id="final-hours" style="color:white;">0</strong> hours of busy work per year.</p>
+            <p style="font-size: 1.5rem; opacity: 0.9;">Reclaiming <strong id="final-hours" style="color:white;">0</strong> hours of productive time.</p>
         </div>
         <div style="text-align: center; margin-top: 50px;">
-            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download My Blueprint (PDF)</button>
-            <p style="margin-top: 24px; color: var(--text-muted); font-size: 0.95rem;">We'll be in touch to show you exactly how to automate this.</p>
+            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--text-dark);"><i data-lucide="download"></i> Download Blueprint (PDF)</button>
+            <p style="margin-top: 24px; color: var(--text-muted); font-size: 0.95rem;">Our automation engineers will review this and reach out shortly.</p>
         </div>
     </div>
 </div>
@@ -170,10 +170,10 @@
     <div class="footer-inner">
         <div>
             <h4>MagicFolder</h4>
-            <p style="font-size: 1.05rem; color: var(--text-muted); max-width: 400px; margin-top: 16px; line-height: 1.6;">We build systems that do the work for you. Simple, scalable, and secure.</p>
+            <p style="font-size: 1.05rem; color: var(--text-muted); max-width: 400px; margin-top: 16px; line-height: 1.6;">Automated workflows for modern professionals. Recover your time.</p>
         </div>
         <div>
-            <h5 class="mono">Powered By</h5>
+            <h5 class="mono">Technology Partners</h5>
             <div class="footer-platforms">
                 <a href="https://openai.com" target="_blank">OpenAI</a>
                 <a href="https://anthropic.com" target="_blank">Anthropic</a>
@@ -184,68 +184,78 @@
             </div>
         </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 MagicFolder AI. Automate your busy work.</div>
+    <div class="footer-bottom">&copy; 2026 MagicFolder AI.</div>
 </footer>
 
 <script>
     (function() {
-        const slides = [
-            { title: "Stop doing work<br>computers can do.", sub: "We automate the boring parts of your business so you can focus on the work that actually makes money." },
-            { title: "Win more clients<br>while you sleep.", sub: "Send instant quotes and follow-ups to every lead, 24/7, without lifting a finger." },
-            { title: "Never organize<br>a file again.", sub: "Our systems automatically name, sort, and file your documents the moment they arrive." },
-            { title: "Scale your business,<br>not your stress.", sub: "Handle 10x the volume without hiring 10x the staff. That is the power of automation." }
-        ];
-
-        let slideIndex = 0; let progress = 0; let isPaused = false;
-        const DURATION = 8000; const INTERVAL = 100;
         let PDF_LOGO_DATA = "";
-
-        // PERSONA MAPS
+        
+        // --- PERSONA DATA CONFIGURATION ---
         const PERSONAS = {
             general: {
-                revenue: { label: 'Win More Clients', text: 'Automate quotes and lead follow-up.', items: [{ id: 'rev-quote', label: 'Send Quotes Instantly', unit: 'Quotes/Week' }, { id: 'rev-lead', label: 'Reply to Leads 24/7', unit: 'Leads/Week' }] },
-                magicfolder: { label: 'Never File Again', text: 'Let AI name and sort documents.', items: [{ id: 'mf-invoices', label: 'Process Invoices', unit: 'Invoices/Week' }, { id: 'mf-contracts', label: 'File Contracts', unit: 'Docs/Week' }] },
-                knowledge: { label: 'Instant Answers', text: 'Search company history in seconds.', items: [{ id: 'kn-rag', label: 'Search Old Files', unit: 'Searches/Week' }, { id: 'kn-briefing', label: 'Summarize Meetings', unit: 'Docs/Week' }] },
-                requests: { label: 'Track Every Job', text: 'Know who is working on what.', items: [{ id: 'req-tracking', label: 'Update Statuses', unit: 'Jobs/Week' }, { id: 'req-triage', label: 'Assign Work', unit: 'Tasks/Week' }] },
-                experience: { label: '24/7 Support', text: 'Give clients answers instantly.', items: [{ id: 'sup-faq', label: 'Answer Common Questions', unit: 'Queries/Week' }, { id: 'sup-onboard', label: 'Onboard New Clients', unit: 'Onboards/Week' }] },
-                backoffice: { label: 'Automate Admin', text: 'Stop manual data entry.', items: [{ id: 'bo-billing', label: 'Match Billing', unit: 'Invoices/Week' }, { id: 'bo-reconcile', label: 'Sync Systems', unit: 'Records/Week' }] }
+                title: "Stop doing work<br>computers can do.",
+                sub: "We automate the boring parts of your business so you can focus on revenue.",
+                grid: {
+                    revenue: { label: 'Win More Clients', text: 'Automate quotes & follow-up.', items: [{ id: 'rev-quote', label: 'Send Quotes', unit: 'Quotes/Wk', note: 'Instant automated quoting' }, { id: 'rev-lead', label: 'Lead Response', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
+                    magicfolder: { label: 'Never File Again', text: 'AI file naming & sorting.', items: [{ id: 'mf-invoices', label: 'Invoices', unit: 'Bills/Wk', note: 'Auto-extract & file bills' }, { id: 'mf-contracts', label: 'Contracts', unit: 'Docs/Wk', note: 'Auto-save signed docs' }] },
+                    knowledge: { label: 'Instant Answers', text: 'Search company history.', items: [{ id: 'kn-rag', label: 'Deep Search', unit: 'Searches/Wk', note: 'Find any file instantly' }, { id: 'kn-briefing', label: 'Summaries', unit: 'Docs/Wk', note: 'Summarize long PDFs' }] },
+                    requests: { label: 'Track Jobs', text: 'Know who is doing what.', items: [{ id: 'req-tracking', label: 'Status Checks', unit: 'Jobs/Wk', note: 'Auto-update dashboards' }, { id: 'req-triage', label: 'Assign Work', unit: 'Tasks/Wk', note: 'Route tasks to team' }] },
+                    experience: { label: '24/7 Support', text: 'Auto-reply to clients.', items: [{ id: 'sup-faq', label: 'FAQ Bot', unit: 'Queries/Wk', note: 'Answer common questions' }, { id: 'sup-onboard', label: 'Onboarding', unit: 'Clients/Wk', note: 'Auto-welcome emails' }] },
+                    backoffice: { label: 'Auto Admin', text: 'Sync your software.', items: [{ id: 'bo-billing', label: 'Billing Match', unit: 'Bills/Wk', note: 'Verify billable hours' }, { id: 'bo-reconcile', label: 'Data Sync', unit: 'Records/Wk', note: 'Sync CRM to Accounting' }] }
+                }
             },
             legal: {
-                revenue: { label: 'Client Acquisition', text: 'Automate retainer agreements and intake.', items: [{ id: 'rev-quote', label: 'Generate Retainers', unit: 'Agreements/Week' }, { id: 'rev-lead', label: 'New Client Intake', unit: 'Leads/Week' }] },
-                magicfolder: { label: 'Case Files', text: 'Auto-file pleadings and evidence.', items: [{ id: 'mf-invoices', label: 'Expense Capture', unit: 'Receipts/Week' }, { id: 'mf-contracts', label: 'File Pleadings', unit: 'Docs/Week' }] },
-                knowledge: { label: 'Case Intelligence', text: 'Search years of case law instantly.', items: [{ id: 'kn-rag', label: 'Discovery Search', unit: 'Searches/Week' }, { id: 'kn-briefing', label: 'Deposition Summaries', unit: 'Depos/Week' }] },
-                requests: { label: 'Matter Management', text: 'Track filing deadlines automatically.', items: [{ id: 'req-tracking', label: 'Docket Updates', unit: 'Updates/Week' }, { id: 'req-triage', label: 'Assign Associates', unit: 'Tasks/Week' }] },
-                experience: { label: 'Client Updates', text: 'Keep clients informed without emails.', items: [{ id: 'sup-faq', label: 'Status Updates', unit: 'Updates/Week' }, { id: 'sup-onboard', label: 'New Matter Open', unit: 'Matters/Week' }] },
-                backoffice: { label: 'Trust Accounting', text: 'Reconcile billable hours instantly.', items: [{ id: 'bo-billing', label: 'Pre-Bill Audit', unit: 'Bills/Week' }, { id: 'bo-reconcile', label: 'Conflict Checks', unit: 'Checks/Week' }] }
+                title: "Automate your<br>Firm's Busy Work.",
+                sub: "Bill more hours by letting AI handle intake, filing, and document search.",
+                grid: {
+                    revenue: { label: 'Client Intake', text: 'Auto-send retainers.', items: [{ id: 'rev-quote', label: 'Retainers', unit: 'Docs/Wk', note: 'Auto-draft fee agreements' }, { id: 'rev-lead', label: 'New Clients', unit: 'Leads/Wk', note: 'Instant intake response' }] },
+                    magicfolder: { label: 'Case Files', text: 'Auto-file pleadings.', items: [{ id: 'mf-invoices', label: 'Expenses', unit: 'Receipts/Wk', note: 'Capture case expenses' }, { id: 'mf-contracts', label: 'Pleadings', unit: 'Files/Wk', note: 'Sort incoming discovery' }] },
+                    knowledge: { label: 'Discovery', text: 'Search case history.', items: [{ id: 'kn-rag', label: 'Case Search', unit: 'Queries/Wk', note: 'Find evidence instantly' }, { id: 'kn-briefing', label: 'Depo Summary', unit: 'Depos/Wk', note: 'Summarize transcripts' }] },
+                    requests: { label: 'Docketing', text: 'Track deadlines.', items: [{ id: 'req-tracking', label: 'Deadlines', unit: 'Dates/Wk', note: 'Auto-calendar updates' }, { id: 'req-triage', label: 'Assignments', unit: 'Tasks/Wk', note: 'Assign paralegal tasks' }] },
+                    experience: { label: 'Client Updates', text: 'No more "update?" emails.', items: [{ id: 'sup-faq', label: 'Status Updates', unit: 'Emails/Wk', note: 'Auto-case status replies' }, { id: 'sup-onboard', label: 'New Matter', unit: 'Matters/Wk', note: 'Client welcome packet' }] },
+                    backoffice: { label: 'Trust Accounting', text: 'Reconcile ledgers.', items: [{ id: 'bo-billing', label: 'Pre-Bills', unit: 'Bills/Wk', note: 'Draft bill generation' }, { id: 'bo-reconcile', label: 'Conflict Check', unit: 'Checks/Wk', note: 'Database conflict scan' }] }
+                }
             },
             realestate: {
-                revenue: { label: 'More Closings', text: 'Automate offers and showing feedback.', items: [{ id: 'rev-quote', label: 'Listing Agreements', unit: 'Listings/Week' }, { id: 'rev-lead', label: 'Zillow/Lead Response', unit: 'Leads/Week' }] },
-                magicfolder: { label: 'Transaction Files', text: 'Auto-sort offers and disclosures.', items: [{ id: 'mf-invoices', label: 'Expense Tracking', unit: 'Receipts/Week' }, { id: 'mf-contracts', label: 'Offer Management', unit: 'Offers/Week' }] },
-                knowledge: { label: 'Property Data', text: 'Find info on past deals instantly.', items: [{ id: 'kn-rag', label: 'Transaction Search', unit: 'Searches/Week' }, { id: 'kn-briefing', label: 'HOA Doc Analysis', unit: 'Docs/Week' }] },
-                requests: { label: 'Closing Track', text: 'Automate your transaction coordinator.', items: [{ id: 'req-tracking', label: 'Escrow Updates', unit: 'Updates/Week' }, { id: 'req-triage', label: 'Vendor Dispatch', unit: 'Tasks/Week' }] },
-                experience: { label: 'Client Care', text: 'Answer buyer questions 24/7.', items: [{ id: 'sup-faq', label: 'Buyer FAQ Bot', unit: 'Queries/Week' }, { id: 'sup-onboard', label: 'New Listing Launch', unit: 'Listings/Week' }] },
-                backoffice: { label: 'Commission Audit', text: 'Ensure every HUD-1 is correct.', items: [{ id: 'bo-billing', label: 'Commission Checks', unit: 'Checks/Week' }, { id: 'bo-reconcile', label: 'CRM Sync', unit: 'Records/Week' }] }
+                title: "Close more deals,<br>do less paperwork.",
+                sub: "Automate showing feedback, offer management, and transaction coordination.",
+                grid: {
+                    revenue: { label: 'More Listings', text: 'Auto-listing agreements.', items: [{ id: 'rev-quote', label: 'Listing Docs', unit: 'Listings/Wk', note: 'Generate listing agreements' }, { id: 'rev-lead', label: 'Zillow Leads', unit: 'Leads/Wk', note: 'Instant Zillow reply' }] },
+                    magicfolder: { label: 'Transaction Files', text: 'Sort offers & disclosures.', items: [{ id: 'mf-invoices', label: 'Expenses', unit: 'Receipts/Wk', note: 'Track marketing spend' }, { id: 'mf-contracts', label: 'Offers', unit: 'Offers/Wk', note: 'Organize incoming offers' }] },
+                    knowledge: { label: 'Deal History', text: 'Find past client info.', items: [{ id: 'kn-rag', label: 'Client Search', unit: 'Searches/Wk', note: 'Search past deals' }, { id: 'kn-briefing', label: 'Doc Review', unit: 'Docs/Wk', note: 'Summarize HOA docs' }] },
+                    requests: { label: 'Closing Track', text: 'Auto-TC coordination.', items: [{ id: 'req-tracking', label: 'Escrow', unit: 'Updates/Wk', note: 'Track contingency dates' }, { id: 'req-triage', label: 'Vendors', unit: 'Tasks/Wk', note: 'Dispatch photographers' }] },
+                    experience: { label: 'Client Care', text: 'Answer buyer questions.', items: [{ id: 'sup-faq', label: 'Buyer FAQ', unit: 'Texts/Wk', note: 'Reply to listing questions' }, { id: 'sup-onboard', label: 'New Listing', unit: 'Listings/Wk', note: 'Seller onboarding seq' }] },
+                    backoffice: { label: 'Commission', text: 'Audit commission checks.', items: [{ id: 'bo-billing', label: 'CD Review', unit: 'Checks/Wk', note: 'Verify commission splits' }, { id: 'bo-reconcile', label: 'CRM Sync', unit: 'Contacts/Wk', note: 'Sync open house leads' }] }
+                }
             },
             service: {
-                revenue: { label: 'Instant Bids', text: 'Send estimates from the van instantly.', items: [{ id: 'rev-quote', label: 'On-Site Estimates', unit: 'Bids/Week' }, { id: 'rev-lead', label: 'Emergency Dispatch', unit: 'Calls/Week' }] },
-                magicfolder: { label: 'Job Files', text: 'Save site photos and receipts automatically.', items: [{ id: 'mf-invoices', label: 'Supplier Invoices', unit: 'Receipts/Week' }, { id: 'mf-contracts', label: 'Service Contracts', unit: 'Docs/Week' }] },
-                knowledge: { label: 'Site History', text: 'Know exactly what was fixed last time.', items: [{ id: 'kn-rag', label: 'History Search', unit: 'Searches/Week' }, { id: 'kn-briefing', label: 'Manual Summaries', unit: 'Docs/Week' }] },
-                requests: { label: 'Tech Tracking', text: 'Know where every truck is.', items: [{ id: 'req-tracking', label: 'Job Status Updates', unit: 'Jobs/Week' }, { id: 'req-triage', label: 'Auto-Dispatch', unit: 'Jobs/Week' }] },
-                experience: { label: 'Booking Bot', text: 'Let clients book appointments 24/7.', items: [{ id: 'sup-faq', label: 'Price Inquiries', unit: 'Calls/Week' }, { id: 'sup-onboard', label: 'New Job Setup', unit: 'Jobs/Week' }] },
-                backoffice: { label: 'Job Costing', text: 'Match parts to jobs automatically.', items: [{ id: 'bo-billing', label: 'Job Profitability', unit: 'Jobs/Week' }, { id: 'bo-reconcile', label: 'QB/Titan Sync', unit: 'Records/Week' }] }
+                title: "Instant Estimates,<br>Zero Paperwork.",
+                sub: "Send quotes from the van and automate your dispatching.",
+                grid: {
+                    revenue: { label: 'Instant Bids', text: 'Quote while on site.', items: [{ id: 'rev-quote', label: 'Estimates', unit: 'Bids/Wk', note: 'Generate mobile estimates' }, { id: 'rev-lead', label: 'Emergency', unit: 'Calls/Wk', note: 'After-hours dispatch' }] },
+                    magicfolder: { label: 'Job Photos', text: 'Save site photos.', items: [{ id: 'mf-invoices', label: 'Supplier Bills', unit: 'Bills/Wk', note: 'File parts receipts' }, { id: 'mf-contracts', label: 'Service Agmts', unit: 'Docs/Wk', note: 'Save signed work orders' }] },
+                    knowledge: { label: 'Site History', text: 'What did we fix last time?', items: [{ id: 'kn-rag', label: 'History', unit: 'Searches/Wk', note: 'Lookup equipment history' }, { id: 'kn-briefing', label: 'Manuals', unit: 'Docs/Wk', note: 'Find install manuals' }] },
+                    requests: { label: 'Dispatch', text: 'Track every truck.', items: [{ id: 'req-tracking', label: 'Job Status', unit: 'Jobs/Wk', note: 'Update customer ETA' }, { id: 'req-triage', label: 'Routing', unit: 'Routes/Wk', note: 'Optimize tech routes' }] },
+                    experience: { label: 'Booking', text: '24/7 Appointment bot.', items: [{ id: 'sup-faq', label: 'Price Check', unit: 'Calls/Wk', note: 'Answer pricing FAQs' }, { id: 'sup-onboard', label: 'New Job', unit: 'Jobs/Wk', note: 'Job confirmation texts' }] },
+                    backoffice: { label: 'Job Costing', text: 'Did we make money?', items: [{ id: 'bo-billing', label: 'Profit Audit', unit: 'Jobs/Wk', note: 'Calculate job profit' }, { id: 'bo-reconcile', label: 'Sync QB', unit: 'Entries/Wk', note: 'Push invoice to QB' }] }
+                }
             },
             logistics: {
-                revenue: { label: 'Freight Quotes', text: 'Instant spot quotes for shippers.', items: [{ id: 'rev-quote', label: 'Spot Quotes', unit: 'Quotes/Week' }, { id: 'rev-lead', label: 'Capacity Checks', unit: 'Checks/Week' }] },
-                magicfolder: { label: 'Paperwork', text: 'Auto-file BOLs and PODs.', items: [{ id: 'mf-invoices', label: 'Carrier Invoices', unit: 'Invoices/Week' }, { id: 'mf-contracts', label: 'BOL Processing', unit: 'BOLs/Week' }] },
-                knowledge: { label: 'Lane History', text: 'Search past rates instantly.', items: [{ id: 'kn-rag', label: 'Rate Search', unit: 'Searches/Week' }, { id: 'kn-briefing', label: 'Contract Review', unit: 'Docs/Week' }] },
-                requests: { label: 'Load Tracking', text: 'Automate "Where is my truck?"', items: [{ id: 'req-tracking', label: 'Track & Trace', unit: 'Loads/Week' }, { id: 'req-triage', label: 'Driver Assign', unit: 'Loads/Week' }] },
-                experience: { label: 'Shipper Ops', text: 'Keep customers updated 24/7.', items: [{ id: 'sup-faq', label: 'Status Requests', unit: 'Emails/Week' }, { id: 'sup-onboard', label: 'New Carrier Setup', unit: 'Setups/Week' }] },
-                backoffice: { label: 'Audit', text: 'Reconcile carrier bills to quotes.', items: [{ id: 'bo-billing', label: 'Invoice Audit', unit: 'Bills/Week' }, { id: 'bo-reconcile', label: 'TMS Sync', unit: 'Records/Week' }] }
+                title: "Keep your trucks<br>full and moving.",
+                sub: "Automate spot quotes, BOL filing, and track-and-trace updates.",
+                grid: {
+                    revenue: { label: 'Spot Quotes', text: 'Instant rate calculation.', items: [{ id: 'rev-quote', label: 'Spot Rates', unit: 'Quotes/Wk', note: 'Auto-calc lane rates' }, { id: 'rev-lead', label: 'Capacity', unit: 'Checks/Wk', note: 'Carrier capacity check' }] },
+                    magicfolder: { label: 'Paperwork', text: 'Auto-file BOLs & PODs.', items: [{ id: 'mf-invoices', label: 'Carrier Inv', unit: 'Bills/Wk', note: 'Audit carrier invoices' }, { id: 'mf-contracts', label: 'BOL/POD', unit: 'Docs/Wk', note: 'Match POD to Load ID' }] },
+                    knowledge: { label: 'Lane History', text: 'Search past rates.', items: [{ id: 'kn-rag', label: 'Rate Search', unit: 'Searches/Wk', note: 'Find historical lane pricing' }, { id: 'kn-briefing', label: 'Contracts', unit: 'Docs/Wk', note: 'Review carrier packets' }] },
+                    requests: { label: 'Tracking', text: 'Where is the truck?', items: [{ id: 'req-tracking', label: 'Trace', unit: 'Loads/Wk', note: 'Auto-update shipper' }, { id: 'req-triage', label: 'Driver Assign', unit: 'Loads/Wk', note: 'Assign load to driver' }] },
+                    experience: { label: 'Shipper Ops', text: '24/7 Status updates.', items: [{ id: 'sup-faq', label: 'Status Req', unit: 'Emails/Wk', note: 'Reply to status emails' }, { id: 'sup-onboard', label: 'New Carrier', unit: 'Setups/Wk', note: 'Onboard new carrier' }] },
+                    backoffice: { label: 'Audit', text: 'Catch billing errors.', items: [{ id: 'bo-billing', label: 'Inv Audit', unit: 'Bills/Wk', note: 'Reconcile quote vs invoice' }, { id: 'bo-reconcile', label: 'TMS Sync', unit: 'Loads/Wk', note: 'Update TMS status' }] }
+                }
             }
         };
 
-        // CONSTANTS FOR CALCULATION (Hours saved per unit) - Kept consistent across personas for simplicity
-        const TIME_SAVINGS = {
+        const TIME_SAVINGS = { 
             'rev-quote': 0.5, 'rev-lead': 0.2, 'mf-invoices': 0.25, 'mf-contracts': 0.2,
             'kn-rag': 0.4, 'kn-briefing': 1.5, 'req-tracking': 0.3, 'req-triage': 0.2,
             'sup-faq': 0.15, 'sup-onboard': 1.5, 'bo-billing': 1.0, 'bo-reconcile': 0.1
@@ -255,17 +265,29 @@
 
         window.switchPersona = function(persona, btn) {
             state.currentPersona = persona;
-            document.querySelectorAll('.industry-tag').forEach(el => el.classList.remove('active'));
+            state.domains.clear(); state.tasks.clear(); state.inputs = {};
+            document.querySelectorAll('.persona-chip').forEach(el => el.classList.remove('active'));
             btn.classList.add('active');
+            
+            // Update Text
+            const p = PERSONAS[persona];
+            document.getElementById('hero-title').innerHTML = p.title;
+            document.getElementById('hero-sub').innerHTML = p.sub;
+            
+            // Reset grid
             renderGrid();
-            // If we are in step 2 or 3, re-render tasks/sliders to match new labels
-            if(!document.getElementById('step-2').classList.contains('hidden')) renderTasks();
-            if(!document.getElementById('step-3').classList.contains('hidden')) renderSliders();
+            // If deeper in flow, reset
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+            document.getElementById('step-4').classList.add('hidden');
+            document.getElementById('step-5').classList.add('hidden');
+            document.getElementById('step-1').classList.remove('hidden');
+            document.getElementById('domain-count').innerText = "0";
         };
 
         function renderGrid() {
             const grid = document.getElementById('domain-grid');
-            const data = PERSONAS[state.currentPersona];
+            const data = PERSONAS[state.currentPersona].grid;
             grid.innerHTML = Object.keys(data).map(key => `
                 <div class="card ${state.domains.has(key) ? 'selected' : ''}" onclick="toggleDomain('${key}', event)">
                     <div class="check-pill" style="border-radius:50%; border:2px solid var(--border); display:grid; place-items:center; width:28px; height:28px; position:absolute; top:24px; right:24px;">
@@ -285,21 +307,19 @@
 
         window.goHome = function() { location.reload(); };
         window.setStep = function(n) { 
-            document.getElementById('hero').classList.add('hidden'); 
-            [1,2,3,4,5].forEach(s => { const el = document.getElementById(`step-${s}`); if(el) el.classList.add('hidden'); }); 
+            [1,2,3,4,5].forEach(s => { document.getElementById(`step-${s}`).classList.add('hidden'); }); 
             document.getElementById(`step-${n}`).classList.remove('hidden'); 
+            if(n===1) document.getElementById('hero').classList.remove('hidden');
+            else document.getElementById('hero').classList.add('hidden');
             window.scrollTo({top:0, behavior:'smooth'}); 
         };
 
         window.toggleDomain = function(key, e) { 
             const card = e.currentTarget; 
             if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); 
-            
-            // Toggle visual state manually to avoid full re-render
             card.classList.toggle('selected');
             const icon = card.querySelector('.check-pill i');
             icon.style.display = state.domains.has(key) ? 'block' : 'none';
-            
             document.getElementById('domain-count').innerText = state.domains.size; 
         };
 
@@ -307,7 +327,7 @@
         
         function renderTasks() {
             const list = document.getElementById('task-list'); 
-            const data = PERSONAS[state.currentPersona];
+            const data = PERSONAS[state.currentPersona].grid;
             let aggregated = []; 
             state.domains.forEach(d => aggregated = aggregated.concat(data[d].items));
             
@@ -335,7 +355,7 @@
         
         function renderSliders() {
             const cont = document.getElementById('slider-box'); 
-            const data = PERSONAS[state.currentPersona];
+            const data = PERSONAS[state.currentPersona].grid;
             let active = []; 
             state.domains.forEach(d => { data[d].items.filter(i => state.tasks.has(i.id)).forEach(ai => active.push(ai)); });
             
@@ -354,7 +374,7 @@
         
         window.runAnalysis = function() {
             const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0;
-            const data = PERSONAS[state.currentPersona];
+            const data = PERSONAS[state.currentPersona].grid;
             state.domains.forEach(d => { 
                 data[d].items.filter(i => state.tasks.has(i.id)).forEach(i => { 
                     const qty = state.inputs[i.id] || 0; 
@@ -370,16 +390,14 @@
             const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value; const comp = document.getElementById('user-company').value; const gotcha = document.getElementById('gotcha-field').value;
             if(!name || name.length < 2 || !email || !email.includes('@') || !comp || gotcha !== "") { document.getElementById('form-err').style.display='block'; return; }
             runAnalysis(); 
-            // Collect context-aware details
             let emailDetails = `Industry: ${state.currentPersona.toUpperCase()}\n`;
-            const data = PERSONAS[state.currentPersona];
+            const data = PERSONAS[state.currentPersona].grid;
             state.domains.forEach(d => {
                 data[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
                     const qty = state.inputs[i.id] || 0;
                     emailDetails += `${i.label}: ${qty} ${i.unit}\n`;
                 });
             });
-
             fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: comp, potential_amt: state.results.amt, hours_reclaimed: state.results.hours, details: emailDetails }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
@@ -391,46 +409,41 @@
                 const comp = document.getElementById('user-company').value || "Company";
                 const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
                 
-                // BRANDING
-                doc.setFillColor(248, 250, 252); doc.rect(0, 0, 210, 50, 'F'); 
+                doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 50, 'F'); 
                 if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); } 
-                
                 doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "normal");
-                doc.text('CUSTOM AUTOMATION BLUEPRINT', 135, 25);
                 
-                // METADATA
+                // CONTEXT AWARE TITLE
+                const titles = { general: 'AUTOMATION BLUEPRINT', legal: 'LEGAL AUTOMATION STRATEGY', realestate: 'REAL ESTATE SCALING PLAN', service: 'FIELD SERVICE AUTOMATION', logistics: 'LOGISTICS EFFICIENCY PLAN' };
+                doc.text(titles[state.currentPersona], 135, 25);
+                
                 doc.setTextColor(15, 23, 42); doc.setFontSize(12); doc.setFont("helvetica", "bold");
                 doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 65); 
                 doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
                 doc.text(`Organization: ${comp}`, 20, 73);
-                doc.text(`Industry Context: ${state.currentPersona.toUpperCase()}`, 20, 80); // Added Industry
                 doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 65);
                 
-                doc.setDrawColor(226, 232, 240); doc.line(20, 85, 190, 85);
+                doc.setDrawColor(226, 232, 240); doc.line(20, 82, 190, 82);
                 
-                // METRICS
                 doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-                doc.text('1. YEARLY SAVINGS POTENTIAL', 20, 98);
-                doc.setFontSize(22); doc.text(state.results.amt, 20, 111);
+                doc.text('1. YEARLY SAVINGS POTENTIAL', 20, 96);
+                doc.setFontSize(22); doc.text(state.results.amt, 20, 109);
                 
-                doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. ERROR REDUCTION', 110, 98);
-                doc.setFontSize(22); doc.text('99.9%', 110, 111);
+                doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. ERROR REDUCTION', 110, 96);
+                doc.setFontSize(22); doc.text('99.9%', 110, 109);
                 
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. TIME RECLAIMED', 20, 134);
-                doc.setFontSize(22); doc.text(`${state.results.hours} HOURS`, 20, 147);
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. TIME RECLAIMED', 20, 132);
+                doc.setFontSize(22); doc.text(`${state.results.hours} HOURS / YR`, 20, 145);
 
-                // LINE ITEMS
                 doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
-                doc.text('YOUR CUSTOM PLAN', 20, 168);
-                doc.setDrawColor(79, 70, 229); doc.line(20, 171, 100, 171);
+                doc.text('YOUR CUSTOM PLAN', 20, 165);
+                doc.setDrawColor(79, 70, 229); doc.line(20, 168, 100, 168);
                 
-                let y = 188;
-                const data = PERSONAS[state.currentPersona];
-                
+                let y = 185;
+                const data = PERSONAS[state.currentPersona].grid;
                 state.domains.forEach(d => {
                     data[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
                         if (y > 260) { doc.addPage(); y = 20; }
-                        
                         const qty = state.inputs[i.id] || 0;
                         const hrs = (qty * TIME_SAVINGS[i.id] * 52);
                         const val = (hrs * rate);
@@ -441,9 +454,8 @@
                         doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(79, 70, 229);
                         doc.text(`Savings: $${Math.round(val).toLocaleString()} / yr  (${Math.round(hrs)} Hours)`, 20, y + 6);
                         
-                        // Use default descriptions if blueprints aren't specific to persona yet
-                        doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(100, 116, 139);
-                        doc.text(`Impact: Automates ${qty} ${i.unit.toLowerCase()}`, 20, y + 12);
+                        doc.setFont("helvetica", "italic"); doc.setFontSize(10); doc.setTextColor(100, 116, 139);
+                        doc.text(`Logic: ${i.note}`, 20, y + 12);
                         
                         y += 24;
                     });
@@ -470,7 +482,6 @@
                 ctx.fillStyle = '#0f172a'; ctx.font = '800 48px "Plus Jakarta Sans", sans-serif'; ctx.fillText('MagicFolder', 100, 68);
                 PDF_LOGO_DATA = canvas.toDataURL('image/png');
             });
-
             renderGrid();
             document.getElementById('dot-container').innerHTML = slides.map((_, i) => `<div class="dot-wrapper" onclick="goToSlide(${i})"><div class="dot-progress"></div></div>`).join('');
             lucide.createIcons();
