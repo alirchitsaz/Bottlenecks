@@ -18,53 +18,45 @@
         .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; color: var(--text-dark); cursor: pointer; }
         .logo svg { width: 32px; height: 32px; fill: var(--primary); }
-        
-        .hero { padding: 80px 0 40px; text-align: center; }
-        .hero h1 { font-size: clamp(3rem, 7vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 16px; }
-        .hero .sub-hero { max-width: 720px; margin: 0 auto; font-size: 1.3rem; color: var(--text-muted); min-height: 3em; }
-        
-        /* NEW: PROMINENT PERSONA SELECTOR */
+        .hero { padding: 60px 0 30px; text-align: center; min-height: 480px; }
+        .headline-container { min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; cursor: pointer; }
+        .hero h1 { font-size: clamp(3.2rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 16px; transition: opacity 0.4s; }
+        .hero .sub-hero { max-width: 720px; margin: 0 auto; font-size: 1.35rem; color: var(--text-muted); transition: opacity 0.4s; min-height: 3em; }
         .persona-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 40px 0; }
-        .persona-chip { 
-            background: #fff; border: 2px solid var(--border); padding: 12px 28px; border-radius: 100px; 
-            font-weight: 700; font-size: 1rem; color: var(--text-muted); cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
-        }
+        .persona-chip { background: #fff; border: 2px solid var(--border); padding: 12px 28px; border-radius: 100px; font-weight: 700; font-size: 1rem; color: var(--text-muted); cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px; }
         .persona-chip:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
         .persona-chip.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 10px 20px var(--primary-soft); }
-        
         .grid-container { padding: 40px 0; max-width: 1200px; margin: 0 auto; }
         .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         @media (max-width: 1024px) { .domain-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { .domain-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2.5rem; } }
-
         .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 32px; cursor: pointer; transition: 0.3s; position: relative; height: 100%; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary); background: #fff; }
         .card.selected { border-color: var(--primary); background: #fff; box-shadow: var(--shadow-lg); border-width: 2px; }
         .card h3 { font-size: 1.5rem; margin-bottom: 8px; font-weight: 700; letter-spacing: -0.03em; }
-        .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.5; flex-grow: 1; }
-        .check-pill { position: absolute; top: 32px; right: 32px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; }
+        .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.5; flex-grow: 1; pointer-events: none; }
+        .check-pill { position: absolute; top: 32px; right: 32px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; pointer-events: none; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
-
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; border-radius: 20px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; align-items: center; }
+        
+        /* IMPROVED PHASE 2 ITEMS */
+        .audit-item { display: flex; gap: 24px; padding: 28px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 16px; cursor: pointer; transition: all 0.2s ease; align-items: flex-start; text-align: left; }
+        .audit-item:hover { border-color: #cbd5e1; transform: translateX(4px); }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
-
+        .audit-item .check-box { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--border); display: grid; place-items: center; margin-top: 2px; flex-shrink: 0; transition: 0.2s; }
+        .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
+        
         .results-hero { background: #0f172a; color: white; padding: 80px 32px; border-radius: 40px; text-align: center; margin-top: 32px; }
         .big-save { font-size: clamp(3.5rem, 10vw, 6.5rem); color: #818cf8; font-weight: 800; margin: 16px 0; letter-spacing: -3px; line-height: 1; }
-        
         .cta-card { background: var(--surface); padding: 48px; border-radius: 32px; border: 1px solid var(--border); text-align: center; margin-top: 32px; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 650px; margin: 24px auto 0; }
         input { padding: 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 1.05rem; width: 100%; outline: none; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
-
         .btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 100px; font-weight: 700; border: none; cursor: pointer; font-size: 1.15rem; display: inline-flex; align-items: center; gap: 12px; transition: 0.3s; }
         .btn:hover { background: #4338ca; transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-soft); }
         .btn-count { background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; margin-left: 8px; font-weight: 800; }
-
         footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 80px; }
         .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 2fr 2fr; gap: 60px; }
         .footer-platforms { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
@@ -84,14 +76,14 @@
             <svg viewBox="0 0 24 24"><path d="M22 19V9C22 7.89543 21.1046 7 20 7H11L9 4H4C2.89543 4 2 4.89543 2 6V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19Z" fill="#4f46e5" opacity="0.2"/><path d="M22 10V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V10H22Z" fill="#4f46e5"/><path d="M12 11L13.5 14L16.5 15.5L13.5 17L12 20L10.5 17L7.5 15.5L10.5 14L12 11Z" fill="white"/></svg>
             MagicFolder
         </div>
-        <div class="mono" style="color: var(--text-muted); font-weight: 700;">Automation for Business</div>
+        <div class="mono" style="color: var(--text-muted); font-weight: 700;">Modern Business Systems</div>
     </div>
 </nav>
 
 <div class="container">
     <div id="hero" class="hero fade-in">
         <h1 id="hero-title">Stop doing work<br>computers can do.</h1>
-        <p id="hero-sub" class="sub-hero">We automate your busy work so you can focus on revenue.</p>
+        <p id="hero-sub" class="sub-hero">We automate the boring parts of your business so you can focus on revenue.</p>
         
         <div class="persona-bar">
             <div class="persona-chip active" onclick="switchPersona('general', this)">General Business</div>
@@ -191,66 +183,65 @@
     (function() {
         let PDF_LOGO_DATA = "";
         
-        // --- PERSONA DATA CONFIGURATION ---
         const PERSONAS = {
             general: {
                 title: "Stop doing work<br>computers can do.",
                 sub: "We automate the boring parts of your business so you can focus on revenue.",
                 grid: {
-                    revenue: { label: 'Win More Clients', text: 'Automate quotes & follow-up.', items: [{ id: 'rev-quote', label: 'Send Quotes', unit: 'Quotes/Wk', note: 'Instant automated quoting' }, { id: 'rev-lead', label: 'Lead Response', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
-                    magicfolder: { label: 'Never File Again', text: 'AI file naming & sorting.', items: [{ id: 'mf-invoices', label: 'Invoices', unit: 'Bills/Wk', note: 'Auto-extract & file bills' }, { id: 'mf-contracts', label: 'Contracts', unit: 'Docs/Wk', note: 'Auto-save signed docs' }] },
-                    knowledge: { label: 'Instant Answers', text: 'Search company history.', items: [{ id: 'kn-rag', label: 'Deep Search', unit: 'Searches/Wk', note: 'Find any file instantly' }, { id: 'kn-briefing', label: 'Summaries', unit: 'Docs/Wk', note: 'Summarize long PDFs' }] },
-                    requests: { label: 'Track Jobs', text: 'Know who is doing what.', items: [{ id: 'req-tracking', label: 'Status Checks', unit: 'Jobs/Wk', note: 'Auto-update dashboards' }, { id: 'req-triage', label: 'Assign Work', unit: 'Tasks/Wk', note: 'Route tasks to team' }] },
-                    experience: { label: '24/7 Support', text: 'Auto-reply to clients.', items: [{ id: 'sup-faq', label: 'FAQ Bot', unit: 'Queries/Wk', note: 'Answer common questions' }, { id: 'sup-onboard', label: 'Onboarding', unit: 'Clients/Wk', note: 'Auto-welcome emails' }] },
-                    backoffice: { label: 'Auto Admin', text: 'Sync your software.', items: [{ id: 'bo-billing', label: 'Billing Match', unit: 'Bills/Wk', note: 'Verify billable hours' }, { id: 'bo-reconcile', label: 'Data Sync', unit: 'Records/Wk', note: 'Sync CRM to Accounting' }] }
+                    revenue: { label: 'Win More Clients', text: 'Automate quotes & follow-up.', items: [{ id: 'rev-quote', label: 'Manual Quoting', desc: 'Typing up and emailing quotes by hand.', unit: 'Quotes/Wk', note: 'Instant automated quoting' }, { id: 'rev-lead', label: 'Lead Response', desc: 'Manually replying to new inquiries.', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
+                    magicfolder: { label: 'Never File Again', text: 'AI file naming & sorting.', items: [{ id: 'mf-invoices', label: 'Invoice Entry', desc: 'Typing bill data into QuickBooks/Excel.', unit: 'Bills/Wk', note: 'Auto-extract & file bills' }, { id: 'mf-contracts', label: 'Saving Contracts', desc: 'Downloading and filing signed docs.', unit: 'Docs/Wk', note: 'Auto-save signed docs' }] },
+                    knowledge: { label: 'Instant Answers', text: 'Search company history.', items: [{ id: 'kn-rag', label: 'Digging for Files', desc: 'Searching folders for old info.', unit: 'Searches/Wk', note: 'Find any file instantly' }, { id: 'kn-briefing', label: 'Reading Long Docs', desc: 'Reading full reports just to find one fact.', unit: 'Docs/Wk', note: 'Summarize long PDFs' }] },
+                    requests: { label: 'Track Jobs', text: 'Know who is doing what.', items: [{ id: 'req-tracking', label: 'Status Emails', desc: 'Replying to "Is this done yet?"', unit: 'Jobs/Wk', note: 'Auto-update dashboards' }, { id: 'req-triage', label: 'Assigning Work', desc: 'Forwarding emails to the right person.', unit: 'Tasks/Wk', note: 'Route tasks to team' }] },
+                    experience: { label: '24/7 Support', text: 'Auto-reply to clients.', items: [{ id: 'sup-faq', label: 'Answering FAQs', desc: 'Replying to the same questions repeatedly.', unit: 'Queries/Wk', note: 'Answer common questions' }, { id: 'sup-onboard', label: 'Onboarding', desc: 'Sending welcome packets manually.', unit: 'Clients/Wk', note: 'Auto-welcome emails' }] },
+                    backoffice: { label: 'Auto Admin', text: 'Sync your software.', items: [{ id: 'bo-billing', label: 'Billing Match', desc: 'Checking if hours matched the invoice.', unit: 'Bills/Wk', note: 'Verify billable hours' }, { id: 'bo-reconcile', label: 'Data Re-entry', desc: 'Copying data from CRM to Accounting.', unit: 'Records/Wk', note: 'Sync CRM to Accounting' }] }
                 }
             },
             legal: {
                 title: "Automate your<br>Firm's Busy Work.",
                 sub: "Bill more hours by letting AI handle intake, filing, and document search.",
                 grid: {
-                    revenue: { label: 'Client Intake', text: 'Auto-send retainers.', items: [{ id: 'rev-quote', label: 'Retainers', unit: 'Docs/Wk', note: 'Auto-draft fee agreements' }, { id: 'rev-lead', label: 'New Clients', unit: 'Leads/Wk', note: 'Instant intake response' }] },
-                    magicfolder: { label: 'Case Files', text: 'Auto-file pleadings.', items: [{ id: 'mf-invoices', label: 'Expenses', unit: 'Receipts/Wk', note: 'Capture case expenses' }, { id: 'mf-contracts', label: 'Pleadings', unit: 'Files/Wk', note: 'Sort incoming discovery' }] },
-                    knowledge: { label: 'Discovery', text: 'Search case history.', items: [{ id: 'kn-rag', label: 'Case Search', unit: 'Queries/Wk', note: 'Find evidence instantly' }, { id: 'kn-briefing', label: 'Depo Summary', unit: 'Depos/Wk', note: 'Summarize transcripts' }] },
-                    requests: { label: 'Docketing', text: 'Track deadlines.', items: [{ id: 'req-tracking', label: 'Deadlines', unit: 'Dates/Wk', note: 'Auto-calendar updates' }, { id: 'req-triage', label: 'Assignments', unit: 'Tasks/Wk', note: 'Assign paralegal tasks' }] },
-                    experience: { label: 'Client Updates', text: 'No more "update?" emails.', items: [{ id: 'sup-faq', label: 'Status Updates', unit: 'Emails/Wk', note: 'Auto-case status replies' }, { id: 'sup-onboard', label: 'New Matter', unit: 'Matters/Wk', note: 'Client welcome packet' }] },
-                    backoffice: { label: 'Trust Accounting', text: 'Reconcile ledgers.', items: [{ id: 'bo-billing', label: 'Pre-Bills', unit: 'Bills/Wk', note: 'Draft bill generation' }, { id: 'bo-reconcile', label: 'Conflict Check', unit: 'Checks/Wk', note: 'Database conflict scan' }] }
+                    revenue: { label: 'Client Intake', text: 'Auto-send retainers.', items: [{ id: 'rev-quote', label: 'Drafting Retainers', desc: 'Creating fee agreements from templates.', unit: 'Docs/Wk', note: 'Auto-draft fee agreements' }, { id: 'rev-lead', label: 'Intake Calls', desc: 'Screening new clients manually.', unit: 'Leads/Wk', note: 'Instant intake response' }] },
+                    magicfolder: { label: 'Case Files', text: 'Auto-file pleadings.', items: [{ id: 'mf-invoices', label: 'Expense Logging', desc: 'Manually tracking case costs.', unit: 'Receipts/Wk', note: 'Capture case expenses' }, { id: 'mf-contracts', label: 'Filing Pleadings', desc: 'Naming and saving court docs.', unit: 'Files/Wk', note: 'Sort incoming discovery' }] },
+                    knowledge: { label: 'Discovery', text: 'Search case history.', items: [{ id: 'kn-rag', label: 'Case Research', desc: 'Searching evidence for keywords.', unit: 'Queries/Wk', note: 'Find evidence instantly' }, { id: 'kn-briefing', label: 'Depo Summaries', desc: 'Reading full transcripts.', unit: 'Depos/Wk', note: 'Summarize transcripts' }] },
+                    requests: { label: 'Docketing', text: 'Track deadlines.', items: [{ id: 'req-tracking', label: 'Calendaring', desc: 'Manually entering court dates.', unit: 'Dates/Wk', note: 'Auto-calendar updates' }, { id: 'req-triage', label: 'Task Assignment', desc: 'Emailing tasks to paralegals.', unit: 'Tasks/Wk', note: 'Assign paralegal tasks' }] },
+                    experience: { label: 'Client Updates', text: 'No more "update?" emails.', items: [{ id: 'sup-faq', label: 'Status Replies', desc: 'Answering "Whats happening?" emails.', unit: 'Emails/Wk', note: 'Auto-case status replies' }, { id: 'sup-onboard', label: 'New Matters', desc: 'Setting up new file structures.', unit: 'Matters/Wk', note: 'Client welcome packet' }] },
+                    backoffice: { label: 'Trust Accounting', text: 'Reconcile ledgers.', items: [{ id: 'bo-billing', label: 'Pre-Bill Edit', desc: 'Reviewing hours for errors.', unit: 'Bills/Wk', note: 'Draft bill generation' }, { id: 'bo-reconcile', label: 'Conflict Checks', desc: 'Searching names in old files.', unit: 'Checks/Wk', note: 'Database conflict scan' }] }
                 }
             },
             realestate: {
                 title: "Close more deals,<br>do less paperwork.",
                 sub: "Automate showing feedback, offer management, and transaction coordination.",
                 grid: {
-                    revenue: { label: 'More Listings', text: 'Auto-listing agreements.', items: [{ id: 'rev-quote', label: 'Listing Docs', unit: 'Listings/Wk', note: 'Generate listing agreements' }, { id: 'rev-lead', label: 'Zillow Leads', unit: 'Leads/Wk', note: 'Instant Zillow reply' }] },
-                    magicfolder: { label: 'Transaction Files', text: 'Sort offers & disclosures.', items: [{ id: 'mf-invoices', label: 'Expenses', unit: 'Receipts/Wk', note: 'Track marketing spend' }, { id: 'mf-contracts', label: 'Offers', unit: 'Offers/Wk', note: 'Organize incoming offers' }] },
-                    knowledge: { label: 'Deal History', text: 'Find past client info.', items: [{ id: 'kn-rag', label: 'Client Search', unit: 'Searches/Wk', note: 'Search past deals' }, { id: 'kn-briefing', label: 'Doc Review', unit: 'Docs/Wk', note: 'Summarize HOA docs' }] },
-                    requests: { label: 'Closing Track', text: 'Auto-TC coordination.', items: [{ id: 'req-tracking', label: 'Escrow', unit: 'Updates/Wk', note: 'Track contingency dates' }, { id: 'req-triage', label: 'Vendors', unit: 'Tasks/Wk', note: 'Dispatch photographers' }] },
-                    experience: { label: 'Client Care', text: 'Answer buyer questions.', items: [{ id: 'sup-faq', label: 'Buyer FAQ', unit: 'Texts/Wk', note: 'Reply to listing questions' }, { id: 'sup-onboard', label: 'New Listing', unit: 'Listings/Wk', note: 'Seller onboarding seq' }] },
-                    backoffice: { label: 'Commission', text: 'Audit commission checks.', items: [{ id: 'bo-billing', label: 'CD Review', unit: 'Checks/Wk', note: 'Verify commission splits' }, { id: 'bo-reconcile', label: 'CRM Sync', unit: 'Contacts/Wk', note: 'Sync open house leads' }] }
+                    revenue: { label: 'More Listings', text: 'Auto-listing agreements.', items: [{ id: 'rev-quote', label: 'Listing Docs', desc: 'Preparing agreements for sign.', unit: 'Listings/Wk', note: 'Generate listing agreements' }, { id: 'rev-lead', label: 'Lead Response', desc: 'Replying to Zillow/Realtor.com leads.', unit: 'Leads/Wk', note: 'Instant Zillow reply' }] },
+                    magicfolder: { label: 'Transaction Files', text: 'Sort offers & disclosures.', items: [{ id: 'mf-invoices', label: 'Expense Tracking', desc: 'Logging marketing spend.', unit: 'Receipts/Wk', note: 'Track marketing spend' }, { id: 'mf-contracts', label: 'Offer Filing', desc: 'Organizing incoming offers.', unit: 'Offers/Wk', note: 'Organize incoming offers' }] },
+                    knowledge: { label: 'Deal History', text: 'Find past client info.', items: [{ id: 'kn-rag', label: 'Client Search', desc: 'Looking up past deal details.', unit: 'Searches/Wk', note: 'Search past deals' }, { id: 'kn-briefing', label: 'Doc Review', desc: 'Reading HOA docs for clients.', unit: 'Docs/Wk', note: 'Summarize HOA docs' }] },
+                    requests: { label: 'Closing Track', text: 'Auto-TC coordination.', items: [{ id: 'req-tracking', label: 'Escrow Dates', desc: 'Tracking contingency deadlines.', unit: 'Updates/Wk', note: 'Track contingency dates' }, { id: 'req-triage', label: 'Vendor Coord', desc: 'Scheduling photographers/stagers.', unit: 'Tasks/Wk', note: 'Dispatch photographers' }] },
+                    experience: { label: 'Client Care', text: 'Answer buyer questions.', items: [{ id: 'sup-faq', label: 'Buyer Questions', desc: 'Replying to listing inquiries.', unit: 'Texts/Wk', note: 'Reply to listing questions' }, { id: 'sup-onboard', label: 'New Listing', desc: 'Setting up MLS/Socials.', unit: 'Listings/Wk', note: 'Seller onboarding seq' }] },
+                    backoffice: { label: 'Commission', text: 'Audit commission checks.', items: [{ id: 'bo-billing', label: 'CD Review', desc: 'Checking Closing Disclosures.', unit: 'Checks/Wk', note: 'Verify commission splits' }, { id: 'bo-reconcile', label: 'CRM Entry', desc: 'Entering open house leads.', unit: 'Contacts/Wk', note: 'Sync open house leads' }] }
                 }
             },
             service: {
                 title: "Instant Estimates,<br>Zero Paperwork.",
                 sub: "Send quotes from the van and automate your dispatching.",
                 grid: {
-                    revenue: { label: 'Instant Bids', text: 'Quote while on site.', items: [{ id: 'rev-quote', label: 'Estimates', unit: 'Bids/Wk', note: 'Generate mobile estimates' }, { id: 'rev-lead', label: 'Emergency', unit: 'Calls/Wk', note: 'After-hours dispatch' }] },
-                    magicfolder: { label: 'Job Photos', text: 'Save site photos.', items: [{ id: 'mf-invoices', label: 'Supplier Bills', unit: 'Bills/Wk', note: 'File parts receipts' }, { id: 'mf-contracts', label: 'Service Agmts', unit: 'Docs/Wk', note: 'Save signed work orders' }] },
-                    knowledge: { label: 'Site History', text: 'What did we fix last time?', items: [{ id: 'kn-rag', label: 'History', unit: 'Searches/Wk', note: 'Lookup equipment history' }, { id: 'kn-briefing', label: 'Manuals', unit: 'Docs/Wk', note: 'Find install manuals' }] },
-                    requests: { label: 'Dispatch', text: 'Track every truck.', items: [{ id: 'req-tracking', label: 'Job Status', unit: 'Jobs/Wk', note: 'Update customer ETA' }, { id: 'req-triage', label: 'Routing', unit: 'Routes/Wk', note: 'Optimize tech routes' }] },
-                    experience: { label: 'Booking', text: '24/7 Appointment bot.', items: [{ id: 'sup-faq', label: 'Price Check', unit: 'Calls/Wk', note: 'Answer pricing FAQs' }, { id: 'sup-onboard', label: 'New Job', unit: 'Jobs/Wk', note: 'Job confirmation texts' }] },
-                    backoffice: { label: 'Job Costing', text: 'Did we make money?', items: [{ id: 'bo-billing', label: 'Profit Audit', unit: 'Jobs/Wk', note: 'Calculate job profit' }, { id: 'bo-reconcile', label: 'Sync QB', unit: 'Entries/Wk', note: 'Push invoice to QB' }] }
+                    revenue: { label: 'Instant Bids', text: 'Quote while on site.', items: [{ id: 'rev-quote', label: 'Estimating', desc: 'Writing quotes in the van.', unit: 'Bids/Wk', note: 'Generate mobile estimates' }, { id: 'rev-lead', label: 'Dispatch', desc: 'Taking emergency calls.', unit: 'Calls/Wk', note: 'After-hours dispatch' }] },
+                    magicfolder: { label: 'Job Photos', text: 'Save site photos.', items: [{ id: 'mf-invoices', label: 'Receipts', desc: 'Saving Home Depot receipts.', unit: 'Bills/Wk', note: 'File parts receipts' }, { id: 'mf-contracts', label: 'Work Orders', desc: 'Filing signed job sheets.', unit: 'Docs/Wk', note: 'Save signed work orders' }] },
+                    knowledge: { label: 'Site History', text: 'What did we fix last time?', items: [{ id: 'kn-rag', label: 'History Search', desc: 'Looking up old service records.', unit: 'Searches/Wk', note: 'Lookup equipment history' }, { id: 'kn-briefing', label: 'Manual Lookup', desc: 'Reading install guides.', unit: 'Docs/Wk', note: 'Find install manuals' }] },
+                    requests: { label: 'Dispatch', text: 'Track every truck.', items: [{ id: 'req-tracking', label: 'Cust Updates', desc: 'Texting "On my way".', unit: 'Jobs/Wk', note: 'Update customer ETA' }, { id: 'req-triage', label: 'Routing', desc: 'Planning tech routes.', unit: 'Routes/Wk', note: 'Optimize tech routes' }] },
+                    experience: { label: 'Booking', text: '24/7 Appointment bot.', items: [{ id: 'sup-faq', label: 'Price Checks', desc: 'Answering "How much is...?"', unit: 'Calls/Wk', note: 'Answer pricing FAQs' }, { id: 'sup-onboard', label: 'Job Setup', desc: 'Creating new customer files.', unit: 'Jobs/Wk', note: 'Job confirmation texts' }] },
+                    backoffice: { label: 'Job Costing', text: 'Did we make money?', items: [{ id: 'bo-billing', label: 'Profit Check', desc: 'Calculating job margins.', unit: 'Jobs/Wk', note: 'Calculate job profit' }, { id: 'bo-reconcile', label: 'Sync QB', desc: 'Entering invoices into QB.', unit: 'Entries/Wk', note: 'Push invoice to QB' }] }
                 }
             },
             logistics: {
                 title: "Keep your trucks<br>full and moving.",
                 sub: "Automate spot quotes, BOL filing, and track-and-trace updates.",
                 grid: {
-                    revenue: { label: 'Spot Quotes', text: 'Instant rate calculation.', items: [{ id: 'rev-quote', label: 'Spot Rates', unit: 'Quotes/Wk', note: 'Auto-calc lane rates' }, { id: 'rev-lead', label: 'Capacity', unit: 'Checks/Wk', note: 'Carrier capacity check' }] },
-                    magicfolder: { label: 'Paperwork', text: 'Auto-file BOLs & PODs.', items: [{ id: 'mf-invoices', label: 'Carrier Inv', unit: 'Bills/Wk', note: 'Audit carrier invoices' }, { id: 'mf-contracts', label: 'BOL/POD', unit: 'Docs/Wk', note: 'Match POD to Load ID' }] },
-                    knowledge: { label: 'Lane History', text: 'Search past rates.', items: [{ id: 'kn-rag', label: 'Rate Search', unit: 'Searches/Wk', note: 'Find historical lane pricing' }, { id: 'kn-briefing', label: 'Contracts', unit: 'Docs/Wk', note: 'Review carrier packets' }] },
-                    requests: { label: 'Tracking', text: 'Where is the truck?', items: [{ id: 'req-tracking', label: 'Trace', unit: 'Loads/Wk', note: 'Auto-update shipper' }, { id: 'req-triage', label: 'Driver Assign', unit: 'Loads/Wk', note: 'Assign load to driver' }] },
-                    experience: { label: 'Shipper Ops', text: '24/7 Status updates.', items: [{ id: 'sup-faq', label: 'Status Req', unit: 'Emails/Wk', note: 'Reply to status emails' }, { id: 'sup-onboard', label: 'New Carrier', unit: 'Setups/Wk', note: 'Onboard new carrier' }] },
-                    backoffice: { label: 'Audit', text: 'Catch billing errors.', items: [{ id: 'bo-billing', label: 'Inv Audit', unit: 'Bills/Wk', note: 'Reconcile quote vs invoice' }, { id: 'bo-reconcile', label: 'TMS Sync', unit: 'Loads/Wk', note: 'Update TMS status' }] }
+                    revenue: { label: 'Spot Quotes', text: 'Instant rate calculation.', items: [{ id: 'rev-quote', label: 'Rate Calcs', desc: 'Calculating spot rates manually.', unit: 'Quotes/Wk', note: 'Auto-calc lane rates' }, { id: 'rev-lead', label: 'Cap Checks', desc: 'Calling carriers for space.', unit: 'Checks/Wk', note: 'Carrier capacity check' }] },
+                    magicfolder: { label: 'Paperwork', text: 'Auto-file BOLs & PODs.', items: [{ id: 'mf-invoices', label: 'Carrier Inv', desc: 'Auditing carrier bills.', unit: 'Bills/Wk', note: 'Audit carrier invoices' }, { id: 'mf-contracts', label: 'BOL Filing', desc: 'Matching PODs to Loads.', unit: 'Docs/Wk', note: 'Match POD to Load ID' }] },
+                    knowledge: { label: 'Lane History', text: 'Search past rates.', items: [{ id: 'kn-rag', label: 'Rate Search', desc: 'Looking up historical pricing.', unit: 'Searches/Wk', note: 'Find historical lane pricing' }, { id: 'kn-briefing', label: 'Packets', desc: 'Reviewing carrier contracts.', unit: 'Docs/Wk', note: 'Review carrier packets' }] },
+                    requests: { label: 'Tracking', text: 'Where is the truck?', items: [{ id: 'req-tracking', label: 'Trace Calls', desc: 'Calling drivers for location.', unit: 'Loads/Wk', note: 'Auto-update shipper' }, { id: 'req-triage', label: 'Dispatch', desc: 'Assigning loads to drivers.', unit: 'Loads/Wk', note: 'Assign load to driver' }] },
+                    experience: { label: 'Shipper Ops', text: '24/7 Status updates.', items: [{ id: 'sup-faq', label: 'Status Emails', desc: 'Replying to "Where is my load?"', unit: 'Emails/Wk', note: 'Reply to status emails' }, { id: 'sup-onboard', label: 'New Carrier', desc: 'Onboarding new trucking cos.', unit: 'Setups/Wk', note: 'Onboard new carrier' }] },
+                    backoffice: { label: 'Audit', text: 'Catch billing errors.', items: [{ id: 'bo-billing', label: 'Inv Audit', desc: 'Checking invoice vs quote.', unit: 'Bills/Wk', note: 'Reconcile quote vs invoice' }, { id: 'bo-reconcile', label: 'TMS Sync', desc: 'Updating load status in TMS.', unit: 'Loads/Wk', note: 'Update TMS status' }] }
                 }
             }
         };
@@ -336,7 +327,10 @@
                     <div class="check-box" style="width:24px; height:24px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center;">
                         <i data-lucide="check" size="14" style="color:white; ${state.tasks.has(i.id) ? '' : 'display:none'}"></i>
                     </div>
-                    <div style="flex:1;"><div style="font-weight:700;">${i.label}</div></div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700; font-size:1.1rem;">${i.label}</div>
+                        <div style="color:var(--text-muted); font-size:0.95rem; margin-top:4px;">${i.desc}</div>
+                    </div>
                 </div>`).join('');
             lucide.createIcons(); 
             document.getElementById('task-count').innerText = state.tasks.size;
@@ -413,7 +407,6 @@
                 if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 80, 20); } 
                 doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "normal");
                 
-                // CONTEXT AWARE TITLE
                 const titles = { general: 'AUTOMATION BLUEPRINT', legal: 'LEGAL AUTOMATION STRATEGY', realestate: 'REAL ESTATE SCALING PLAN', service: 'FIELD SERVICE AUTOMATION', logistics: 'LOGISTICS EFFICIENCY PLAN' };
                 doc.text(titles[state.currentPersona], 135, 25);
                 
@@ -421,9 +414,10 @@
                 doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 65); 
                 doc.setFontSize(11); doc.setFont("helvetica", "normal"); 
                 doc.text(`Organization: ${comp}`, 20, 73);
+                doc.text(`Industry Context: ${state.currentPersona.toUpperCase()}`, 20, 80); 
                 doc.setTextColor(100, 116, 139); doc.text(`Date: ${new Date().toLocaleDateString()}`, 160, 65);
                 
-                doc.setDrawColor(226, 232, 240); doc.line(20, 82, 190, 82);
+                doc.setDrawColor(226, 232, 240); doc.line(20, 85, 190, 85);
                 
                 doc.setTextColor(79, 70, 229); doc.setFontSize(14); doc.setFont("helvetica", "bold");
                 doc.text('1. YEARLY SAVINGS POTENTIAL', 20, 96);
@@ -432,8 +426,8 @@
                 doc.setTextColor(16, 185, 129); doc.setFontSize(14); doc.text('2. ERROR REDUCTION', 110, 96);
                 doc.setFontSize(22); doc.text('99.9%', 110, 109);
                 
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. TIME RECLAIMED', 20, 132);
-                doc.setFontSize(22); doc.text(`${state.results.hours} HOURS / YR`, 20, 145);
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('3. TIME RECLAIMED', 20, 134);
+                doc.setFontSize(22); doc.text(`${state.results.hours} HOURS / YR`, 20, 147);
 
                 doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold");
                 doc.text('YOUR CUSTOM PLAN', 20, 165);
