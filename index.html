@@ -12,83 +12,80 @@
     
     <style>
         :root { --primary: #4f46e5; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { background: var(--bg); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.5; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
         /* NAV */
-        nav { padding: 24px 0; position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border); }
+        nav { padding: 20px 0; position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border); }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.6rem; cursor: pointer; text-decoration: none; color: inherit; }
-        .logo svg { width: 42px; height: 42px; }
+        .logo { display: flex; align-items: center; gap: 14px; font-weight: 800; font-size: 1.7rem; cursor: pointer; text-decoration: none; color: inherit; }
+        .logo svg { width: 48px; height: 48px; }
 
         /* HERO */
-        .hero { padding: 80px 0 40px; text-align: center; }
-        .hero h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; }
-        .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 48px; line-height: 1.6; }
+        .hero { padding: 90px 0 40px; text-align: center; }
+        .hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; color: var(--text-main); }
+        .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 48px; line-height: 1.6; }
 
-        /* UPGRADED ANIMATION */
-        .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 32px; max-width: 1000px; margin: 0 auto 80px; padding: 60px 40px; position: relative; overflow: hidden; }
+        /* ANIMATION STAGE */
+        .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1000px; margin: 0 auto 80px; padding: 60px 40px; position: relative; overflow: hidden; }
         .demo-flow { display: flex; justify-content: center; align-items: center; gap: 40px; position: relative; z-index: 2; }
-        .demo-node { background: white; padding: 24px; border-radius: 20px; border: 1px solid var(--border); text-align: center; width: 220px; transition: 0.5s; }
+        .demo-node { background: white; padding: 24px; border-radius: 24px; border: 1px solid var(--border); text-align: center; width: 220px; transition: 0.5s; }
         .demo-node i { color: var(--primary); margin-bottom: 12px; }
         .demo-node h4 { font-weight: 800; margin-bottom: 4px; }
         .demo-node span { font-size: 0.9rem; color: var(--text-muted); }
         
-        .magic-agent { border-color: var(--border); }
-        /* Animated Pulse when document passes through */
-        @keyframes agentPulse { 0%, 100% { border-color: var(--border); box-shadow: none; background: white; } 50% { border-color: var(--primary); box-shadow: 0 0 30px var(--primary-soft); background: #eff6ff; } }
+        .magic-agent { border-color: var(--border); position: relative; }
+        @keyframes agentPulse { 0%, 100% { border-color: var(--border); box-shadow: none; background: white; } 50% { border-color: var(--primary); box-shadow: 0 0 35px var(--primary-soft); background: #eff6ff; } }
+        .agent-active { animation: agentPulse 6s infinite linear; }
 
-        .magic-doc { position: absolute; width: 45px; height: 55px; background: white; border: 2px solid var(--primary); border-radius: 4px; top: 50%; left: 10%; transform: translateY(-50%); animation: magicFlow 6s infinite linear; z-index: 1; display: grid; place-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .magic-doc { position: absolute; width: 45px; height: 55px; background: white; border: 2px solid #cbd5e1; border-radius: 4px; top: 50%; left: 10%; transform: translateY(-50%); animation: magicFlow 6s infinite linear; z-index: 1; display: grid; place-items: center; }
         @keyframes magicFlow { 
-            0% { left: 10%; opacity: 0; transform: translateY(-50%) scale(0.8); } 
-            5% { opacity: 1; transform: translateY(-50%) scale(1); }
-            40% { left: 45%; border-color: var(--primary); background: white; }
-            50% { left: 50%; border-color: #818cf8; background: #e0e7ff; transform: translateY(-50%) rotate(5deg) scale(1.1); }
-            60% { left: 55%; border-color: var(--primary); background: white; }
-            95% { left: 85%; opacity: 1; transform: translateY(-50%) scale(1); }
-            100% { left: 90%; opacity: 0; transform: translateY(-50%) scale(0.8); }
+            0% { left: 10%; opacity: 0; border-color: #cbd5e1; } 
+            5% { opacity: 1; }
+            45% { left: 45%; border-color: #cbd5e1; background: white; transform: translateY(-50%) rotate(0deg); }
+            50% { left: 50%; border-color: var(--primary); background: #f5f3ff; transform: translateY(-50%) rotate(5deg) scale(1.15); box-shadow: 0 0 20px var(--primary-soft); }
+            55% { left: 55%; border-color: var(--primary); background: white; transform: translateY(-50%) rotate(0deg); }
+            95% { left: 85%; opacity: 1; }
+            100% { left: 90%; opacity: 0; }
         }
-        
-        /* Activate agent glow mid-animation */
-        .agent-glow { animation: agentPulse 6s infinite linear; }
 
         /* BUTTONS */
-        .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--text-main); color: white; padding: 18px 44px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.15rem; }
-        .btn:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 20px var(--primary-soft); }
-        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-main); }
+        .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--text-main); color: white; padding: 20px 48px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.2rem; }
+        .btn:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 25px var(--primary-soft); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-main); font-size: 1.1rem; }
 
         /* PERSONA SELECTOR */
         .persona-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
-        .persona-chip { background: #fff; border: 2px solid var(--border); padding: 12px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+        .persona-chip { background: #fff; border: 1px solid var(--border); padding: 12px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
         .persona-chip.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 10px 20px var(--primary-soft); }
 
-        /* GRID & WIZARD */
+        /* WIZARD GRID */
         .wizard-section { padding: 100px 0; border-top: 1px solid var(--border); scroll-margin-top: 80px; }
         .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
-        .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 28px; cursor: pointer; transition: 0.3s; position: relative; display: flex; flex-direction: column; height: 100%; }
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 32px; cursor: pointer; transition: 0.3s; position: relative; display: flex; flex-direction: column; height: 100%; }
         .card:hover { border-color: var(--primary); background: #fff; transform: translateY(-5px); box-shadow: var(--shadow-lg); }
         .card.selected { border-color: var(--primary); background: #fff; border-width: 2px; }
         .card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
-        .check-pill { position: absolute; top: 32px; right: 32px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; }
+        .check-pill { position: absolute; top: 32px; right: 32px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
 
-        .audit-item { display: flex; gap: 20px; padding: 24px; background: var(--surface); border: 2px solid transparent; border-radius: 20px; margin-bottom: 12px; cursor: pointer; align-items: center; text-align: left; }
+        .audit-item { display: flex; gap: 20px; padding: 28px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 12px; cursor: pointer; align-items: center; text-align: left; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
-        .check-box { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--border); display: grid; place-items: center; flex-shrink: 0; background: white; }
+        .check-box { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--border); display: grid; place-items: center; flex-shrink: 0; background: white; }
         .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
-        .cta-card { background: var(--surface); padding: 56px; border-radius: 40px; border: 1px solid var(--border); text-align: center; max-width: 700px; margin: 40px auto 0; }
+        .cta-card { background: var(--surface); padding: 60px; border-radius: 40px; border: 1px solid var(--border); text-align: center; max-width: 750px; margin: 40px auto 0; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
-        input { padding: 20px; border-radius: 14px; border: 1px solid var(--border); font-size: 1.1rem; width: 100%; outline: none; }
+        input { padding: 22px; border-radius: 16px; border: 1px solid var(--border); font-size: 1.15rem; width: 100%; outline: none; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
 
-        .results-hero { background: #0f172a; color: white; padding: 80px 40px; border-radius: 48px; text-align: center; }
-        .big-save { font-size: clamp(3.5rem, 10vw, 7rem); color: #818cf8; font-weight: 800; line-height: 1; letter-spacing: -4px; margin: 20px 0; }
+        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 50px; text-align: center; }
+        .big-save { font-size: clamp(4rem, 12vw, 8rem); color: #818cf8; font-weight: 800; line-height: 1; letter-spacing: -5px; margin: 20px 0; }
 
         footer { padding: 80px 0; border-top: 1px solid var(--border); margin-top: 100px; }
         .hidden { display: none !important; }
-        .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         @media(max-width: 768px) { .domain-grid, .demo-flow { grid-template-columns: 1fr; flex-direction: column; } .hero h1 { font-size: 2.8rem; } .magic-doc { display: none; } .form-row { grid-template-columns: 1fr; } }
@@ -102,37 +99,38 @@
     <div class="container nav-inner">
         <a class="logo" href="javascript:location.reload();">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10,35 L40,35 L50,45 L90,45 L90,85 L10,85 Z" fill="#4f46e5" opacity="0.1" stroke="#4f46e5" stroke-width="3"/>
-                <path d="M10,45 L90,45 L90,85 L10,85 Z" fill="#4f46e5" opacity="0.4"/>
-                <line x1="65" y1="25" x2="85" y2="45" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
-                <path d="M62,22 L68,28 M58,28 L64,34" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
+                <path d="M15,35 L40,35 Q45,35 48,40 L52,45 Q55,50 60,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3"/>
+                <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
+                <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="5" stroke-linecap="round"/>
+                <path d="M62,18 L68,24 M58,24 L64,30 M65,15 L69,19" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="68" cy="22" r="3" fill="#4f46e5"/>
             </svg>
             MagicFolder
         </a>
         <div>
-            <button class="btn" style="padding:10px 24px; font-size:0.9rem;" onclick="startJourney()">Get My Plan</button>
+            <button class="btn" style="padding:10px 24px; font-size:0.95rem;" onclick="startJourney()">See My Roadmap</button>
         </div>
     </div>
 </nav>
 
 <section id="hero-section" class="hero container">
     <h1>Do what you're special at.<br>Let us do the paperwork.</h1>
-    <p>MagicFolder is a secure application for your computer that watches your scanner and email—instantly identifying, naming, and filing every document in your world.</p>
+    <p>We built a secure tool for your computer that watches your scanner and email—identifying your documents and handling the admin work automatically.</p>
     
-    <div style="display:flex; gap:16px; justify-content:center; margin-bottom: 60px;">
-        <button class="btn" onclick="startJourney()">Start My Strategy Blueprint <i data-lucide="arrow-right"></i></button>
+    <div style="display:flex; gap:20px; justify-content:center; margin-bottom: 60px;">
+        <button class="btn" onclick="startJourney()">See My Work Smarter Roadmap <i data-lucide="arrow-right"></i></button>
     </div>
 
     <div class="demo-stage">
-        <div class="magic-doc"><i data-lucide="file-text" size="24" color="#4f46e5"></i></div>
+        <div class="magic-doc"><i data-lucide="sparkles" size="24" color="#4f46e5"></i></div>
         <div class="demo-flow">
             <div class="demo-node"><i data-lucide="scan" size="36"></i><h4>Intake</h4><span>Scans & Emails</span></div>
-            <div class="demo-node magic-agent agent-glow"><i data-lucide="wand-2" size="36"></i><h4>Magic Agent</h4><span>Identify & Rule</span></div>
-            <div class="demo-node"><i data-lucide="check-circle" size="36"></i><h4>Done</h4><span>Filed & Synced</span></div>
+            <div class="demo-node magic-agent agent-active"><i data-lucide="wand-2" size="36"></i><h4>Magic Agent</h4><span>The Intelligent Folder</span></div>
+            <div class="demo-node"><i data-lucide="check-circle" size="36"></i><h4>Done</h4><span>Filed & Finished</span></div>
         </div>
-        <div style="margin-top: 40px; font-weight: 700; color: var(--text-muted);">
-            <i data-lucide="shield-check" size="18" style="vertical-align:middle; margin-right:8px; color: var(--success);"></i>
-            Professional Security: Your data never leaves your computer.
+        <div style="margin-top: 40px; font-weight: 800; color: var(--text-muted); font-size: 1.1rem;">
+            <i data-lucide="lock" size="18" style="vertical-align:middle; margin-right:8px; color: var(--success);"></i>
+            It runs on your computer. Your data stays private.
         </div>
     </div>
 </section>
@@ -140,68 +138,67 @@
 <section id="wizard" class="container wizard-section hidden">
     
     <div id="step-0" class="fade-in">
-        <div style="text-align:center; max-width:600px; margin:0 auto 40px;">
-            <h2>Tell us about your business.</h2>
-            <p style="color:var(--text-muted);">Provide your info to request more details and a custom automation plan.</p>
+        <div style="text-align:center; max-width:650px; margin:0 auto 40px;">
+            <h2>Where should we send your roadmap?</h2>
+            <p style="color:var(--text-muted);">Provide your info to see how much time you can save and get your custom plan.</p>
         </div>
         <div class="cta-card">
-            <div class="form-row"><input type="text" id="user-name" placeholder="Full Name"><input type="text" id="user-company" placeholder="Business Name"></div>
-            <div style="max-width: 100%; margin: 16px auto;"><input type="email" id="user-email" placeholder="Work Email Address"></div>
-            <div style="display:none;"><input type="text" id="gotcha-field" value=""></div>
-            <button class="btn" style="width: 100%; justify-content: center;" onclick="submitInitialLead()">Continue to Scoping <i data-lucide="arrow-right"></i></button>
-            <div id="form-err-init" style="color:#ef4444; margin-top:16px; display:none; font-weight: 700;">Please verify your name and email.</div>
+            <div class="form-row"><input type="text" id="user-name" placeholder="Name"><input type="text" id="user-company" placeholder="Business Name"></div>
+            <div style="max-width: 100%; margin: 16px auto;"><input type="email" id="user-email" placeholder="Work Email"></div>
+            <button class="btn" style="width: 100%; justify-content: center;" onclick="submitInitialLead()">Build My Roadmap <i data-lucide="arrow-right"></i></button>
+            <div id="form-err-init" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please verify your details.</div>
         </div>
     </div>
 
     <div id="step-1" class="hidden fade-in">
         <div style="text-align:center; max-width:800px; margin:0 auto 40px;">
-            <div class="mono" style="color:var(--primary); margin-bottom:12px;">Step 1: Scoping</div>
-            <h2>Where are you losing time?</h2>
+            <div class="mono" style="color:var(--primary); margin-bottom:12px;">Step 1: Your World</div>
+            <h2>What slows your business down?</h2>
         </div>
         <div class="persona-bar">
             <div class="persona-chip active" onclick="switchPersona('general', this)">General Business</div>
-            <div class="persona-chip" onclick="switchPersona('legal', this)">Lawyer</div>
-            <div class="persona-chip" onclick="switchPersona('realestate', this)">Realtor</div>
-            <div class="persona-chip" onclick="switchPersona('service', this)">Service / Trades</div>
-            <div class="persona-chip" onclick="switchPersona('logistics', this)">Logistics</div>
+            <div class="persona-chip" onclick="switchPersona('legal', this)">I am a Lawyer</div>
+            <div class="persona-chip" onclick="switchPersona('realestate', this)">I am a Realtor</div>
+            <div class="persona-chip" onclick="switchPersona('service', this)">I run a Service Business</div>
+            <div class="persona-chip" onclick="switchPersona('logistics', this)">Logistics / Trucks</div>
         </div>
         <div class="domain-grid" id="domain-grid"></div>
         <div style="text-align: center; margin-top: 60px;">
-            <button class="btn" onclick="validateStep1()">Next: Analyze Tasks <span id="domain-count" class="btn-count">0</span></button>
+            <button class="btn" onclick="validateStep1()">Next: Find Bottlenecks <span id="domain-count" class="btn-count">0</span></button>
         </div>
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto;">
-        <div style="text-align:center; margin-bottom:40px;"><h3>Select your bottlenecks:</h3></div>
+        <div style="text-align:center; margin-bottom:40px;"><h3>Which of these do you hate doing?</h3></div>
         <div id="task-list"></div>
         <div style="margin-top: 40px; display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Next: Estimate Volume</button>
+            <button class="btn" onclick="validateStep2()">Next: Volume</button>
         </div>
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto;">
-        <div style="text-align:center; margin-bottom:40px;"><h3>How much do you do each week?</h3></div>
+        <div style="text-align:center; margin-bottom:40px;"><h3>How many times a week?</h3></div>
         <div id="slider-box"></div>
-        <div style="background: var(--surface); padding: 32px; border-radius: 24px; border: 1px solid var(--border); margin: 30px 0;">
-            <div style="display:flex; justify-content:space-between; font-weight:700;"><span>What is an hour of your time worth?</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
+        <div style="background: var(--surface); padding: 40px; border-radius: 28px; border: 1px solid var(--border); margin: 30px 0; border-style: dashed;">
+            <div style="display:flex; justify-content:space-between; font-weight:800;"><span>What is an hour of your time worth?</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="1000" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:16px; accent-color:var(--primary);">
         </div>
         <div style="display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="finishJourney()">Build My Blueprint</button>
+            <button class="btn" onclick="finishJourney()">View My Results</button>
         </div>
     </div>
 
     <div id="step-5" class="hidden fade-in">
         <div class="results-hero">
-            <p class="mono" style="opacity: 0.7; letter-spacing: 4px;">PROJECTED ANNUAL RECLAIM</p>
+            <p class="mono" style="opacity: 0.7; letter-spacing: 4px;">YOUR ANNUAL OPPORTUNITY</p>
             <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.5rem;">Recovering <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
+            <p style="font-size: 1.6rem;">Reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
         </div>
         <div style="text-align: center; margin-top: 50px;">
-            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--primary);"><i data-lucide="download"></i> Download My Blueprint (PDF)</button>
-            <p style="margin-top: 24px; color: var(--text-muted);">Thank you. We have received your scoping details and will contact you shortly.</p>
+            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--primary);"><i data-lucide="download"></i> Download My Roadmap (PDF)</button>
+            <p style="margin-top: 24px; color: var(--text-muted); font-size: 1.1rem;">We've sent a copy to your email. We'll reach out to discuss the next steps.</p>
         </div>
     </div>
 </section>
@@ -209,7 +206,7 @@
 <footer>
     <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:30px;">
         <div class="logo">MagicFolder</div>
-        <div style="color:var(--text-muted); font-size:0.9rem;">&copy; 2026 MagicFolder AI. Locally secure. Intelligently simple.</div>
+        <div style="color:var(--text-muted); font-size:0.95rem;">&copy; 2026 MagicFolder AI. Locally secure. Simply smart.</div>
     </div>
 </footer>
 
@@ -219,47 +216,42 @@
         
         const PERSONAS = {
             general: { grid: { 
-                magic: { label: 'The Magic Folder', text: 'AI naming and filing for any scan or email.', items: [{ id: 'mf-bills', label: 'Invoices & Bills', desc: 'Typing bill data into spreadsheets manually.', unit: 'Bills/Wk', note: 'Extracts line items instantly' }, { id: 'mf-legal', label: 'Signed Contracts', desc: 'Filing signed agreements to client folders.', unit: 'Docs/Wk', note: 'Auto-detects signatures and dates' }, { id: 'mf-intake', label: 'Client Onboarding', desc: 'Setting up new folder structures for clients.', unit: 'Clients/Wk', note: 'Standardizes document structure' }] },
-                automation: { label: 'Win More Work', text: 'Automate quotes and follow-ups.', items: [{ id: 'rev-quote', label: 'Drafting Quotes', desc: 'Manually writing price estimates.', unit: 'Quotes/Wk', note: 'Instant automated generation' }, { id: 'rev-follow', label: 'Lead Replies', desc: 'Answering new lead emails by hand.', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
-                intelligence: { label: 'Internal Ops', text: 'Search and sync your firm data.', items: [{ id: 'kn-search', label: 'Finding Old Files', desc: 'Searching local folders for information.', unit: 'Searches/Wk', note: 'Instant historical retrieval' }, { id: 'bo-sync', label: 'Syncing Software', desc: 'Copying info between different apps.', unit: 'Records/Wk', note: 'Syncs CRM to Accounting' }] }
+                magic: { label: 'The Magic Folder', text: 'Auto-identify and file any document.', items: [{ id: 'mf-bills', label: 'Paper Bills', desc: 'Typing bill data into your software manually.', unit: 'Bills/Wk', note: 'Automated data extraction' }, { id: 'mf-legal', label: 'Filing Agreements', desc: 'Downloading and sorting signed contracts.', unit: 'Docs/Wk', note: 'Context-aware folder filing' }, { id: 'mf-intake', label: 'New Client Setup', desc: 'Setting up new folders and files manually.', unit: 'Clients/Wk', note: 'Standardized intake workflows' }] },
+                automation: { label: 'Revenue Boost', text: 'Automate quotes and follow-ups.', items: [{ id: 'rev-quote', label: 'Writing Quotes', desc: 'Manually typing up price estimates.', unit: 'Quotes/Wk', note: 'Instant rule-based generation' }, { id: 'rev-follow', label: 'Replying to Leads', desc: 'Answering new inquiry emails by hand.', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
+                intelligence: { label: 'Daily Admin', text: 'Search and sync your business data.', items: [{ id: 'kn-search', label: 'Searching Folders', desc: 'Digging through folders for old files.', unit: 'Searches/Wk', note: 'Instant historical retrieval' }, { id: 'bo-sync', label: 'Syncing Apps', desc: 'Copying data from one software to another.', unit: 'Records/Wk', note: 'Eliminates dual-entry errors' }] }
             }},
             legal: { grid: { 
-                magic: { label: 'Matter Files', text: 'Auto-sort pleadings and discovery.', items: [{ id: 'mf-bills', label: 'Logging Expenses', desc: 'Tracking court fees and disbursements.', unit: 'Receipts/Wk', note: 'Auto-captures case costs' }, { id: 'mf-legal', label: 'Filing Pleadings', desc: 'Naming court documents for the file.', unit: 'Files/Wk', note: 'Sorts by Case ID automatically' }, { id: 'mf-intake', label: 'Discovery Batches', desc: 'Sorting evidence and client files.', unit: 'Batches/Wk', note: 'Indexes evidence instantly' }] },
-                automation: { label: 'Billing Velocity', text: 'Auto-draft retainers & bills.', items: [{ id: 'rev-quote', label: 'Preparing Retainers', desc: 'Creating fee agreements from templates.', unit: 'Agreements/Wk', note: 'Auto-drafts from templates' }, { id: 'rev-lead', label: 'Intake Calls', desc: 'Screening new clients manually.', unit: 'Calls/Wk', note: '24/7 intake response' }] },
-                intelligence: { label: 'Litigation Hub', text: 'Search transcripts and files.', items: [{ id: 'kn-search', label: 'Fact Search', desc: 'Searching depositions for keywords.', unit: 'Searches/Wk', note: 'Semantic transcript search' }, { id: 'bo-sync', label: 'Docket Sync', desc: 'Updating Clio or Practice mgmt.', unit: 'Dates/Wk', note: 'Syncs court dates from PDFs' }] }
+                magic: { label: 'Case Agent', text: 'Auto-sort pleadings and discovery.', items: [{ id: 'mf-bills', label: 'Logging Receipts', desc: 'Tracking case costs and disbursements.', unit: 'Receipts/Wk', note: 'Auto-captures matter expenses' }, { id: 'mf-legal', label: 'Filing court docs', desc: 'Naming court documents for the case file.', unit: 'Files/Wk', note: 'Sorts by Case ID automatically' }, { id: 'mf-intake', label: 'Intake Files', desc: 'Sorting evidence and new client files.', unit: 'Docs/Wk', note: 'Indexes discovery instantly' }] },
+                automation: { label: 'Billable Time', text: 'Auto-draft retainers & bills.', items: [{ id: 'rev-quote', label: 'Preparing Retainers', desc: 'Creating fee agreements manually.', unit: 'Agreements/Wk', note: 'Auto-drafts from templates' }, { id: 'rev-lead', label: 'Matter Intake', desc: 'Screening incoming inquiries.', unit: 'Calls/Wk', note: '24/7 intake response' }] },
+                intelligence: { label: 'Litigation Hub', text: 'Search transcripts and files.', items: [{ id: 'kn-search', label: 'Fact Search', desc: 'Searching depositions for keywords.', unit: 'Searches/Wk', note: 'Semantic transcript search' }, { id: 'bo-sync', label: 'Clio Sync', desc: 'Updating dates in your practice software.', unit: 'Dates/Wk', note: 'Syncs court dates from PDFs' }] }
             }},
             realestate: { grid: { 
-                magic: { label: 'Deal Agent', text: 'Auto-sort offers and HOAs.', items: [{ id: 'mf-bills', label: 'Ad Receipts', desc: 'Tracking marketing and staging spend.', unit: 'Bills/Wk', note: 'Calculates GCI vs Spend' }, { id: 'mf-legal', label: 'Offer Prep', desc: 'Organizing incoming buyer offers.', unit: 'Offers/Wk', note: 'Extracts price and terms' }, { id: 'mf-intake', label: 'Compliance Packets', desc: 'Filing disclosures and title docs.', unit: 'Packets/Wk', note: 'Verifies required signatures' }] },
-                automation: { label: 'Listing Velocity', text: 'Auto-respond to Zillow/Buyers.', items: [{ id: 'rev-quote', label: 'Listing Agmts', desc: 'Preparing listing paperwork.', unit: 'Listings/Wk', note: 'Generate Docusign instantly' }, { id: 'rev-lead', label: 'Lead Reply', desc: 'Replying to Zillow/Buyer leads.', unit: 'Leads/Wk', note: '5-minute response guarantee' }] },
-                intelligence: { label: 'Deal Archives', text: 'Search past property details.', items: [{ id: 'kn-search', label: 'Archive Search', desc: 'Looking up past property details.', unit: 'Searches/Wk', note: 'Instant transaction search' }, { id: 'bo-sync', label: 'Lead Import', desc: 'Adding new contacts to your CRM.', unit: 'Leads/Wk', note: 'Zero-entry database building' }] }
+                magic: { label: 'Transaction Docs', text: 'Auto-sort offers and HOAs.', items: [{ id: 'mf-bills', label: 'Logging Spend', desc: 'Tracking staging and ad receipts.', unit: 'Bills/Wk', note: 'Calculates GCI vs Spend' }, { id: 'mf-legal', label: 'Offer Prep', desc: 'Organizing incoming buyer offers.', unit: 'Offers/Wk', note: 'Extracts price and terms' }, { id: 'mf-intake', label: 'Listing Folders', desc: 'Filing disclosures and title docs.', unit: 'Packets/Wk', note: 'Verifies required signatures' }] },
+                automation: { label: 'Deal Speed', text: 'Auto-respond to Zillow/Buyers.', items: [{ id: 'rev-quote', label: 'Listing Prep', desc: 'Preparing listing paperwork.', unit: 'Listings/Wk', note: 'Generate Docusign instantly' }, { id: 'rev-lead', label: 'Zillow Reply', desc: 'Replying to Zillow/Buyer leads.', unit: 'Leads/Wk', note: '5-minute response guarantee' }] },
+                intelligence: { label: 'Deal Archives', text: 'Search past property details.', items: [{ id: 'kn-search', label: 'Past Deal Search', desc: 'Looking up past property details.', unit: 'Searches/Wk', note: 'Instant transaction search' }, { id: 'bo-sync', label: 'CRM Entry', desc: 'Adding new contacts to your CRM.', unit: 'Leads/Wk', note: 'Zero-entry database building' }] }
             }},
             service: { grid: { 
-                magic: { label: 'Job Site Agent', text: 'Auto-file site photos and bills.', items: [{ id: 'mf-bills', label: 'Material Receipts', desc: 'Saving receipts from the truck.', unit: 'Receipts/Wk', note: 'Match parts to specific jobs' }, { id: 'mf-legal', label: 'Signed Job Sheets', desc: 'Filing signed job completion forms.', unit: 'Jobs/Wk', note: 'Extracts signatures instantly' }, { id: 'mf-intake', label: 'Certificates', desc: 'Filing insurance and licenses.', unit: 'Certs/Wk', note: 'Tracks expiration dates' }] },
-                automation: { label: 'Van Revenue', text: 'Instant bids from the job.', items: [{ id: 'rev-quote', label: 'On-Site Bids', desc: 'Writing estimates while in the van.', unit: 'Bids/Wk', note: 'Increases close rate by 40%' }, { id: 'rev-lead', label: 'Emergencies', desc: 'Taking dispatch calls manually.', unit: 'Calls/Wk', note: 'AI dispatch triage' }] },
-                intelligence: { label: 'Asset History', text: 'What did we fix last time?', items: [{ id: 'kn-search', label: 'History Search', desc: 'Searching for old site notes.', unit: 'Searches/Wk', note: 'Visual history of every asset' }, { id: 'bo-sync', label: 'Invoicing', desc: 'Entering jobs into QuickBooks.', unit: 'Invoices/Wk', note: 'Eliminates billing lag' }] }
+                magic: { label: 'Job Site Agent', text: 'Auto-file site photos and bills.', items: [{ id: 'mf-bills', label: 'Parts Receipts', desc: 'Saving receipts from the van.', unit: 'Receipts/Wk', note: 'Match parts to specific jobs' }, { id: 'mf-legal', label: 'Signed Work', desc: 'Filing signed job sheets.', unit: 'Jobs/Wk', note: 'Extracts signatures instantly' }, { id: 'mf-intake', label: 'Compliance', desc: 'Filing sub insurance certificates.', unit: 'Certs/Wk', note: 'Tracks expiration dates' }] },
+                automation: { label: 'Mobile Revenue', text: 'Instant bids from the job.', items: [{ id: 'rev-quote', label: 'Estimating', desc: 'Writing bids while in the van.', unit: 'Bids/Wk', note: 'Increases close rate by 40%' }, { id: 'rev-lead', label: 'Dispatch', desc: 'Taking after-hours calls.', unit: 'Calls/Wk', note: 'AI dispatch triage' }] },
+                intelligence: { label: 'Service History', text: 'What did we fix last time?', items: [{ id: 'kn-search', label: 'Looking up Jobs', desc: 'Searching for old site notes.', unit: 'Searches/Wk', note: 'Visual history of every asset' }, { id: 'bo-sync', label: 'QuickBooks Sync', desc: 'Entering jobs into QuickBooks.', unit: 'Invoices/Wk', note: 'Eliminates billing lag' }] }
             }},
             logistics: { grid: { 
-                magic: { label: 'Freight Agent', text: 'Auto-file BOLs and PODs.', items: [{ id: 'mf-bills', label: 'Carrier Bills', desc: 'Auditing carrier invoices.', unit: 'Bills/Wk', note: 'Flags overcharges instantly' }, { id: 'mf-legal', label: 'Proof of Delivery', desc: 'Matching PODs to load IDs.', unit: 'PODs/Wk', note: 'Accelerates billing' }, { id: 'mf-intake', label: 'Carrier Packets', desc: 'Onboarding new trucking companies.', unit: 'Packets/Wk', note: 'Verifies DOT compliance' }] },
-                automation: { label: 'Lane Velocity', text: 'Instant spot rates.', items: [{ id: 'rev-quote', label: 'Spot Quotes', desc: 'Calculating lane rates manually.', unit: 'Quotes/Wk', note: 'Win more freight via speed' }, { id: 'rev-lead', label: 'Load Status', desc: 'Replying to "Where is my truck?".', unit: 'Emails/Wk', note: '24/7 status automation' }] },
-                intelligence: { label: 'Rate History', text: 'Search historical pricing.', items: [{ id: 'kn-search', label: 'Market Search', desc: 'Finding past rates for specific lanes.', unit: 'Searches/Wk', note: 'Semantic lane search' }, { id: 'bo-sync', label: 'TMS Updates', desc: 'Updating load statuses manually.', unit: 'Loads/Wk', note: 'Zero-touch TMS updates' }] }
+                magic: { label: 'Freight Agent', text: 'Auto-file BOLs and PODs.', items: [{ id: 'mf-bills', label: 'Carrier Bills', desc: 'Auditing carrier invoices.', unit: 'Bills/Wk', note: 'Flags overcharges instantly' }, { id: 'mf-legal', label: 'Proofs (POD)', desc: 'Matching PODs to load IDs.', unit: 'PODs/Wk', note: 'Accelerates billing' }, { id: 'mf-intake', label: 'Packets', desc: 'Onboarding new carriers.', unit: 'Packets/Wk', note: 'Verifies DOT compliance' }] },
+                automation: { label: 'Lane Speed', text: 'Instant spot rates.', items: [{ id: 'rev-quote', label: 'Spot Quotes', desc: 'Calculating lane rates manually.', unit: 'Quotes/Wk', note: 'Win more freight via speed' }, { id: 'rev-lead', label: 'Truck Trace', desc: 'Replying to "Where is my truck?".', unit: 'Emails/Wk', note: '24/7 status automation' }] },
+                intelligence: { label: 'Rate History', text: 'Search historical pricing.', items: [{ id: 'kn-search', label: 'Historical Rates', desc: 'Finding past rates for specific lanes.', unit: 'Searches/Wk', note: 'Semantic lane search' }, { id: 'bo-sync', label: 'TMS Updates', desc: 'Updating load statuses manually.', unit: 'Loads/Wk', note: 'Zero-touch TMS updates' }] }
             }}
         };
 
         const SAVINGS = { 'mf-bills': 0.25, 'mf-legal': 0.5, 'mf-intake': 1.5, 'rev-quote': 0.5, 'rev-lead': 0.2, 'kn-search': 0.4, 'bo-sync': 0.2 };
         let state = { currentPersona: 'general', domains: new Set(), tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
 
-        window.startJourney = function() { 
-            document.getElementById('hero-section').classList.add('hidden');
-            document.getElementById('wizard').classList.remove('hidden');
-            window.scrollTo({top:0, behavior:'smooth'});
-        };
-
+        window.startJourney = function() { document.getElementById('hero-section').classList.add('hidden'); document.getElementById('wizard').classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); };
         window.submitInitialLead = function() {
             const name = document.getElementById('user-name').value;
             const email = document.getElementById('user-email').value;
             if(!name || !email.includes('@')) { document.getElementById('form-err-init').style.display='block'; return; }
             fetch('https://formspree.io/f/mgooqqjg', { 
-                method: 'POST', body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Blueprint Start" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
+                method: 'POST', body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Roadmap Start" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
             }).finally(() => { setStep(1); });
         };
 
@@ -283,7 +275,7 @@
         }
 
         window.toggleDomain = function(key, e) { if(state.domains.has(key)) state.domains.delete(key); else state.domains.add(key); renderGrid(); };
-        window.validateStep1 = function() { if(state.domains.size === 0) { document.getElementById('err-1').style.display='block'; return; } renderTasks(); setStep(2); };
+        window.validateStep1 = function() { if(state.domains.size === 0) return; renderTasks(); setStep(2); };
         window.setStep = function(n) { [0,1,2,3,4,5].forEach(s => { const el = document.getElementById(`step-${s}`); if(el) el.classList.add('hidden'); }); document.getElementById(`step-${n}`).classList.remove('hidden'); };
 
         function renderTasks() {
@@ -317,18 +309,14 @@
         window.updateVal = function(id, val) { state.inputs[id] = parseInt(val); document.getElementById(`val-${id}`).innerText = val; };
 
         window.finishJourney = function() {
-            runAnalysis();
-            const email = document.getElementById('user-email').value;
-            fetch('https://formspree.io/f/mgooqqjg', { 
-                method: 'POST', body: JSON.stringify({ email, persona: state.currentPersona, savings: state.results.amt, hours: state.results.hours, intent: "Blueprint Complete" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
-            }).finally(() => { setStep(5); });
-        };
-
-        window.runAnalysis = function() {
             const rate = parseInt(document.getElementById('hourly-rate').value); let h = 0; let v = 0;
             Object.keys(state.inputs).forEach(id => { const qty = state.inputs[id]; const saved = (SAVINGS[id] || 0.25); h += (qty * saved * 52); v += (qty * saved * 52 * rate); });
             state.results.amt = '$' + Math.round(v).toLocaleString(); state.results.hours = Math.round(h).toLocaleString();
             document.getElementById('final-amt').innerText = state.results.amt; document.getElementById('final-hours').innerText = state.results.hours;
+            
+            fetch('https://formspree.io/f/mgooqqjg', { 
+                method: 'POST', body: JSON.stringify({ email: document.getElementById('user-email').value, persona: state.currentPersona, savings: state.results.amt, hours: state.results.hours, intent: "Roadmap Finished" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
+            }).finally(() => { setStep(5); });
         };
 
         window.generatePDFBlueprint = function() {
@@ -337,12 +325,12 @@
                 const name = document.getElementById('user-name').value; const rate = parseInt(document.getElementById('hourly-rate').value);
                 doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 60, 'F');
                 if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 110, 28); } 
-                doc.setTextColor(255, 255, 255); doc.setFontSize(12); doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 50);
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text('EXECUTIVE RECAPTURE PROJECTION', 20, 80);
+                doc.setTextColor(255, 255, 255); doc.setFontSize(12); doc.text(`WORK SMARTER ROADMAP: ${name.toUpperCase()}`, 20, 50);
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text('ANNUAL OPPORTUNITY', 20, 80);
                 doc.setTextColor(79, 70, 229); doc.setFontSize(26); doc.text(state.results.amt, 20, 95);
-                doc.setFontSize(11); doc.setTextColor(100, 116, 139); doc.text(`Estimated Capacity Reclaim: ${state.results.hours} Hours / Year`, 20, 105);
+                doc.setFontSize(11); doc.setTextColor(100, 116, 139); doc.text(`Reclaimed Capacity: ${state.results.hours} Hours / Year`, 20, 105);
                 doc.setDrawColor(226, 232, 240); doc.line(20, 115, 190, 115);
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('SYSTEM CONFIGURATION', 20, 130);
+                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('MODULE CONFIGURATION', 20, 130);
                 let y = 145;
                 const data = PERSONAS[state.currentPersona].grid;
                 state.domains.forEach(d => {
@@ -350,11 +338,11 @@
                         const qty = state.inputs[i.id] || 0; const val = (qty * (SAVINGS[i.id]||0.25) * 52 * rate);
                         doc.setFontSize(12); doc.setTextColor(15, 23, 42); doc.text(i.label.toUpperCase(), 20, y);
                         doc.setFontSize(10); doc.setTextColor(79, 70, 229); doc.text(`$${Math.round(val).toLocaleString()} saved / year`, 20, y+6);
-                        doc.setTextColor(100, 116, 139); doc.text(`Logic: ${i.note}`, 20, y+12);
+                        doc.setTextColor(100, 116, 139); doc.text(`Roadmap Note: ${i.note}`, 20, y+12);
                         y += 28; if(y > 270) { doc.addPage(); y = 20; }
                     });
                 });
-                doc.save(`MagicFolder-Blueprint-${name}.pdf`);
+                doc.save(`MagicFolder-Roadmap-${name}.pdf`);
             } catch(e) { console.error(e); }
         };
 
@@ -362,10 +350,9 @@
             const canvas = document.getElementById('logo-canvas'); const ctx = canvas.getContext('2d');
             document.fonts.load('800 48px "Plus Jakarta Sans"').then(() => {
                 ctx.clearRect(0,0,1000,250); 
-                // Draw Professional Logo on Canvas
-                ctx.fillStyle='#4f46e5'; ctx.beginPath(); ctx.roundRect(10,20,110,90,14); ctx.fill();
-                ctx.fillStyle='#ffffff'; ctx.beginPath(); ctx.roundRect(40,50,50,30,6); ctx.fill();
-                ctx.fillStyle='#ffffff'; ctx.font='800 68px "Plus Jakarta Sans"'; ctx.fillText('MagicFolder', 145, 90);
+                ctx.fillStyle='#4f46e5'; ctx.beginPath(); ctx.roundRect(10,20,110,95,16); ctx.fill();
+                ctx.fillStyle='#ffffff'; ctx.beginPath(); ctx.roundRect(45,55,50,30,6); ctx.fill();
+                ctx.fillStyle='#ffffff'; ctx.font='800 72px "Plus Jakarta Sans"'; ctx.fillText('MagicFolder', 150, 95);
                 PDF_LOGO_DATA = canvas.toDataURL('image/png');
             });
             renderGrid();
