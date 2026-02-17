@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Simple. Smart. Secure.</title>
+    <title>MagicFolder | Do what you're special at.</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M15,35 L40,35 Q45,35 48,40 L52,45 Q55,50 60,50 L85,50 L85,85 L15,85 Z' fill='%234f46e5' opacity='0.2'/%3E%3Cline x1='70' y1='25' x2='85' y2='45' stroke='%230f172a' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='25' r='3' fill='%234f46e5'/%3E%3C/svg%3E">
     
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -12,7 +12,7 @@
     
     <style>
         :root { --primary: #4f46e5; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.5; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
@@ -24,57 +24,64 @@
 
         /* HERO */
         .hero { padding: 100px 0 60px; text-align: center; min-height: 500px; }
-        .hero h1 { font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; min-height: 2.2em; transition: opacity 0.5s ease; }
+        .hero h1 { font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; transition: opacity 0.5s ease; }
         .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 48px; line-height: 1.6; transition: opacity 0.5s ease; }
 
-        /* REACTIVE ANIMATION */
-        .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1000px; margin: 0 auto 80px; padding: 70px 40px; position: relative; overflow: hidden; }
-        .demo-flow { display: flex; justify-content: center; align-items: center; gap: 40px; position: relative; z-index: 2; }
-        .demo-node { background: white; padding: 28px; border-radius: 28px; border: 1px solid var(--border); text-align: center; width: 220px; transition: all 0.4s ease; }
-        .demo-node i { color: #94a3b8; margin-bottom: 12px; transition: 0.3s; }
-        .demo-node h4 { font-weight: 800; margin-bottom: 4px; }
-        .demo-node span { font-size: 0.9rem; color: var(--text-muted); }
+        /* ADVANCED ANIMATION STAGE */
+        .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1000px; margin: 0 auto 80px; padding: 80px 40px; position: relative; overflow: hidden; }
+        .demo-flow { display: flex; justify-content: center; align-items: center; gap: 50px; position: relative; z-index: 2; }
         
-        /* REACTIVE STATES */
-        .doc-path { position: absolute; width: 45px; height: 55px; background: white; border: 2px solid #cbd5e1; border-radius: 4px; top: 50%; left: 10%; transform: translateY(-50%); animation: docLife 6s infinite linear; z-index: 3; display: grid; place-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        /* FOLDER SHAPES */
+        .folder-node { width: 180px; height: 140px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 16px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .folder-node::before { content: ""; position: absolute; top: -12px; left: -1.5px; width: 60px; height: 12px; background: inherit; border: inherit; border-bottom: none; border-radius: 8px 8px 0 0; }
+        
+        .folder-node i { color: #94a3b8; margin-bottom: 8px; transition: 0.3s; }
+        .folder-node h4 { font-weight: 800; font-size: 1rem; }
+
+        /* THE MOVING DOCUMENT */
+        .doc-path { position: absolute; width: 45px; height: 55px; background: white; border: 2px solid #cbd5e1; border-radius: 4px; top: 40%; left: 10%; transform: translateY(-50%); animation: docLife 8s infinite linear; z-index: 3; display: grid; place-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         
         @keyframes docLife { 
-            0% { left: 10%; opacity: 0; border-color: #cbd5e1; } 
-            10% { opacity: 1; }
-            45% { left: 45%; border-color: #cbd5e1; background: white; transform: translateY(-50%) scale(1); }
-            50% { left: 50%; border-color: var(--primary); background: #f5f3ff; transform: translateY(-50%) scale(1.2) rotate(5deg); }
-            55% { left: 55%; border-color: var(--primary); background: white; transform: translateY(-50%) scale(1); }
+            0% { left: 10%; opacity: 0; } 
+            5% { opacity: 1; border-color: #cbd5e1; }
+            45% { left: 45%; background: white; border-color: #cbd5e1; transform: translateY(-50%) rotate(0deg); }
+            50% { left: 50%; background: #f5f3ff; border-color: var(--primary); transform: translateY(-50%) scale(1.1) rotate(5deg); }
+            55% { left: 55%; background: white; border-color: var(--primary); transform: translateY(-50%) rotate(0deg); }
             90% { left: 85%; opacity: 1; }
             100% { left: 95%; opacity: 0; }
         }
 
-        /* Reactive Boxes */
-        @keyframes agentGlow { 0%, 40%, 60%, 100% { border-color: var(--border); background: white; box-shadow: none; } 50% { border-color: var(--primary); background: #f5f3ff; box-shadow: 0 0 40px var(--primary-soft); } }
-        @keyframes doneSnap { 0%, 55% { border-color: var(--border); } 60%, 100% { border-color: var(--success); background: #f0fdf4; } }
-        .magic-agent-anim { animation: agentGlow 6s infinite linear; }
-        .done-node-anim { animation: doneSnap 6s infinite linear; }
+        /* RE-ACTIVE BUMP ANIMATIONS */
+        @keyframes startPulse { 0%, 5%, 100% { transform: scale(1); } 2% { transform: scale(1.05); border-color: var(--primary); } }
+        @keyframes magicBump { 0%, 45%, 55%, 100% { transform: scale(1); border-color: var(--border); box-shadow: none; } 50% { transform: scale(1.2); border-color: var(--primary); box-shadow: 0 20px 40px var(--primary-soft); background: #f5f3ff; } }
+        @keyframes successPop { 0%, 60% { border-color: var(--border); } 65%, 100% { border-color: var(--success); background: #f0fdf4; transform: scale(1.05); } }
+
+        .intake-anim { animation: startPulse 8s infinite linear; }
+        .agent-anim { animation: magicBump 8s infinite linear; }
+        .agent-anim svg { width: 60px; height: 60px; margin-bottom: 8px; }
+        .done-anim { animation: successPop 8s infinite linear; }
 
         /* BUTTONS */
-        .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--text-main); color: white; padding: 20px 48px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.2rem; }
+        .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--text-main); color: white; padding: 20px 52px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.25rem; }
         .btn:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 25px var(--primary-soft); }
         .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-main); }
 
-        /* WIZARD */
-        .wizard-section { padding: 100px 0; border-top: 1px solid var(--border); scroll-margin-top: 80px; }
+        /* PERSONA BAR */
         .persona-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
-        .persona-chip { background: #fff; border: 1px solid var(--border); padding: 14px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+        .persona-chip { background: #fff; border: 2px solid var(--border); padding: 14px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
         .persona-chip.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 10px 20px var(--primary-soft); }
+
+        /* GRID & WIZARD */
+        .wizard-section { padding: 100px 0; border-top: 1px solid var(--border); scroll-margin-top: 80px; }
         .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
         .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 36px; cursor: pointer; transition: 0.3s; position: relative; height: 100%; display: flex; flex-direction: column; }
         .card:hover { border-color: var(--primary); background: #fff; transform: translateY(-8px); box-shadow: var(--shadow-lg); }
         .card.selected { border-color: var(--primary); background: #fff; border-width: 2px; }
-        .card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; pointer-events: none; }
-        .check-pill { position: absolute; top: 32px; right: 32px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; pointer-events: none; }
-        .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
+        .card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
 
         .audit-item { display: flex; gap: 20px; padding: 32px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 16px; cursor: pointer; align-items: center; text-align: left; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
-        .check-box { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--border); display: grid; place-items: center; flex-shrink: 0; background: white; pointer-events: none; }
+        .check-box { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--border); display: grid; place-items: center; flex-shrink: 0; background: white; }
         .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
         .cta-card { background: var(--surface); padding: 64px; border-radius: 48px; border: 1px solid var(--border); text-align: center; max-width: 800px; margin: 40px auto 0; }
@@ -82,19 +89,20 @@
         input { padding: 22px; border-radius: 16px; border: 1px solid var(--border); font-size: 1.15rem; width: 100%; outline: none; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
 
-        /* FOOTER */
-        footer { padding: 100px 0; border-top: 1px solid var(--border); margin-top: 100px; background: #fff; }
+        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 56px; text-align: center; }
+        .big-save { font-size: clamp(4rem, 12vw, 8rem); color: #818cf8; font-weight: 800; line-height: 1; letter-spacing: -5px; margin: 24px 0; }
+
+        .partner-bar { margin: 80px 0; padding: 40px 0; border-top: 1px solid var(--border); text-align: center; }
+        .partner-grid { display: flex; justify-content: center; gap: 48px; align-items: center; flex-wrap: wrap; opacity: 0.5; margin-top: 24px; }
+        .partner-grid span { font-weight: 800; font-size: 1.2rem; color: var(--text-main); }
+
+        footer { padding: 80px 0; border-top: 1px solid var(--border); margin-top: 100px; background: #fff; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; }
-        .footer-col h5 { font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-main); margin-bottom: 24px; }
-        .footer-col a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 14px; font-weight: 600; transition: 0.2s; font-size: 0.95rem; }
-        .footer-col a:hover { color: var(--primary); }
-        .partner-list { display: flex; flex-wrap: wrap; gap: 16px; opacity: 0.6; }
 
         .hidden { display: none !important; }
-        .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media(max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
         @media(max-width: 768px) { .domain-grid, .demo-flow, .footer-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2.8rem; } .doc-path { display: none; } .form-row { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -115,64 +123,71 @@
             MagicFolder
         </a>
         <div>
-            <button class="btn" style="padding:10px 24px; font-size:0.95rem;" onclick="startJourney()">See My Setup Plan</button>
+            <button class="btn btn-outline" style="padding:10px 24px; font-size:0.95rem;" onclick="startJourney()">Get Started</button>
         </div>
     </div>
 </nav>
 
 <section id="hero-section" class="hero container">
     <h1 id="slideshow-title">Do what you're special at.<br>Let us do the paperwork.</h1>
-    <p id="slideshow-sub">We build secure, local tools that watch your scanner and email—instantly identifying your documents and handling the filing for you.</p>
+    <p id="slideshow-sub">Secure, local tools that watch your scanner and email—instantly identifying and filing documents while you focus on revenue.</p>
     
     <div style="display:flex; gap:20px; justify-content:center; margin-bottom: 60px;">
-        <button class="btn" onclick="startJourney()">Discover My Automation Scoping <i data-lucide="arrow-right"></i></button>
+        <button class="btn" onclick="startJourney()">Get Started <i data-lucide="arrow-right"></i></button>
     </div>
 
     <div class="demo-stage">
         <div class="doc-path"><i data-lucide="sparkles" size="24" color="#4f46e5"></i></div>
         <div class="demo-flow">
-            <div class="demo-node"><i data-lucide="scan" size="36"></i><h4>Intake</h4><span>Scans & Emails</span></div>
-            <div class="demo-node magic-agent magic-agent-anim"><i data-lucide="wand-2" size="36"></i><h4>Magic Agent</h4><span>Identify & Rule</span></div>
-            <div class="demo-node done-node-anim"><i data-lucide="check-circle" size="36" id="done-icon"></i><h4>Done</h4><span>Filed & Finished</span></div>
+            <div class="folder-node intake-anim"><i data-lucide="scan" size="32"></i><h4>Intake</h4><span>Scans & Emails</span></div>
+            <div class="folder-node agent-anim">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="45" y1="25" x2="65" y2="45" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M39,21 L45,27 M35,27 L41,33" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="45" cy="25" r="3" fill="#4f46e5"/>
+                </svg>
+                <h4>Magic Agent</h4>
+            </div>
+            <div class="folder-node done-anim"><i data-lucide="check-circle" size="32"></i><h4>Done</h4><span>Filed & Finished</span></div>
         </div>
         <div style="margin-top: 40px; font-weight: 800; color: var(--text-muted); font-size: 1.15rem;">
             <i data-lucide="shield-check" size="20" style="vertical-align:middle; margin-right:8px; color: var(--success);"></i>
-            Data runs locally. Secure. Private. Transparent.
+            Professional Security: Your data never leaves your computer.
+        </div>
+    </div>
+
+    <div class="partner-bar">
+        <span class="mono" style="color:var(--text-muted); letter-spacing:3px;">POWERED BY WORLD-CLASS LOGIC</span>
+        <div class="partner-grid">
+            <span>OpenAI</span><span>Anthropic</span><span>Make.com</span><span>Salesforce</span><span>QuickBooks</span>
         </div>
     </div>
 </section>
 
 <section id="wizard" class="container wizard-section hidden">
-    
     <div id="step-0" class="fade-in">
         <div style="text-align:center; max-width:650px; margin:0 auto 40px;">
-            <h2>Where should we send your plan?</h2>
-            <p style="color:var(--text-muted);">Provide your info to request a personal scoping session and see how much time you can save.</p>
+            <h2>How can we help?</h2>
+            <p style="color:var(--text-muted);">Provide your info to see how much time you can save and get your automation roadmap.</p>
         </div>
         <div class="cta-card">
             <div class="form-row"><input type="text" id="user-name" placeholder="Full Name"><input type="text" id="user-company" placeholder="Business Name"></div>
             <div style="max-width: 100%; margin: 16px auto;"><input type="email" id="user-email" placeholder="Work Email Address"></div>
             <button class="btn" style="width: 100%; justify-content: center;" onclick="submitInitialLead()">Get Started <i data-lucide="arrow-right"></i></button>
-            <div id="form-err-init" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please verify your name and email.</div>
+            <div id="form-err-init" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please verify your details.</div>
         </div>
     </div>
 
     <div id="step-1" class="hidden fade-in">
-        <div style="text-align:center; max-width:800px; margin:0 auto 40px;">
-            <div class="mono" style="color:var(--primary); margin-bottom:12px;">Step 1: Scoping</div>
-            <h2>What slows your day down?</h2>
-        </div>
+        <div style="text-align:center; max-width:800px; margin:0 auto 40px;"><h2>What slows your day down?</h2></div>
         <div class="persona-bar">
             <div class="persona-chip active" onclick="switchPersona('general', this)">General Business</div>
             <div class="persona-chip" onclick="switchPersona('legal', this)">I am a Lawyer</div>
             <div class="persona-chip" onclick="switchPersona('realestate', this)">I am a Realtor</div>
             <div class="persona-chip" onclick="switchPersona('service', this)">I run a Service Business</div>
-            <div class="persona-chip" onclick="switchPersona('logistics', this)">Logistics / Trucks</div>
         </div>
         <div class="domain-grid" id="domain-grid"></div>
-        <div style="text-align: center; margin-top: 60px;">
-            <button class="btn" onclick="validateStep1()">Next: Find Bottlenecks <span id="domain-count" class="btn-count">0</span></button>
-        </div>
+        <div style="text-align: center; margin-top: 60px;"><button class="btn" onclick="validateStep1()">Next <span id="domain-count" class="btn-count">0</span></button></div>
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 850px; margin: 0 auto;">
@@ -180,7 +195,7 @@
         <div id="task-list"></div>
         <div style="margin-top: 40px; display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(1)">Back</button>
-            <button class="btn" onclick="validateStep2()">Next: Estimate Volume</button>
+            <button class="btn" onclick="validateStep2()">Next</button>
         </div>
     </div>
 
@@ -193,53 +208,27 @@
         </div>
         <div style="display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="finishJourney()">Finish & View Results</button>
+            <button class="btn" onclick="finishJourney()">View My Results</button>
         </div>
     </div>
 
     <div id="step-5" class="hidden fade-in">
         <div class="results-hero">
-            <p class="mono" style="opacity: 0.7; letter-spacing: 4px;">POTENTIAL ANNUAL RECLAIM</p>
+            <p class="mono" style="opacity: 0.7; letter-spacing: 4px;">ANNUAL OPPORTUNITY</p>
             <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.7rem;">Recovering <strong id="final-hours" style="color:white;">0</strong> productive hours per year.</p>
+            <p style="font-size: 1.7rem;">Recovering <strong id="final-hours" style="color:white;">0</strong> productive hours.</p>
         </div>
         <div style="text-align: center; margin-top: 50px;">
-            <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--primary);"><i data-lucide="download"></i> Download My Scoping Plan (PDF)</button>
-            <p style="margin-top: 24px; color: var(--text-muted); font-size: 1.1rem;">Thank you. Check your email for next steps to schedule your personal install.</p>
+            <button class="btn" onclick="generatePDFBlueprint()"><i data-lucide="download"></i> Download My Plan (PDF)</button>
+            <p style="margin-top: 24px; color: var(--text-muted);">We'll reach out to discuss how to implement these automations.</p>
         </div>
     </div>
 </section>
 
 <footer>
-    <div class="container footer-grid">
-        <div class="footer-col">
-            <div class="logo" style="margin-bottom:20px;">MagicFolder</div>
-            <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; max-width:280px;">The document intelligence layer for established firms. Locally secure. Agent-driven.</p>
-        </div>
-        <div class="footer-col">
-            <h5>Product</h5>
-            <a href="#">The Magic Folder</a>
-            <a href="#">API Sync</a>
-            <a href="#">Pricing</a>
-        </div>
-        <div class="footer-col">
-            <h5>Company</h5>
-            <a href="#">About</a>
-            <a href="#">Security</a>
-            <a href="#">Support</a>
-        </div>
-        <div class="footer-col">
-            <h5>Ecosystem</h5>
-            <div class="partner-list">
-                <a href="https://openai.com">OpenAI</a>
-                <a href="https://make.com">Make.com</a>
-                <a href="https://anthropic.com">Anthropic</a>
-                <a href="https://salesforce.com">Salesforce</a>
-            </div>
-        </div>
-    </div>
-    <div class="container" style="border-top:1px solid var(--border); margin-top:60px; padding-top:40px; text-align:center; color:var(--text-muted); font-size:0.85rem;">
-        &copy; 2026 MagicFolder AI. All rights reserved.
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:30px;">
+        <div class="logo">MagicFolder</div>
+        <div style="color:var(--text-muted); font-size:0.95rem;">&copy; 2026 MagicFolder AI. Locally secure.</div>
     </div>
 </footer>
 
@@ -256,7 +245,7 @@
         const PERSONAS = {
             general: { grid: { 
                 magic: { label: 'The Magic Folder', text: 'Auto-identify and file any document.', items: [{ id: 'mf-bills', label: 'PDF Bill Entry', desc: 'Typing data from invoices into spreadsheets.', unit: 'Bills/Wk', note: 'Automated data extraction' }, { id: 'mf-legal', label: 'Contract Filing', desc: 'Downloading and sorting signed agreements.', unit: 'Docs/Wk', note: 'Context-aware folder filing' }, { id: 'mf-intake', label: 'New Client Files', desc: 'Setting up new folders manually.', unit: 'Clients/Wk', note: 'Standardized intake systems' }] },
-                automation: { label: 'Revenue Velocity', text: 'Automate quotes and follow-up.', items: [{ id: 'rev-quote', label: 'Writing Quotes', desc: 'Writing price estimates by hand.', unit: 'Quotes/Wk', note: 'Instant rule-based generation' }, { id: 'rev-follow', label: 'Answering Leads', desc: 'Replying to new inquiry emails.', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
+                automation: { label: 'Revenue Velocity', text: 'Automate quotes and follow-up.', items: [{ id: 'rev-quote', label: 'Writing Quotes', desc: 'Writing price estimates by hand.', unit: 'Quotes/Wk', note: 'Instant rule-based generation' }, { id: 'rev-follow', label: 'Answering Leads', desc: 'Replying to new inquiry emails by hand.', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
                 intelligence: { label: 'Back Office', text: 'Search and sync your firm data.', items: [{ id: 'kn-search', label: 'Finding Files', desc: 'Digging through folders for information.', unit: 'Searches/Wk', note: 'Instant historical retrieval' }, { id: 'bo-sync', label: 'Software Syncing', desc: 'Copying info between software apps.', unit: 'Records/Wk', note: 'Eliminates dual-entry errors' }] }
             }},
             legal: { grid: { 
@@ -265,19 +254,14 @@
                 intelligence: { label: 'Case Search', text: 'Search transcripts and files.', items: [{ id: 'kn-search', label: 'Depo Research', desc: 'Searching transcripts for keywords.', unit: 'Searches/Wk', note: 'Semantic transcript search' }, { id: 'bo-sync', label: 'Clio Updates', desc: 'Updating dates in your practice software.', unit: 'Dates/Wk', note: 'Syncs court dates from PDFs' }] }
             }},
             realestate: { grid: { 
-                magic: { label: 'Transaction Docs', text: 'Auto-sort offers and HOAs.', items: [{ id: 'mf-bills', label: 'Logging Spend', desc: 'Tracking staging and ad receipts.', unit: 'Bills/Wk', note: 'Calculates GCI vs Spend' }, { id: 'mf-legal', label: 'Offer Filing', desc: 'Organizing incoming buyer offers.', unit: 'Offers/Wk', note: 'Extracts price and terms' }, { id: 'mf-intake', label: 'Listing Folders', desc: 'Filing disclosures and title docs.', unit: 'Packets/Wk', note: 'Verifies required signatures' }] },
+                magic: { label: 'Transaction Docs', text: 'Auto-sort offers and HOAs.', items: [{ id: 'mf-bills', label: 'Logging Spend', desc: 'Tracking staging and ad receipts.', unit: 'Bills/Wk', note: 'Calculates GCI vs Spend' }, { id: 'mf-legal', label: 'Offer Prep', desc: 'Organizing incoming buyer offers.', unit: 'Offers/Wk', note: 'Extracts price and terms' }, { id: 'mf-intake', label: 'Listing Folders', desc: 'Filing disclosures and title docs.', unit: 'Packets/Wk', note: 'Verifies required signatures' }] },
                 automation: { label: 'Deal Velocity', text: 'Auto-respond to leads.', items: [{ id: 'rev-quote', label: 'Listing Prep', desc: 'Preparing listing paperwork.', unit: 'Listings/Wk', note: 'Generate Docusign instantly' }, { id: 'rev-lead', label: 'Lead Response', desc: 'Replying to Zillow/Buyer leads.', unit: 'Leads/Wk', note: '5-minute response guarantee' }] },
                 intelligence: { label: 'Transaction Search', text: 'Search past property details.', items: [{ id: 'kn-search', label: 'Deal Archives', desc: 'Looking up past property details.', unit: 'Searches/Wk', note: 'Instant transaction search' }, { id: 'bo-sync', label: 'CRM Harvest', desc: 'Adding new contacts to your CRM.', unit: 'Leads/Wk', note: 'Zero-entry lead building' }] }
             }},
             service: { grid: { 
-                magic: { label: 'Job Site Photos', text: 'Auto-file site pics and bills.', items: [{ id: 'mf-bills', label: 'Parts Invoices', desc: 'Saving receipts from the truck.', unit: 'Receipts/Wk', note: 'Match parts to specific jobs' }, { id: 'mf-legal', label: 'Signed Sheets', desc: 'Filing signed job completion forms.', unit: 'Jobs/Wk', note: 'Extracts signatures instantly' }, { id: 'mf-intake', label: 'Licenses', desc: 'Filing certificates and insurance.', unit: 'Certs/Wk', note: 'Tracks expiration dates' }] },
+                magic: { label: 'Job Site Agent', text: 'Auto-file site photos and bills.', items: [{ id: 'mf-bills', label: 'Parts Invoices', desc: 'Saving receipts from the truck.', unit: 'Receipts/Wk', note: 'Match parts to specific jobs' }, { id: 'mf-legal', label: 'Signed Sheets', desc: 'Filing signed job completion forms.', unit: 'Jobs/Wk', note: 'Extracts signatures instantly' }, { id: 'mf-intake', label: 'Licenses', desc: 'Filing certificates and insurance.', unit: 'Certs/Wk', note: 'Tracks expiration dates' }] },
                 automation: { label: 'Mobile Revenue', text: 'Instant bids from the van.', items: [{ id: 'rev-quote', label: 'Estimating', desc: 'Writing bids while in the van.', unit: 'Bids/Wk', note: 'Increases close rate by 40%' }, { id: 'rev-lead', label: 'Emergency Calls', desc: 'Taking after-hours calls manually.', unit: 'Calls/Wk', note: 'AI dispatch triage' }] },
                 intelligence: { label: 'Service History', text: 'What did we fix last time?', items: [{ id: 'kn-search', label: 'Asset Search', desc: 'Searching for old site notes.', unit: 'Searches/Wk', note: 'Visual history of every asset' }, { id: 'bo-sync', label: 'QuickBooks Sync', desc: 'Entering jobs into QuickBooks.', unit: 'Invoices/Wk', note: 'Eliminates billing lag' }] }
-            }},
-            logistics: { grid: { 
-                magic: { label: 'Freight Agent', text: 'Auto-file BOLs and PODs.', items: [{ id: 'mf-bills', label: 'Carrier Bills', desc: 'Auditing carrier invoices manually.', unit: 'Bills/Wk', note: 'Flags overcharges instantly' }, { id: 'mf-legal', label: 'Proofs (POD)', desc: 'Matching proofs to load IDs.', unit: 'PODs/Wk', note: 'Accelerates billing cycle' }, { id: 'mf-intake', label: 'Onboarding', desc: 'Onboarding new carriers.', unit: 'Packets/Wk', note: 'Verifies DOT compliance' }] },
-                automation: { label: 'Lane Speed', text: 'Instant spot rates.', items: [{ id: 'rev-quote', label: 'Lane Quotes', desc: 'Calculating spot rates manually.', unit: 'Quotes/Wk', note: 'Win more freight via speed' }, { id: 'rev-lead', label: 'Trace Calls', desc: 'Replying to "Where is my truck?".', unit: 'Emails/Wk', note: '24/7 status automation' }] },
-                intelligence: { label: 'Lane Intelligence', text: 'Search historical pricing.', items: [{ id: 'kn-search', label: 'Historical Rates', desc: 'Finding past rates for lanes.', unit: 'Searches/Wk', note: 'Semantic lane search' }, { id: 'bo-sync', label: 'TMS Updates', desc: 'Updating load statuses manually.', unit: 'Loads/Wk', note: 'Zero-touch TMS updates' }] }
             }}
         };
 
@@ -289,7 +273,7 @@
             const name = document.getElementById('user-name').value;
             const email = document.getElementById('user-email').value;
             if(!name || !email.includes('@')) { document.getElementById('form-err-init').style.display='block'; return; }
-            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Roadmap Discovery Started" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(1); });
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Get Started Lead" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(1); });
         };
 
         window.switchPersona = function(persona, btn) {
@@ -350,7 +334,7 @@
             Object.keys(state.inputs).forEach(id => { const qty = state.inputs[id]; const saved = (SAVINGS[id] || 0.25); h += (qty * saved * 52); v += (qty * saved * 52 * rate); });
             state.results.amt = '$' + Math.round(v).toLocaleString(); state.results.hours = Math.round(h).toLocaleString();
             document.getElementById('final-amt').innerText = state.results.amt; document.getElementById('final-hours').innerText = state.results.hours;
-            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ email: document.getElementById('user-email').value, persona: state.currentPersona, savings: state.results.amt, hours: state.results.hours, intent: "Roadmap Data Submitted" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ email: document.getElementById('user-email').value, persona: state.currentPersona, savings: state.results.amt, hours: state.results.hours, intent: "Get Started Complete" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
         window.generatePDFBlueprint = function() {
@@ -358,10 +342,10 @@
             const name = document.getElementById('user-name').value; const rate = parseInt(document.getElementById('hourly-rate').value);
             doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 60, 'F');
             if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 110, 28); } 
-            doc.setTextColor(255, 255, 255); doc.setFontSize(12); doc.text(`PREPARED FOR: ${name.toUpperCase()}`, 20, 50);
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text('YOUR ANNUAL OPPORTUNITY', 20, 80);
+            doc.setTextColor(255, 255, 255); doc.setFontSize(12); doc.text(`AUTOMATION PLAN: ${name.toUpperCase()}`, 20, 50);
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text('ANNUAL OPPORTUNITY', 20, 80);
             doc.setTextColor(79, 70, 229); doc.setFontSize(26); doc.text(state.results.amt, 20, 95);
-            doc.setFontSize(11); doc.setTextColor(100, 116, 139); doc.text(`Reclaimed Productive Capacity: ${state.results.hours} Hours / Year`, 20, 105);
+            doc.setFontSize(11); doc.setTextColor(100, 116, 139); doc.text(`Capacity Gained: ${state.results.hours} Hours / Year`, 20, 105);
             doc.setDrawColor(226, 232, 240); doc.line(20, 115, 190, 115);
             let y = 145;
             const data = PERSONAS[state.currentPersona].grid;
@@ -370,15 +354,16 @@
                     const val = (state.inputs[i.id] * (SAVINGS[i.id]||0.25) * 52 * rate);
                     doc.setFontSize(12); doc.setTextColor(15, 23, 42); doc.text(i.label.toUpperCase(), 20, y);
                     doc.setFontSize(10); doc.setTextColor(79, 70, 229); doc.text(`$${Math.round(val).toLocaleString()} saved / year`, 20, y+6);
-                    doc.setTextColor(100, 116, 139); doc.text(`Analysis: ${i.note}`, 20, y+12);
+                    doc.setTextColor(100, 116, 139); doc.text(`Note: ${i.note}`, 20, y+12);
                     y += 28; if(y > 270) { doc.addPage(); y = 20; }
                 });
             });
-            doc.save(`MagicFolder-Roadmap-${name}.pdf`);
+            doc.save(`MagicFolder-Plan-${name}.pdf`);
         };
 
         function cycleContent() {
             const t = document.getElementById('slideshow-title'); const s = document.getElementById('slideshow-sub');
+            if(!t) return;
             t.style.opacity = 0; s.style.opacity = 0;
             setTimeout(() => {
                 slideIndex = (slideIndex + 1) % slides.length;
