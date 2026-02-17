@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MagicFolder | Do what you're special at.</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10,35 L40,35 L50,45 L90,45 L90,85 L10,85 Z' fill='%234f46e5' opacity='0.2'/%3E%3Cpath d='M10,45 L90,45 L90,85 L10,85 Z' fill='%234f46e5' opacity='0.4'/%3E%3Cpath d='M65,25 L85,45' stroke='%230f172a' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M62,22 L68,28 M58,28 L64,34' stroke='%234f46e5' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10,35 L40,35 Q45,35 48,40 L52,45 Q55,50 60,50 L85,50 L85,85 L15,85 Z' fill='%234f46e5' opacity='0.2'/%3E%3Cline x1='68' y1='22' x2='88' y2='42' stroke='%230f172a' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M62,18 L68,24 M58,24 L64,30' stroke='%234f46e5' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
     
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -17,78 +17,85 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
         /* NAV */
-        nav { padding: 20px 0; position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border); }
+        nav { padding: 24px 0; position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border); }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 14px; font-weight: 800; font-size: 1.7rem; cursor: pointer; text-decoration: none; color: inherit; }
-        .logo svg { width: 48px; height: 48px; }
+        .logo { display: flex; align-items: center; gap: 14px; font-weight: 800; font-size: 1.8rem; cursor: pointer; text-decoration: none; color: inherit; }
+        .logo svg { width: 44px; height: 44px; }
 
-        /* HERO */
-        .hero { padding: 90px 0 40px; text-align: center; }
-        .hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; color: var(--text-main); }
-        .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 48px; line-height: 1.6; }
+        /* HERO SLIDESHOW */
+        .hero { padding: 100px 0 40px; text-align: center; min-height: 550px; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; min-height: 2.2em; transition: opacity 0.5s ease; }
+        .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 48px; line-height: 1.6; min-height: 3.5em; transition: opacity 0.5s ease; }
 
-        /* ANIMATION STAGE */
+        /* UPGRADED TRANSFORMATION ANIMATION */
         .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1000px; margin: 0 auto 80px; padding: 60px 40px; position: relative; overflow: hidden; }
         .demo-flow { display: flex; justify-content: center; align-items: center; gap: 40px; position: relative; z-index: 2; }
-        .demo-node { background: white; padding: 24px; border-radius: 24px; border: 1px solid var(--border); text-align: center; width: 220px; transition: 0.5s; }
-        .demo-node i { color: var(--primary); margin-bottom: 12px; }
+        .demo-node { background: white; padding: 24px; border-radius: 28px; border: 1px solid var(--border); text-align: center; width: 220px; transition: 0.5s ease; }
+        .demo-node i { color: #94a3b8; margin-bottom: 12px; transition: 0.3s; }
         .demo-node h4 { font-weight: 800; margin-bottom: 4px; }
         .demo-node span { font-size: 0.9rem; color: var(--text-muted); }
         
-        .magic-agent { border-color: var(--border); position: relative; }
-        @keyframes agentPulse { 0%, 100% { border-color: var(--border); box-shadow: none; background: white; } 50% { border-color: var(--primary); box-shadow: 0 0 35px var(--primary-soft); background: #eff6ff; } }
-        .agent-active { animation: agentPulse 6s infinite linear; }
+        /* The Center Magic Agent Logic */
+        .magic-agent { border-color: var(--border); position: relative; overflow: hidden; }
+        @keyframes agentActivate { 0%, 100% { border-color: var(--border); box-shadow: none; } 50% { border-color: var(--primary); box-shadow: 0 0 40px var(--primary-soft); background: #f5f3ff; } }
+        .agent-pulse { animation: agentActivate 6s infinite linear; }
+        .agent-pulse i { color: var(--primary) !important; }
 
-        .magic-doc { position: absolute; width: 45px; height: 55px; background: white; border: 2px solid #cbd5e1; border-radius: 4px; top: 50%; left: 10%; transform: translateY(-50%); animation: magicFlow 6s infinite linear; z-index: 1; display: grid; place-items: center; }
-        @keyframes magicFlow { 
+        /* The Moving Document Transformation */
+        .doc-path { position: absolute; width: 45px; height: 55px; background: white; border: 2px solid #cbd5e1; border-radius: 4px; top: 50%; left: 10%; transform: translateY(-50%); animation: docTransition 6s infinite linear; z-index: 1; display: grid; place-items: center; }
+        @keyframes docTransition { 
             0% { left: 10%; opacity: 0; border-color: #cbd5e1; } 
             5% { opacity: 1; }
             45% { left: 45%; border-color: #cbd5e1; background: white; transform: translateY(-50%) rotate(0deg); }
-            50% { left: 50%; border-color: var(--primary); background: #f5f3ff; transform: translateY(-50%) rotate(5deg) scale(1.15); box-shadow: 0 0 20px var(--primary-soft); }
+            50% { left: 50%; border-color: var(--primary); background: #e0e7ff; transform: translateY(-50%) rotate(5deg) scale(1.1); box-shadow: 0 0 20px var(--primary-soft); }
             55% { left: 55%; border-color: var(--primary); background: white; transform: translateY(-50%) rotate(0deg); }
             95% { left: 85%; opacity: 1; }
             100% { left: 90%; opacity: 0; }
         }
 
         /* BUTTONS */
-        .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--text-main); color: white; padding: 20px 48px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.2rem; }
+        .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--text-main); color: white; padding: 22px 52px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.25rem; }
         .btn:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 25px var(--primary-soft); }
-        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-main); font-size: 1.1rem; }
+        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-main); font-size: 1.15rem; }
 
-        /* PERSONA SELECTOR */
+        /* PERSONA BAR */
         .persona-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
-        .persona-chip { background: #fff; border: 1px solid var(--border); padding: 12px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+        .persona-chip { background: #fff; border: 1px solid var(--border); padding: 14px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
         .persona-chip.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 10px 20px var(--primary-soft); }
 
-        /* WIZARD GRID */
+        /* GRID & WIZARD */
         .wizard-section { padding: 100px 0; border-top: 1px solid var(--border); scroll-margin-top: 80px; }
         .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
-        .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 32px; cursor: pointer; transition: 0.3s; position: relative; display: flex; flex-direction: column; height: 100%; }
-        .card:hover { border-color: var(--primary); background: #fff; transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 36px; cursor: pointer; transition: 0.3s; position: relative; height: 100%; display: flex; flex-direction: column; }
+        .card:hover { border-color: var(--primary); background: #fff; transform: translateY(-8px); box-shadow: var(--shadow-lg); }
         .card.selected { border-color: var(--primary); background: #fff; border-width: 2px; }
-        .card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
-        .check-pill { position: absolute; top: 32px; right: 32px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; }
+        .card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; pointer-events: none; }
+        .check-pill { position: absolute; top: 32px; right: 32px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); display: grid; place-items: center; pointer-events: none; }
         .card.selected .check-pill { background: var(--primary); border-color: var(--primary); }
 
-        .audit-item { display: flex; gap: 20px; padding: 28px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 12px; cursor: pointer; align-items: center; text-align: left; }
+        .audit-item { display: flex; gap: 20px; padding: 32px; background: var(--surface); border: 2px solid transparent; border-radius: 24px; margin-bottom: 16px; cursor: pointer; align-items: center; text-align: left; }
         .audit-item.selected { border-color: var(--primary); background: white; box-shadow: var(--shadow-lg); }
-        .check-box { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--border); display: grid; place-items: center; flex-shrink: 0; background: white; }
+        .check-box { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--border); display: grid; place-items: center; flex-shrink: 0; background: white; pointer-events: none; }
         .audit-item.selected .check-box { background: var(--primary); border-color: var(--primary); }
 
-        .cta-card { background: var(--surface); padding: 60px; border-radius: 40px; border: 1px solid var(--border); text-align: center; max-width: 750px; margin: 40px auto 0; }
+        .cta-card { background: var(--surface); padding: 64px; border-radius: 48px; border: 1px solid var(--border); text-align: center; max-width: 800px; margin: 40px auto 0; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
         input { padding: 22px; border-radius: 16px; border: 1px solid var(--border); font-size: 1.15rem; width: 100%; outline: none; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
 
-        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 50px; text-align: center; }
-        .big-save { font-size: clamp(4rem, 12vw, 8rem); color: #818cf8; font-weight: 800; line-height: 1; letter-spacing: -5px; margin: 20px 0; }
+        .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 56px; text-align: center; }
+        .big-save { font-size: clamp(4rem, 12vw, 8rem); color: #818cf8; font-weight: 800; line-height: 1; letter-spacing: -5px; margin: 24px 0; }
 
-        footer { padding: 80px 0; border-top: 1px solid var(--border); margin-top: 100px; }
+        .partner-bar { margin: 80px 0; padding: 40px 0; border-top: 1px solid var(--border); text-align: center; }
+        .partner-grid { display: flex; justify-content: center; gap: 48px; align-items: center; flex-wrap: wrap; opacity: 0.5; margin-top: 24px; }
+        .partner-grid span { font-weight: 800; font-size: 1.2rem; color: var(--text-main); }
+
+        footer { padding: 100px 0; border-top: 1px solid var(--border); margin-top: 100px; }
         .hidden { display: none !important; }
-        .fade-in { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media(max-width: 768px) { .domain-grid, .demo-flow { grid-template-columns: 1fr; flex-direction: column; } .hero h1 { font-size: 2.8rem; } .magic-doc { display: none; } .form-row { grid-template-columns: 1fr; } }
+        @media(max-width: 768px) { .domain-grid, .demo-flow { grid-template-columns: 1fr; flex-direction: column; } .hero h1 { font-size: 2.8rem; } .doc-path { display: none; } .form-row { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -99,38 +106,46 @@
     <div class="container nav-inner">
         <a class="logo" href="javascript:location.reload();">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15,35 L40,35 Q45,35 48,40 L52,45 Q55,50 60,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3"/>
+                <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3.5"/>
                 <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
-                <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="5" stroke-linecap="round"/>
-                <path d="M62,18 L68,24 M58,24 L64,30 M65,15 L69,19" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
+                <path d="M35,70 L65,70 L65,66 L60,66 L60,55 L40,55 L40,66 L35,66 Z" fill="#0f172a"/>
+                <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
+                <path d="M62,18 L68,24 M58,24 L64,30" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
                 <circle cx="68" cy="22" r="3" fill="#4f46e5"/>
             </svg>
             MagicFolder
         </a>
         <div>
-            <button class="btn" style="padding:10px 24px; font-size:0.95rem;" onclick="startJourney()">See My Roadmap</button>
+            <button class="btn btn-outline" style="padding:10px 24px; font-size:0.95rem;" onclick="startJourney()">See My Roadmap</button>
         </div>
     </div>
 </nav>
 
 <section id="hero-section" class="hero container">
-    <h1>Do what you're special at.<br>Let us do the paperwork.</h1>
-    <p>We built a secure tool for your computer that watches your scanner and email—identifying your documents and handling the admin work automatically.</p>
+    <h1 id="slideshow-title">Do what you're special at.<br>Let us do the paperwork.</h1>
+    <p id="slideshow-sub">We built a secure tool for your computer that watches your scanner and email—identifying your documents and handling the admin work automatically.</p>
     
     <div style="display:flex; gap:20px; justify-content:center; margin-bottom: 60px;">
         <button class="btn" onclick="startJourney()">See My Work Smarter Roadmap <i data-lucide="arrow-right"></i></button>
     </div>
 
     <div class="demo-stage">
-        <div class="magic-doc"><i data-lucide="sparkles" size="24" color="#4f46e5"></i></div>
+        <div class="doc-path"><i data-lucide="sparkles" size="24" color="#4f46e5"></i></div>
         <div class="demo-flow">
             <div class="demo-node"><i data-lucide="scan" size="36"></i><h4>Intake</h4><span>Scans & Emails</span></div>
-            <div class="demo-node magic-agent agent-active"><i data-lucide="wand-2" size="36"></i><h4>Magic Agent</h4><span>The Intelligent Folder</span></div>
-            <div class="demo-node"><i data-lucide="check-circle" size="36"></i><h4>Done</h4><span>Filed & Finished</span></div>
+            <div class="demo-node magic-agent agent-pulse"><i data-lucide="wand-2" size="36"></i><h4>Magic Agent</h4><span>The Intelligent Folder</span></div>
+            <div class="demo-node"><i data-lucide="check-circle" size="36" style="color:var(--success)"></i><h4>Done</h4><span>Filed & Finished</span></div>
         </div>
-        <div style="margin-top: 40px; font-weight: 800; color: var(--text-muted); font-size: 1.1rem;">
-            <i data-lucide="lock" size="18" style="vertical-align:middle; margin-right:8px; color: var(--success);"></i>
-            It runs on your computer. Your data stays private.
+        <div style="margin-top: 40px; font-weight: 800; color: var(--text-muted); font-size: 1.15rem;">
+            <i data-lucide="shield-check" size="20" style="vertical-align:middle; margin-right:8px; color: var(--success);"></i>
+            Security First: Your data stays in your world.
+        </div>
+    </div>
+
+    <div class="partner-bar">
+        <span class="mono" style="color:var(--text-muted); letter-spacing:3px;">BUILT ON THE WORLD'S BEST LOGIC</span>
+        <div class="partner-grid">
+            <span>OpenAI</span><span>Anthropic</span><span>Make.com</span><span>Salesforce</span><span>QuickBooks</span>
         </div>
     </div>
 </section>
@@ -140,20 +155,21 @@
     <div id="step-0" class="fade-in">
         <div style="text-align:center; max-width:650px; margin:0 auto 40px;">
             <h2>Where should we send your roadmap?</h2>
-            <p style="color:var(--text-muted);">Provide your info to see how much time you can save and get your custom plan.</p>
+            <p style="color:var(--text-muted);">Provide your info to request a personal scoping session and see how much time you can save.</p>
         </div>
         <div class="cta-card">
-            <div class="form-row"><input type="text" id="user-name" placeholder="Name"><input type="text" id="user-company" placeholder="Business Name"></div>
-            <div style="max-width: 100%; margin: 16px auto;"><input type="email" id="user-email" placeholder="Work Email"></div>
-            <button class="btn" style="width: 100%; justify-content: center;" onclick="submitInitialLead()">Build My Roadmap <i data-lucide="arrow-right"></i></button>
-            <div id="form-err-init" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please verify your details.</div>
+            <div class="form-row"><input type="text" id="user-name" placeholder="Full Name"><input type="text" id="user-company" placeholder="Business Name"></div>
+            <div style="max-width: 100%; margin: 16px auto;"><input type="email" id="user-email" placeholder="Work Email Address"></div>
+            <div style="display:none;"><input type="text" id="gotcha-field" value=""></div>
+            <button class="btn" style="width: 100%; justify-content: center;" onclick="submitInitialLead()">Get Started <i data-lucide="arrow-right"></i></button>
+            <div id="form-err-init" style="color:#ef4444; margin-top:20px; display:none; font-weight: 700;">Please verify your name and email.</div>
         </div>
     </div>
 
     <div id="step-1" class="hidden fade-in">
         <div style="text-align:center; max-width:800px; margin:0 auto 40px;">
-            <div class="mono" style="color:var(--primary); margin-bottom:12px;">Step 1: Your World</div>
-            <h2>What slows your business down?</h2>
+            <div class="mono" style="color:var(--primary); margin-bottom:12px;">Step 1: Your Business</div>
+            <h2>What slows your day down?</h2>
         </div>
         <div class="persona-bar">
             <div class="persona-chip active" onclick="switchPersona('general', this)">General Business</div>
@@ -178,7 +194,7 @@
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto;">
-        <div style="text-align:center; margin-bottom:40px;"><h3>How many times a week?</h3></div>
+        <div style="text-align:center; margin-bottom:40px;"><h3>Weekly Estimate</h3></div>
         <div id="slider-box"></div>
         <div style="background: var(--surface); padding: 40px; border-radius: 28px; border: 1px solid var(--border); margin: 30px 0; border-style: dashed;">
             <div style="display:flex; justify-content:space-between; font-weight:800;"><span>What is an hour of your time worth?</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
@@ -186,7 +202,7 @@
         </div>
         <div style="display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(2)">Back</button>
-            <button class="btn" onclick="finishJourney()">View My Results</button>
+            <button class="btn" onclick="finishJourney()">View My Roadmap</button>
         </div>
     </div>
 
@@ -194,11 +210,11 @@
         <div class="results-hero">
             <p class="mono" style="opacity: 0.7; letter-spacing: 4px;">YOUR ANNUAL OPPORTUNITY</p>
             <div class="big-save" id="final-amt">$0</div>
-            <p style="font-size: 1.6rem;">Reclaiming <strong id="final-hours" style="color:white;">0</strong> high-value hours per year.</p>
+            <p style="font-size: 1.7rem;">Recovering <strong id="final-hours" style="color:white;">0</strong> productive hours per year.</p>
         </div>
         <div style="text-align: center; margin-top: 50px;">
             <button class="btn" onclick="generatePDFBlueprint()" style="background: var(--primary);"><i data-lucide="download"></i> Download My Roadmap (PDF)</button>
-            <p style="margin-top: 24px; color: var(--text-muted); font-size: 1.1rem;">We've sent a copy to your email. We'll reach out to discuss the next steps.</p>
+            <p style="margin-top: 24px; color: var(--text-muted); font-size: 1.1rem;">Thank you. Check your email for your custom roadmap and next steps.</p>
         </div>
     </div>
 </section>
@@ -206,43 +222,49 @@
 <footer>
     <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:30px;">
         <div class="logo">MagicFolder</div>
-        <div style="color:var(--text-muted); font-size:0.95rem;">&copy; 2026 MagicFolder AI. Locally secure. Simply smart.</div>
+        <div style="color:var(--text-muted); font-size:0.95rem;">&copy; 2026 MagicFolder AI. Locally secure. Intelligent results.</div>
     </div>
 </footer>
 
 <script>
     (function() {
-        let PDF_LOGO_DATA = "";
+        const slides = [
+            { title: "Do what you're special at.<br>Let us do the paperwork.", sub: "We build secure tools that watch your scanner and email—identifying your documents and filing them automatically." },
+            { title: "Win more clients<br>while you sleep.", sub: "Send instant quotes and follow-ups to every inquiry, 24/7, without lifting a finger." },
+            { title: "Never organize<br>a file again.", sub: "MagicFolder automatically names, sorts, and syncs your documents the moment they arrive." }
+        ];
+
+        let slideIndex = 0; let PDF_LOGO_DATA = "";
         
         const PERSONAS = {
             general: { grid: { 
-                magic: { label: 'The Magic Folder', text: 'Auto-identify and file any document.', items: [{ id: 'mf-bills', label: 'Paper Bills', desc: 'Typing bill data into your software manually.', unit: 'Bills/Wk', note: 'Automated data extraction' }, { id: 'mf-legal', label: 'Filing Agreements', desc: 'Downloading and sorting signed contracts.', unit: 'Docs/Wk', note: 'Context-aware folder filing' }, { id: 'mf-intake', label: 'New Client Setup', desc: 'Setting up new folders and files manually.', unit: 'Clients/Wk', note: 'Standardized intake workflows' }] },
-                automation: { label: 'Revenue Boost', text: 'Automate quotes and follow-ups.', items: [{ id: 'rev-quote', label: 'Writing Quotes', desc: 'Manually typing up price estimates.', unit: 'Quotes/Wk', note: 'Instant rule-based generation' }, { id: 'rev-follow', label: 'Replying to Leads', desc: 'Answering new inquiry emails by hand.', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
-                intelligence: { label: 'Daily Admin', text: 'Search and sync your business data.', items: [{ id: 'kn-search', label: 'Searching Folders', desc: 'Digging through folders for old files.', unit: 'Searches/Wk', note: 'Instant historical retrieval' }, { id: 'bo-sync', label: 'Syncing Apps', desc: 'Copying data from one software to another.', unit: 'Records/Wk', note: 'Eliminates dual-entry errors' }] }
+                magic: { label: 'The Magic Folder', text: 'Auto-identify and file any document.', items: [{ id: 'mf-bills', label: 'Paper Invoices', desc: 'Typing data from PDF bills into spreadsheets.', unit: 'Bills/Wk', note: 'Automated data extraction' }, { id: 'mf-legal', label: 'Signed Contracts', desc: 'Filing signed agreements manually.', unit: 'Docs/Wk', note: 'Context-aware folder filing' }, { id: 'mf-intake', label: 'New Client Onboarding', desc: 'Setting up new folders and files for clients.', unit: 'Clients/Wk', note: 'Standardized intake systems' }] },
+                automation: { label: 'Revenue Boost', text: 'Automate quotes and follow-ups.', items: [{ id: 'rev-quote', label: 'Writing Quotes', desc: 'Manually typing up price estimates.', unit: 'Quotes/Wk', note: 'Instant rule-based generation' }, { id: 'rev-follow', label: 'Answering Leads', desc: 'Replying to new inquiry emails by hand.', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
+                intelligence: { label: 'Daily Admin', text: 'Search and sync your firm data.', items: [{ id: 'kn-search', label: 'Searching Folders', desc: 'Digging through folders for old files.', unit: 'Searches/Wk', note: 'Instant historical retrieval' }, { id: 'bo-sync', label: 'App Syncing', desc: 'Copying data between software manually.', unit: 'Records/Wk', note: 'Eliminates dual-entry errors' }] }
             }},
             legal: { grid: { 
-                magic: { label: 'Case Agent', text: 'Auto-sort pleadings and discovery.', items: [{ id: 'mf-bills', label: 'Logging Receipts', desc: 'Tracking case costs and disbursements.', unit: 'Receipts/Wk', note: 'Auto-captures matter expenses' }, { id: 'mf-legal', label: 'Filing court docs', desc: 'Naming court documents for the case file.', unit: 'Files/Wk', note: 'Sorts by Case ID automatically' }, { id: 'mf-intake', label: 'Intake Files', desc: 'Sorting evidence and new client files.', unit: 'Docs/Wk', note: 'Indexes discovery instantly' }] },
-                automation: { label: 'Billable Time', text: 'Auto-draft retainers & bills.', items: [{ id: 'rev-quote', label: 'Preparing Retainers', desc: 'Creating fee agreements manually.', unit: 'Agreements/Wk', note: 'Auto-drafts from templates' }, { id: 'rev-lead', label: 'Matter Intake', desc: 'Screening incoming inquiries.', unit: 'Calls/Wk', note: '24/7 intake response' }] },
-                intelligence: { label: 'Litigation Hub', text: 'Search transcripts and files.', items: [{ id: 'kn-search', label: 'Fact Search', desc: 'Searching depositions for keywords.', unit: 'Searches/Wk', note: 'Semantic transcript search' }, { id: 'bo-sync', label: 'Clio Sync', desc: 'Updating dates in your practice software.', unit: 'Dates/Wk', note: 'Syncs court dates from PDFs' }] }
+                magic: { label: 'Case Management', text: 'Auto-sort pleadings and discovery.', items: [{ id: 'mf-bills', label: 'Expense Logging', desc: 'Tracking matter costs and receipts.', unit: 'Receipts/Wk', note: 'Auto-captures case disbursements' }, { id: 'mf-legal', label: 'Filing court docs', desc: 'Naming and saving court documents.', unit: 'Files/Wk', note: 'Sorts by Case ID automatically' }, { id: 'mf-intake', label: 'Incoming Discovery', desc: 'Sorting evidence and client file batches.', unit: 'Docs/Wk', note: 'Indexes discovery instantly' }] },
+                automation: { label: 'Matter Speed', text: 'Auto-draft retainers & bills.', items: [{ id: 'rev-quote', label: 'Retainer Drafts', desc: 'Creating fee agreements manually.', unit: 'Agreements/Wk', note: 'Auto-drafts from templates' }, { id: 'rev-lead', label: 'New Matter Intake', desc: 'Screening incoming inquiries.', unit: 'Calls/Wk', note: '24/7 intake response' }] },
+                intelligence: { label: 'Litigation Hub', text: 'Search transcripts and files.', items: [{ id: 'kn-search', label: 'Depo Research', desc: 'Searching transcripts for keywords.', unit: 'Searches/Wk', note: 'Semantic transcript search' }, { id: 'bo-sync', label: 'Practice Sync', desc: 'Updating Clio or case management.', unit: 'Dates/Wk', note: 'Syncs court dates from PDFs' }] }
             }},
             realestate: { grid: { 
-                magic: { label: 'Transaction Docs', text: 'Auto-sort offers and HOAs.', items: [{ id: 'mf-bills', label: 'Logging Spend', desc: 'Tracking staging and ad receipts.', unit: 'Bills/Wk', note: 'Calculates GCI vs Spend' }, { id: 'mf-legal', label: 'Offer Prep', desc: 'Organizing incoming buyer offers.', unit: 'Offers/Wk', note: 'Extracts price and terms' }, { id: 'mf-intake', label: 'Listing Folders', desc: 'Filing disclosures and title docs.', unit: 'Packets/Wk', note: 'Verifies required signatures' }] },
-                automation: { label: 'Deal Speed', text: 'Auto-respond to Zillow/Buyers.', items: [{ id: 'rev-quote', label: 'Listing Prep', desc: 'Preparing listing paperwork.', unit: 'Listings/Wk', note: 'Generate Docusign instantly' }, { id: 'rev-lead', label: 'Zillow Reply', desc: 'Replying to Zillow/Buyer leads.', unit: 'Leads/Wk', note: '5-minute response guarantee' }] },
-                intelligence: { label: 'Deal Archives', text: 'Search past property details.', items: [{ id: 'kn-search', label: 'Past Deal Search', desc: 'Looking up past property details.', unit: 'Searches/Wk', note: 'Instant transaction search' }, { id: 'bo-sync', label: 'CRM Entry', desc: 'Adding new contacts to your CRM.', unit: 'Leads/Wk', note: 'Zero-entry database building' }] }
+                magic: { label: 'Transaction Agent', text: 'Auto-sort offers and HOAs.', items: [{ id: 'mf-bills', label: 'Expense Captures', desc: 'Tracking ad and staging receipts.', unit: 'Bills/Wk', note: 'Calculates GCI vs Spend' }, { id: 'mf-legal', label: 'Buyer Offers', desc: 'Organizing incoming offer files.', unit: 'Offers/Wk', note: 'Extracts price and terms' }, { id: 'mf-intake', label: 'Listing Folders', desc: 'Filing disclosures and title docs.', unit: 'Packets/Wk', note: 'Verifies required signatures' }] },
+                automation: { label: 'Deal Velocity', text: 'Auto-respond to Zillow/Buyers.', items: [{ id: 'rev-quote', label: 'Listing Prep', desc: 'Preparing listing paperwork.', unit: 'Listings/Wk', note: 'Generate Docusign instantly' }, { id: 'rev-lead', label: 'Lead Response', desc: 'Replying to Zillow/Buyer leads.', unit: 'Leads/Wk', note: '5-minute response guarantee' }] },
+                intelligence: { label: 'Deal Archives', text: 'Search past property details.', items: [{ id: 'kn-search', label: 'Deal Search', desc: 'Looking up past property details.', unit: 'Searches/Wk', note: 'Instant transaction search' }, { id: 'bo-sync', label: 'CRM Entry', desc: 'Adding new contacts to CRM.', unit: 'Leads/Wk', note: 'Zero-entry database building' }] }
             }},
             service: { grid: { 
-                magic: { label: 'Job Site Agent', text: 'Auto-file site photos and bills.', items: [{ id: 'mf-bills', label: 'Parts Receipts', desc: 'Saving receipts from the van.', unit: 'Receipts/Wk', note: 'Match parts to specific jobs' }, { id: 'mf-legal', label: 'Signed Work', desc: 'Filing signed job sheets.', unit: 'Jobs/Wk', note: 'Extracts signatures instantly' }, { id: 'mf-intake', label: 'Compliance', desc: 'Filing sub insurance certificates.', unit: 'Certs/Wk', note: 'Tracks expiration dates' }] },
-                automation: { label: 'Mobile Revenue', text: 'Instant bids from the job.', items: [{ id: 'rev-quote', label: 'Estimating', desc: 'Writing bids while in the van.', unit: 'Bids/Wk', note: 'Increases close rate by 40%' }, { id: 'rev-lead', label: 'Dispatch', desc: 'Taking after-hours calls.', unit: 'Calls/Wk', note: 'AI dispatch triage' }] },
-                intelligence: { label: 'Service History', text: 'What did we fix last time?', items: [{ id: 'kn-search', label: 'Looking up Jobs', desc: 'Searching for old site notes.', unit: 'Searches/Wk', note: 'Visual history of every asset' }, { id: 'bo-sync', label: 'QuickBooks Sync', desc: 'Entering jobs into QuickBooks.', unit: 'Invoices/Wk', note: 'Eliminates billing lag' }] }
+                magic: { label: 'Job Site Agent', text: 'Auto-file site photos and bills.', items: [{ id: 'mf-bills', label: 'Parts Receipts', desc: 'Saving receipts from the truck.', unit: 'Receipts/Wk', note: 'Match parts to specific jobs' }, { id: 'mf-legal', label: 'Work Orders', desc: 'Filing signed job completion sheets.', unit: 'Jobs/Wk', note: 'Extracts signatures instantly' }, { id: 'mf-intake', label: 'Licenses/Certs', desc: 'Filing sub insurance certificates.', unit: 'Certs/Wk', note: 'Tracks expiration dates' }] },
+                automation: { label: 'Van Revenue', text: 'Instant bids from the job.', items: [{ id: 'rev-quote', label: 'Bidding', desc: 'Writing estimates while in the van.', unit: 'Bids/Wk', note: 'Increases close rate by 40%' }, { id: 'rev-lead', label: 'Dispatch Calls', desc: 'Taking after-hours emergency calls.', unit: 'Calls/Wk', note: 'AI dispatch triage' }] },
+                intelligence: { label: 'Site History', text: 'What did we fix last time?', items: [{ id: 'kn-search', label: 'Site Records', desc: 'Searching for old site notes.', unit: 'Searches/Wk', note: 'Visual history of every asset' }, { id: 'bo-sync', label: 'Accounting Sync', desc: 'Entering jobs into QuickBooks.', unit: 'Invoices/Wk', note: 'Eliminates billing lag' }] }
             }},
             logistics: { grid: { 
-                magic: { label: 'Freight Agent', text: 'Auto-file BOLs and PODs.', items: [{ id: 'mf-bills', label: 'Carrier Bills', desc: 'Auditing carrier invoices.', unit: 'Bills/Wk', note: 'Flags overcharges instantly' }, { id: 'mf-legal', label: 'Proofs (POD)', desc: 'Matching PODs to load IDs.', unit: 'PODs/Wk', note: 'Accelerates billing' }, { id: 'mf-intake', label: 'Packets', desc: 'Onboarding new carriers.', unit: 'Packets/Wk', note: 'Verifies DOT compliance' }] },
-                automation: { label: 'Lane Speed', text: 'Instant spot rates.', items: [{ id: 'rev-quote', label: 'Spot Quotes', desc: 'Calculating lane rates manually.', unit: 'Quotes/Wk', note: 'Win more freight via speed' }, { id: 'rev-lead', label: 'Truck Trace', desc: 'Replying to "Where is my truck?".', unit: 'Emails/Wk', note: '24/7 status automation' }] },
-                intelligence: { label: 'Rate History', text: 'Search historical pricing.', items: [{ id: 'kn-search', label: 'Historical Rates', desc: 'Finding past rates for specific lanes.', unit: 'Searches/Wk', note: 'Semantic lane search' }, { id: 'bo-sync', label: 'TMS Updates', desc: 'Updating load statuses manually.', unit: 'Loads/Wk', note: 'Zero-touch TMS updates' }] }
+                magic: { label: 'Freight Docs', text: 'Auto-file BOLs and PODs.', items: [{ id: 'mf-bills', label: 'Carrier Invoices', desc: 'Auditing carrier bills manually.', unit: 'Bills/Wk', note: 'Flags overcharges instantly' }, { id: 'mf-legal', label: 'BOL / PODs', desc: 'Matching proofs to load IDs.', unit: 'PODs/Wk', note: 'Accelerates billing cycle' }, { id: 'mf-intake', label: 'Driver Packets', desc: 'Onboarding new carriers.', unit: 'Packets/Wk', note: 'Verifies DOT compliance' }] },
+                automation: { label: 'Lane Velocity', text: 'Instant spot rates.', items: [{ id: 'rev-quote', label: 'Lane Pricing', desc: 'Calculating spot rates manually.', unit: 'Quotes/Wk', note: 'Win more freight via speed' }, { id: 'rev-lead', label: 'Track & Trace', desc: 'Replying to "Where is my truck?".', unit: 'Emails/Wk', note: '24/7 status automation' }] },
+                intelligence: { label: 'Rate History', text: 'Search historical pricing.', items: [{ id: 'kn-search', label: 'Lane Search', desc: 'Finding past rates for specific lanes.', unit: 'Searches/Wk', note: 'Semantic rate archive search' }, { id: 'bo-sync', label: 'TMS Updates', desc: 'Updating load statuses manually.', unit: 'Loads/Wk', note: 'Zero-touch TMS updates' }] }
             }}
         };
 
-        const SAVINGS = { 'mf-bills': 0.25, 'mf-legal': 0.5, 'mf-intake': 1.5, 'rev-quote': 0.5, 'rev-lead': 0.2, 'kn-search': 0.4, 'bo-sync': 0.2 };
+        const SAVINGS = { 'mf-bills': 0.25, 'mf-legal': 0.5, 'mf-intake': 1.5, 'rev-quote': 0.5, 'rev-follow': 0.2, 'kn-search': 0.4, 'bo-sync': 0.2 };
         let state = { currentPersona: 'general', domains: new Set(), tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
 
         window.startJourney = function() { document.getElementById('hero-section').classList.add('hidden'); document.getElementById('wizard').classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); };
@@ -250,9 +272,7 @@
             const name = document.getElementById('user-name').value;
             const email = document.getElementById('user-email').value;
             if(!name || !email.includes('@')) { document.getElementById('form-err-init').style.display='block'; return; }
-            fetch('https://formspree.io/f/mgooqqjg', { 
-                method: 'POST', body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Roadmap Start" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
-            }).finally(() => { setStep(1); });
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Roadmap Discovery Started" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(1); });
         };
 
         window.switchPersona = function(persona, btn) {
@@ -286,7 +306,7 @@
             list.innerHTML = aggregated.map(i => `
                 <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}', event)">
                     <div class="check-box"><i data-lucide="check" size="14" style="color:white; ${state.tasks.has(i.id) ? '' : 'display:none'}"></i></div>
-                    <div><div style="font-weight:800; font-size:1.1rem;">${i.label}</div><div style="color:var(--text-muted); font-size:0.95rem;">${i.desc}</div></div>
+                    <div><div style="font-weight:800; font-size:1.1rem;">${i.label}</div><div style="color:var(--text-muted); font-size:1rem; margin-top:4px;">${i.desc}</div></div>
                 </div>`).join('');
             lucide.createIcons();
         }
@@ -313,38 +333,43 @@
             Object.keys(state.inputs).forEach(id => { const qty = state.inputs[id]; const saved = (SAVINGS[id] || 0.25); h += (qty * saved * 52); v += (qty * saved * 52 * rate); });
             state.results.amt = '$' + Math.round(v).toLocaleString(); state.results.hours = Math.round(h).toLocaleString();
             document.getElementById('final-amt').innerText = state.results.amt; document.getElementById('final-hours').innerText = state.results.hours;
-            
-            fetch('https://formspree.io/f/mgooqqjg', { 
-                method: 'POST', body: JSON.stringify({ email: document.getElementById('user-email').value, persona: state.currentPersona, savings: state.results.amt, hours: state.results.hours, intent: "Roadmap Finished" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
-            }).finally(() => { setStep(5); });
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ email: document.getElementById('user-email').value, persona: state.currentPersona, savings: state.results.amt, hours: state.results.hours, intent: "Roadmap Data Submitted" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { setStep(5); });
         };
 
         window.generatePDFBlueprint = function() {
-            try {
-                const { jsPDF } = window.jspdf; const doc = new jsPDF();
-                const name = document.getElementById('user-name').value; const rate = parseInt(document.getElementById('hourly-rate').value);
-                doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 60, 'F');
-                if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 110, 28); } 
-                doc.setTextColor(255, 255, 255); doc.setFontSize(12); doc.text(`WORK SMARTER ROADMAP: ${name.toUpperCase()}`, 20, 50);
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text('ANNUAL OPPORTUNITY', 20, 80);
-                doc.setTextColor(79, 70, 229); doc.setFontSize(26); doc.text(state.results.amt, 20, 95);
-                doc.setFontSize(11); doc.setTextColor(100, 116, 139); doc.text(`Reclaimed Capacity: ${state.results.hours} Hours / Year`, 20, 105);
-                doc.setDrawColor(226, 232, 240); doc.line(20, 115, 190, 115);
-                doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.text('MODULE CONFIGURATION', 20, 130);
-                let y = 145;
-                const data = PERSONAS[state.currentPersona].grid;
-                state.domains.forEach(d => {
-                    data[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
-                        const qty = state.inputs[i.id] || 0; const val = (qty * (SAVINGS[i.id]||0.25) * 52 * rate);
-                        doc.setFontSize(12); doc.setTextColor(15, 23, 42); doc.text(i.label.toUpperCase(), 20, y);
-                        doc.setFontSize(10); doc.setTextColor(79, 70, 229); doc.text(`$${Math.round(val).toLocaleString()} saved / year`, 20, y+6);
-                        doc.setTextColor(100, 116, 139); doc.text(`Roadmap Note: ${i.note}`, 20, y+12);
-                        y += 28; if(y > 270) { doc.addPage(); y = 20; }
-                    });
+            const { jsPDF } = window.jspdf; const doc = new jsPDF();
+            const name = document.getElementById('user-name').value; const rate = parseInt(document.getElementById('hourly-rate').value);
+            doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 60, 'F');
+            if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 15, 12, 110, 28); } 
+            doc.setTextColor(255, 255, 255); doc.setFontSize(12); doc.text(`WORK SMARTER ROADMAP: ${name.toUpperCase()}`, 20, 50);
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text('YOUR ANNUAL OPPORTUNITY', 20, 80);
+            doc.setTextColor(79, 70, 229); doc.setFontSize(26); doc.text(state.results.amt, 20, 95);
+            doc.setFontSize(11); doc.setTextColor(100, 116, 139); doc.text(`Reclaimed Productive Capacity: ${state.results.hours} Hours / Year`, 20, 105);
+            doc.setDrawColor(226, 232, 240); doc.line(20, 115, 190, 115);
+            let y = 145;
+            const data = PERSONAS[state.currentPersona].grid;
+            state.domains.forEach(d => {
+                data[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
+                    const val = (state.inputs[i.id] * (SAVINGS[i.id]||0.25) * 52 * rate);
+                    doc.setFontSize(12); doc.setTextColor(15, 23, 42); doc.text(i.label.toUpperCase(), 20, y);
+                    doc.setFontSize(10); doc.setTextColor(79, 70, 229); doc.text(`$${Math.round(val).toLocaleString()} saved / year`, 20, y+6);
+                    doc.setTextColor(100, 116, 139); doc.text(`Analysis: ${i.note}`, 20, y+12);
+                    y += 28; if(y > 270) { doc.addPage(); y = 20; }
                 });
-                doc.save(`MagicFolder-Roadmap-${name}.pdf`);
-            } catch(e) { console.error(e); }
+            });
+            doc.save(`MagicFolder-Roadmap-${name}.pdf`);
         };
+
+        function cycleContent() {
+            const t = document.getElementById('slideshow-title'); const s = document.getElementById('slideshow-sub');
+            t.style.opacity = 0; s.style.opacity = 0;
+            setTimeout(() => {
+                slideIndex = (slideIndex + 1) % slides.length;
+                t.innerHTML = slides[slideIndex].title;
+                s.innerHTML = slides[slideIndex].sub;
+                t.style.opacity = 1; s.style.opacity = 1;
+            }, 500);
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('logo-canvas'); const ctx = canvas.getContext('2d');
@@ -355,7 +380,7 @@
                 ctx.fillStyle='#ffffff'; ctx.font='800 72px "Plus Jakarta Sans"'; ctx.fillText('MagicFolder', 150, 95);
                 PDF_LOGO_DATA = canvas.toDataURL('image/png');
             });
-            renderGrid();
+            renderGrid(); setInterval(cycleContent, 8000);
         });
     })();
 </script>
