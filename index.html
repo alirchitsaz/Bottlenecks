@@ -12,7 +12,7 @@
     
     <style>
         :root { --primary: #4f46e5; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #ffffff; --surface: #f8fafc; --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.5; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
@@ -27,12 +27,12 @@
         .hero h1 { font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; min-height: 2.2em; transition: opacity 0.5s ease; }
         .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 48px; line-height: 1.6; transition: opacity 0.5s ease; }
 
-        /* REACTIVE FOLDER ANIMATION */
-        .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1000px; margin: 0 auto 80px; padding: 70px 40px; position: relative; overflow: hidden; }
+        /* UNIFIED FOLDER ANIMATION */
+        .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1000px; margin: 0 auto 80px; padding: 80px 40px; position: relative; overflow: hidden; }
         .demo-flow { display: flex; justify-content: center; align-items: center; gap: 50px; position: relative; z-index: 2; }
         
         /* FOLDER NODE GEOMETRY */
-        .folder-node { width: 180px; height: 140px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 16px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .folder-node { width: 180px; height: 140px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 16px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.4s ease; }
         .folder-node::before { content: ""; position: absolute; top: -12px; left: -1.5px; width: 60px; height: 12px; background: inherit; border: inherit; border-bottom: none; border-radius: 8px 8px 0 0; }
         .folder-node i { color: #94a3b8; margin-bottom: 8px; transition: 0.3s; }
         .folder-node h4 { font-weight: 800; font-size: 1rem; }
@@ -42,21 +42,22 @@
         
         @keyframes docLife { 
             0% { left: 10%; opacity: 0; } 
-            5% { opacity: 1; border-color: #cbd5e1; }
-            45% { left: 45%; background: white; border-color: #cbd5e1; transform: translateY(-50%) rotate(0deg); }
+            10% { opacity: 1; border-color: #cbd5e1; }
+            45% { left: 45%; background: white; border-color: #cbd5e1; transform: translateY(-50%) scale(1); }
             50% { left: 50%; background: #f5f3ff; border-color: var(--primary); transform: translateY(-50%) scale(1.2) rotate(5deg); }
-            55% { left: 55%; background: white; border-color: var(--primary); transform: translateY(-50%) rotate(0deg); }
+            55% { left: 55%; background: white; border-color: var(--primary); transform: translateY(-50%) scale(1); }
             90% { left: 85%; opacity: 1; }
             100% { left: 95%; opacity: 0; }
         }
 
-        /* RE-ACTIVE BUMP ANIMATIONS */
-        @keyframes startPulse { 0%, 5%, 100% { transform: scale(1); border-color: var(--border); } 2% { transform: scale(1.05); border-color: var(--primary); } }
+        /* REACTIVE BOX ANIMATIONS */
+        @keyframes intakePulse { 0%, 5%, 100% { transform: scale(1); border-color: var(--border); } 2.5% { transform: scale(1.05); border-color: var(--primary); } }
         @keyframes magicBump { 0%, 45%, 55%, 100% { transform: scale(1); border-color: var(--border); box-shadow: none; } 50% { transform: scale(1.2); border-color: var(--primary); box-shadow: 0 20px 40px var(--primary-soft); background: #f5f3ff; } }
         @keyframes successPop { 0%, 60% { border-color: var(--border); background: white; } 65%, 100% { border-color: var(--success); background: #f0fdf4; transform: scale(1.05); } }
 
-        .intake-anim { animation: startPulse 8s infinite linear; }
+        .intake-anim { animation: intakePulse 8s infinite linear; }
         .agent-anim { animation: magicBump 8s infinite linear; }
+        .agent-anim svg { width: 60px; height: 60px; margin-bottom: 8px; }
         .done-anim { animation: successPop 8s infinite linear; }
 
         /* BUTTONS */
@@ -88,11 +89,7 @@
         .results-hero { background: #0f172a; color: white; padding: 100px 40px; border-radius: 56px; text-align: center; }
         .big-save { font-size: clamp(4rem, 12vw, 8rem); color: #818cf8; font-weight: 800; line-height: 1; letter-spacing: -5px; margin: 20px 0; }
 
-        .partner-bar { margin: 80px 0; padding: 40px 0; border-top: 1px solid var(--border); text-align: center; }
-        .partner-grid { display: flex; justify-content: center; gap: 48px; align-items: center; flex-wrap: wrap; opacity: 0.5; margin-top: 24px; }
-        .partner-grid span { font-weight: 800; font-size: 1.2rem; color: var(--text-main); }
-
-        /* PROFESSIONAL FOOTER */
+        /* FOOTER */
         footer { padding: 100px 0; border-top: 1px solid var(--border); margin-top: 100px; background: #fff; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; }
         .footer-col h5 { font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-main); margin-bottom: 24px; }
@@ -142,7 +139,7 @@
         <div class="demo-flow">
             <div class="folder-node intake-anim"><i data-lucide="scan" size="32"></i><h4>Intake</h4><span>Scans & Emails</span></div>
             <div class="folder-node agent-anim">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width: 60px; height: 60px; margin-bottom: 8px;">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <line x1="45" y1="25" x2="65" y2="45" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
                     <path d="M39,21 L45,27 M35,27 L41,33" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
                     <circle cx="45" cy="25" r="3" fill="#4f46e5"/>
@@ -153,13 +150,13 @@
         </div>
         <div style="margin-top: 40px; font-weight: 800; color: var(--text-muted); font-size: 1.15rem;">
             <i data-lucide="shield-check" size="20" style="vertical-align:middle; margin-right:8px; color: var(--success);"></i>
-            Professional Security: Your data never leaves your computer.
+            Security First: Your data runs locally on your machine.
         </div>
     </div>
 
-    <div class="partner-bar">
-        <span class="mono" style="color:var(--text-muted); letter-spacing:3px;">POWERED BY WORLD-CLASS LOGIC</span>
-        <div class="partner-grid">
+    <div style="margin-top:80px; opacity:0.5;">
+        <span class="mono" style="letter-spacing:3px;">BUILT ON WORLD-CLASS LOGIC</span>
+        <div style="display:flex; justify-content:center; gap:48px; margin-top:24px; font-weight:800; font-size:1.1rem;">
             <span>OpenAI</span><span>Anthropic</span><span>Make.com</span><span>Salesforce</span><span>QuickBooks</span>
         </div>
     </div>
@@ -169,7 +166,7 @@
     <div id="step-0" class="fade-in">
         <div style="text-align:center; max-width:650px; margin:0 auto 40px;">
             <h2>Let's build your plan.</h2>
-            <p style="color:var(--text-muted);">Provide your info to see how much time you can save and get your automation roadmap.</p>
+            <p style="color:var(--text-muted);">Provide your info to request more details and a personal automation roadmap.</p>
         </div>
         <div class="cta-card">
             <div class="form-row"><input type="text" id="user-name" placeholder="Full Name"><input type="text" id="user-company" placeholder="Business Name"></div>
@@ -201,10 +198,10 @@
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto;">
-        <div style="text-align:center; margin-bottom:40px;"><h3>How many times a week?</h3></div>
+        <div style="text-align:center; margin-bottom:40px;"><h3>Estimate Weekly Volume</h3></div>
         <div id="slider-box"></div>
         <div style="background: var(--surface); padding: 40px; border-radius: 28px; border: 1px solid var(--border); margin: 30px 0; border-style: dashed;">
-            <div style="display:flex; justify-content:space-between; font-weight:700;"><span>What is an hour of your time worth?</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:800;"><span>What is an hour of your time worth?</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="1000" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; margin-top:16px; accent-color:var(--primary);">
         </div>
         <div style="display: flex; justify-content: space-between;">
@@ -221,7 +218,7 @@
         </div>
         <div style="text-align: center; margin-top: 50px;">
             <button class="btn" onclick="generatePDFBlueprint()"><i data-lucide="download"></i> Download My Plan (PDF)</button>
-            <p style="margin-top: 24px; color: var(--text-muted);">We'll reach out to discuss how to implement these automations.</p>
+            <p style="margin-top: 24px; color: var(--text-muted);">Thank you. We'll reach out to discuss how to implement these automations.</p>
         </div>
     </div>
 </section>
@@ -229,33 +226,22 @@
 <footer>
     <div class="container footer-grid">
         <div class="footer-col">
-            <a class="logo" href="javascript:location.reload();" style="margin-bottom:20px;">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <div class="logo" style="margin-bottom:20px;">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:32px; height:32px; margin-right:8px;">
                     <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" stroke="#4f46e5" stroke-width="3.5"/>
                 </svg>
                 MagicFolder
-            </a>
+            </div>
             <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; max-width:280px;">The document intelligence layer for established firms. Locally secure. Agent-driven.</p>
         </div>
         <div class="footer-col">
-            <h5>Product</h5>
-            <a href="#">Magic Agent</a>
-            <a href="#">Security</a>
-            <a href="#">Integrations</a>
+            <h5>Product</h5><a href="#">Magic Agent</a><a href="#">Security</a><a href="#">Integrations</a>
         </div>
         <div class="footer-col">
-            <h5>Company</h5>
-            <a href="#">About</a>
-            <a href="#">Support</a>
-            <a href="#">Privacy</a>
+            <h5>Company</h5><a href="#">About</a><a href="#">Support</a><a href="#">Privacy</a>
         </div>
         <div class="footer-col">
-            <h5>Ecosystem</h5>
-            <div class="partner-list">
-                <a href="https://openai.com">OpenAI</a>
-                <a href="https://make.com">Make.com</a>
-                <a href="https://anthropic.com">Anthropic</a>
-            </div>
+            <h5>Partners</h5><a href="https://openai.com">OpenAI</a><a href="https://make.com">Make.com</a><a href="https://anthropic.com">Anthropic</a>
         </div>
     </div>
     <div class="container" style="border-top:1px solid var(--border); margin-top:60px; padding-top:40px; text-align:center; color:var(--text-muted); font-size:0.85rem;">
@@ -275,19 +261,19 @@
         
         const PERSONAS = {
             general: { grid: { 
-                magic: { label: 'The Magic Folder', text: 'Auto-identify and file any document.', items: [{ id: 'mf-bills', label: 'Manual Bill Entry', desc: 'Typing data from invoices into spreadsheets.', unit: 'Bills/Wk', note: 'Automated data extraction' }, { id: 'mf-legal', label: 'Saving Contracts', desc: 'Downloading and filing signed agreements.', unit: 'Docs/Wk', note: 'Context-aware folder filing' }, { id: 'mf-intake', label: 'New Client Setup', desc: 'Setting up new folders manually.', unit: 'Clients/Wk', note: 'Standardized intake systems' }] },
+                magic: { label: 'The Magic Folder', text: 'Auto-identify and file any document.', items: [{ id: 'mf-bills', label: 'PDF Bill Entry', desc: 'Typing data from invoices into spreadsheets.', unit: 'Bills/Wk', note: 'Automated data extraction' }, { id: 'mf-legal', label: 'Contract Filing', desc: 'Downloading and sorting signed agreements.', unit: 'Docs/Wk', note: 'Context-aware folder filing' }, { id: 'mf-intake', label: 'New Client Files', desc: 'Setting up new folders manually.', unit: 'Clients/Wk', note: 'Standardized intake systems' }] },
                 automation: { label: 'Revenue Velocity', text: 'Automate quotes and follow-up.', items: [{ id: 'rev-quote', label: 'Writing Quotes', desc: 'Writing price estimates by hand.', unit: 'Quotes/Wk', note: 'Instant rule-based generation' }, { id: 'rev-follow', label: 'Answering Leads', desc: 'Replying to new inquiry emails.', unit: 'Leads/Wk', note: '24/7 lead engagement' }] },
                 intelligence: { label: 'Back Office', text: 'Search and sync your firm data.', items: [{ id: 'kn-search', label: 'Finding Files', desc: 'Digging through folders for information.', unit: 'Searches/Wk', note: 'Instant historical retrieval' }, { id: 'bo-sync', label: 'Software Syncing', desc: 'Copying info between software apps.', unit: 'Records/Wk', note: 'Eliminates dual-entry errors' }] }
             }},
             legal: { grid: { 
-                magic: { label: 'Matter Management', text: 'Auto-sort pleadings and discovery.', items: [{ id: 'mf-bills', label: 'Logging Expenses', desc: 'Tracking matter costs and receipts.', unit: 'Receipts/Wk', note: 'Auto-captures case disbursements' }, { id: 'mf-legal', label: 'Filing Court Docs', desc: 'Naming and saving court documents.', unit: 'Files/Wk', note: 'Sorts by Case ID automatically' }, { id: 'mf-intake', label: 'Case Discovery', desc: 'Sorting evidence and client file batches.', unit: 'Docs/Wk', note: 'Indexes discovery instantly' }] },
-                automation: { label: 'Billable Speed', text: 'Auto-draft retainers & bills.', items: [{ id: 'rev-quote', label: 'Retainer Drafts', desc: 'Creating fee agreements manually.', unit: 'Agreements/Wk', note: 'Auto-drafts from templates' }, { id: 'rev-lead', label: 'Matter Intake', desc: 'Screening incoming inquiries.', unit: 'Calls/Wk', note: '24/7 intake response' }] },
+                magic: { label: 'Matter Management', text: 'Auto-sort pleadings and discovery.', items: [{ id: 'mf-bills', label: 'Expense Captures', desc: 'Tracking matter costs and receipts.', unit: 'Receipts/Wk', note: 'Auto-captures case disbursements' }, { id: 'mf-legal', label: 'Filing Court Docs', desc: 'Naming and saving court documents.', unit: 'Files/Wk', note: 'Sorts by Case ID automatically' }, { id: 'mf-intake', label: 'Case Discovery', desc: 'Sorting evidence and client file batches.', unit: 'Docs/Wk', note: 'Indexes discovery instantly' }] },
+                automation: { label: 'Billable Speed', text: 'Auto-draft retainers & bills.', items: [{ id: 'rev-quote', label: 'Retainer Drafts', desc: 'Creating fee agreements manually.', unit: 'Agreements/Wk', note: 'Auto-drafts from templates' }, { id: 'rev-lead', label: 'New Matter Intake', desc: 'Screening incoming inquiries.', unit: 'Calls/Wk', note: '24/7 intake response' }] },
                 intelligence: { label: 'Case Search', text: 'Search transcripts and files.', items: [{ id: 'kn-search', label: 'Depo Research', desc: 'Searching transcripts for keywords.', unit: 'Searches/Wk', note: 'Semantic transcript search' }, { id: 'bo-sync', label: 'Practice Sync', desc: 'Updating Clio or case management.', unit: 'Dates/Wk', note: 'Syncs court dates from PDFs' }] }
             }},
             realestate: { grid: { 
                 magic: { label: 'Transaction Docs', text: 'Auto-sort offers and HOAs.', items: [{ id: 'mf-bills', label: 'Logging Spend', desc: 'Tracking staging and ad receipts.', unit: 'Bills/Wk', note: 'Calculates GCI vs Spend' }, { id: 'mf-legal', label: 'Offer Prep', desc: 'Organizing incoming buyer offers.', unit: 'Offers/Wk', note: 'Extracts price and terms' }, { id: 'mf-intake', label: 'Listing Folders', desc: 'Filing disclosures and title docs.', unit: 'Packets/Wk', note: 'Verifies required signatures' }] },
                 automation: { label: 'Deal Velocity', text: 'Auto-respond to leads.', items: [{ id: 'rev-quote', label: 'Listing Prep', desc: 'Preparing listing paperwork.', unit: 'Listings/Wk', note: 'Generate Docusign instantly' }, { id: 'rev-lead', label: 'Lead Response', desc: 'Replying to Zillow/Buyer leads.', unit: 'Leads/Wk', note: '5-minute response guarantee' }] },
-                intelligence: { label: 'Transaction Search', text: 'Search past property details.', items: [{ id: 'kn-search', label: 'Deal Archives', desc: 'Looking up past property details.', unit: 'Searches/Wk', note: 'Instant transaction search' }, { id: 'bo-sync', label: 'CRM Harvest', desc: 'Adding new contacts to your CRM.', unit: 'Leads/Wk', note: 'Zero-entry lead building' }] }
+                intelligence: { label: 'Transaction Search', text: 'Search past property details.', items: [{ id: 'kn-search', label: 'Archive Search', desc: 'Looking up past property details.', unit: 'Searches/Wk', note: 'Instant transaction search' }, { id: 'bo-sync', label: 'CRM Harvest', desc: 'Adding new contacts to your CRM.', unit: 'Leads/Wk', note: 'Zero-entry lead building' }] }
             }},
             service: { grid: { 
                 magic: { label: 'Job Site Photos', text: 'Auto-file site pics and bills.', items: [{ id: 'mf-bills', label: 'Material Receipts', desc: 'Saving receipts from the truck.', unit: 'Receipts/Wk', note: 'Match parts to specific jobs' }, { id: 'mf-legal', label: 'Signed Sheets', desc: 'Filing signed job completion forms.', unit: 'Jobs/Wk', note: 'Extracts signatures instantly' }, { id: 'mf-intake', label: 'Licenses', desc: 'Filing certificates and insurance.', unit: 'Certs/Wk', note: 'Tracks expiration dates' }] },
@@ -408,6 +394,7 @@
             const canvas = document.getElementById('logo-canvas'); const ctx = canvas.getContext('2d');
             document.fonts.load('800 48px "Plus Jakarta Sans"').then(() => {
                 ctx.clearRect(0,0,1000,250); 
+                // CUSTOM BRANDED LOGO RASTERING
                 ctx.fillStyle='#4f46e5'; ctx.beginPath(); ctx.roundRect(10,20,110,95,16); ctx.fill();
                 ctx.fillStyle='#ffffff'; ctx.beginPath(); ctx.roundRect(45,55,50,30,6); ctx.fill();
                 ctx.fillStyle='#ffffff'; ctx.font='800 72px "Plus Jakarta Sans"'; ctx.fillText('MagicFolder', 150, 95);
