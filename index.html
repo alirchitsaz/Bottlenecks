@@ -23,21 +23,21 @@
         .logo-nav svg { width: 44px; height: 44px; }
 
         /* HERO */
-        .hero { padding: 90px 0 60px; text-align: center; min-height: 500px; }
-        .hero h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; transition: opacity 0.5s ease; }
+        .hero { padding: 100px 0 60px; text-align: center; min-height: 500px; }
+        .hero h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; min-height: 2.2em; transition: opacity 0.5s ease; }
         .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 48px; line-height: 1.6; transition: opacity 0.5s ease; }
 
         /* MASTER BRAND ANIMATION */
         .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1100px; margin: 0 auto 80px; padding: 100px 40px; position: relative; overflow: hidden; }
         .demo-flow { display: flex; justify-content: center; align-items: center; gap: 80px; position: relative; z-index: 2; }
         
-        /* SIDE NODES */
+        /* SIDE FOLDERS */
         .folder-node { width: 180px; height: 130px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 16px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.4s ease; opacity: 0.5; }
         .folder-node::before { content: ""; position: absolute; top: -12px; left: -1.5px; width: 60px; height: 12px; background: inherit; border: inherit; border-bottom: none; border-radius: 8px 8px 0 0; }
         .folder-node i { color: #94a3b8; margin-bottom: 8px; }
         .folder-node h4 { font-weight: 800; font-size: 0.95rem; color: var(--text-main); }
 
-        /* THE BRAND ENGINE (CENTER) */
+        /* BRAND ENGINE (CENTER) */
         .brand-center { text-align: center; display: flex; flex-direction: column; align-items: center; width: 340px; }
         .brand-center svg { width: 220px; height: 220px; margin-bottom: 8px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05)); }
         .brand-center h4 { font-weight: 800; font-size: 2.2rem; letter-spacing: -0.04em; color: var(--text-main); }
@@ -53,7 +53,7 @@
             90% { left: 85%; opacity: 1; } 100% { left: 95%; opacity: 0; }
         }
 
-        /* SYNCED REACTIONS */
+        /* REACTION TIMING */
         @keyframes intakeActive { 0%, 42% { transform: scale(1.05); border-color: var(--primary); opacity: 1; background: #f8faff; } 47%, 100% { transform: scale(1); border-color: var(--border); opacity: 0.5; background: white; } }
         @keyframes brandHeroJump { 0%, 42%, 58%, 100% { transform: scale(1); filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05)); } 50% { transform: scale(1.15); filter: drop-shadow(0 20px 40px var(--primary-soft)); } }
         @keyframes doneSnap { 0%, 58% { border-color: var(--border); background: white; opacity: 0.5; } 63%, 100% { border-color: var(--success); background: #f0fdf4; opacity: 1; transform: scale(1.05); } }
@@ -72,6 +72,7 @@
         .persona-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
         .persona-chip { background: #fff; border: 1px solid var(--border); padding: 14px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
         .persona-chip.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 10px 20px var(--primary-soft); }
+        
         .domain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
         .card { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 36px; cursor: pointer; transition: 0.3s; position: relative; height: 100%; display: flex; flex-direction: column; }
         .card:hover { border-color: var(--primary); background: #fff; transform: translateY(-8px); box-shadow: var(--shadow-lg); }
@@ -94,7 +95,7 @@
         /* FOOTER */
         footer { padding: 100px 0; border-top: 1px solid var(--border); margin-top: 100px; background: #fff; }
         .footer-grid { display: grid; grid-template-columns: 2fr 3fr; gap: 80px; align-items: center; }
-        .partner-list { display: flex; flex-wrap: wrap; gap: 40px; opacity: 0.6; font-weight: 800; font-size: 1.1rem; }
+        .partner-list { display: flex; flex-wrap: wrap; gap: 40px; opacity: 0.6; font-weight: 800; font-size: 1.2rem; }
 
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -127,7 +128,7 @@
 
 <section id="hero-section" class="hero container">
     <h1 id="slideshow-title">Do what you're special at.<br>Let us do the paperwork.</h1>
-    <p id="slideshow-sub">Secure tools for everyday professionals that watch your scanner and email—instantly identifying and filing documents while you focus on revenue.</p>
+    <p id="slideshow-sub">Simple, secure tools for everyday professionals that watch your scanner and email—instantly identifying and filing documents while you focus on revenue.</p>
     
     <div style="display:flex; gap:20px; justify-content:center; margin-bottom: 60px;">
         <button class="btn" onclick="startJourney()">Get Started <i data-lucide="arrow-right"></i></button>
@@ -194,7 +195,7 @@
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto;">
-        <div style="text-align:center; margin-bottom:40px;"><h3>Weekly Volume</h3></div>
+        <div style="text-align:center; margin-bottom:40px;"><h3>Rough Weekly Estimate</h3></div>
         <div id="slider-box"></div>
         <div style="background: var(--surface); padding: 40px; border-radius: 28px; border: 1px solid var(--border); margin: 30px 0; border-style: dashed;">
             <div style="display:flex; justify-content:space-between; font-weight:700;"><span>What is an hour of your time worth?</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
@@ -352,13 +353,13 @@
             const { jsPDF } = window.jspdf; const doc = new jsPDF();
             const name = document.getElementById('user-name').value; const rate = parseInt(document.getElementById('hourly-rate').value);
             doc.setFillColor(79, 70, 229); doc.rect(0, 0, 210, 100, 'F');
-            if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 45, 10, 120, 50); } // VERTICAL LOGO STACK
-            doc.setTextColor(255, 255, 255); doc.setFontSize(14); doc.text(`AUTOMATION PLAN FOR: ${name.toUpperCase()}`, 105, 80, { align: 'center' });
-            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text('ANNUAL OPPORTUNITY', 20, 120);
-            doc.setTextColor(79, 70, 229); doc.setFontSize(32); doc.text(state.results.amt, 20, 138);
-            doc.setFontSize(12); doc.setTextColor(100, 116, 139); doc.text(`Capacity Gained: ${state.results.hours} Hours / Year`, 20, 148);
-            doc.setDrawColor(226, 232, 240); doc.line(20, 160, 190, 160);
-            let y = 175;
+            if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 45, 10, 120, 55); } // BRAND LOGO STACK
+            doc.setTextColor(255, 255, 255); doc.setFontSize(14); doc.text(`AUTOMATION PLAN FOR: ${name.toUpperCase()}`, 105, 85, { align: 'center' });
+            doc.setTextColor(15, 23, 42); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text('ANNUAL OPPORTUNITY', 20, 125);
+            doc.setTextColor(79, 70, 229); doc.setFontSize(32); doc.text(state.results.amt, 20, 143);
+            doc.setFontSize(12); doc.setTextColor(100, 116, 139); doc.text(`Capacity Gained: ${state.results.hours} Hours / Year`, 20, 153);
+            doc.setDrawColor(226, 232, 240); doc.line(20, 165, 190, 165);
+            let y = 180;
             const data = PERSONAS[state.currentPersona].grid;
             state.domains.forEach(d => {
                 data[d].items.filter(i => state.tasks.has(i.id)).forEach(i => {
