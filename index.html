@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Simple. Smart. Secure.</title>
+    <title>MagicFolder | Do what you're special at.</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z' fill='%234f46e5' opacity='0.2'/%3E%3Cline x1='70' y1='25' x2='85' y2='45' stroke='%230f172a' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='25' r='3' fill='%234f46e5'/%3E%3C/svg%3E">
     
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -22,82 +22,82 @@
         .logo-nav { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.8rem; cursor: pointer; text-decoration: none; color: inherit; }
         .logo-nav svg { width: 44px; height: 44px; }
 
-        /* HERO */
+        /* HERO SLIDESHOW */
         .hero { padding: 100px 0 40px; text-align: center; min-height: 500px; }
-        .hero h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; transition: opacity 0.5s ease; }
+        .hero h1 { font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; min-height: 2.2em; transition: opacity 0.5s ease; }
         .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 48px; line-height: 1.6; }
 
-        /* ROAD-GUIDED ANIMATION STAGE */
+        /* PRECISION SORTING ANIMATION STAGE */
         .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1100px; margin: 0 auto 80px; padding: 100px 40px; position: relative; overflow: hidden; }
         .demo-flow { display: flex; justify-content: center; align-items: center; gap: 80px; position: relative; z-index: 2; }
         
-        /* THE "ROAD" LINES */
-        .road-line { position: absolute; height: 2px; background: repeating-linear-gradient(90deg, #e2e8f0, #e2e8f0 10px, transparent 10px, transparent 20px); z-index: 1; opacity: 0.5; }
-        .road-1 { width: 30%; top: 50%; left: 15%; }
-        .road-2 { width: 30%; top: 50%; right: 15%; }
+        /* THE "ROAD" PATHS */
+        .road { position: absolute; height: 2px; background: repeating-linear-gradient(90deg, #e2e8f0, #e2e8f0 10px, transparent 10px, transparent 20px); z-index: 1; opacity: 0.4; }
+        .road-in { width: 30%; top: 45%; left: 15%; }
+        .road-out { width: 30%; top: 45%; right: 15%; }
 
         /* FOLDER GEOMETRY */
-        .folder-node { width: 180px; height: 130px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 16px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.4s ease; opacity: 0.6; }
+        .folder-node { width: 170px; height: 130px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 16px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.4s ease; opacity: 0.6; }
         .folder-node::before { content: ""; position: absolute; top: -12px; left: -1.5px; width: 60px; height: 12px; background: inherit; border: inherit; border-bottom: none; border-radius: 8px 8px 0 0; }
         .folder-node i { color: #94a3b8; margin-bottom: 8px; }
 
-        /* DESTINATION VERTICAL STACK */
+        /* CENTER BRAND AGENT (LARGE LOGO) */
+        .brand-agent { text-align: center; display: flex; flex-direction: column; align-items: center; width: 340px; position: relative; z-index: 10; }
+        .brand-agent svg { width: 220px; height: 220px; margin-bottom: 4px; transition: 0.4s ease; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05)); }
+        .brand-agent h4 { font-weight: 800; font-size: 2.2rem; letter-spacing: -0.04em; color: var(--text-main); }
+
+        /* DESTINATION STACK */
         .dest-stack { display: flex; flex-direction: column; gap: 10px; width: 180px; }
-        .dest-folder { height: 50px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 8px 8px 8px; display: flex; align-items: center; padding-left: 40px; transition: 0.4s; opacity: 0.6; }
-        .dest-folder::before { content: ""; position: absolute; top: -8px; left: -1.5px; width: 30px; height: 8px; background: inherit; border: inherit; border-bottom: none; border-radius: 5px 5px 0 0; }
-        .dest-folder span { font-weight: 800; font-size: 0.75rem; color: var(--text-muted); }
-        .dest-folder i { position: absolute; left: 12px; color: #94a3b8; }
+        .dest-folder { height: 55px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 10px 10px 10px; display: flex; align-items: center; padding-left: 45px; transition: 0.4s; opacity: 0.6; }
+        .dest-folder::before { content: ""; position: absolute; top: -8px; left: -1.5px; width: 40px; height: 8px; background: inherit; border: inherit; border-bottom: none; border-radius: 5px 5px 0 0; }
+        .dest-folder span { font-weight: 800; font-size: 0.8rem; color: var(--text-muted); }
+        .dest-folder i { position: absolute; left: 15px; color: #94a3b8; }
 
-        /* BRAND ENGINE (CENTER) */
-        .brand-center { text-align: center; display: flex; flex-direction: column; align-items: center; width: 340px; position: relative; z-index: 10; }
-        .brand-center svg { width: 200px; height: 200px; margin-bottom: 4px; transition: 0.4s ease; }
-        .brand-center h4 { font-weight: 800; font-size: 2.1rem; letter-spacing: -0.04em; color: var(--text-main); }
-
-        /* DOCUMENT UNIT LOGIC */
-        .doc-unit { position: absolute; width: 40px; height: 50px; background: white; border: 1.5px solid #cbd5e1; border-radius: 4px; z-index: 5; opacity: 0; }
+        /* THE MULTI-DOCUMENT TRANSFORMATION LOGIC */
+        .doc-unit { position: absolute; background: white; border: 1.5px solid #cbd5e1; border-radius: 4px; z-index: 5; opacity: 0; }
         
-        @keyframes intakePile { 
-            0% { left: 5%; opacity: 0; transform: translateY(-50%) rotate(-10deg); } 
-            10% { opacity: 1; } 
-            42% { left: 42%; opacity: 1; transform: translateY(-50%) rotate(0deg); } 
-            48% { opacity: 0; left: 50%; } 100% { opacity: 0; } 
+        /* Messy Docs in */
+        @keyframes messyIn { 
+            0% { left: 5%; opacity: 0; transform: translateY(-50%) rotate(-15deg); } 
+            10% { opacity: 1; } 42% { left: 45%; opacity: 1; transform: translateY(-50%) rotate(0deg); } 48% { opacity: 0; left: 50%; } 100% { opacity: 0; } 
         }
-        @keyframes sortOut1 { 0%, 55% { left: 50%; opacity: 0; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 82.5%; top: 18.5%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
-        @keyframes sortOut2 { 0%, 55% { left: 50%; opacity: 0; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 82.5%; top: 48.5%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
-        @keyframes sortOut3 { 0%, 55% { left: 50%; opacity: 0; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 82.5%; top: 78.5%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
+        .doc-messy { width: 35px; height: 45px; animation: messyIn 8s infinite linear; top: 45%; }
 
-        .doc-pile-1 { animation: intakePile 8s infinite linear; top: 45%; }
-        .doc-pile-2 { animation: intakePile 8s infinite linear; top: 55%; animation-delay: 0.15s; }
-        .doc-out-1 { animation: sortOut1 8s infinite linear; }
-        .doc-out-2 { animation: sortOut2 8s infinite linear; }
-        .doc-out-3 { animation: sortOut3 8s infinite linear; }
+        /* Clean Sorted Docs out */
+        @keyframes cleanOut1 { 0%, 55% { left: 50%; opacity: 0; top: 45%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 82.5%; top: 18%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
+        @keyframes cleanOut2 { 0%, 55% { left: 50%; opacity: 0; top: 45%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 82.5%; top: 48%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
+        @keyframes cleanOut3 { 0%, 55% { left: 50%; opacity: 0; top: 45%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 82.5%; top: 78%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
 
-        /* SYNCED REACTION KEYFRAMES */
-        @keyframes intakeHold { 0%, 42% { transform: scale(1.05); border-color: var(--primary); opacity: 1; background: #f8faff; } 47%, 100% { transform: scale(1); opacity: 0.6; } }
-        @keyframes brandTransform { 0%, 42%, 58%, 100% { transform: scale(1); } 50% { transform: scale(1.2); filter: drop-shadow(0 15px 30px var(--primary-soft)); } }
-        @keyframes destPop { 0%, 85% { border-color: var(--border); background: white; opacity: 0.6; } 90%, 100% { border-color: var(--success); background: #f0fdf4; opacity: 1; transform: scale(1.1); } }
+        .doc-clean-1 { width: 40px; height: 50px; animation: cleanOut1 8s infinite linear; }
+        .doc-clean-2 { width: 40px; height: 50px; animation: cleanOut2 8s infinite linear; }
+        .doc-clean-3 { width: 40px; height: 50px; animation: cleanOut3 8s infinite linear; }
 
-        .intake-anim { animation: intakeHold 8s infinite linear; }
-        .agent-anim { animation: brandTransform 8s infinite linear; }
-        .dest-anim { animation: destPop 8s infinite linear; }
+        /* PERSISTENT REACTIONS */
+        @keyframes intakeActive { 0%, 42% { transform: scale(1.05); border-color: var(--primary); opacity: 1; background: #f8faff; } 47%, 100% { transform: scale(1); opacity: 0.6; } }
+        @keyframes agentBounce { 0%, 42%, 58%, 100% { transform: scale(1); } 50% { transform: scale(1.15); filter: drop-shadow(0 15px 30px var(--primary-soft)); } }
+        @keyframes successPop { 0%, 85% { border-color: var(--border); background: white; opacity: 0.6; } 90%, 100% { border-color: var(--success); background: #f0fdf4; opacity: 1; transform: scale(1.1); } }
+
+        .intake-anim { animation: intakeActive 8s infinite linear; }
+        .agent-anim { animation: agentBounce 8s infinite linear; }
+        .dest-anim { animation: successPop 8s infinite linear; }
 
         /* BUTTONS */
         .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--text-main); color: white; padding: 20px 52px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.25rem; }
         .btn:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 25px var(--primary-soft); }
         .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-main); }
 
-        /* FOOTER & PARTNERS */
+        /* FOOTER */
         footer { padding: 100px 0; border-top: 1px solid var(--border); margin-top: 100px; background: #fff; }
         .footer-grid { display: grid; grid-template-columns: 2fr 3fr; gap: 80px; align-items: center; }
-        .partner-links { display: flex; flex-wrap: wrap; gap: 40px; }
-        .partner-links a { font-weight: 800; font-size: 1.15rem; color: var(--text-muted); text-decoration: none; transition: 0.3s; opacity: 0.6; }
-        .partner-links a:hover { color: var(--primary); opacity: 1; transform: translateY(-2px); }
+        .partner-list { display: flex; flex-wrap: wrap; gap: 40px; opacity: 0.6; font-weight: 800; font-size: 1.1rem; }
+        .partner-list span { transition: 0.3s; cursor: default; }
+        .partner-list span:hover { opacity: 1; color: var(--primary); transform: translateY(-2px); }
 
         .hidden { display: none !important; }
         .fade-in { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media(max-width: 768px) { .demo-flow { flex-direction: column; gap: 40px; } .dest-stack { flex-direction: row; width: 100%; gap: 6px; } .dest-folder { padding-left: 10px; flex: 1; } .dest-folder i, .doc-unit, .road-line { display: none; } .brand-center svg { width: 150px; height: 150px; } .footer-grid { grid-template-columns: 1fr; text-align: center; } .partner-links { justify-content: center; } }
+        @media(max-width: 768px) { .demo-flow { flex-direction: column; gap: 40px; } .dest-stack { flex-direction: row; width: 100%; gap: 6px; } .dest-folder { padding-left: 10px; flex: 1; } .dest-folder i, .doc-unit, .road { display: none; } .brand-agent svg { width: 150px; height: 150px; } .footer-grid { grid-template-columns: 1fr; text-align: center; } .partner-list { justify-content: center; gap: 24px; } }
     </style>
 </head>
 <body>
@@ -122,26 +122,28 @@
 
 <section id="hero-section" class="hero container">
     <h1 id="slideshow-title">Do what you're special at.<br>Let us do the paperwork.</h1>
-    <p id="slideshow-sub">Secure, local tools for everyday professionals that watch your scanner and email—instantly identifying and sorting documents while you focus on revenue.</p>
+    <p id="slideshow-sub">Secure tools for everyday professionals that watch your scanner and email—instantly identifying and filing documents while you focus on revenue.</p>
     
     <div style="display:flex; gap:20px; justify-content:center; margin-bottom: 60px;">
         <button class="btn" onclick="startJourney()">Get Started <i data-lucide="arrow-right"></i></button>
     </div>
 
     <div class="demo-stage">
-        <div class="road-line road-1"></div>
-        <div class="road-line road-2"></div>
+        <div class="road road-in"></div>
+        <div class="road road-out"></div>
 
-        <div class="doc-unit doc-pile-1"></div>
-        <div class="doc-unit doc-pile-2"></div>
-        <div class="doc-unit doc-out-1"></div>
-        <div class="doc-unit doc-out-2"></div>
-        <div class="doc-unit doc-out-3"></div>
+        <div class="doc-unit doc-messy" style="transform: translateY(-50%) rotate(-8deg);"></div>
+        <div class="doc-unit doc-messy" style="transform: translateY(-50%) rotate(12deg) translate(10px, 10px); animation-delay: 0.1s;"></div>
+        <div class="doc-unit doc-messy" style="transform: translateY(-50%) rotate(-5deg) translate(-5px, 20px); animation-delay: 0.2s;"></div>
+        
+        <div class="doc-unit doc-clean-1"></div>
+        <div class="doc-unit doc-clean-2"></div>
+        <div class="doc-unit doc-clean-3"></div>
 
         <div class="demo-flow">
-            <div class="folder-node intake-anim intake-node"><i data-lucide="scan" size="32"></i><h4>Intake</h4><span>Pile of Scans</span></div>
+            <div class="folder-node intake-anim"><i data-lucide="scan" size="32"></i><h4>Intake</h4><span>Chaos Stack</span></div>
             
-            <div class="brand-center agent-anim">
+            <div class="brand-agent agent-anim">
                 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3.5"/>
                     <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
@@ -160,7 +162,7 @@
         </div>
         <div style="margin-top: 40px; font-weight: 800; color: var(--text-muted); font-size: 1.15rem;">
             <i data-lucide="shield-check" size="20" style="vertical-align:middle; margin-right:8px; color: var(--success);"></i>
-            Security First: Data runs locally. Secure. Private. Transparent.
+            Security First: Your data runs locally on your machine.
         </div>
     </div>
 </section>
@@ -182,23 +184,19 @@
 <footer>
     <div class="container footer-grid">
         <div class="footer-col" style="display:flex; flex-direction:column; align-items:flex-start;">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:60px; height:60px; margin-bottom:4px;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:64px; height:64px; margin-bottom:4px;">
                 <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3.5"/>
                 <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
                 <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
                 <path d="M62,18 L68,24 M58,24 L64,30" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
                 <circle cx="68" cy="22" r="3" fill="#4f46e5"/>
             </svg>
-            <div style="font-weight:800; font-size:1.9rem; color:var(--text-main); letter-spacing:-0.03em; margin-bottom:12px;">MagicFolder</div>
-            <p style="color:var(--text-muted); font-size:1.15rem; line-height:1.5; max-width:340px; font-weight: 600;">Simple, secure automation for everyday work.</p>
+            <div style="font-weight:800; font-size:2rem; color:var(--text-main); letter-spacing:-0.03em; margin-bottom:12px;">MagicFolder</div>
+            <p style="color:var(--text-muted); font-size:1.15rem; line-height:1.5; max-width:340px; font-weight: 600;">Simple, secure automation for everyday professionals.</p>
         </div>
         <div class="footer-col">
-            <div class="partner-links">
-                <a href="https://openai.com" target="_blank">OpenAI</a>
-                <a href="https://anthropic.com" target="_blank">Anthropic</a>
-                <a href="https://make.com" target="_blank">Make.com</a>
-                <a href="https://salesforce.com" target="_blank">Salesforce</a>
-                <a href="https://quickbooks.intuit.com" target="_blank">QuickBooks</a>
+            <div class="partner-list">
+                <span>OpenAI</span><span>Anthropic</span><span>Make.com</span><span>Salesforce</span><span>QuickBooks</span>
             </div>
         </div>
     </div>
@@ -209,27 +207,42 @@
 
 <script>
     (function() {
-        let PDF_LOGO_DATA = "";
+        const slides = [
+            { title: "Do what you're special at.<br>Let us do the paperwork.", sub: "We build secure, local tools that watch your scanner and email—instantly identifying and filing documents." },
+            { title: "Win more clients<br>while you sleep.", sub: "Send instant quotes and follow-ups to every inquiry, 24/7, without lifting a finger." },
+            { title: "Never organize<br>a file again.", sub: "MagicFolder automatically names, sorts, and syncs your documents the moment they arrive." }
+        ];
+
+        let slideIndex = 0; let PDF_LOGO_DATA = "";
         window.startJourney = function() { document.getElementById('hero-section').classList.add('hidden'); document.getElementById('wizard').classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); };
         window.submitInitialLead = function() {
-            const name = document.getElementById('user-name').value; const email = document.getElementById('user-email').value;
+            const name = document.getElementById('user-name').value;
+            const email = document.getElementById('user-email').value;
             if(!name || !email.includes('@')) return;
-            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Get Started Lead" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { alert("Thank you! Roadmap Generator loading..."); });
+            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Get Started Lead" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { alert("Thank you! Scoping Questionnaire loading..."); });
         };
+
+        function cycleContent() {
+            const t = document.getElementById('slideshow-title'); const s = document.getElementById('slideshow-sub');
+            if(!t) return; t.style.opacity = 0; s.style.opacity = 0;
+            setTimeout(() => { slideIndex = (slideIndex + 1) % slides.length; t.innerHTML = slides[slideIndex].title; s.innerHTML = slides[slideIndex].sub; t.style.opacity = 1; s.style.opacity = 1; }, 500);
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('logo-canvas'); const ctx = canvas.getContext('2d');
             document.fonts.load('800 48px "Plus Jakarta Sans"').then(() => {
                 ctx.clearRect(0,0,1200,400); 
-                // DRAW MASTER LOGO FOR PDF (Same high-fidelity shades)
+                // DRAW EXACT PREMIUM LOGO FOR PDF
                 ctx.fillStyle='#4f46e5'; ctx.globalAlpha=0.15; ctx.beginPath();
-                ctx.moveTo(400,100); ctx.lineTo(600,100); ctx.quadraticCurveTo(630,100,645,130); ctx.lineTo(675,175); ctx.quadraticCurveTo(690,210,735,210); ctx.lineTo(935,210); ctx.lineTo(935,460); ctx.lineTo(400,460); ctx.closePath(); ctx.fill();
-                ctx.globalAlpha=0.3; ctx.beginPath(); ctx.moveTo(400,210); ctx.lineTo(935,210); ctx.lineTo(935,460); ctx.lineTo(400,460); ctx.closePath(); ctx.fill();
-                ctx.globalAlpha=1.0; ctx.strokeStyle='#0f172a'; ctx.lineWidth=18; ctx.lineCap='round'; ctx.beginPath();
-                ctx.moveTo(800,40); ctx.lineTo(950,190); ctx.stroke();
-                ctx.font='800 140px "Plus Jakarta Sans"'; ctx.textAlign='center'; ctx.fillStyle='#0f172a'; ctx.fillText('MagicFolder', 600, 420);
+                ctx.moveTo(150,135); ctx.lineTo(400,135); ctx.quadraticCurveTo(440,135,460,139); ctx.lineTo(500,145); ctx.quadraticCurveTo(520,150,580,150); ctx.lineTo(850,150); ctx.lineTo(850,185); ctx.lineTo(150,185); ctx.closePath(); ctx.fill();
+                ctx.globalAlpha=0.3; ctx.beginPath();
+                ctx.moveTo(150,150); ctx.lineTo(850,150); ctx.lineTo(850,185); ctx.lineTo(150,185); ctx.closePath(); ctx.fill();
+                ctx.globalAlpha=1.0; ctx.strokeStyle='#0f172a'; ctx.lineWidth=12; ctx.lineCap='round'; ctx.beginPath();
+                ctx.moveTo(680,122); ctx.lineTo(880,142); ctx.stroke();
+                ctx.font='800 120px "Plus Jakarta Sans"'; ctx.textAlign='center'; ctx.fillStyle='#0f172a'; ctx.fillText('MagicFolder', 500, 310);
                 PDF_LOGO_DATA = canvas.toDataURL('image/png');
             });
+            setInterval(cycleContent, 8000);
             lucide.createIcons();
         });
     })();
