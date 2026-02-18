@@ -19,40 +19,40 @@
         /* NAV */
         nav { padding: 24px 0; position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border); }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo-nav { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.75rem; cursor: pointer; text-decoration: none; color: inherit; }
+        .logo-nav { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.8rem; cursor: pointer; text-decoration: none; color: inherit; }
         .logo-nav svg { width: 44px; height: 44px; }
 
         /* HERO */
         .hero { padding: 80px 0 40px; text-align: center; }
         .hero h1 { font-size: clamp(2.5rem, 7vw, 5.2rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.06em; margin-bottom: 24px; }
-        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 48px; line-height: 1.6; }
+        .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 48px; line-height: 1.6; }
 
         /* ANIMATION STAGE */
-        .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1100px; margin: 0 auto 60px; padding: 100px 40px; position: relative; overflow: visible; }
+        .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1100px; margin: 0 auto 60px; padding: 100px 40px; position: relative; overflow: hidden; }
         .demo-flow { display: flex; justify-content: center; align-items: center; gap: 80px; position: relative; z-index: 2; }
         
-        /* FOLDER GEOMETRY */
-        .folder-node { width: 170px; height: 120px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 16px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.4s ease; opacity: 0.6; }
+        /* PERMANENT FOLDER GEOMETRY */
+        .folder-node { width: 170px; height: 120px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 16px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.4s ease; opacity: 0.6; }
         .folder-node::before { content: ""; position: absolute; top: -12px; left: -1.5px; width: 60px; height: 12px; background: inherit; border: inherit; border-bottom: none; border-radius: 8px 8px 0 0; }
         
         .brand-center { text-align: center; display: flex; flex-direction: column; align-items: center; width: 340px; position: relative; z-index: 10; }
-        .brand-center svg { width: 200px; height: 200px; margin-bottom: 4px; transition: 0.4s ease; overflow: visible; }
+        .brand-center svg { width: 220px; height: 220px; margin-bottom: 4px; overflow: visible; }
         .brand-center h4 { font-weight: 800; font-size: 2.1rem; letter-spacing: -0.04em; }
-
-        /* MAGICAL WAND ANIMATION */
-        .magic-wand { transform-origin: 45px 25px; transition: 0.3s; }
-        @keyframes wandWave { 0%, 45%, 55%, 100% { transform: rotate(0deg); } 48%, 52% { transform: rotate(-25deg); } }
-        @keyframes sparkleBurst { 0%, 45%, 55%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.8); filter: drop-shadow(0 0 10px var(--primary)); } }
-        
-        .agent-anim .magic-wand { animation: wandWave 8s infinite linear; }
-        .agent-anim .sparkle-set { animation: sparkleBurst 8s infinite linear; transform-origin: 45px 25px; }
 
         .dest-stack { display: flex; flex-direction: column; gap: 35px; width: 180px; }
         .dest-folder { height: 55px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 10px 10px 10px; display: flex; align-items: center; padding-left: 45px; opacity: 0.6; transition: 0.4s; }
         .dest-folder::before { content: ""; position: absolute; top: -8px; left: -1.5px; width: 30px; height: 8px; background: inherit; border: inherit; border-bottom: none; border-radius: 5px 5px 0 0; }
         .dest-folder span { font-weight: 800; font-size: 0.8rem; color: var(--text-muted); }
 
-        /* DOC UNITS */
+        /* MAGICAL ANIMATION ELEMENTS */
+        .magic-wand { transform-origin: 68px 22px; transition: 0.3s; }
+        @keyframes wandWave { 0%, 45%, 55%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-30deg); } }
+        @keyframes sparkPulse { 0%, 45%, 55%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 10px var(--primary)); } }
+        
+        .agent-anim .magic-wand { animation: wandWave 8s infinite linear; }
+        .agent-anim .spark-burst { animation: sparkPulse 8s infinite linear; transform-origin: 68px 22px; }
+
+        /* DOCUMENT FLOW */
         .doc-unit { position: absolute; background: white; border: 1.5px solid #cbd5e1; border-radius: 4px; z-index: 5; opacity: 0; pointer-events: none; }
         @keyframes messyIn { 0% { left: 5%; opacity: 0; transform: translateY(-50%) rotate(-12deg); } 10% { opacity: 1; } 42% { left: 42%; opacity: 1; transform: translateY(-50%) rotate(0deg); } 48% { opacity: 0; left: 50%; } 100% { opacity: 0; } }
         @keyframes cleanOut1 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 25.5%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
@@ -65,7 +65,7 @@
         .doc-c3 { animation: cleanOut3 8s infinite linear; width: 40px; height: 50px; }
 
         /* REACTION TRIGGERS */
-        @keyframes iActive { 0%, 42% { transform: scale(1.05); border-color: var(--primary); opacity: 1; background: #f8faff; } 47%, 100% { transform: scale(1); opacity: 0.6; background: white; } }
+        @keyframes iActive { 0%, 42% { transform: scale(1.05); border-color: var(--primary); opacity: 1; background: #f8faff; } 47%, 100% { transform: scale(1); opacity: 0.6; } }
         @keyframes bJump { 0%, 42%, 58%, 100% { transform: scale(1); } 50% { transform: scale(1.15); filter: drop-shadow(0 15px 35px var(--primary-soft)); } }
         @keyframes dSnap { 0%, 85% { border-color: var(--border); background: white; opacity: 0.6; } 90%, 100% { border-color: var(--success); background: #f0fdf4; opacity: 1; transform: scale(1.1); } }
         .intake-anim { animation: iActive 8s infinite linear; }
@@ -75,6 +75,13 @@
         /* BUTTONS */
         .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--text-main); color: white; padding: 20px 52px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.25rem; }
         .btn:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 25px var(--primary-soft); }
+
+        /* WIZARD */
+        .wizard-section { padding: 80px 0; border-top: 1px solid var(--border); scroll-margin-top: 80px; }
+        .cta-card { background: var(--surface); padding: 48px; border-radius: 40px; border: 1px solid var(--border); text-align: center; max-width: 850px; margin: 0 auto; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        input { padding: 20px; border-radius: 14px; border: 1px solid var(--border); font-size: 1.1rem; width: 100%; outline: none; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
 
         /* FOOTER */
         footer { padding: 80px 0; border-top: 1px solid var(--border); background: #fff; }
@@ -87,21 +94,27 @@
         .fade-in { animation: fadeInUp 0.7s forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* MOBILE FIXES */
+        /* ADVANCED MOBILE REPAIR */
         @media(max-width: 768px) { 
             .demo-flow { flex-direction: column; gap: 40px; }
-            .dest-stack { flex-direction: row; width: 100%; gap: 8px; }
+            .dest-stack { flex-direction: row; width: 100%; gap: 10px; }
             .dest-folder { padding: 0; justify-content: center; flex: 1; height: 60px; }
-            .dest-folder span { padding-left: 0; font-size: 0.65rem; }
-            .dest-folder i, .doc-unit { display: none; }
+            .dest-folder span { padding: 0; font-size: 0.65rem; }
             .brand-center svg { width: 150px; height: 150px; }
             .brand-center h4 { font-size: 1.7rem; }
+            .demo-stage { padding: 60px 20px; overflow: visible; }
+            .hero h1 { font-size: 2.6rem; }
+            /* Vertical Animation for Mobile */
+            .doc-unit { left: 50% !important; transform: translateX(-50%) !important; }
+            @keyframes messyMobile { 0% { top: 5%; opacity: 0; } 10% { opacity: 1; } 42% { top: 40%; opacity: 1; } 48% { opacity: 0; top: 50%; } 100% { opacity: 0; } }
+            @keyframes cleanMobile { 0%, 55% { top: 50%; opacity: 0; } 60% { opacity: 1; } 90% { top: 85%; opacity: 1; scale: 0.7; } 100% { opacity: 0; } }
+            .doc-m1 { animation: messyMobile 8s infinite linear; }
+            .doc-c1, .doc-c2, .doc-c3 { animation: cleanMobile 8s infinite linear; }
+            /* Fix Form Clipping */
+            .form-row { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
             .footer-col { align-items: center !important; display: flex; flex-direction: column; }
             .partner-links { justify-content: center; gap: 20px; }
-            .hero h1 { font-size: 2.6rem; }
-            .cta-card { padding: 32px 20px; }
-            .form-row { grid-template-columns: 1fr !important; }
         }
     </style>
 </head>
@@ -131,7 +144,7 @@
     <button class="btn" onclick="startJourney()">Get Started <i data-lucide="arrow-right"></i></button>
 
     <div class="demo-stage">
-        <div class="doc-unit doc-m1" style="transform: translateY(-50%) rotate(-10deg);"></div>
+        <div class="doc-unit doc-m1"></div>
         <div class="doc-unit doc-c1"></div><div class="doc-unit doc-c2"></div><div class="doc-unit doc-c3"></div>
 
         <div class="demo-flow">
@@ -143,7 +156,7 @@
                     <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
                     <g class="magic-wand">
                         <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
-                        <g class="sparkle-set">
+                        <g class="spark-burst">
                             <path d="M62,18 L68,24 M58,24 L64,30" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
                             <circle cx="68" cy="22" r="3" fill="#4f46e5"/>
                         </g>
@@ -163,15 +176,23 @@
 
 <section id="wizard" class="container wizard-section hidden">
     <div id="step-0" class="fade-in">
-        <div style="text-align:center; margin-bottom: 40px;"><h2>Let's build your plan.</h2></div>
+        <div style="text-align:center; margin-bottom: 40px;">
+            <h2>Let's build your plan.</h2>
+            <p style="color:var(--text-muted);">Provide your info to see how much time you can save.</p>
+        </div>
         <div class="cta-card">
-            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+            <div class="form-row">
                 <input type="text" id="user-name" placeholder="Full Name">
                 <input type="text" id="user-company" placeholder="Business Name">
             </div>
-            <input type="email" id="user-email" placeholder="Work Email" style="margin-bottom: 24px; width:100%;">
+            <input type="email" id="user-email" placeholder="Work Email" style="margin-bottom: 24px;">
             <button class="btn" style="width: 100%; justify-content: center;" onclick="submitInitialLead()">Get Started <i data-lucide="arrow-right"></i></button>
         </div>
+    </div>
+    
+    <div id="step-1" class="hidden fade-in" style="text-align:center;">
+        <h2>Step 1: Your Business</h2>
+        <p>Questionnaire initialized. Building your custom roadmap...</p>
     </div>
 </section>
 
@@ -202,12 +223,26 @@
 <script>
     (function() {
         let PDF_LOGO_DATA = "";
-        window.startJourney = function() { document.getElementById('hero-section').classList.add('hidden'); document.getElementById('wizard').classList.remove('hidden'); window.scrollTo({top:0, behavior:'smooth'}); };
+        window.startJourney = function() { 
+            document.getElementById('hero-section').classList.add('hidden'); 
+            document.getElementById('wizard').classList.remove('hidden'); 
+            window.scrollTo({top:0, behavior:'smooth'}); 
+        };
+
         window.submitInitialLead = function() {
             const name = document.getElementById('user-name').value;
             const email = document.getElementById('user-email').value;
             if(!name || !email.includes('@')) return;
-            fetch('https://formspree.io/f/mgooqqjg', { method: 'POST', body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Final Build Lead" }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }).finally(() => { alert("Success! Opening Scoping Questionnaire..."); });
+            
+            // TRANSITION FIX: Move to Step 1 immediately upon click
+            fetch('https://formspree.io/f/mgooqqjg', { 
+                method: 'POST', 
+                body: JSON.stringify({ name, email, company: document.getElementById('user-company').value, intent: "Stability Build Submission" }), 
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
+            }).finally(() => { 
+                document.getElementById('step-0').classList.add('hidden');
+                document.getElementById('step-1').classList.remove('hidden');
+            });
         };
 
         document.addEventListener('DOMContentLoaded', () => {
