@@ -43,6 +43,7 @@
         .dest-folder { height: 55px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 10px 10px 10px; display: flex; align-items: center; padding-left: 45px; opacity: 0.6; transition: 0.4s; }
         .dest-folder::before { content: ""; position: absolute; top: -8px; left: -1.5px; width: 30px; height: 8px; background: inherit; border: inherit; border-bottom: none; border-radius: 5px 5px 0 0; }
         .dest-folder span { font-weight: 800; font-size: 0.8rem; color: var(--text-muted); }
+        .dest-folder i { position: absolute; left: 15px; color: #94a3b8; }
 
         /* WAND ANIMATION */
         .magic-wand { transform-origin: 68px 22px; }
@@ -51,7 +52,7 @@
         .agent-anim .magic-wand { animation: wandWave 8s infinite linear; }
         .agent-anim .spark-burst { animation: sparkPulse 8s infinite linear; transform-origin: 68px 22px; }
 
-        /* 3-IN, 3-OUT DOC UNITS (STAGGERED FIX) */
+        /* DOCUMENT UNITS (DESKTOP) */
         .doc-unit { position: absolute; background: white; border: 1.5px solid #cbd5e1; border-radius: 4px; z-index: 5; opacity: 0; pointer-events: none; width: 40px; height: 50px; }
         
         @keyframes groupIn { 0% { left: 5%; opacity: 0; transform: translateY(-50%) rotate(-10deg); } 10% { opacity: 1; } 42% { left: 42%; opacity: 1; transform: translateY(-50%) rotate(0deg); } 48% { opacity: 0; left: 50%; } 100% { opacity: 0; } }
@@ -59,10 +60,9 @@
         @keyframes split2 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
         @keyframes split3 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 74.5%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
 
-        /* INCREASED DELAYS FOR VISUAL SEPARATION */
         .doc-m1 { animation: groupIn 8s infinite linear; top: 50%; }
-        .doc-m2 { animation: groupIn 8s infinite linear; top: 50%; animation-delay: 0.5s; } /* Increased delay */
-        .doc-m3 { animation: groupIn 8s infinite linear; top: 50%; animation-delay: 1.0s; } /* Increased delay */
+        .doc-m2 { animation: groupIn 8s infinite linear; top: 50%; animation-delay: 0.5s; }
+        .doc-m3 { animation: groupIn 8s infinite linear; top: 50%; animation-delay: 1.0s; }
         
         .doc-c1 { animation: split1 8s infinite linear; }
         .doc-c2 { animation: split2 8s infinite linear; animation-delay: 0.5s; }
@@ -85,9 +85,9 @@
         /* WIZARD SECTION */
         .wizard-section { padding: 80px 0; border-top: 1px solid var(--border); scroll-margin-top: 80px; }
         
-        /* RESTORED PERSONA BUTTON STYLES */
         .persona-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
-        .persona-chip { background: #fff; border: 1px solid var(--border); padding: 14px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+        /* FIX: Prevents iOS from styling buttons like plain text */
+        .persona-chip { -webkit-appearance: none; appearance: none; font-family: inherit; font-size: 1rem; background: #fff; border: 1px solid var(--border); padding: 14px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
         .persona-chip:hover { border-color: var(--primary); color: var(--primary); }
         .persona-chip.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 10px 20px var(--primary-soft); }
         
@@ -114,12 +114,13 @@
         .fade-in { animation: fadeInUp 0.7s forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* MOBILE FIXES */
+        /* MOBILE FIXES (THE FORKING FIX) */
         @media(max-width: 768px) { 
             .demo-flow { flex-direction: column; gap: 40px; }
             .dest-stack { flex-direction: row; width: 100%; gap: 10px; }
             .dest-folder { padding: 0; justify-content: center; flex: 1; height: 60px; }
             .dest-folder span { padding: 0; font-size: 0.65rem; }
+            .dest-folder i { display: none; }
             .brand-center svg { width: 150px; height: 150px; }
             .brand-center h4 { font-size: 1.7rem; }
             .demo-stage { padding: 60px 20px; overflow: visible; }
@@ -129,18 +130,46 @@
             .footer-col { align-items: center !important; display: flex; flex-direction: column; }
             .partner-links { justify-content: center; gap: 20px; }
             
-            /* VERTICAL MOBILE ANIMATION */
-            .doc-unit { left: 50% !important; transform: translateX(-50%) !important; }
-            @keyframes mobileIn { 0% { top: 5%; opacity: 0; } 10% { opacity: 1; } 42% { top: 40%; opacity: 1; } 48% { opacity: 0; top: 50%; } 100% { opacity: 0; } }
-            @keyframes mobileOut { 0%, 55% { top: 50%; opacity: 0; } 60% { opacity: 1; } 90% { top: 85%; opacity: 1; transform: translateX(-50%) scale(0.6); } 100% { opacity: 0; } }
+            /* VERTICAL MOBILE ANIMATION WITH 3-WAY FORKING */
+            @keyframes mobileIn { 
+                0% { top: 5%; left: 50%; opacity: 0; transform: translate(-50%, -50%) rotate(-10deg); } 
+                10% { opacity: 1; } 
+                42% { top: 40%; left: 50%; opacity: 1; transform: translate(-50%, -50%) rotate(0deg); } 
+                48% { opacity: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); } 
+                100% { opacity: 0; } 
+            }
             
+            /* Document 1 goes to Left Folder (Invoices) */
+            @keyframes mobileOut1 { 
+                0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 
+                60% { opacity: 1; border-color: var(--primary); } 
+                90% { top: 85%; left: 16%; opacity: 1; transform: translate(-50%, -50%) scale(0.6); } 
+                100% { opacity: 0; top: 85%; left: 16%; transform: translate(-50%, -50%) scale(0.6); } 
+            }
+            
+            /* Document 2 goes to Center Folder (Contracts) */
+            @keyframes mobileOut2 { 
+                0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 
+                60% { opacity: 1; border-color: var(--primary); } 
+                90% { top: 85%; left: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.6); } 
+                100% { opacity: 0; top: 85%; left: 50%; transform: translate(-50%, -50%) scale(0.6); } 
+            }
+            
+            /* Document 3 goes to Right Folder (Quotes) */
+            @keyframes mobileOut3 { 
+                0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 
+                60% { opacity: 1; border-color: var(--primary); } 
+                90% { top: 85%; left: 84%; opacity: 1; transform: translate(-50%, -50%) scale(0.6); } 
+                100% { opacity: 0; top: 85%; left: 84%; transform: translate(-50%, -50%) scale(0.6); } 
+            }
+
             .doc-m1 { animation-name: mobileIn; }
             .doc-m2 { animation-name: mobileIn; animation-delay: 0.5s; }
             .doc-m3 { animation-name: mobileIn; animation-delay: 1.0s; }
             
-            .doc-c1 { animation-name: mobileOut; }
-            .doc-c2 { animation-name: mobileOut; animation-delay: 0.5s; }
-            .doc-c3 { animation-name: mobileOut; animation-delay: 1.0s; }
+            .doc-c1 { animation-name: mobileOut1; }
+            .doc-c2 { animation-name: mobileOut2; animation-delay: 0.5s; }
+            .doc-c3 { animation-name: mobileOut3; animation-delay: 1.0s; }
         }
     </style>
 </head>
@@ -265,7 +294,6 @@
                 <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3.5"/>
                 <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
                 <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
-                <path d="M62,18 L68,24 M58,24 L64,30" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
                 <circle cx="68" cy="22" r="3" fill="#4f46e5"/>
             </svg>
             <div style="font-weight:800; font-size:1.8rem; color:var(--text-main); letter-spacing:-0.03em; margin-bottom:8px;">MagicFolder</div>
