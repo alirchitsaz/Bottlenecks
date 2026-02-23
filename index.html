@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Simple. Smart. Secure.</title>
+    <title>MagicFolder | Do what you're special at.</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z' fill='%234f46e5' opacity='0.2'/%3E%3Cline x1='70' y1='25' x2='85' y2='45' stroke='%230f172a' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='25' r='3' fill='%234f46e5'/%3E%3C/svg%3E">
     
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -52,13 +52,15 @@
         .agent-anim .magic-wand { animation: wandWave 8s infinite linear; }
         .agent-anim .spark-burst { animation: sparkPulse 8s infinite linear; transform-origin: 68px 22px; }
 
-        /* 3-IN, 3-OUT DOC UNITS */
+        /* DOC UNITS: Set z-index to 1 so they slide BEHIND folders and text */
         .doc-unit { position: absolute; background: white; border: 1.5px solid #cbd5e1; border-radius: 4px; z-index: 1; opacity: 0; pointer-events: none; width: 40px; height: 50px; }
         
         @keyframes groupIn { 0% { left: 5%; opacity: 0; transform: translateY(-50%) rotate(-10deg); } 10% { opacity: 1; } 42% { left: 42%; opacity: 1; transform: translateY(-50%) rotate(0deg); } 48% { opacity: 0; left: 50%; } 100% { opacity: 0; } }
-        @keyframes split1 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 25.5%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
-        @keyframes split2 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
-        @keyframes split3 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 74.5%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
+        
+        /* FIXED DESKTOP LANDING POSITIONS */
+        @keyframes split1 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 25%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); } 100% { opacity: 0; } }
+        @keyframes split2 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); } 100% { opacity: 0; } }
+        @keyframes split3 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 73%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); } 100% { opacity: 0; } }
 
         .doc-m1 { animation: groupIn 8s infinite linear; top: 50%; }
         .doc-m2 { animation: groupIn 8s infinite linear; top: 50%; animation-delay: 0.5s; }
@@ -146,25 +148,26 @@
                 100% { opacity: 0; } 
             }
             
+            /* FIXED MOBILE LANDING POSITIONS (Raised to 82% and scaled down) */
             @keyframes mobileOut1 { 
                 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 
                 60% { opacity: 1; border-color: var(--primary); } 
-                90% { top: 88%; left: 16%; opacity: 1; transform: translate(-50%, -50%) scale(0.6); } 
-                100% { opacity: 0; top: 88%; left: 16%; transform: translate(-50%, -50%) scale(0.6); } 
+                90% { top: 82%; left: 16%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); } 
+                100% { opacity: 0; top: 82%; left: 16%; transform: translate(-50%, -50%) scale(0.55); } 
             }
             
             @keyframes mobileOut2 { 
                 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 
                 60% { opacity: 1; border-color: var(--primary); } 
-                90% { top: 88%; left: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.6); } 
-                100% { opacity: 0; top: 88%; left: 50%; transform: translate(-50%, -50%) scale(0.6); } 
+                90% { top: 82%; left: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); } 
+                100% { opacity: 0; top: 82%; left: 50%; transform: translate(-50%, -50%) scale(0.55); } 
             }
             
             @keyframes mobileOut3 { 
                 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 
                 60% { opacity: 1; border-color: var(--primary); } 
-                90% { top: 88%; left: 84%; opacity: 1; transform: translate(-50%, -50%) scale(0.6); } 
-                100% { opacity: 0; top: 88%; left: 84%; transform: translate(-50%, -50%) scale(0.6); } 
+                90% { top: 82%; left: 84%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); } 
+                100% { opacity: 0; top: 82%; left: 84%; transform: translate(-50%, -50%) scale(0.55); } 
             }
 
             .doc-m1 { animation-name: mobileIn; }
@@ -541,7 +544,6 @@
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Draw PDF Logo
             const canvas = document.getElementById('logo-canvas'); const ctx = canvas.getContext('2d');
             const drawLogoToCanvas = () => {
                 ctx.clearRect(0,0,1200,500); 
