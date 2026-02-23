@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Simple. Smart. Secure.</title>
+    <title>MagicFolder | Do what you're special at.</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z' fill='%234f46e5' opacity='0.2'/%3E%3Cline x1='70' y1='25' x2='85' y2='45' stroke='%230f172a' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='25' r='3' fill='%234f46e5'/%3E%3C/svg%3E">
     
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -29,7 +29,7 @@
 
         /* ANIMATION STAGE */
         .demo-stage { background: var(--surface); border: 1px solid var(--border); border-radius: 40px; max-width: 1100px; margin: 0 auto 60px; padding: 100px 40px; position: relative; overflow: visible; }
-        .demo-flow { display: flex; justify-content: center; align-items: center; gap: 80px; position: relative; z-index: 2; pointer-events: none; }
+        .demo-flow { display: flex; justify-content: center; align-items: center; gap: 80px; position: relative; z-index: 2; }
         
         /* FOLDERS */
         .folder-node { width: 170px; height: 120px; background: white; border: 1.5px solid var(--border); position: relative; border-radius: 0 16px 16px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.4s ease; opacity: 0.6; }
@@ -52,8 +52,8 @@
         .agent-anim .magic-wand { animation: wandWave 8s infinite linear; }
         .agent-anim .spark-burst { animation: sparkPulse 8s infinite linear; transform-origin: 68px 22px; }
 
-        /* DOC UNITS: Set z-index to 1 so they slide BEHIND folders and text */
-        .doc-unit { position: absolute; background: white; border: 1.5px solid #cbd5e1; border-radius: 4px; z-index: 1; opacity: 0; pointer-events: none; width: 40px; height: 50px; }
+        /* 3-IN, 3-OUT DOC UNITS (STAGGERED FIX) */
+        .doc-unit { position: absolute; background: white; border: 1.5px solid #cbd5e1; border-radius: 4px; z-index: 5; opacity: 0; pointer-events: none; width: 40px; height: 50px; }
         
         @keyframes groupIn { 0% { left: 5%; opacity: 0; transform: translateY(-50%) rotate(-10deg); } 10% { opacity: 1; } 42% { left: 42%; opacity: 1; transform: translateY(-50%) rotate(0deg); } 48% { opacity: 0; left: 50%; } 100% { opacity: 0; } }
         @keyframes split1 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 25.5%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); } 100% { opacity: 0; } }
@@ -83,7 +83,7 @@
         .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-main); }
 
         /* WIZARD SECTION */
-        .wizard-section { padding: 80px 0; border-top: 1px solid var(--border); }
+        .wizard-section { padding: 80px 0; border-top: 1px solid var(--border); scroll-margin-top: 80px; }
         
         .persona-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
         .persona-chip { -webkit-appearance: none; appearance: none; font-family: inherit; font-size: 1rem; background: #fff; border: 1px solid var(--border); padding: 14px 28px; border-radius: 100px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
@@ -117,7 +117,7 @@
         .fade-in { animation: fadeInUp 0.7s forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* MOBILE FIXES - THE FORKING REPAIR */
+        /* MOBILE FIXES */
         @media(max-width: 768px) { 
             .demo-flow { flex-direction: column; gap: 40px; }
             .dest-stack { flex-direction: row; width: 100%; gap: 10px; }
@@ -144,7 +144,6 @@
                 100% { opacity: 0; } 
             }
             
-            /* Left Fork (Invoices) */
             @keyframes mobileOut1 { 
                 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 
                 60% { opacity: 1; border-color: var(--primary); } 
@@ -152,7 +151,6 @@
                 100% { opacity: 0; top: 88%; left: 16%; transform: translate(-50%, -50%) scale(0.6); } 
             }
             
-            /* Center Fork (Contracts) */
             @keyframes mobileOut2 { 
                 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 
                 60% { opacity: 1; border-color: var(--primary); } 
@@ -160,7 +158,6 @@
                 100% { opacity: 0; top: 88%; left: 50%; transform: translate(-50%, -50%) scale(0.6); } 
             }
             
-            /* Right Fork (Quotes) */
             @keyframes mobileOut3 { 
                 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 
                 60% { opacity: 1; border-color: var(--primary); } 
@@ -200,7 +197,7 @@
 
 <section id="hero-section" class="hero container">
     <h1>Do what you're special at.<br>Let us do the paperwork.</h1>
-    <p>Secure tools for everyday professionals that watch your scanner and email—instantly identifying and sorting documents while you focus on results.</p>
+    <p>You didn't start a business to sort emails and rename PDFs. MagicFolder automatically organizes your messy files, receipts, and contracts the second they arrive.</p>
     <button class="btn" onclick="startJourney()">Get Started <i data-lucide="arrow-right"></i></button>
 
     <div class="demo-stage">
@@ -208,7 +205,7 @@
         <div class="doc-unit doc-c1"></div><div class="doc-unit doc-c2"></div><div class="doc-unit doc-c3"></div>
 
         <div class="demo-flow">
-            <div class="folder-node intake-anim"><i data-lucide="scan" size="32"></i><h4>Intake</h4></div>
+            <div class="folder-node intake-anim"><i data-lucide="scan" size="32"></i><h4>Intake</h4><span style="font-size:0.8rem; color:var(--text-muted);">Messy Files & Emails</span></div>
             
             <div class="brand-center agent-anim">
                 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -223,17 +220,24 @@
             </div>
 
             <div class="dest-stack">
-                <div class="dest-folder dest-anim"><span>Invoices</span></div>
-                <div class="dest-folder dest-anim"><span>Contracts</span></div>
-                <div class="dest-folder dest-anim"><span>Quotes</span></div>
+                <div class="dest-folder dest-anim"><i data-lucide="file-text" size="14"></i><span>Invoices</span></div>
+                <div class="dest-folder dest-anim"><i data-lucide="shield-check" size="14"></i><span>Contracts</span></div>
+                <div class="dest-folder dest-anim"><i data-lucide="trending-up" size="14"></i><span>Quotes</span></div>
             </div>
+        </div>
+        <div style="margin-top: 40px; font-weight: 800; color: var(--text-muted); font-size: 1.1rem;">
+            <i data-lucide="shield-check" size="20" style="vertical-align:middle; margin-right:8px; color: var(--success);"></i>
+            100% Private: Your files stay locally on your computer, never in the cloud.
         </div>
     </div>
 </section>
 
 <section id="wizard" class="container wizard-section hidden">
     <div id="step-0" class="fade-in">
-        <div style="text-align:center; margin-bottom: 40px;"><h2>Let's build your plan.</h2></div>
+        <div style="text-align:center; margin-bottom: 40px;">
+            <h2>Stop working after hours.</h2>
+            <p style="color:var(--text-muted); font-size:1.15rem; margin-top:8px;">Get a custom automation blueprint for your business in 60 seconds.</p>
+        </div>
         <div class="cta-card">
             <div class="form-row">
                 <input type="text" id="user-name" placeholder="Full Name">
@@ -245,7 +249,10 @@
     </div>
 
     <div id="step-1" class="hidden fade-in">
-        <div style="text-align:center; max-width:800px; margin:0 auto 40px;"><h2>Tell us about your business.</h2></div>
+        <div style="text-align:center; max-width:800px; margin:0 auto 40px;">
+            <h2>What's your industry?</h2>
+            <p style="color:var(--text-muted); font-size:1.1rem; margin-top:8px;">Select your field to see the exact admin bottlenecks we can eliminate for you.</p>
+        </div>
         <div class="persona-bar">
             <button class="persona-chip" onclick="switchPersona('realestate', this)">Real Estate</button>
             <button class="persona-chip" onclick="switchPersona('service', this)">Service Business</button>
@@ -253,13 +260,12 @@
             <button class="persona-chip active" onclick="switchPersona('general', this)">General Business</button>
         </div>
         <div style="text-align:center; margin-top: 40px;">
-            <p style="color:var(--text-muted); margin-bottom: 20px;">We've pre-selected 12 automations for your industry.</p>
             <button class="btn" onclick="validateStep1()">View My Matrix</button>
         </div>
     </div>
 
     <div id="step-2" class="hidden fade-in" style="max-width: 900px; margin: 0 auto;">
-        <div style="text-align:center; margin-bottom:40px;"><h3>Select the bottlenecks you want to fix:</h3></div>
+        <div style="text-align:center; margin-bottom:40px;"><h3>Select the paperwork tasks you hate doing:</h3></div>
         <div id="task-list" class="task-grid"></div>
         <div style="margin-top: 40px; display: flex; justify-content: space-between;">
             <button class="btn btn-outline" onclick="setStep(1)">← Back</button>
@@ -268,10 +274,10 @@
     </div>
 
     <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto;">
-        <div style="text-align:center; margin-bottom:40px;"><h3>Estimate Weekly Volume</h3></div>
+        <div style="text-align:center; margin-bottom:40px;"><h3>Let's run the numbers.</h3><p style="color:var(--text-muted);">How many of these do you handle each week?</p></div>
         <div id="slider-box"></div>
         <div style="background: var(--surface); padding: 40px; border-radius: 28px; border: 1px solid var(--border); margin: 30px 0; border-style: dashed;">
-            <div style="display:flex; justify-content:space-between; font-weight:800;"><span>Hourly Worth?</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:800;"><span>What is one hour of your time worth?</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
             <input type="range" id="hourly-rate" min="50" max="1000" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; accent-color:var(--primary);">
         </div>
         <div style="display: flex; justify-content: space-between;">
@@ -303,7 +309,7 @@
                 <circle cx="68" cy="22" r="3" fill="#4f46e5"/>
             </svg>
             <div style="font-weight:800; font-size:1.8rem; color:var(--text-main); letter-spacing:-0.03em; margin-bottom:8px;">MagicFolder</div>
-            <p style="color:var(--text-muted); font-size:1.1rem; line-height:1.4; max-width:360px; font-weight: 600;">Simple, secure automation for everyday professionals.</p>
+            <p style="color:var(--text-muted); font-size:1.1rem; line-height:1.4; max-width:360px; font-weight: 600;">The smart, private document assistant for small business owners.</p>
         </div>
         <div class="footer-col">
             <div class="partner-links">
@@ -319,7 +325,6 @@
 
 <script>
     (function() {
-        // THE 12-POINT MATRIX DATABASE
         const PERSONAS = {
             realestate: { items: [
                 {id: 're-listing', label: 'Listing Agreements', desc: 'Auto-fill and file signed listing packets.'},
@@ -379,11 +384,9 @@
             ]}
         };
 
-        // FIXED: Defaults to General Business
         let state = { currentPersona: 'general', tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
         let PDF_LOGO_DATA = "";
 
-        // FIXED: Automatically scrolls to the top of the wizard to prevent users feeling lost
         window.startJourney = function() { 
             document.getElementById('hero-section').classList.add('hidden'); 
             document.getElementById('wizard').classList.remove('hidden'); 
@@ -444,7 +447,7 @@
             let h = 0, v = 0, rate = parseInt(document.getElementById('hourly-rate').value) || 150;
             state.tasks.forEach(id => { 
                 let qty = state.inputs[id] || 0; 
-                h += (qty * 0.5 * 52); // Assuming 30 mins saved per task
+                h += (qty * 0.5 * 52); 
                 v += (qty * 0.5 * 52 * rate); 
             });
             state.results.amt = '$' + Math.round(v).toLocaleString();
@@ -466,18 +469,14 @@
             const name = document.getElementById('user-name').value || 'Client'; 
             const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
             
-            // Header Base
             doc.setFillColor(79, 70, 229); 
             doc.rect(0, 0, 210, 100, 'F');
-            
-            // Render exact high-res PDF logo
             if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 45, 10, 120, 50); }
             
             doc.setTextColor(255, 255, 255); 
             doc.setFontSize(16); 
             doc.text(`AUTOMATION BLUEPRINT: ${name.toUpperCase()}`, 105, 80, { align: 'center' });
             
-            // Big Savings Box
             doc.setTextColor(15, 23, 42); 
             doc.setFontSize(14); 
             doc.setFont("helvetica", "bold"); 
@@ -491,7 +490,6 @@
             doc.setDrawColor(226, 232, 240); 
             doc.line(20, 160, 190, 160);
             
-            // Itemized Task List Loop
             let y = 175;
             const activeItems = PERSONAS[state.currentPersona].items.filter(i => state.tasks.has(i.id));
             
@@ -509,40 +507,33 @@
             doc.save(`MagicFolder-Plan-${name.replace(/ /g, '-')}.pdf`);
         };
 
-        // FIXED PDF LOGO GENERATOR: Draws the EXACT two-tone folder + wand path onto canvas to ensure PDF 100% matches HTML.
         document.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('logo-canvas'); const ctx = canvas.getContext('2d');
             const drawLogoToCanvas = () => {
                 ctx.clearRect(0,0,1200,500); 
                 ctx.save();
                 ctx.translate(400, 50);
-                ctx.scale(4, 4); // Scale 100x100 SVG paths up for crisp resolution
+                ctx.scale(4, 4); 
 
-                // Folder Back
                 ctx.fillStyle = '#4f46e5'; ctx.globalAlpha = 0.15; ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3.5; ctx.lineJoin = 'round';
                 let p1 = new Path2D('M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z');
                 ctx.fill(p1); ctx.stroke(p1);
 
-                // Folder Front
                 ctx.globalAlpha = 0.3;
                 let p2 = new Path2D('M15,50 L85,50 L85,85 L15,85 Z');
                 ctx.fill(p2);
 
-                // Wand
                 ctx.globalAlpha = 1.0; ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 6; ctx.lineCap = 'round';
                 ctx.beginPath(); ctx.moveTo(68, 22); ctx.lineTo(88, 42); ctx.stroke();
 
-                // Sparkles
                 ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3;
                 ctx.beginPath(); ctx.moveTo(62, 18); ctx.lineTo(68, 24); ctx.moveTo(58, 24); ctx.lineTo(64, 30); ctx.stroke();
 
-                // Sparkle Dot
                 ctx.fillStyle = '#4f46e5';
                 ctx.beginPath(); ctx.arc(68, 22, 3, 0, 2*Math.PI); ctx.fill();
 
                 ctx.restore();
 
-                // Text
                 ctx.font = '800 120px "Plus Jakarta Sans", sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#0f172a';
                 ctx.fillText('MagicFolder', 600, 420);
 
