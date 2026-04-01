@@ -6,8 +6,6 @@
     <title>MagicFolder | Simple. Smart. Secure.</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z' fill='%234f46e5' opacity='0.2'/%3E%3Cline x1='70' y1='25' x2='85' y2='45' stroke='%230f172a' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='25' r='3' fill='%234f46e5'/%3E%3C/svg%3E">
     
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     
     <style>
@@ -55,10 +53,12 @@
         .agent-anim .magic-wand { animation: wandWave 8s infinite linear; }
         .agent-anim .spark-burst { animation: sparkPulse 8s infinite linear; transform-origin: 68px 22px; }
 
-        /* 3-IN, 3-OUT DOC UNITS */
+        /* DOC UNITS: Set z-index to 1 so they slide BEHIND folders and text */
         .doc-unit { position: absolute; background: white; border: 1.5px solid #cbd5e1; border-radius: 4px; z-index: 1; opacity: 0; pointer-events: none; width: 40px; height: 50px; }
         
         @keyframes groupIn { 0% { left: 5%; opacity: 0; transform: translateY(-50%) rotate(-10deg); } 10% { opacity: 1; } 42% { left: 42%; opacity: 1; transform: translateY(-50%) rotate(0deg); } 48% { opacity: 0; left: 50%; } 100% { opacity: 0; } }
+        
+        /* FIXED DESKTOP LANDING POSITIONS */
         @keyframes split1 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 25%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); } 100% { opacity: 0; } }
         @keyframes split2 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); } 100% { opacity: 0; } }
         @keyframes split3 { 0%, 55% { left: 50%; opacity: 0; top: 50%; } 60% { opacity: 1; border-color: var(--primary); } 90% { left: 86%; top: 73%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); } 100% { opacity: 0; } }
@@ -115,7 +115,7 @@
 
         .cta-card { background: var(--surface); padding: 48px; border-radius: 40px; border: 1px solid var(--border); text-align: center; max-width: 850px; margin: 0 auto; position: relative; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-        input { padding: 20px; border-radius: 14px; border: 1px solid var(--border); font-size: 1.1rem; width: 100%; outline: none; transition: 0.2s; background: white; }
+        input { padding: 20px; border-radius: 14px; border: 1px solid var(--border); font-size: 1.1rem; width: 100%; outline: none; transition: 0.2s; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
         .error-msg { display: none; color: #ef4444; font-weight: 700; margin-bottom: 20px; font-size: 1.05rem; background: #fef2f2; padding: 12px; border-radius: 12px; border: 1px solid #fca5a5; }
 
@@ -128,7 +128,9 @@
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
         .pricing-card { background: white; border: 1px solid var(--border); border-radius: 32px; padding: 40px; text-align: left; display: flex; flex-direction: column; position: relative; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .pricing-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); }
+        
         .pricing-card.popular { border: 2px solid var(--primary); box-shadow: 0 15px 35px var(--primary-soft); }
+        
         .pricing-card.ai-recommended { border: 2.5px solid var(--primary); transform: scale(1.03); box-shadow: 0 25px 50px -12px rgba(79, 70, 229, 0.25); z-index: 10; }
         .pricing-card.dimmed { opacity: 0.5; transform: scale(0.97); }
         .pricing-card.dimmed:hover { opacity: 1; transform: scale(1); z-index: 11; }
@@ -143,12 +145,6 @@
         .feature-list { list-style: none; margin-bottom: 40px; flex-grow: 1; }
         .feature-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; font-weight: 600; color: var(--text-main); }
         .feature-list i { color: var(--success); flex-shrink: 0; margin-top: 2px; }
-
-        /* WORKSPACE CREATION UI */
-        .workspace-input-group { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: white; transition: 0.2s; }
-        .workspace-input-group:focus-within { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
-        .workspace-input-group input { border: none; border-radius: 0; box-shadow: none; flex-grow: 1; margin: 0; }
-        .workspace-suffix { padding: 0 20px; background: var(--surface); color: var(--text-muted); font-weight: 600; border-left: 1px solid var(--border); height: 100%; display: flex; align-items: center; }
 
         /* FOOTER */
         footer { padding: 80px 0; border-top: 1px solid var(--border); background: #fff; margin-top: 80px;}
@@ -176,12 +172,566 @@
             .demo-stage { padding: 60px 20px; overflow: visible; }
             .bento-grid, .pricing-grid { grid-template-columns: 1fr; } 
             .pricing-card.ai-recommended { transform: scale(1); border-width: 2px; }
-            .pricing-card.dimmed { opacity: 1; transform: scale(1); }
+            .pricing-card.dimmed { opacity: 1; transform: scale(1); } 
             .form-row, .task-grid { grid-template-columns: 1fr !important; } 
             .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
             .footer-col { align-items: center !important; display: flex; flex-direction: column; }
             .partner-links { justify-content: center; gap: 20px; }
             .nav-links { display: none; } 
             
+            /* VERTICAL MOBILE ANIMATION */
             .doc-unit { transform: translate(-50%, -50%) !important; }
-            @keyframes mobileIn { 0% { top: 5%; left: 50%; opacity: 0; transform
+            @keyframes mobileIn { 0% { top: 5%; left: 50%; opacity: 0; transform: translate(-50%, -50%) rotate(-10deg); } 10% { opacity: 1; } 42% { top: 40%; left: 50%; opacity: 1; transform: translate(-50%, -50%) rotate(0deg); } 48% { opacity: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); } 100% { opacity: 0; } }
+            @keyframes mobileOut1 { 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 60% { opacity: 1; border-color: var(--primary); } 90% { top: 82%; left: 16%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); } 100% { opacity: 0; top: 82%; left: 16%; transform: translate(-50%, -50%) scale(0.55); } }
+            @keyframes mobileOut2 { 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 60% { opacity: 1; border-color: var(--primary); } 90% { top: 82%; left: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); } 100% { opacity: 0; top: 82%; left: 50%; transform: translate(-50%, -50%) scale(0.55); } }
+            @keyframes mobileOut3 { 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 60% { opacity: 1; border-color: var(--primary); } 90% { top: 82%; left: 84%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); } 100% { opacity: 0; top: 82%; left: 84%; transform: translate(-50%, -50%) scale(0.55); } }
+
+            .doc-m1 { animation-name: mobileIn; } .doc-m2 { animation-name: mobileIn; animation-delay: 0.5s; } .doc-m3 { animation-name: mobileIn; animation-delay: 1.0s; }
+            .doc-c1 { animation-name: mobileOut1; } .doc-c2 { animation-name: mobileOut2; animation-delay: 0.5s; } .doc-c3 { animation-name: mobileOut3; animation-delay: 1.0s; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="logo-canvas" width="1200" height="400" style="display:none;"></canvas>
+
+<nav>
+    <div class="container nav-inner">
+        <a class="logo-nav" href="javascript:location.reload();">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3.5"/>
+                <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
+                <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
+                <path d="M62,18 L68,24 M58,24 L64,30" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="68" cy="22" r="3" fill="#4f46e5"/>
+            </svg>
+            MagicFolder
+        </a>
+        <div class="nav-links">
+            <a href="#ecosystem">Features</a>
+            <a href="#homepage-pricing">Pricing</a>
+            <button class="btn btn-outline" style="padding:10px 24px; font-size:0.95rem; margin-left: 12px;" onclick="startJourney()">Calculate ROI</button>
+        </div>
+    </div>
+</nav>
+
+<section id="hero-section" class="hero container">
+    <h1 id="slideshow-title">Do what you're special at.<br>Let us do the paperwork.</h1>
+    <p id="slideshow-sub">You didn't start a business to rename PDFs. MagicFolder automatically sorts and files your messy documents the second they arrive.</p>
+    
+    <div style="display:flex; gap:20px; justify-content:center; margin-bottom: 20px;">
+        <button class="btn" onclick="startJourney()">Build My Free Blueprint <i data-lucide="arrow-right"></i></button>
+    </div>
+
+    <div class="demo-stage">
+        <div class="doc-unit doc-m1"></div><div class="doc-unit doc-m2"></div><div class="doc-unit doc-m3"></div>
+        <div class="doc-unit doc-c1"></div><div class="doc-unit doc-c2"></div><div class="doc-unit doc-c3"></div>
+
+        <div class="demo-flow">
+            <div class="folder-node intake-anim"><i data-lucide="scan" size="32"></i><h4>Intake</h4><span style="font-size:0.8rem; color:var(--text-muted);">Messy Files & Emails</span></div>
+            
+            <div class="brand-center agent-anim">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3.5"/>
+                    <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
+                    <g class="magic-wand">
+                        <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
+                        <g class="spark-burst"><path d="M62,18 L68,24 M58,24 L64,30" stroke="#4f46e5" stroke-width="3" stroke-linecap="round"/><circle cx="68" cy="22" r="3" fill="#4f46e5"/></g>
+                    </g>
+                </svg>
+                <h4>MagicFolder</h4>
+            </div>
+
+            <div class="dest-stack">
+                <div class="dest-folder dest-anim"><i data-lucide="file-text" size="14"></i><span>Invoices</span></div>
+                <div class="dest-folder dest-anim"><i data-lucide="shield-check" size="14"></i><span>Contracts</span></div>
+                <div class="dest-folder dest-anim"><i data-lucide="trending-up" size="14"></i><span>Quotes</span></div>
+            </div>
+        </div>
+        <div style="margin-top: 40px; font-weight: 800; color: var(--text-muted); font-size: 1.1rem; text-align: center;">
+            <i data-lucide="shield-check" size="20" style="vertical-align:middle; margin-right:8px; color: var(--success);"></i>
+            100% Private: Your files stay locally on your computer, never in the cloud.
+        </div>
+    </div>
+</section>
+
+<section id="ecosystem" class="ecosystem-section container">
+    <div class="ecosystem-header">
+        <h2>Beyond the Folder.</h2>
+        <p>MagicFolder is just the beginning. We automate your entire back-office workflow by connecting your documents directly to the tools you already use.</p>
+    </div>
+    <div class="bento-grid">
+        <div class="bento-card">
+            <div class="bento-icon"><i data-lucide="calculator" size="28"></i></div>
+            <h3>Accounting Sync</h3>
+            <p>We automatically parse incoming invoices and receipts, extracting the critical data and logging it directly into QuickBooks or Xero without manual data entry.</p>
+        </div>
+        <div class="bento-card">
+            <div class="bento-icon"><i data-lucide="users" size="28"></i></div>
+            <h3>CRM Integration</h3>
+            <p>Stop copy-pasting contact info. MagicFolder identifies new leads and client details from email signatures and forms, pushing them instantly to Salesforce or HubSpot.</p>
+        </div>
+        <div class="bento-card">
+            <div class="bento-icon"><i data-lucide="message-square" size="28"></i></div>
+            <h3>Automated Comms</h3>
+            <p>Trigger automatic, personalized email replies or SMS notifications the moment a specific type of document (like a signed contract or a new inquiry) arrives.</p>
+        </div>
+        <div class="bento-card">
+            <div class="bento-icon"><i data-lucide="workflow" size="28"></i></div>
+            <h3>Custom Workflows</h3>
+            <p>Powered by advanced integrations with Make.com and OpenAI, we build bespoke, intelligent automations tailored to the exact operational needs of your specific business.</p>
+        </div>
+    </div>
+</section>
+
+<section id="homepage-pricing" class="pricing-section container">
+    <div class="ecosystem-header" style="margin-bottom: 20px;">
+        <h2>Simple, Scalable Pricing.</h2>
+        <p>No hourly billing. Choose the package that fits your operational volume.</p>
+    </div>
+    <div id="home-pricing-grid">
+        </div>
+</section>
+
+<section id="wizard" class="container wizard-section hidden">
+    <div id="step-0" class="fade-in">
+        <div style="text-align:center; margin-bottom: 40px;">
+            <h2>Stop working after hours.</h2>
+            <p style="color:var(--text-muted); font-size:1.15rem; margin-top:8px;">Get a custom automation blueprint for your business in 60 seconds.</p>
+        </div>
+        <div class="cta-card">
+            <div class="form-row">
+                <input type="text" id="user-name" placeholder="Full Name">
+                <input type="text" id="user-company" placeholder="Business Name">
+            </div>
+            <input type="email" id="user-email" placeholder="Work Email" style="margin-bottom: 24px; width:100%;">
+            
+            <div id="form-error" class="error-msg"></div>
+            
+            <button class="btn" style="width: 100%;" onclick="submitInitialLead()">Start My Blueprint <i data-lucide="arrow-right"></i></button>
+        </div>
+    </div>
+
+    <div id="step-1" class="hidden fade-in">
+        <div style="text-align:center; max-width:800px; margin:0 auto 40px;">
+            <h2>What's your industry?</h2>
+            <p style="color:var(--text-muted); font-size:1.1rem; margin-top:8px;">Select your field to see the exact admin bottlenecks we can eliminate for you.</p>
+        </div>
+        <div class="persona-bar">
+            <button class="persona-chip" onclick="switchPersona('realestate', this)">Real Estate</button>
+            <button class="persona-chip" onclick="switchPersona('service', this)">Service Business</button>
+            <button class="persona-chip" onclick="switchPersona('legal', this)">Legal / Law</button>
+            <button class="persona-chip active" onclick="switchPersona('general', this)">General Business</button>
+        </div>
+        <div style="text-align:center; margin-top: 40px;">
+            <button class="btn" onclick="validateStep1()">View My Matrix</button>
+        </div>
+    </div>
+
+    <div id="step-2" class="hidden fade-in" style="max-width: 900px; margin: 0 auto;">
+        <div style="text-align:center; margin-bottom:40px;">
+            <h3>Select the paperwork tasks you hate doing:</h3>
+        </div>
+        <div id="task-list" class="task-grid"></div>
+        <div style="margin-top: 40px; display: flex; justify-content: space-between;">
+            <button class="btn btn-outline" onclick="setStep(1)">← Back</button>
+            <button class="btn" onclick="validateStep2()">Next: Volume</button>
+        </div>
+    </div>
+
+    <div id="step-3" class="hidden fade-in" style="max-width: 850px; margin: 0 auto;">
+        <div style="text-align:center; margin-bottom:40px;">
+            <h3>Let's run the numbers.</h3>
+            <p style="color:var(--text-muted); font-size:1.1rem;">How many of these do you handle each week?</p>
+        </div>
+        <div id="slider-box"></div>
+        <div style="background: var(--surface); padding: 40px; border-radius: 28px; border: 1px solid var(--border); margin: 30px 0; border-style: dashed;">
+            <div style="display:flex; justify-content:space-between; font-weight:800;"><span>What is one hour of your time worth?</span><span style="color: var(--primary);">$<span id="rate-disp">150</span></span></div>
+            <input type="range" id="hourly-rate" min="50" max="1000" value="150" oninput="document.getElementById('rate-disp').innerText = this.value" style="width:100%; accent-color:var(--primary);">
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <button class="btn btn-outline" onclick="setStep(2)">← Back</button>
+            <button class="btn" onclick="finishJourney()">Analyze My Data</button>
+        </div>
+    </div>
+
+    <div id="step-5" class="hidden fade-in">
+        <div class="results-hero">
+            <p style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">ANNUAL OPPORTUNITY</p>
+            <div class="big-save" id="final-amt">$0</div>
+            <p style="font-size: 1.7rem;">Recovering <strong id="final-hours" style="color:white;">0</strong> productive hours.</p>
+            <button class="btn btn-outline" style="margin-top: 30px; border-color: rgba(255,255,255,0.3); color: white;" onclick="generatePDFBlueprint()"><i data-lucide="download"></i> Download My Blueprint (PDF)</button>
+        </div>
+        
+        <div style="text-align: center; margin-top: 80px;">
+            <h2 id="recommendation-header">Processing your matrix...</h2>
+            <p style="color:var(--text-muted); font-size:1.1rem; margin-top:8px;">Based on your inputs, our system has identified the perfect architecture for you.</p>
+        </div>
+
+        <div id="wizard-pricing-container">
+            </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container footer-grid">
+        <div class="footer-col">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:60px; height:60px; margin-bottom:4px;">
+                <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3.5"/>
+                <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
+                <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
+                <circle cx="68" cy="22" r="3" fill="#4f46e5"/>
+            </svg>
+            <div style="font-weight:800; font-size:1.8rem; color:var(--text-main); letter-spacing:-0.03em; margin-bottom:8px;">MagicFolder</div>
+            <p style="color:var(--text-muted); font-size:1.1rem; line-height:1.4; max-width:360px; font-weight: 600;">The smart, private document assistant for small business owners.</p>
+        </div>
+        <div class="footer-col">
+            <div class="partner-links">
+                <a href="https://openai.com" target="_blank">OpenAI</a>
+                <a href="https://anthropic.com" target="_blank">Anthropic</a>
+                <a href="https://make.com" target="_blank">Make.com</a>
+                <a href="https://salesforce.com" target="_blank">Salesforce</a>
+                <a href="https://quickbooks.intuit.com" target="_blank">QuickBooks</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+    try {
+        const slides = [
+            { title: "Do what you're special at.<br>Let us do the paperwork.", sub: "You didn't start a business to rename PDFs. MagicFolder automatically sorts and files your messy documents the second they arrive." },
+            { title: "Win more clients<br>while you sleep.", sub: "Stop losing leads to slow replies. MagicFolder instantly reads inquiries, drafts accurate quotes, and follows up 24/7." },
+            { title: "Never do manual<br>data entry again.", sub: "We automatically extract critical dates, terms, and financials from incoming contracts and sync them directly to your CRM." },
+            { title: "Your entire back office<br>on autopilot.", sub: "From logging job-site receipts in QuickBooks to generating signature-ready agreements, we handle the busywork." }
+        ];
+        
+        let slideIndex = 0;
+        function cycleContent() {
+            const t = document.getElementById('slideshow-title');
+            const s = document.getElementById('slideshow-sub');
+            if(!t || !s) return;
+            t.style.opacity = 0; s.style.opacity = 0;
+            setTimeout(() => {
+                slideIndex = (slideIndex + 1) % slides.length;
+                t.innerHTML = slides[slideIndex].title;
+                s.innerHTML = slides[slideIndex].sub;
+                t.style.opacity = 1; s.style.opacity = 1;
+            }, 500); 
+        }
+
+        const PERSONAS = {
+            realestate: { items: [
+                {id: 're-listing', label: 'Listing Agreements', desc: 'Auto-fill and file signed listing packets.'},
+                {id: 're-offer', label: 'Offer Sorting', desc: 'Identify price/terms from incoming offers.'},
+                {id: 're-hoa', label: 'HOA Docs', desc: 'Tag and store HOA PDF bundles.'},
+                {id: 're-disclosure', label: 'Disclosures', desc: 'Compile disclosure packets automatically.'},
+                {id: 're-zillow', label: 'Zillow Leads', desc: 'Instant reply to new Zillow inquiries.'},
+                {id: 're-commission', label: 'Commission Splits', desc: 'Calculate and log agent splits.'},
+                {id: 're-photos', label: 'Listing Photos', desc: 'Rename and sort raw photo files.'},
+                {id: 're-ins', label: 'Inspection Reports', desc: 'Extract repair items to spreadsheet.'},
+                {id: 're-crm', label: 'CRM Entry', desc: 'Add new contacts to Follow Up Boss.'},
+                {id: 're-expense', label: 'Receipts', desc: 'Log staging/marketing spend.'},
+                {id: 're-contract', label: 'Contract Dates', desc: 'Sync contingency dates to calendar.'},
+                {id: 're-review', label: 'Review Request', desc: 'Send closing gift and review email.'}
+            ]},
+            service: { items: [
+                {id: 'sv-receipts', label: 'Field Receipts', desc: 'Photo to QuickBooks instantly.'},
+                {id: 'sv-photos', label: 'Job Photos', desc: 'Label site photos by address.'},
+                {id: 'sv-workorder', label: 'Work Orders', desc: 'File signed completion forms.'},
+                {id: 'sv-supplier', label: 'Supplier Invoices', desc: 'Match parts bills to jobs.'},
+                {id: 'sv-quote', label: 'Instant Bids', desc: 'Generate quote from text notes.'},
+                {id: 'sv-dispatch', label: 'Dispatch', desc: 'Route new calls to technicians.'},
+                {id: 'sv-review', label: 'Review Gen', desc: 'Auto-text review link after job.'},
+                {id: 'sv-sub', label: 'Sub Insurance', desc: 'Track sub-contractor COI expiry.'},
+                {id: 'sv-safety', label: 'Safety Forms', desc: 'Log daily safety checklists.'},
+                {id: 'sv-fleet', label: 'Fleet Docs', desc: 'Manage vehicle registration/service.'},
+                {id: 'sv-permit', label: 'Permits', desc: 'Track city permit status.'},
+                {id: 'sv-payroll', label: 'Timesheets', desc: 'Digitize paper time cards.'}
+            ]},
+            legal: { items: [
+                {id: 'lg-intake', label: 'Client Intake', desc: 'Sort new case inquiry forms.'},
+                {id: 'lg-discovery', label: 'Discovery', desc: 'Index incoming evidence files.'},
+                {id: 'lg-court', label: 'Court Docs', desc: 'Name/File pleadings by case number.'},
+                {id: 'lg-expense', label: 'Case Costs', desc: 'Log billable expenses to matter.'},
+                {id: 'lg-retainer', label: 'Retainers', desc: 'Auto-draft fee agreements.'},
+                {id: 'lg-calendar', label: 'Docketing', desc: 'Sync court dates to Outlook.'},
+                {id: 'lg-mail', label: 'Mail Processing', desc: 'Scan and route daily mail.'},
+                {id: 'lg-research', label: 'Research', desc: 'Summarize case law PDFs.'},
+                {id: 'lg-invoice', label: 'Billing', desc: 'Draft pre-bills from time entries.'},
+                {id: 'lg-conflict', label: 'Conflict Check', desc: 'Search names across all files.'},
+                {id: 'lg-medical', label: 'Medical Records', desc: 'Sort chronologies automatically.'},
+                {id: 'lg-archive', label: 'Archiving', desc: 'Close and zip file completed cases.'}
+            ]},
+            general: { items: [
+                {id: 'gn-bills', label: 'AP Invoices', desc: 'Extract data to Excel/QuickBooks.'},
+                {id: 'gn-contracts', label: 'Contracts', desc: 'File signed vendor agreements.'},
+                {id: 'gn-receipts', label: 'Expenses', desc: 'Log credit card receipts.'},
+                {id: 'gn-hr', label: 'HR Files', desc: 'Sort employee onboarding docs.'},
+                {id: 'gn-bank', label: 'Statements', desc: 'File monthly bank PDFs.'},
+                {id: 'gn-email', label: 'Email Filing', desc: 'Save attachments to correct project.'},
+                {id: 'gn-lead', label: 'Lead Response', desc: 'Auto-reply to website forms.'},
+                {id: 'gn-quote', label: 'Quoting', desc: 'Draft estimates for approval.'},
+                {id: 'gn-meeting', label: 'Minutes', desc: 'Transcribe and file meeting notes.'},
+                {id: 'gn-travel', label: 'Travel', desc: 'Organize flight/hotel confirmations.'},
+                {id: 'gn-tax', label: 'Tax Prep', desc: 'Gather year-end tax documents.'},
+                {id: 'gn-crm', label: 'CRM Data', desc: 'Update contact info from signatures.'}
+            ]}
+        };
+
+        let state = { currentPersona: 'general', tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
+        let PDF_LOGO_DATA = "";
+
+        const PRICING_TIERS = [
+            { id: 1, name: "Smart Scan", price: "$199", setup: "+$1,500 One-Time Setup", desc: "Perfect for eliminating manual document sorting and basic filing.", features: ["MagicFolder Configuration", "Up to 2 Folder Routings", "Auto-Naming & Tagging", "Standard Support"], threshold: 2, url: "https://buy.stripe.com/28EcN71N65p2eqLbh42Fa00" },
+            { id: 2, name: "Data Sync", price: "$499", setup: "+$3,500 One-Time Setup", desc: "Connect your scanner directly to your CRM, accounting, or operational software.", features: ["Everything in Smart Scan", "Up to 5 Custom Workflows", "OpenAI Data Extraction", "API Sync (Salesforce, QBO)"], threshold: 5, url: "https://buy.stripe.com/cNi8wRezS6t6ciD5WK2Fa01" },
+            { id: 3, name: "Full Back-Office", price: "$999+", setup: "Custom Scope Setup", desc: "End-to-end operational automation. Complete data extraction and multi-app syncing.", features: ["Everything in Data Sync", "Unlimited Workflows", "Complex Make.com Routing", "Priority Break-Fix SLA"], threshold: 99, url: "https://calendly.com/" }
+        ];
+
+        function renderHomepagePricing() {
+            const container = document.getElementById('home-pricing-grid');
+            if(!container) return;
+            let html = '<div class="pricing-grid">';
+            PRICING_TIERS.forEach(tier => {
+                const isPopular = tier.id === 2;
+                const cardClass = isPopular ? 'pricing-card popular' : 'pricing-card';
+                const badgeHtml = isPopular ? '<div class="popular-badge">Most Popular</div>' : '';
+                const btnClass = isPopular ? 'btn' : 'btn btn-outline';
+                const btnText = tier.id === 3 ? 'Talk to Sales' : 'Select Package';
+                
+                html += `
+                <div class="${cardClass}">
+                    ${badgeHtml}
+                    <div class="tier-name">${tier.name}</div>
+                    <div class="tier-desc">${tier.desc}</div>
+                    <div class="tier-price">${tier.price}<span style="font-size:1rem; font-weight:600; color:var(--text-muted);">/mo</span></div>
+                    <div class="tier-setup">${tier.setup}</div>
+                    <ul class="feature-list">
+                        ${tier.features.map(f => `<li><i data-lucide="check-circle-2" size="20"></i> ${f}</li>`).join('')}
+                    </ul>
+                    <a href="${tier.url}" class="${btnClass}" style="width: 100%; justify-content: center; text-decoration:none;">${btnText}</a>
+                </div>`;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function renderWizardPricing(taskCount) {
+            const container = document.getElementById('wizard-pricing-container');
+            const header = document.getElementById('recommendation-header');
+            if(!container || !header) return;
+            
+            let recommendedId = 1;
+            if(taskCount >= 3 && taskCount <= 5) recommendedId = 2;
+            if(taskCount >= 6) recommendedId = 3;
+
+            const recTier = PRICING_TIERS.find(t => t.id === recommendedId);
+            header.innerHTML = `Based on your <span style="color:var(--primary);">${taskCount} selected workflows</span>, we recommend the ${recTier.name} Package.`;
+
+            let html = '<div class="pricing-grid">';
+            PRICING_TIERS.forEach(tier => {
+                const isRec = tier.id === recommendedId;
+                const cardClass = isRec ? 'pricing-card ai-recommended' : 'pricing-card dimmed';
+                const badgeHtml = isRec ? `<div class="recommended-badge"><i data-lucide="sparkles" size="14"></i> AI Recommended</div>` : '';
+                const btnClass = isRec ? 'btn' : 'btn btn-outline';
+                const btnText = tier.id === 3 ? 'Talk to Sales' : (isRec ? 'Deploy This Package' : 'Select Package');
+
+                html += `
+                <div class="${cardClass}">
+                    ${badgeHtml}
+                    <div class="tier-name">${tier.name}</div>
+                    <div class="tier-desc">${tier.desc}</div>
+                    <div class="tier-price">${tier.price}<span style="font-size:1rem; font-weight:600; color:var(--text-muted);">/mo</span></div>
+                    <div class="tier-setup">${tier.setup}</div>
+                    <ul class="feature-list">
+                        ${tier.features.map(f => `<li><i data-lucide="check-circle-2" size="20"></i> ${f}</li>`).join('')}
+                    </ul>
+                    <a href="${tier.url}" class="${btnClass}" style="width: 100%; justify-content: center; text-decoration:none;">${btnText}</a>
+                </div>`;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        window.startJourney = function() { 
+            document.getElementById('ecosystem').classList.add('hidden');
+            document.getElementById('homepage-pricing').classList.add('hidden');
+            document.getElementById('hero-section').classList.add('hidden'); 
+            document.getElementById('wizard').classList.remove('hidden'); 
+            document.getElementById('wizard').scrollIntoView({behavior: 'smooth', block: 'start'}); 
+        };
+
+        window.submitInitialLead = function() {
+            const name = document.getElementById('user-name').value.trim();
+            const email = document.getElementById('user-email').value.trim();
+            const company = document.getElementById('user-company').value.trim();
+            const errorDiv = document.getElementById('form-error');
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if(!name) {
+                errorDiv.style.display = 'block';
+                errorDiv.innerText = "Please provide your Full Name to continue.";
+                return;
+            }
+            if(!emailRegex.test(email)) {
+                errorDiv.style.display = 'block';
+                errorDiv.innerText = "Please provide a valid Work Email (e.g. name@domain.com).";
+                return;
+            }
+            
+            errorDiv.style.display = 'none';
+            
+            fetch('https://formspree.io/f/mgooqqjg', { 
+                method: 'POST', body: JSON.stringify({ name, email, company }), headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } 
+            }).finally(() => { 
+                document.getElementById('step-0').classList.add('hidden');
+                document.getElementById('step-1').classList.remove('hidden');
+                document.getElementById('wizard').scrollIntoView({behavior: 'smooth', block: 'start'}); 
+            });
+        };
+
+        window.switchPersona = function(persona, btn) {
+            state.currentPersona = persona; state.tasks.clear(); state.inputs = {};
+            document.querySelectorAll('.persona-chip').forEach(el => el.classList.remove('active')); btn.classList.add('active');
+        };
+
+        window.validateStep1 = function() { renderTasks(); setStep(2); };
+
+        function renderTasks() {
+            const list = document.getElementById('task-list');
+            list.innerHTML = PERSONAS[state.currentPersona].items.map(i => `
+                <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}')">
+                    <div class="check-box"><i data-lucide="check" size="14" style="color:white; ${state.tasks.has(i.id) ? '' : 'display:none'}"></i></div>
+                    <div><div style="font-weight:800;">${i.label}</div><div style="color:var(--text-muted); font-size:0.85rem;">${i.desc}</div></div>
+                </div>`).join('');
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        window.toggleTask = function(id) {
+            if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id);
+            renderTasks();
+        };
+
+        window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
+
+        function renderSliders() {
+            const cont = document.getElementById('slider-box');
+            const activeItems = PERSONAS[state.currentPersona].items.filter(i => state.tasks.has(i.id));
+            cont.innerHTML = activeItems.map(i => {
+                if (state.inputs[i.id] === undefined) state.inputs[i.id] = 10;
+                return `
+                <div class="audit-item" style="display:block; cursor:default;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>${i.label}</span><span style="color:var(--primary); font-weight:800;"><span id="val-${i.id}">${state.inputs[i.id]}</span>/wk</span></div>
+                    <input type="range" min="0" max="100" value="${state.inputs[i.id]}" oninput="state.inputs['${i.id}']=parseInt(this.value); document.getElementById('val-${i.id}').innerText=this.value" style="width:100%; accent-color:var(--primary);">
+                </div>`;
+            }).join('');
+        }
+
+        window.finishJourney = function() {
+            let h = 0, v = 0, rate = parseInt(document.getElementById('hourly-rate').value) || 150;
+            state.tasks.forEach(id => { 
+                let qty = state.inputs[id] || 0; 
+                h += (qty * 0.5 * 52); 
+                v += (qty * 0.5 * 52 * rate); 
+            });
+            state.results.amt = '$' + Math.round(v).toLocaleString();
+            state.results.hours = Math.round(h).toLocaleString();
+            document.getElementById('final-amt').innerText = state.results.amt;
+            document.getElementById('final-hours').innerText = state.results.hours;
+            
+            renderWizardPricing(state.tasks.size);
+            
+            setStep(5);
+        };
+
+        window.setStep = function(n) { 
+            [0,1,2,3,5].forEach(s => { document.getElementById(`step-${s}`).classList.add('hidden'); }); 
+            document.getElementById(`step-${n}`).classList.remove('hidden'); 
+            document.getElementById('wizard').scrollIntoView({behavior: 'smooth', block: 'start'}); 
+        };
+
+        window.generatePDFBlueprint = function() {
+            if(typeof window.jspdf === 'undefined') { alert("PDF Generator is loading, please try again in a few seconds."); return; }
+            const { jsPDF } = window.jspdf; 
+            const doc = new jsPDF();
+            const name = document.getElementById('user-name').value || 'Client'; 
+            const rate = parseInt(document.getElementById('hourly-rate').value) || 150;
+            
+            doc.setFillColor(79, 70, 229); 
+            doc.rect(0, 0, 210, 100, 'F');
+            if (PDF_LOGO_DATA) { doc.addImage(PDF_LOGO_DATA, 'PNG', 45, 10, 120, 50); }
+            
+            doc.setTextColor(255, 255, 255); 
+            doc.setFontSize(16); 
+            doc.text(`AUTOMATION BLUEPRINT: ${name.toUpperCase()}`, 105, 80, { align: 'center' });
+            
+            doc.setTextColor(15, 23, 42); 
+            doc.setFontSize(14); 
+            doc.setFont("helvetica", "bold"); 
+            doc.text('ANNUAL OPPORTUNITY', 20, 120);
+            doc.setTextColor(79, 70, 229); 
+            doc.setFontSize(32); 
+            doc.text(state.results.amt, 20, 138);
+            doc.setFontSize(12); 
+            doc.setTextColor(100, 116, 139); 
+            doc.text(`Capacity Gained: ${state.results.hours} Hours / Year`, 20, 148);
+            doc.setDrawColor(226, 232, 240); 
+            doc.line(20, 160, 190, 160);
+            
+            let y = 175;
+            const activeItems = PERSONAS[state.currentPersona].items.filter(i => state.tasks.has(i.id));
+            
+            activeItems.forEach(i => {
+                const val = (state.inputs[i.id] * 0.5 * 52 * rate);
+                doc.setFontSize(12); doc.setTextColor(15, 23, 42); doc.setFont("helvetica", "bold");
+                doc.text(i.label.toUpperCase(), 20, y);
+                doc.setFontSize(10); doc.setTextColor(79, 70, 229); doc.setFont("helvetica", "normal");
+                doc.text(`$${Math.round(val).toLocaleString()} saved / year`, 20, y+6);
+                doc.setTextColor(100, 116, 139); 
+                doc.text(`Note: ${i.desc}`, 20, y+12);
+                y += 28; 
+                if(y > 270) { doc.addPage(); y = 20; }
+            });
+            doc.save(`MagicFolder-Plan-${name.replace(/ /g, '-')}.pdf`);
+        };
+
+        window.onload = function() {
+            const canvas = document.getElementById('logo-canvas'); 
+            if(canvas) {
+                const ctx = canvas.getContext('2d');
+                const drawLogoToCanvas = () => {
+                    ctx.clearRect(0,0,1200,500); 
+                    ctx.save(); ctx.translate(400, 50); ctx.scale(4, 4); 
+                    ctx.fillStyle = '#4f46e5'; ctx.globalAlpha = 0.15; ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3.5; ctx.lineJoin = 'round';
+                    let p1 = new Path2D('M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z');
+                    ctx.fill(p1); ctx.stroke(p1);
+                    ctx.globalAlpha = 0.3; let p2 = new Path2D('M15,50 L85,50 L85,85 L15,85 Z'); ctx.fill(p2);
+                    ctx.globalAlpha = 1.0; ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 6; ctx.lineCap = 'round';
+                    ctx.beginPath(); ctx.moveTo(68, 22); ctx.lineTo(88, 42); ctx.stroke();
+                    ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3;
+                    ctx.beginPath(); ctx.moveTo(62, 18); ctx.lineTo(68, 24); ctx.moveTo(58, 24); ctx.lineTo(64, 30); ctx.stroke();
+                    ctx.fillStyle = '#4f46e5'; ctx.beginPath(); ctx.arc(68, 22, 3, 0, 2*Math.PI); ctx.fill();
+                    ctx.restore();
+                    ctx.font = '800 120px "Plus Jakarta Sans", sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#0f172a';
+                    ctx.fillText('MagicFolder', 600, 420);
+                    PDF_LOGO_DATA = canvas.toDataURL('image/png');
+                };
+                if(document.fonts) { document.fonts.load('800 48px "Plus Jakarta Sans"').then(drawLogoToCanvas).catch(drawLogoToCanvas); } else { drawLogoToCanvas(); }
+            }
+            
+            setInterval(cycleContent, 6000); 
+            renderHomepagePricing(); 
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        };
+    } catch(e) {
+        console.error("MagicFolder script initialization error:", e);
+    }
+    })();
+</script>
+</body>
+</html>
