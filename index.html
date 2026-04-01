@@ -6,6 +6,8 @@
     <title>MagicFolder | Simple. Smart. Secure.</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z' fill='%234f46e5' opacity='0.2'/%3E%3Cline x1='70' y1='25' x2='85' y2='45' stroke='%230f172a' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='25' r='3' fill='%234f46e5'/%3E%3C/svg%3E">
     
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     
     <style>
@@ -53,7 +55,7 @@
         .agent-anim .magic-wand { animation: wandWave 8s infinite linear; }
         .agent-anim .spark-burst { animation: sparkPulse 8s infinite linear; transform-origin: 68px 22px; }
 
-        /* DOC UNITS: Set z-index to 1 so they slide BEHIND folders and text */
+        /* 3-IN, 3-OUT DOC UNITS */
         .doc-unit { position: absolute; background: white; border: 1.5px solid #cbd5e1; border-radius: 4px; z-index: 1; opacity: 0; pointer-events: none; width: 40px; height: 50px; }
         
         @keyframes groupIn { 0% { left: 5%; opacity: 0; transform: translateY(-50%) rotate(-10deg); } 10% { opacity: 1; } 42% { left: 42%; opacity: 1; transform: translateY(-50%) rotate(0deg); } 48% { opacity: 0; left: 50%; } 100% { opacity: 0; } }
@@ -179,7 +181,7 @@
             .partner-links { justify-content: center; gap: 20px; }
             .nav-links { display: none; } 
             
-            /* VERTICAL MOBILE ANIMATION */
+            /* VERTICAL MOBILE ANIMATION WITH 3-WAY FORKING */
             .doc-unit { transform: translate(-50%, -50%) !important; }
             @keyframes mobileIn { 0% { top: 5%; left: 50%; opacity: 0; transform: translate(-50%, -50%) rotate(-10deg); } 10% { opacity: 1; } 42% { top: 40%; left: 50%; opacity: 1; transform: translate(-50%, -50%) rotate(0deg); } 48% { opacity: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); } 100% { opacity: 0; } }
             @keyframes mobileOut1 { 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); } 60% { opacity: 1; border-color: var(--primary); } 90% { top: 82%; left: 16%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); } 100% { opacity: 0; top: 82%; left: 16%; transform: translate(-50%, -50%) scale(0.55); } }
@@ -220,7 +222,7 @@
     <p id="slideshow-sub">You didn't start a business to rename PDFs. MagicFolder automatically sorts and files your messy documents the second they arrive.</p>
     
     <div style="display:flex; gap:20px; justify-content:center; margin-bottom: 20px;">
-        <button class="btn" onclick="startJourney()">Build My Free Blueprint <i data-lucide="arrow-right"></i></button>
+        <button class="btn" onclick="startJourney()">Get Your Custom Plan <i data-lucide="arrow-right"></i></button>
     </div>
 
     <div class="demo-stage">
@@ -297,7 +299,7 @@
     <div id="step-0" class="fade-in">
         <div style="text-align:center; margin-bottom: 40px;">
             <h2>Stop working after hours.</h2>
-            <p style="color:var(--text-muted); font-size:1.15rem; margin-top:8px;">Get a custom automation blueprint for your business in 60 seconds.</p>
+            <p style="color:var(--text-muted); font-size:1.15rem; margin-top:8px;">Get a custom automation plan for your business in 60 seconds.</p>
         </div>
         <div class="cta-card">
             <div class="form-row">
@@ -308,7 +310,7 @@
             
             <div id="form-error" class="error-msg"></div>
             
-            <button class="btn" style="width: 100%;" onclick="submitInitialLead()">Start My Blueprint <i data-lucide="arrow-right"></i></button>
+            <button class="btn" style="width: 100%;" onclick="submitInitialLead()">Start My Plan <i data-lucide="arrow-right"></i></button>
         </div>
     </div>
 
@@ -360,7 +362,7 @@
             <p style="opacity: 0.7; letter-spacing: 4px; font-weight: 800;">ANNUAL OPPORTUNITY</p>
             <div class="big-save" id="final-amt">$0</div>
             <p style="font-size: 1.7rem;">Recovering <strong id="final-hours" style="color:white;">0</strong> productive hours.</p>
-            <button class="btn btn-outline" style="margin-top: 30px; border-color: rgba(255,255,255,0.3); color: white;" onclick="generatePDFBlueprint()"><i data-lucide="download"></i> Download My Blueprint (PDF)</button>
+            <button class="btn btn-outline" style="margin-top: 30px; border-color: rgba(255,255,255,0.3); color: white;" onclick="generatePDFBlueprint()"><i data-lucide="download"></i> Download Plan (PDF)</button>
         </div>
         
         <div style="text-align: center; margin-top: 80px;">
@@ -397,11 +399,9 @@
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script>
-    try {
+    document.addEventListener('DOMContentLoaded', () => {
+        // EXPERT MESSAGING SLIDESHOW
         const slides = [
             { title: "Do what you're special at.<br>Let us do the paperwork.", sub: "You didn't start a business to rename PDFs. MagicFolder automatically sorts and files your messy documents the second they arrive." },
             { title: "Win more clients<br>while you sleep.", sub: "Stop losing leads to slow replies. MagicFolder instantly reads inquiries, drafts accurate quotes, and follows up 24/7." },
@@ -423,7 +423,8 @@
             }, 500); 
         }
 
-        const PERSONAS = {
+        // MATRIX DATABASE
+        window.PERSONAS = {
             realestate: { items: [
                 {id: 're-listing', label: 'Listing Agreements', desc: 'Auto-fill and file signed listing packets.'},
                 {id: 're-offer', label: 'Offer Sorting', desc: 'Identify price/terms from incoming offers.'},
@@ -482,16 +483,16 @@
             ]}
         };
 
-        let state = { currentPersona: 'general', tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
-        let PDF_LOGO_DATA = "";
+        window.state = { currentPersona: 'general', tasks: new Set(), inputs: {}, results: { amt: '$0', hours: '0' } };
+        window.PDF_LOGO_DATA = "";
 
-        const PRICING_TIERS = [
+        window.PRICING_TIERS = [
             { id: 1, name: "Smart Scan", price: "$199", setup: "+$1,500 One-Time Setup", desc: "Perfect for eliminating manual document sorting and basic filing.", features: ["MagicFolder Configuration", "Up to 2 Folder Routings", "Auto-Naming & Tagging", "Standard Support"], threshold: 2, url: "https://buy.stripe.com/28EcN71N65p2eqLbh42Fa00" },
             { id: 2, name: "Data Sync", price: "$499", setup: "+$3,500 One-Time Setup", desc: "Connect your scanner directly to your CRM, accounting, or operational software.", features: ["Everything in Smart Scan", "Up to 5 Custom Workflows", "OpenAI Data Extraction", "API Sync (Salesforce, QBO)"], threshold: 5, url: "https://buy.stripe.com/cNi8wRezS6t6ciD5WK2Fa01" },
             { id: 3, name: "Full Back-Office", price: "$999+", setup: "Custom Scope Setup", desc: "End-to-end operational automation. Complete data extraction and multi-app syncing.", features: ["Everything in Data Sync", "Unlimited Workflows", "Complex Make.com Routing", "Priority Break-Fix SLA"], threshold: 99, url: "https://calendly.com/" }
         ];
 
-        function renderHomepagePricing() {
+        window.renderHomepagePricing = function() {
             const container = document.getElementById('home-pricing-grid');
             if(!container) return;
             let html = '<div class="pricing-grid">';
@@ -517,9 +518,9 @@
             });
             html += '</div>';
             container.innerHTML = html;
-        }
+        };
 
-        function renderWizardPricing(taskCount) {
+        window.renderWizardPricing = function(taskCount) {
             const container = document.getElementById('wizard-pricing-container');
             const header = document.getElementById('recommendation-header');
             if(!container || !header) return;
@@ -555,7 +556,7 @@
             html += '</div>';
             container.innerHTML = html;
             if(typeof lucide !== 'undefined') lucide.createIcons();
-        }
+        };
 
         window.startJourney = function() { 
             document.getElementById('ecosystem').classList.add('hidden');
@@ -602,7 +603,7 @@
 
         window.validateStep1 = function() { renderTasks(); setStep(2); };
 
-        function renderTasks() {
+        window.renderTasks = function() {
             const list = document.getElementById('task-list');
             list.innerHTML = PERSONAS[state.currentPersona].items.map(i => `
                 <div class="audit-item ${state.tasks.has(i.id) ? 'selected' : ''}" onclick="toggleTask('${i.id}')">
@@ -610,7 +611,7 @@
                     <div><div style="font-weight:800;">${i.label}</div><div style="color:var(--text-muted); font-size:0.85rem;">${i.desc}</div></div>
                 </div>`).join('');
             if(typeof lucide !== 'undefined') lucide.createIcons();
-        }
+        };
 
         window.toggleTask = function(id) {
             if(state.tasks.has(id)) state.tasks.delete(id); else state.tasks.add(id);
@@ -619,7 +620,7 @@
 
         window.validateStep2 = function() { if(state.tasks.size === 0) return; renderSliders(); setStep(3); };
 
-        function renderSliders() {
+        window.renderSliders = function() {
             const cont = document.getElementById('slider-box');
             const activeItems = PERSONAS[state.currentPersona].items.filter(i => state.tasks.has(i.id));
             cont.innerHTML = activeItems.map(i => {
@@ -630,7 +631,7 @@
                     <input type="range" min="0" max="100" value="${state.inputs[i.id]}" oninput="state.inputs['${i.id}']=parseInt(this.value); document.getElementById('val-${i.id}').innerText=this.value" style="width:100%; accent-color:var(--primary);">
                 </div>`;
             }).join('');
-        }
+        };
 
         window.finishJourney = function() {
             let h = 0, v = 0, rate = parseInt(document.getElementById('hourly-rate').value) || 150;
@@ -645,7 +646,6 @@
             document.getElementById('final-hours').innerText = state.results.hours;
             
             renderWizardPricing(state.tasks.size);
-            
             setStep(5);
         };
 
@@ -668,7 +668,7 @@
             
             doc.setTextColor(255, 255, 255); 
             doc.setFontSize(16); 
-            doc.text(`AUTOMATION BLUEPRINT: ${name.toUpperCase()}`, 105, 80, { align: 'center' });
+            doc.text(`AUTOMATION PLAN: ${name.toUpperCase()}`, 105, 80, { align: 'center' });
             
             doc.setTextColor(15, 23, 42); 
             doc.setFontSize(14); 
@@ -700,38 +700,34 @@
             doc.save(`MagicFolder-Plan-${name.replace(/ /g, '-')}.pdf`);
         };
 
-        window.onload = function() {
-            const canvas = document.getElementById('logo-canvas'); 
-            if(canvas) {
-                const ctx = canvas.getContext('2d');
-                const drawLogoToCanvas = () => {
-                    ctx.clearRect(0,0,1200,500); 
-                    ctx.save(); ctx.translate(400, 50); ctx.scale(4, 4); 
-                    ctx.fillStyle = '#4f46e5'; ctx.globalAlpha = 0.15; ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3.5; ctx.lineJoin = 'round';
-                    let p1 = new Path2D('M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z');
-                    ctx.fill(p1); ctx.stroke(p1);
-                    ctx.globalAlpha = 0.3; let p2 = new Path2D('M15,50 L85,50 L85,85 L15,85 Z'); ctx.fill(p2);
-                    ctx.globalAlpha = 1.0; ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 6; ctx.lineCap = 'round';
-                    ctx.beginPath(); ctx.moveTo(68, 22); ctx.lineTo(88, 42); ctx.stroke();
-                    ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3;
-                    ctx.beginPath(); ctx.moveTo(62, 18); ctx.lineTo(68, 24); ctx.moveTo(58, 24); ctx.lineTo(64, 30); ctx.stroke();
-                    ctx.fillStyle = '#4f46e5'; ctx.beginPath(); ctx.arc(68, 22, 3, 0, 2*Math.PI); ctx.fill();
-                    ctx.restore();
-                    ctx.font = '800 120px "Plus Jakarta Sans", sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#0f172a';
-                    ctx.fillText('MagicFolder', 600, 420);
-                    PDF_LOGO_DATA = canvas.toDataURL('image/png');
-                };
-                if(document.fonts) { document.fonts.load('800 48px "Plus Jakarta Sans"').then(drawLogoToCanvas).catch(drawLogoToCanvas); } else { drawLogoToCanvas(); }
-            }
-            
-            setInterval(cycleContent, 6000); 
-            renderHomepagePricing(); 
-            if(typeof lucide !== 'undefined') lucide.createIcons();
-        };
-    } catch(e) {
-        console.error("MagicFolder script initialization error:", e);
-    }
-    })();
+        // Execute visual renders immediately upon DOM load
+        const canvas = document.getElementById('logo-canvas'); 
+        if(canvas) {
+            const ctx = canvas.getContext('2d');
+            const drawLogoToCanvas = () => {
+                ctx.clearRect(0,0,1200,500); 
+                ctx.save(); ctx.translate(400, 50); ctx.scale(4, 4); 
+                ctx.fillStyle = '#4f46e5'; ctx.globalAlpha = 0.15; ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3.5; ctx.lineJoin = 'round';
+                let p1 = new Path2D('M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z');
+                ctx.fill(p1); ctx.stroke(p1);
+                ctx.globalAlpha = 0.3; let p2 = new Path2D('M15,50 L85,50 L85,85 L15,85 Z'); ctx.fill(p2);
+                ctx.globalAlpha = 1.0; ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 6; ctx.lineCap = 'round';
+                ctx.beginPath(); ctx.moveTo(68, 22); ctx.lineTo(88, 42); ctx.stroke();
+                ctx.strokeStyle = '#4f46e5'; ctx.lineWidth = 3;
+                ctx.beginPath(); ctx.moveTo(62, 18); ctx.lineTo(68, 24); ctx.moveTo(58, 24); ctx.lineTo(64, 30); ctx.stroke();
+                ctx.fillStyle = '#4f46e5'; ctx.beginPath(); ctx.arc(68, 22, 3, 0, 2*Math.PI); ctx.fill();
+                ctx.restore();
+                ctx.font = '800 120px "Plus Jakarta Sans", sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#0f172a';
+                ctx.fillText('MagicFolder', 600, 420);
+                PDF_LOGO_DATA = canvas.toDataURL('image/png');
+            };
+            if(document.fonts) { document.fonts.load('800 48px "Plus Jakarta Sans"').then(drawLogoToCanvas).catch(drawLogoToCanvas); } else { drawLogoToCanvas(); }
+        }
+        
+        setInterval(cycleContent, 6000); 
+        renderHomepagePricing(); 
+        if(typeof lucide !== 'undefined') lucide.createIcons();
+    });
 </script>
 </body>
 </html>
