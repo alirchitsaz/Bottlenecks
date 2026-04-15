@@ -23,11 +23,11 @@
         .nav-links a { color: var(--text-main); font-weight: 700; text-decoration: none; font-size: 1rem; transition: 0.2s; cursor: pointer; }
         .nav-links a:hover { color: var(--primary); }
 
-        /* HERO */
-        .hero { padding: 60px 0 30px; text-align: center; }
-        .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 20px; color: var(--bg-dark); }
+        /* HERO - SLIDESHOW */
+        .hero { padding: 60px 0 30px; text-align: center; min-height: 280px; display: flex; flex-direction: column; justify-content: center; }
+        .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 20px; color: var(--bg-dark); transition: opacity 0.5s ease; min-height: 1.2em; }
         .hero h1 span { color: var(--primary); }
-        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 780px; margin: 0 auto; line-height: 1.6; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 780px; margin: 0 auto; line-height: 1.6; transition: opacity 0.5s ease; min-height: 3.2em; }
 
         /* BUTTONS */
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--text-main); color: white; padding: 16px 36px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.1rem; text-decoration: none; }
@@ -35,10 +35,10 @@
         .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-main); }
         .btn-outline:hover { background: var(--surface); border-color: var(--text-muted); transform: none; box-shadow: none; }
 
-        /* LAYOUT: CATALOG vs CART */
-        .app-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; margin-top: 40px; align-items: start; padding-bottom: 60px;}
+        /* LAYOUT: MENU vs CART */
+        .app-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; margin-top: 20px; align-items: start; padding-bottom: 60px;}
         
-        /* CATALOG (LEFT SIDE) */
+        /* MENU (LEFT SIDE) */
         .catalog-header { margin-bottom: 24px; }
         .catalog-header h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
         .catalog-header p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.5; max-width: 600px; }
@@ -150,7 +150,7 @@
                 transform: translateY(0);
             }
 
-            .cart-close-btn { display: block; } /* Show close X in modal */
+            .cart-close-btn { display: block; }
             .cart-header { margin-bottom: 16px; border-bottom: none; }
 
             /* FLOATING PILL FOR MOBILE */
@@ -202,16 +202,16 @@
 <div class="container" id="main-app">
     
     <div class="hero" id="hero-section">
-        <h1>Automate your business, <span>simply.</span></h1>
-        <p>We don't force you into a massive new software platform. We build simple, scalable, and safe automations that live entirely within your current software ecosystem. Pick the workflows you need, and we'll calculate your exact ROI.</p>
+        <h1 id="slideshow-title">Stop doing manual data entry.</h1>
+        <p id="slideshow-sub">Make technology simple. We deploy proven, safe automations that handle your busywork right inside the software you already use.</p>
     </div>
 
     <div class="app-layout" id="builder-section">
         
         <div class="catalog-section">
             <div class="catalog-header">
-                <h2>Workflow Catalog</h2>
-                <p>Choose the scalable processes you want to put on autopilot. Select any combination of workflows to build your custom scope.</p>
+                <h2>The Automation Menu</h2>
+                <p>Simple. Fast. Proven. We don't reinvent the wheel. Choose the everyday tasks you want to put on autopilot so your business doesn't get left behind.</p>
             </div>
             
             <div class="workflow-grid" id="catalog-grid">
@@ -221,13 +221,13 @@
         <div class="cart-sticky" id="cart-modal-overlay">
             <div class="cart-box" id="cart-box">
                 <div class="cart-header">
-                    <div style="display:flex; align-items:center; gap:10px;"><i data-lucide="layers"></i> Your Blueprint</div>
+                    <div style="display:flex; align-items:center; gap:10px;"><i data-lucide="layers"></i> Your Savings Plan</div>
                     <button class="cart-close-btn" onclick="toggleMobileCart()"><i data-lucide="x" size="24"></i></button>
                 </div>
                 
                 <div id="cart-empty-state" class="cart-empty">
                     <i data-lucide="shopping-cart" size="32"></i><br>
-                    Select workflows to see your savings.
+                    Select tasks to see your savings.
                 </div>
 
                 <div id="cart-full-state" class="hidden">
@@ -246,12 +246,12 @@
                     </div>
 
                     <div class="tier-recommendation">
-                        <div class="tier-label"><i data-lucide="sparkles" size="14"></i> Recommended Architecture</div>
+                        <div class="tier-label"><i data-lucide="sparkles" size="14"></i> Recommended Setup</div>
                         <div class="tier-name" id="rec-tier-name">Smart Scan</div>
                         <div class="tier-price" id="rec-tier-price">$199/mo + Setup</div>
                     </div>
 
-                    <button class="btn" style="width: 100%; justify-content: center;" onclick="proceedToCheckout()">Lock in My Scope <i data-lucide="arrow-right"></i></button>
+                    <button class="btn" style="width: 100%; justify-content: center;" onclick="proceedToCheckout()">Lock in My Plan <i data-lucide="arrow-right"></i></button>
                 </div>
             </div>
         </div>
@@ -261,14 +261,14 @@
                 <i data-lucide="layers" size="20"></i> <span id="pill-count">0</span> Selected
             </div>
             <div class="pill-right">
-                View Blueprint <i data-lucide="chevron-up" size="18"></i>
+                View Plan <i data-lucide="chevron-up" size="18"></i>
             </div>
         </div>
 
     </div>
 
     <div id="checkout-view" class="hidden" style="padding: 40px 0;">
-        <button class="btn btn-outline" onclick="backToBuilder()" style="margin-bottom: 40px; border:none; padding:10px 0;"><i data-lucide="arrow-left"></i> Back to Catalog</button>
+        <button class="btn btn-outline" onclick="backToBuilder()" style="margin-bottom: 40px; border:none; padding:10px 0;"><i data-lucide="arrow-left"></i> Back to Menu</button>
         
         <div class="checkout-box">
             <h2 id="checkout-tier-name" style="font-size: 2.2rem; margin-bottom: 8px;">Tier Name</h2>
@@ -276,7 +276,7 @@
             
             <div class="checkout-summary">
                 <div class="checkout-line">
-                    <span style="color:var(--text-muted);">One-Time Setup & Architecture:</span> 
+                    <span style="color:var(--text-muted);">One-Time Setup & Deployment:</span> 
                     <span id="checkout-tier-setup" style="font-weight: 800;">$X,XXX</span>
                 </div>
                 <div class="checkout-line total">
@@ -289,15 +289,15 @@
             <ul class="onboard-steps">
                 <li>
                     <div class="step-icon"><i data-lucide="credit-card"></i></div>
-                    <div><strong>1. Secure your architecture.</strong> The one-time setup fee is processed securely via Stripe.</div>
+                    <div><strong>1. Secure your setup.</strong> The one-time setup fee is processed securely via Stripe.</div>
                 </li>
                 <li>
                     <div class="step-icon"><i data-lucide="calendar-days"></i></div>
-                    <div><strong>2. Book your kickoff.</strong> Instantly schedule your technical onboarding call with our team.</div>
+                    <div><strong>2. Book your kickoff.</strong> Instantly schedule your quick onboarding call with our team.</div>
                 </li>
                 <li>
                     <div class="step-icon"><i data-lucide="rocket"></i></div>
-                    <div><strong>3. We build it.</strong> Our engineers configure, test, and deploy your automations entirely within your ecosystem.</div>
+                    <div><strong>3. We build it.</strong> Our experts configure, test, and deploy your automations inside your existing software.</div>
                 </li>
             </ul>
 
@@ -311,7 +311,7 @@
         </div>
         <h2 id="waiting-title" style="font-size: 2.2rem; margin-bottom: 12px; letter-spacing: -0.02em;">Checkout in Progress</h2>
         <p id="waiting-desc" style="color: var(--text-muted); font-size: 1.15rem; margin-bottom: 30px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto;">
-            A secure window has been opened in a new tab. Please complete your transaction there to secure your architecture.
+            A secure window has been opened in a new tab. Please complete your transaction there to secure your setup.
         </p>
         <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 30px; max-width: 500px; margin: 0 auto 30px;">
             <p style="font-weight: 700; margin-bottom: 16px; font-size: 1.05rem;">Accidentally closed the tab?</p>
@@ -325,9 +325,31 @@
 <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 
 <script>
+    // HERO SLIDESHOW (THE RIBBON)
+    const slides = [
+        { title: "Stop doing manual data entry.", sub: "Make technology simple. We deploy proven, safe automations that handle your busywork right inside the tools you already use." },
+        { title: "Don't get left behind by AI.", sub: "You don't need a massive IT project. We connect your physical scanner directly to your accounting and CRM software in days, not months." },
+        { title: "Turn your copier into an employee.", sub: "Why pay a human to rename PDFs? Pick the everyday chores you hate doing, and we'll put them on autopilot." }
+    ];
+    
+    let slideIndex = 0;
+    function cycleContent() {
+        const t = document.getElementById('slideshow-title');
+        const s = document.getElementById('slideshow-sub');
+        if(!t || !s) return;
+        t.style.opacity = 0; s.style.opacity = 0;
+        setTimeout(() => {
+            slideIndex = (slideIndex + 1) % slides.length;
+            t.innerHTML = slides[slideIndex].title;
+            s.innerHTML = slides[slideIndex].sub;
+            t.style.opacity = 1; s.style.opacity = 1;
+        }, 500); 
+    }
+    setInterval(cycleContent, 6000);
+
     // THE CATALOG DATABASE
-    const WORKFLOWS = [
-        { id: 'smart-file', title: 'Zero-Touch Document Filing (Our Core)', icon: 'folder-tree', desc: 'Our namesake core workflow. Stop manually renaming and sorting PDFs. The AI reads incoming scans, standardizes the file nomenclature, and routes them to the exact right client folder on your local network.', timeSavedMins: 5 },
+    const TASKS = [
+        { id: 'smart-file', title: 'Zero-Touch Document Filing', icon: 'folder-tree', desc: 'Stop manually renaming and sorting PDFs. The AI reads incoming scans, standardizes the file name, and routes them to the exact right client folder on your local network.', timeSavedMins: 5 },
         { id: 'ap-invoice', title: 'Accounts Payable Sync', icon: 'calculator', desc: 'Forward PDF bills to a secure email. The AI extracts line items, dates, and totals, logging them directly into QuickBooks or Xero.', timeSavedMins: 10 },
         { id: 'crm-entry', title: 'CRM Lead Routing', icon: 'users', desc: 'Stop copying and pasting. We extract contact info from email signatures, web forms, or inquiries and push them instantly to Salesforce or HubSpot.', timeSavedMins: 5 },
         { id: 'auto-reply', title: 'Intelligent Auto-Replies', icon: 'message-square-reply', desc: 'Trigger instant, personalized email or SMS replies to clients the moment a specific document (like an application or contract) is received.', timeSavedMins: 5 },
@@ -342,31 +364,31 @@
     ];
 
     // STATE
-    let activeWorkflows = {}; 
+    let activeTasks = {}; 
 
     function renderCatalog() {
         const grid = document.getElementById('catalog-grid');
         let html = '';
         
-        WORKFLOWS.forEach((wf) => {
-            const isActive = activeWorkflows[wf.id] !== undefined;
-            const volume = isActive ? activeWorkflows[wf.id] : 10; 
+        TASKS.forEach((task) => {
+            const isActive = activeTasks[task.id] !== undefined;
+            const volume = isActive ? activeTasks[task.id] : 10; 
 
             html += `
-            <div class="workflow-card ${isActive ? 'active' : ''}" id="card-${wf.id}">
+            <div class="workflow-card ${isActive ? 'active' : ''}" id="card-${task.id}">
                 <div class="wc-top">
-                    <div class="wc-icon"><i data-lucide="${wf.icon}"></i></div>
+                    <div class="wc-icon"><i data-lucide="${task.icon}"></i></div>
                     <div>
-                        <div class="wc-title">${wf.title}</div>
-                        <div class="wc-desc">${wf.desc}</div>
+                        <div class="wc-title">${task.title}</div>
+                        <div class="wc-desc">${task.desc}</div>
                     </div>
                 </div>
                 <div class="wc-action">
-                    <button class="add-btn" onclick="addWorkflow('${wf.id}')"><i data-lucide="plus" size="18"></i> Add to Plan</button>
+                    <button class="add-btn" onclick="addTask('${task.id}')"><i data-lucide="plus" size="18"></i> Add to Plan</button>
                     <div class="slider-ui">
-                        <div class="vol-label">Volume per week: <span id="val-${wf.id}">${volume}</span></div>
-                        <input type="range" min="1" max="250" value="${volume}" oninput="updateVolume('${wf.id}', this.value)">
-                        <button class="remove-btn" onclick="removeWorkflow('${wf.id}')"><i data-lucide="trash-2" size="14"></i> Remove from Plan</button>
+                        <div class="vol-label">Volume per week: <span id="val-${task.id}">${volume}</span></div>
+                        <input type="range" min="1" max="250" value="${volume}" oninput="updateVolume('${task.id}', this.value)">
+                        <button class="remove-btn" onclick="removeTask('${task.id}')"><i data-lucide="trash-2" size="14"></i> Remove from Plan</button>
                     </div>
                 </div>
             </div>`;
@@ -375,26 +397,26 @@
         if(typeof lucide !== 'undefined') lucide.createIcons();
     }
 
-    function addWorkflow(id) {
-        activeWorkflows[id] = 10; 
+    function addTask(id) {
+        activeTasks[id] = 10; 
         renderCatalog();
         updateCart();
     }
 
-    function removeWorkflow(id) {
-        delete activeWorkflows[id];
+    function removeTask(id) {
+        delete activeTasks[id];
         renderCatalog();
         updateCart();
     }
 
     function updateVolume(id, val) {
-        activeWorkflows[id] = parseInt(val);
+        activeTasks[id] = parseInt(val);
         document.getElementById(`val-${id}`).innerText = val;
         updateCart();
     }
 
     function updateCart() {
-        const activeIds = Object.keys(activeWorkflows);
+        const activeIds = Object.keys(activeTasks);
         const emptyState = document.getElementById('cart-empty-state');
         const fullState = document.getElementById('cart-full-state');
         const mobilePill = document.getElementById('mobile-pill');
@@ -416,14 +438,14 @@
 
         const list = document.getElementById('cart-items-list');
         list.innerHTML = activeIds.map(id => {
-            const wf = WORKFLOWS.find(w => w.id === id);
-            return `<li class="cart-item"><span>${wf.title}</span> <span style="color:var(--primary);">${activeWorkflows[id]}/wk</span></li>`;
+            const task = TASKS.find(t => t.id === id);
+            return `<li class="cart-item"><span>${task.title}</span> <span style="color:var(--primary);">${activeTasks[id]}/wk</span></li>`;
         }).join('');
 
         let totalMinsPerWeek = 0;
         activeIds.forEach(id => {
-            const wf = WORKFLOWS.find(w => w.id === id);
-            totalMinsPerWeek += (wf.timeSavedMins * activeWorkflows[id]);
+            const task = TASKS.find(t => t.id === id);
+            totalMinsPerWeek += (task.timeSavedMins * activeTasks[id]);
         });
         
         const hoursPerYear = (totalMinsPerWeek / 60) * 52;
@@ -491,7 +513,7 @@
             document.getElementById('waiting-desc').innerText = "A secure Calendly window has been opened in a new tab. Please select a time to finalize your discovery call.";
         } else {
             document.getElementById('waiting-title').innerText = "Checkout in Progress";
-            document.getElementById('waiting-desc').innerText = "A secure Stripe window has been opened in a new tab. Please complete your transaction there to secure your architecture.";
+            document.getElementById('waiting-desc').innerText = "A secure Stripe window has been opened in a new tab. Please complete your transaction there to secure your setup.";
         }
         
         document.querySelector('#checkout-view > .checkout-box').classList.add('hidden');
@@ -516,7 +538,6 @@
         renderCatalog();
         updateCart();
         
-        // Add CSS keyframes for spinner dynamically since it's hardcoded in HTML
         const style = document.createElement('style');
         style.innerHTML = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
         document.head.appendChild(style);
