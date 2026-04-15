@@ -9,7 +9,7 @@
     
     <style>
         :root { --primary: #4f46e5; --primary-soft: rgba(79, 70, 229, 0.08); --bg: #f8fafc; --surface: #ffffff; --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05); --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.1); }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         body { background: var(--bg); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.5; overflow-x: hidden; }
         .container { max-width: 1250px; margin: 0 auto; padding: 0 24px; }
         
@@ -158,16 +158,16 @@
 <div class="container" id="main-app">
     
     <div class="hero" id="hero-section">
-        <h1 id="slideshow-title">Stop doing manual data entry.</h1>
-        <p id="slideshow-sub">Make technology simple. We deploy proven, highly-scalable automations that handle your busywork right inside QuickBooks and your email.</p>
+        <h1 id="slideshow-title">Stop doing paperwork at 8 PM.</h1>
+        <p id="slideshow-sub">You didn't start a business to do data entry. We set up simple, proven tools that handle your busywork right inside QuickBooks and your email.</p>
     </div>
 
     <div class="app-layout" id="builder-section">
         
         <div class="catalog-section">
             <div class="catalog-header">
-                <h2>The Automation Menu</h2>
-                <p>Simple. Fast. Proven. Choose the everyday chores you want to put on autopilot so you can focus on growing your business.</p>
+                <h2>Choose your chores to automate</h2>
+                <p>We don't sell confusing software. Pick the everyday tasks you hate doing, and we'll put them on autopilot so you can focus on growing your business.</p>
             </div>
             
             <div class="workflow-grid" id="catalog-grid">
@@ -183,7 +183,7 @@
                 
                 <div id="cart-empty-state" class="cart-empty">
                     <i data-lucide="shopping-cart" size="32"></i><br>
-                    Select tasks to see your savings.
+                    Select chores to see your savings.
                 </div>
 
                 <div id="cart-full-state" class="hidden">
@@ -245,7 +245,7 @@
             <ul class="onboard-steps">
                 <li>
                     <div class="step-icon"><i data-lucide="credit-card"></i></div>
-                    <div><strong>1. Secure your setup.</strong> The one-time setup fee is processed securely via Stripe.</div>
+                    <div><strong>1. Secure your setup.</strong> The one-time setup fee is processed securely.</div>
                 </li>
                 <li>
                     <div class="step-icon"><i data-lucide="calendar-days"></i></div>
@@ -253,7 +253,7 @@
                 </li>
                 <li>
                     <div class="step-icon"><i data-lucide="rocket"></i></div>
-                    <div><strong>3. We build it.</strong> Our experts configure, test, and deploy your automations inside your existing software.</div>
+                    <div><strong>3. We build it.</strong> Our experts configure and test your automations directly inside your existing software.</div>
                 </li>
             </ul>
 
@@ -283,8 +283,8 @@
 <script>
     // HERO SLIDESHOW 
     const slides = [
-        { title: "Stop doing manual data entry.", sub: "Make technology simple. We deploy proven, safe automations that handle your busywork right inside QuickBooks and your email." },
-        { title: "Don't get left behind by AI.", sub: "You don't need a massive IT project. We connect your tools and automate your paperwork in days, not months." },
+        { title: "Stop doing paperwork at 8 PM.", sub: "You didn't start a business to do data entry. We set up simple, proven tools that handle your busywork right inside QuickBooks and your email." },
+        { title: "Don't get left behind by tech.", sub: "You don't need a massive IT project. We connect your copier and tools in days, not months, so you can work faster." },
         { title: "Put your business on autopilot.", sub: "Why pay an employee to rename PDFs and type invoices? Pick the chores you hate doing, and we'll handle the rest." }
     ];
     
@@ -303,14 +303,14 @@
     }
     setInterval(cycleContent, 6000);
 
-    // SCALABLE SMB DATABASE
+    // SCALABLE SMB DATABASE - JARGON FREE
     const TASKS = [
-        { id: 'ap-entry', title: 'Accounts Payable Auto-Entry', icon: 'calculator', desc: 'Stop typing supplier bills at 8 PM. Forward PDFs to a dedicated email (or scan them). The AI extracts line items and logs them as ready-to-pay Bills in QuickBooks.', timeSavedMins: 10 },
-        { id: 'quote-gen', title: 'Instant Estimate Generation', icon: 'file-text', desc: 'When a client emails requesting service, the AI reads the request and instantly drafts a professional Estimate in QuickBooks for your review.', timeSavedMins: 15 },
-        { id: 'lead-reply', title: 'The 5-Minute Lead Responder', icon: 'zap', desc: 'Never lose a lead to a faster competitor. Instantly sends a personalized email reply to new website inquiries and logs their contact info into a simple tracking sheet.', timeSavedMins: 5 },
-        { id: 'receipt-log', title: 'Field Receipt & Expense Sync', icon: 'receipt', desc: 'Your crew takes a photo of a materials receipt (e.g., Home Depot). The AI extracts the total and vendor, and attaches it to the correct job in QuickBooks.', timeSavedMins: 8 },
-        { id: 'magic-file', title: 'The Magic Filing Cabinet', icon: 'folder-tree', desc: 'Our core scanner workflow. You scan a stack of mixed mail. The AI separates it, names it perfectly (e.g., "2026-04_PG&E_Bill.pdf"), and drops it in the right Google Drive or local folder.', timeSavedMins: 5 },
-        { id: 'onboarding', title: 'New Client Onboarding', icon: 'user-check', desc: 'When a new client signs a quote, this automatically creates their customer profile in QuickBooks, creates their secure project folder, and sends a welcome email.', timeSavedMins: 12 }
+        { id: 'ap-entry', title: 'Auto-Pay Supplier Bills', icon: 'calculator', desc: 'Stop typing bills from Home Depot or Ferguson at night. Just forward the email or scan the paper. We read it and create the Bill in QuickBooks automatically.', timeSavedMins: 10 },
+        { id: 'quote-gen', title: 'Instant Customer Quotes', icon: 'file-text', desc: 'A customer emails asking for a price. We read their email and instantly draft a ready-to-send Estimate in QuickBooks. You just click approve.', timeSavedMins: 15 },
+        { id: 'lead-reply', title: 'Fast Lead Follow-Up', icon: 'zap', desc: 'If you take 4 hours to reply, they hire someone else. We instantly reply to new website inquiries so you never lose a job to a faster competitor.', timeSavedMins: 5 },
+        { id: 'receipt-log', title: 'Job-Site Receipt Tracker', icon: 'receipt', desc: 'Your crew buys materials, takes a picture of the receipt, and throws it away. We automatically read the photo and attach the cost to the right job in QuickBooks.', timeSavedMins: 8 },
+        { id: 'magic-file', title: 'The Magic Filing Cabinet', icon: 'folder-tree', desc: 'Scan a messy stack of mail. We separate the pages, name them perfectly (like "PG&E Bill April"), and save them in the right client folder. No more lost paperwork.', timeSavedMins: 5 },
+        { id: 'onboarding', title: 'Automatic Client Setup', icon: 'user-check', desc: 'When a customer finally signs a contract, we automatically add them to QuickBooks, create their project folder, and send them a welcome email.', timeSavedMins: 12 }
     ];
 
     const PRICING_TIERS = [
@@ -341,7 +341,7 @@
                 <div class="wc-action">
                     <button class="add-btn" onclick="addTask('${task.id}')"><i data-lucide="plus" size="18"></i> Add to Plan</button>
                     <div class="slider-ui">
-                        <div class="vol-label">Volume per week: <span id="val-${task.id}">${volume}</span></div>
+                        <div class="vol-label">Times you do this a week: <span id="val-${task.id}">${volume}</span></div>
                         <input type="range" min="1" max="250" value="${volume}" oninput="updateVolume('${task.id}', this.value)">
                         <button class="remove-btn" onclick="removeTask('${task.id}')"><i data-lucide="trash-2" size="14"></i> Remove from Plan</button>
                     </div>
