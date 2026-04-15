@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MagicFolder | Simple. Smart. Secure.</title>
+    <title>MagicFolder | Simple. Scalable. Safe.</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z' fill='%234f46e5' opacity='0.2'/%3E%3Cline x1='70' y1='25' x2='85' y2='45' stroke='%230f172a' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='25' r='3' fill='%234f46e5'/%3E%3C/svg%3E">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@
         .hero { padding: 60px 0 30px; text-align: center; }
         .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 20px; color: var(--bg-dark); }
         .hero h1 span { color: var(--primary); }
-        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 780px; margin: 0 auto; line-height: 1.6; }
 
         /* BUTTONS */
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--text-main); color: white; padding: 16px 36px; border-radius: 100px; font-weight: 800; transition: 0.3s; cursor: pointer; border: none; font-size: 1.1rem; text-decoration: none; }
@@ -36,37 +36,25 @@
         .btn-outline:hover { background: var(--surface); border-color: var(--text-muted); transform: none; box-shadow: none; }
 
         /* LAYOUT: CATALOG vs CART */
-        .app-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; margin-top: 30px; align-items: start; padding-bottom: 60px;}
+        .app-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; margin-top: 40px; align-items: start; padding-bottom: 60px;}
         
         /* CATALOG (LEFT SIDE) */
-        .catalog-header { margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
-        .catalog-header h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
-        .catalog-header .badge { background: var(--primary-soft); color: var(--primary); padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .catalog-header { margin-bottom: 24px; }
+        .catalog-header h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+        .catalog-header p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.5; max-width: 600px; }
         
         .workflow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .workflow-card { background: var(--surface); border: 2px solid var(--border); border-radius: 20px; padding: 24px; transition: 0.3s; position: relative; overflow: hidden; display: flex; flex-direction: column; }
         .workflow-card:hover { border-color: #cbd5e1; box-shadow: var(--shadow-sm); }
         .workflow-card.active { border-color: var(--primary); background: #f8faff; box-shadow: 0 10px 30px var(--primary-soft); }
-        
-        /* THE FEATURED CORE CARD (MagicFolder Identity) */
-        .workflow-card.featured { grid-column: 1 / -1; background: #0f172a; border-color: #0f172a; color: white; }
-        .workflow-card.featured .wc-title { color: white; font-size: 1.4rem; }
-        .workflow-card.featured .wc-desc { color: #94a3b8; font-size: 1rem; max-width: 80%; }
-        .workflow-card.featured .wc-icon { background: rgba(255,255,255,0.1); border: none; color: #818cf8; width: 60px; height: 60px; }
-        .workflow-card.featured .add-btn { border-color: rgba(255,255,255,0.2); color: white; }
-        .workflow-card.featured .add-btn:hover { background: var(--primary); border-color: var(--primary); }
-        .workflow-card.featured .vol-label { color: white; }
-        .workflow-card.featured .vol-label span { color: #818cf8; }
-        .workflow-card.featured.active { border-color: var(--primary); box-shadow: 0 15px 40px rgba(79, 70, 229, 0.3); }
 
         .wc-top { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; }
-        .wc-icon { width: 48px; height: 48px; background: var(--bg); border: 1px solid var(--border); color: var(--primary); border-radius: 12px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
-        .workflow-card.active:not(.featured) .wc-icon { background: var(--primary); color: white; border-color: var(--primary); }
+        .wc-icon { width: 48px; height: 48px; background: var(--bg); border: 1px solid var(--border); color: var(--primary); border-radius: 12px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; transition: 0.3s; }
+        .workflow-card.active .wc-icon { background: var(--primary); color: white; border-color: var(--primary); }
         .wc-title { font-weight: 800; font-size: 1.15rem; color: var(--text-main); margin-bottom: 4px; line-height: 1.2; }
         .wc-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
         
         .wc-action { margin-top: auto; padding-top: 16px; border-top: 1px dashed var(--border); }
-        .workflow-card.featured .wc-action { border-top-color: rgba(255,255,255,0.1); }
         .add-btn { width: 100%; background: transparent; border: 2px dashed #cbd5e1; color: var(--text-main); font-weight: 700; padding: 12px; border-radius: 10px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; }
         .add-btn:hover { border-color: var(--primary); color: var(--primary); background: white; }
         
@@ -129,7 +117,6 @@
         @media(max-width: 992px) { 
             .app-layout { grid-template-columns: 1fr; margin-top: 10px; }
             .workflow-grid { grid-template-columns: 1fr; }
-            .workflow-card.featured .wc-desc { max-width: 100%; }
             
             /* Hide the actual sidebar cart visually on mobile initially */
             .cart-sticky { 
@@ -189,10 +176,8 @@
             .pill-left { display: flex; align-items: center; gap: 10px; font-size: 1.05rem; }
             .pill-right { display: flex; align-items: center; gap: 6px; color: #818cf8; }
             
-            /* If no items, hide the pill */
             .mobile-pill.hidden { display: none; }
             
-            /* Give the bottom of the page breathing room so the pill doesn't block content */
             .catalog-section { padding-bottom: 100px; }
             .checkout-box { padding: 32px 20px; }
         }
@@ -217,13 +202,18 @@
 <div class="container" id="main-app">
     
     <div class="hero" id="hero-section">
-        <h1>Build your <span>AI Employee.</span></h1>
-        <p>Select the highly-scalable workflows you want to put on autopilot. We'll calculate exactly how much time and money you'll save, and recommend the perfect architecture plan.</p>
+        <h1>Automate your business, <span>simply.</span></h1>
+        <p>We don't force you into a massive new software platform. We build simple, scalable, and safe automations that live entirely within your current software ecosystem. Pick the workflows you need, and we'll calculate your exact ROI.</p>
     </div>
 
     <div class="app-layout" id="builder-section">
         
         <div class="catalog-section">
+            <div class="catalog-header">
+                <h2>Workflow Catalog</h2>
+                <p>Choose the scalable processes you want to put on autopilot. Select any combination of workflows to build your custom scope.</p>
+            </div>
+            
             <div class="workflow-grid" id="catalog-grid">
                 </div>
         </div>
@@ -307,12 +297,27 @@
                 </li>
                 <li>
                     <div class="step-icon"><i data-lucide="rocket"></i></div>
-                    <div><strong>3. We build it.</strong> Our engineers configure, test, and deploy your automations.</div>
+                    <div><strong>3. We build it.</strong> Our engineers configure, test, and deploy your automations entirely within your ecosystem.</div>
                 </li>
             </ul>
 
-            <a id="checkout-btn" href="#" target="_blank" class="btn" style="width: 100%; justify-content: center; font-size: 1.25rem; padding: 24px;">Proceed to Secure Checkout <i data-lucide="lock"></i></a>
+            <a id="checkout-btn" href="#" target="_blank" class="btn" style="width: 100%; justify-content: center; font-size: 1.25rem; padding: 24px;" onclick="showWaitingState()">Proceed to Secure Checkout <i data-lucide="lock"></i></a>
         </div>
+    </div>
+    
+    <div id="checkout-waiting" class="hidden checkout-box" style="text-align: center; padding: 60px 40px; max-width: 800px; margin: 0 auto;">
+        <div style="width: 80px; height: 80px; background: var(--primary-soft); border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 24px;">
+            <i data-lucide="loader-2" class="spin-anim" size="40" style="color: var(--primary); animation: spin 1.5s linear infinite;"></i>
+        </div>
+        <h2 id="waiting-title" style="font-size: 2.2rem; margin-bottom: 12px; letter-spacing: -0.02em;">Checkout in Progress</h2>
+        <p id="waiting-desc" style="color: var(--text-muted); font-size: 1.15rem; margin-bottom: 30px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto;">
+            A secure window has been opened in a new tab. Please complete your transaction there to secure your architecture.
+        </p>
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 30px; max-width: 500px; margin: 0 auto 30px;">
+            <p style="font-weight: 700; margin-bottom: 16px; font-size: 1.05rem;">Accidentally closed the tab?</p>
+            <a href="#" id="reopen-checkout" target="_blank" class="btn" style="padding: 16px 32px; font-size: 1.05rem; width: 100%; justify-content: center;">Reopen Window <i data-lucide="external-link" size="18"></i></a>
+        </div>
+        <button class="btn btn-outline" style="border: none; color: var(--text-muted);" onclick="cancelCheckout()">← Change Package</button>
     </div>
 
 </div>
@@ -322,18 +327,18 @@
 <script>
     // THE CATALOG DATABASE
     const WORKFLOWS = [
-        { id: 'smart-file', featured: true, title: 'The MagicFolder Core: Zero-Touch Document Filing', icon: 'folder-tree', desc: 'The foundation of your automated office. Stop manually renaming and sorting PDFs. The AI reads incoming scans, identifies what they are (contracts, HR forms, invoices), standardizes the file nomenclature, and routes them to the exact right client or project folder on your local network.', timeSavedMins: 5 },
+        { id: 'smart-file', title: 'Zero-Touch Document Filing (Our Core)', icon: 'folder-tree', desc: 'Our namesake core workflow. Stop manually renaming and sorting PDFs. The AI reads incoming scans, standardizes the file nomenclature, and routes them to the exact right client folder on your local network.', timeSavedMins: 5 },
         { id: 'ap-invoice', title: 'Accounts Payable Sync', icon: 'calculator', desc: 'Forward PDF bills to a secure email. The AI extracts line items, dates, and totals, logging them directly into QuickBooks or Xero.', timeSavedMins: 10 },
-        { id: 'crm-entry', title: 'CRM Lead Routing', icon: 'users', desc: 'Stop copying and pasting. We extract contact info from email signatures, web forms, or inquiries and push them instantly to Salesforce.', timeSavedMins: 5 },
-        { id: 'auto-reply', title: 'Intelligent Auto-Replies', icon: 'message-square-reply', desc: 'Trigger instant, personalized email or SMS replies to clients the moment a specific document (like an application) is received.', timeSavedMins: 5 },
+        { id: 'crm-entry', title: 'CRM Lead Routing', icon: 'users', desc: 'Stop copying and pasting. We extract contact info from email signatures, web forms, or inquiries and push them instantly to Salesforce or HubSpot.', timeSavedMins: 5 },
+        { id: 'auto-reply', title: 'Intelligent Auto-Replies', icon: 'message-square-reply', desc: 'Trigger instant, personalized email or SMS replies to clients the moment a specific document (like an application or contract) is received.', timeSavedMins: 5 },
         { id: 'receipt-log', title: 'Field Receipt Logger', icon: 'receipt', desc: 'Technicians snap a photo of a receipt. The AI extracts the vendor and amount, mapping it directly to the correct job in your accounting software.', timeSavedMins: 8 },
-        { id: 'contract-sync', title: 'Contract Data Extraction', icon: 'file-signature', desc: 'When a contract is signed, the AI pulls out the renewal dates and financial terms, syncing them to a spreadsheet or CRM calendar.', timeSavedMins: 15 }
+        { id: 'contract-sync', title: 'Contract Data Extraction', icon: 'file-signature', desc: 'When a contract is signed, the AI pulls out the renewal dates and financial terms, syncing them natively to a spreadsheet or CRM calendar.', timeSavedMins: 15 }
     ];
 
     const PRICING_TIERS = [
         { id: 1, name: "Smart Scan", price: "$199", setup: "$1,500", desc: "Perfect for eliminating manual document sorting and basic filing.", url: "https://buy.stripe.com/28EcN71N65p2eqLbh42Fa00" },
-        { id: 2, name: "Data Sync", price: "$499", setup: "$3,500", desc: "Connect your scanner directly to your CRM, accounting, or operational software.", url: "https://buy.stripe.com/cNi8wRezS6t6ciD5WK2Fa01" },
-        { id: 3, name: "Full Back-Office", price: "Custom", setup: "Custom", desc: "End-to-end operational automation. Complete data extraction and multi-app syncing.", url: "https://calendly.com/" }
+        { id: 2, name: "Data Sync", price: "$499", setup: "$3,500", desc: "Connect your documents directly to your CRM, accounting, or operational software.", url: "https://buy.stripe.com/cNi8wRezS6t6ciD5WK2Fa01" },
+        { id: 3, name: "Full Back-Office", price: "Custom", setup: "Custom Scope", desc: "End-to-end operational automation. Complete data extraction and multi-app syncing.", url: "https://calendly.com/" }
     ];
 
     // STATE
@@ -343,21 +348,12 @@
         const grid = document.getElementById('catalog-grid');
         let html = '';
         
-        // Render Featured First, then Add-ons header
-        WORKFLOWS.forEach((wf, index) => {
+        WORKFLOWS.forEach((wf) => {
             const isActive = activeWorkflows[wf.id] !== undefined;
             const volume = isActive ? activeWorkflows[wf.id] : 10; 
-            const isFeatured = wf.featured;
-            
-            if(index === 1) {
-                html += `<div style="grid-column: 1/-1; margin-top: 20px; display:flex; align-items:center; gap:12px;">
-                            <h2 style="font-size:1.5rem; font-weight:800; margin:0;">Add-On Automations</h2>
-                            <span style="background:var(--bg); padding:4px 12px; border-radius:100px; font-size:0.8rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); border:1px solid var(--border);">Select to expand your ecosystem</span>
-                         </div>`;
-            }
 
             html += `
-            <div class="workflow-card ${isActive ? 'active' : ''} ${isFeatured ? 'featured' : ''}" id="card-${wf.id}">
+            <div class="workflow-card ${isActive ? 'active' : ''}" id="card-${wf.id}">
                 <div class="wc-top">
                     <div class="wc-icon"><i data-lucide="${wf.icon}"></i></div>
                     <div>
@@ -366,9 +362,9 @@
                     </div>
                 </div>
                 <div class="wc-action">
-                    <button class="add-btn" onclick="addWorkflow('${wf.id}')"><i data-lucide="plus" size="18"></i> ${isFeatured ? 'Initialize Core Foundation' : 'Add to Plan'}</button>
+                    <button class="add-btn" onclick="addWorkflow('${wf.id}')"><i data-lucide="plus" size="18"></i> Add to Plan</button>
                     <div class="slider-ui">
-                        <div class="vol-label">Documents processed per week: <span id="val-${wf.id}">${volume}</span></div>
+                        <div class="vol-label">Volume per week: <span id="val-${wf.id}">${volume}</span></div>
                         <input type="range" min="1" max="250" value="${volume}" oninput="updateVolume('${wf.id}', this.value)">
                         <button class="remove-btn" onclick="removeWorkflow('${wf.id}')"><i data-lucide="trash-2" size="14"></i> Remove from Plan</button>
                     </div>
@@ -408,7 +404,6 @@
             emptyState.classList.remove('hidden');
             fullState.classList.add('hidden');
             mobilePill.classList.add('hidden');
-            // Close mobile modal if open and empty
             document.getElementById('cart-modal-overlay').classList.remove('modal-open');
             return;
         }
@@ -416,15 +411,13 @@
         emptyState.classList.add('hidden');
         fullState.classList.remove('hidden');
         
-        // Show Mobile Pill
         mobilePill.classList.remove('hidden');
         pillCount.innerText = activeIds.length;
 
         const list = document.getElementById('cart-items-list');
         list.innerHTML = activeIds.map(id => {
             const wf = WORKFLOWS.find(w => w.id === id);
-            const shortTitle = wf.featured ? "MagicFolder Core" : wf.title;
-            return `<li class="cart-item"><span>${shortTitle}</span> <span style="color:var(--primary);">${activeWorkflows[id]}/wk</span></li>`;
+            return `<li class="cart-item"><span>${wf.title}</span> <span style="color:var(--primary);">${activeWorkflows[id]}/wk</span></li>`;
         }).join('');
 
         let totalMinsPerWeek = 0;
@@ -440,7 +433,6 @@
         document.getElementById('roi-hours').innerText = Math.round(hoursPerYear).toLocaleString();
         document.getElementById('roi-dollars').innerText = '$' + Math.round(dollarsSaved).toLocaleString();
 
-        // Determine Recommendation
         let recommendedId = 1; 
         if(activeIds.length >= 3 && activeIds.length <= 4) recommendedId = 2; 
         if(activeIds.length >= 5) recommendedId = 3; 
@@ -458,7 +450,6 @@
         }
     }
 
-    // Close modal if user clicks the dark background
     document.getElementById('cart-modal-overlay').addEventListener('click', function(e) {
         if (e.target === this) {
             this.classList.remove('modal-open');
@@ -469,7 +460,6 @@
         const tier = window.currentTierRecommendation;
         if(!tier) return;
 
-        // Ensure mobile modal is closed when transitioning
         document.getElementById('cart-modal-overlay').classList.remove('modal-open');
 
         document.getElementById('hero-section').classList.add('hidden');
@@ -492,6 +482,30 @@
         if(typeof lucide !== 'undefined') lucide.createIcons();
     }
 
+    function showWaitingState() {
+        const btn = document.getElementById('checkout-btn');
+        const isDiscovery = btn.innerHTML.includes('Discovery');
+        
+        if (isDiscovery) {
+            document.getElementById('waiting-title').innerText = "Booking in Progress";
+            document.getElementById('waiting-desc').innerText = "A secure Calendly window has been opened in a new tab. Please select a time to finalize your discovery call.";
+        } else {
+            document.getElementById('waiting-title').innerText = "Checkout in Progress";
+            document.getElementById('waiting-desc').innerText = "A secure Stripe window has been opened in a new tab. Please complete your transaction there to secure your architecture.";
+        }
+        
+        document.querySelector('#checkout-view > .checkout-box').classList.add('hidden');
+        document.querySelector('#checkout-view > .btn-outline').classList.add('hidden');
+        document.getElementById('checkout-waiting').classList.remove('hidden');
+        document.getElementById('reopen-checkout').href = btn.href;
+    }
+
+    function cancelCheckout() {
+        document.getElementById('checkout-waiting').classList.add('hidden');
+        document.querySelector('#checkout-view > .checkout-box').classList.remove('hidden');
+        document.querySelector('#checkout-view > .btn-outline').classList.remove('hidden');
+    }
+
     function backToBuilder() {
         document.getElementById('checkout-view').classList.add('hidden');
         document.getElementById('hero-section').classList.remove('hidden');
@@ -501,6 +515,11 @@
     document.addEventListener('DOMContentLoaded', () => {
         renderCatalog();
         updateCart();
+        
+        // Add CSS keyframes for spinner dynamically since it's hardcoded in HTML
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+        document.head.appendChild(style);
     });
 
 </script>
