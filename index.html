@@ -320,114 +320,110 @@
         .hero-trust span { display: inline-flex; align-items: center; gap: 6px; }
         .hero-trust span i { color: var(--success); }
 
-        /* ============================================================
-           PIXEL-PERFECT DEMO STAGE ANIMATION
-           Scoped strictly to .demo-flow container to guarantee 100% 
-           vertical and horizontal alignment matching original design
+                /* ============================================================
+           CALM, PREMIUM HERO PIPELINE ANIMATION (ZERO CHAOS)
+           Single sequential focal point with gentle, satisfying motion
            ============================================================ */
         .demo-stage {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            max-width: 980px;
-            margin: 44px auto 0;
-            padding: 56px 30px 48px;
+            max-width: 960px;
+            margin: 40px auto 0;
+            padding: 44px 36px 40px;
             position: relative;
-            overflow: visible;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.08);
         }
         .demo-stage::before {
             content: "";
             position: absolute; inset: -1px;
             border-radius: inherit;
             padding: 1px;
-            background: linear-gradient(180deg, rgba(79, 70, 229, 0.35), transparent 55%);
+            background: linear-gradient(180deg, rgba(79, 70, 229, 0.25), transparent 60%);
             -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
         }
-        .demo-caption {
-            position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 24px; font-size: 0.78rem; font-weight: 800;
-            color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.08em;
-            white-space: nowrap;
-        }
-        .demo-caption span { display: inline-flex; align-items: center; gap: 6px; }
-        .demo-caption .dot-sm { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
 
         .demo-flow {
             display: flex; justify-content: space-between; align-items: center;
             position: relative; z-index: 2;
-            min-height: 180px;
-            max-width: 860px;
+            min-height: 175px;
+            max-width: 820px;
             margin: 0 auto;
         }
 
         .folder-node {
-            width: 150px; height: 110px;
-            background: white;
+            width: 145px; height: 105px;
+            background: var(--bg);
             border: 1.5px solid var(--border);
             position: relative;
             border-radius: 0 16px 16px 16px;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
-            transition: 0.4s ease; opacity: 0.75;
             box-shadow: var(--shadow-sm);
         }
         .folder-node::before {
             content: ""; position: absolute;
-            top: -12px; left: -1.5px;
-            width: 52px; height: 12px;
+            top: -11px; left: -1.5px;
+            width: 48px; height: 11px;
             background: inherit; border: inherit;
             border-bottom: none;
-            border-radius: 8px 8px 0 0;
+            border-radius: 7px 7px 0 0;
         }
-        .folder-node h4 { font-weight: 800; color: var(--text-main); margin-top: 6px; font-size: 1.05rem; }
-        .folder-node .folder-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+        .folder-node h4 { font-weight: 800; color: var(--text-main); margin-top: 6px; font-size: 1rem; }
+        .folder-node .folder-sub { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
 
         .brand-center {
             text-align: center;
             display: flex; flex-direction: column; align-items: center;
-            width: 220px; position: relative; z-index: 10;
+            width: 200px; position: relative; z-index: 10;
         }
-        .brand-center svg { width: 140px; height: 140px; margin-bottom: 4px; overflow: visible; }
-        .brand-center h4 { font-weight: 800; font-size: 1.65rem; letter-spacing: -0.03em; color: var(--text-main); }
-        .brand-center .brand-sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+        .brand-center svg { width: 130px; height: 130px; margin-bottom: 2px; overflow: visible; }
+        .brand-center h4 { font-weight: 800; font-size: 1.55rem; letter-spacing: -0.03em; color: var(--text-main); }
+        .brand-center .brand-sub { font-size: 0.74rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
 
-        .dest-stack { display: flex; flex-direction: column; gap: 14px; width: 170px; }
+        .dest-stack { display: flex; flex-direction: column; gap: 12px; width: 165px; }
         .dest-folder {
-            height: 50px; background: white;
+            height: 46px; background: var(--bg);
             border: 1.5px solid var(--border);
             position: relative; border-radius: 0 12px 12px 12px;
-            display: flex; align-items: center; padding-left: 38px;
-            opacity: 0.75; transition: 0.4s;
+            display: flex; align-items: center; padding-left: 36px;
             box-shadow: var(--shadow-sm);
+            transition: border-color 0.3s, background-color 0.3s;
         }
         .dest-folder::before {
             content: ""; position: absolute;
             top: -8px; left: -1.5px;
-            width: 28px; height: 8px;
+            width: 26px; height: 8px;
             background: inherit; border: inherit;
             border-bottom: none; border-radius: 5px 5px 0 0;
         }
-        .dest-folder span { font-weight: 800; font-size: 0.85rem; color: var(--text-muted); }
-        .dest-folder i { position: absolute; left: 12px; color: #94a3b8; }
+        .dest-folder span { font-weight: 800; font-size: 0.82rem; color: var(--text-muted); }
+        .dest-folder i { position: absolute; left: 11px; color: #94a3b8; }
 
+        /* Gentle, non-jittery wand tap */
         .magic-wand { transform-origin: 68px 22px; }
-        @keyframes wandWave { 0%, 42%, 58%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-32deg); } }
-        @keyframes sparkPulse { 0%, 42%, 58%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 10px var(--primary)); } }
-        .agent-anim .magic-wand { animation: wandWave 8s infinite linear; }
-        .agent-anim .spark-burst { animation: sparkPulse 8s infinite linear; transform-origin: 68px 22px; }
+        @keyframes gentleWand {
+            0%, 42%, 62%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-24deg); }
+        }
+        @keyframes gentleSpark {
+            0%, 44%, 60%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.35); opacity: 1; filter: drop-shadow(0 0 8px var(--primary)); }
+        }
+        .magic-wand { animation: gentleWand 6s infinite cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .spark-burst { animation: gentleSpark 6s infinite ease-in-out; transform-origin: 68px 22px; }
 
-        /* The flying document unit */
+        /* Single, calm flying document */
         .doc-unit {
             position: absolute; background: white;
             border: 1.5px solid #cbd5e1;
             border-radius: 4px; z-index: 5;
             opacity: 0; pointer-events: none;
             width: 36px; height: 46px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
             top: 50%;
         }
         .doc-unit::before {
@@ -438,55 +434,47 @@
             border-radius: 2px;
         }
 
-        /* Coordinated keyframe trajectories scoped to .demo-flow (top: 50% = center line) */
-        @keyframes groupIn {
-            0% { left: 8%; opacity: 0; transform: translateY(-50%) rotate(-10deg) scale(0.9); }
-            10% { opacity: 1; }
-            42% { left: 45%; opacity: 1; transform: translateY(-50%) rotate(0deg) scale(1); }
-            48% { opacity: 0; left: 50%; transform: translateY(-50%) scale(0.6); }
+        /* 6s calm, sequential lifecycle */
+        @keyframes calmIn {
+            0% { left: 8%; opacity: 0; transform: translateY(-50%) rotate(-6deg) scale(0.9); }
+            14% { opacity: 1; transform: translateY(-50%) rotate(-3deg) scale(0.96); }
+            44% { left: 45%; opacity: 1; transform: translateY(-50%) rotate(0deg) scale(1); }
+            48% { left: 50%; opacity: 0; transform: translateY(-50%) scale(0.7); }
             100% { opacity: 0; }
         }
-        @keyframes split1 {
-            0%, 52% { left: 50%; opacity: 0; top: 50%; transform: translateY(-50%) scale(0.6); }
-            58% { opacity: 1; border-color: var(--primary); }
-            88% { left: 88%; top: 18%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); }
-            95%, 100% { opacity: 0; left: 88%; top: 18%; transform: translate(-50%, -50%) scale(0.7); }
+        @keyframes calmOut1 {
+            0%, 50% { left: 50%; opacity: 0; top: 50%; transform: translateY(-50%) scale(0.7); border-color: var(--primary); }
+            56% { opacity: 1; transform: translateY(-50%) scale(0.9); border-color: var(--primary); }
+            86% { left: 88%; top: 18%; opacity: 1; transform: translate(-50%, -50%) scale(0.75); border-color: var(--success); }
+            94%, 100% { opacity: 0; left: 88%; top: 18%; transform: translate(-50%, -50%) scale(0.75); }
         }
-        @keyframes split2 {
-            0%, 52% { left: 50%; opacity: 0; top: 50%; transform: translateY(-50%) scale(0.6); }
-            58% { opacity: 1; border-color: var(--primary); }
-            88% { left: 88%; top: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); }
-            95%, 100% { opacity: 0; left: 88%; top: 50%; transform: translate(-50%, -50%) scale(0.7); }
+        @keyframes calmOut2 {
+            0%, 50% { left: 50%; opacity: 0; top: 50%; transform: translateY(-50%) scale(0.7); border-color: var(--primary); }
+            56% { opacity: 1; transform: translateY(-50%) scale(0.9); border-color: var(--primary); }
+            86% { left: 88%; top: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.75); border-color: var(--success); }
+            94%, 100% { opacity: 0; left: 88%; top: 50%; transform: translate(-50%, -50%) scale(0.75); }
         }
-        @keyframes split3 {
-            0%, 52% { left: 50%; opacity: 0; top: 50%; transform: translateY(-50%) scale(0.6); }
-            58% { opacity: 1; border-color: var(--primary); }
-            88% { left: 88%; top: 82%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); }
-            95%, 100% { opacity: 0; left: 88%; top: 82%; transform: translate(-50%, -50%) scale(0.7); }
+        @keyframes calmOut3 {
+            0%, 50% { left: 50%; opacity: 0; top: 50%; transform: translateY(-50%) scale(0.7); border-color: var(--primary); }
+            56% { opacity: 1; transform: translateY(-50%) scale(0.9); border-color: var(--primary); }
+            86% { left: 88%; top: 82%; opacity: 1; transform: translate(-50%, -50%) scale(0.75); border-color: var(--success); }
+            94%, 100% { opacity: 0; left: 88%; top: 82%; transform: translate(-50%, -50%) scale(0.75); }
         }
-        .doc-m1 { animation: groupIn 8s infinite linear; }
-        .doc-m2 { animation: groupIn 8s infinite linear; animation-delay: 0.5s; }
-        .doc-m3 { animation: groupIn 8s infinite linear; animation-delay: 1.0s; }
-        .doc-c1 { animation: split1 8s infinite linear; }
-        .doc-c2 { animation: split2 8s infinite linear; animation-delay: 0.5s; }
-        .doc-c3 { animation: split3 8s infinite linear; animation-delay: 1.0s; }
 
-        @keyframes iActive {
-            0%, 42% { transform: scale(1.04); border-color: var(--primary); opacity: 1; background: #f8faff; }
-            47%, 100% { transform: scale(1); opacity: 0.75; }
+        .doc-in { animation: calmIn 6s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+        .doc-out-1 { animation: calmOut1 6s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+        .doc-out-2 { animation: calmOut2 6s infinite cubic-bezier(0.4, 0, 0.2, 1); animation-delay: 2s; }
+        .doc-out-3 { animation: calmOut3 6s infinite cubic-bezier(0.4, 0, 0.2, 1); animation-delay: 4s; }
+
+        @keyframes folderHighlight {
+            0%, 82% { border-color: var(--border); background: var(--bg); }
+            88%, 94% { border-color: var(--success); background: #f0fdf4; }
+            100% { border-color: var(--border); background: var(--bg); }
         }
-        @keyframes bJump {
-            0%, 42%, 58%, 100% { transform: scale(1); }
-            50% { transform: scale(1.12); filter: drop-shadow(0 15px 35px var(--primary-soft)); }
-        }
-        @keyframes dSnap {
-            0%, 82% { border-color: var(--border); background: white; opacity: 0.75; }
-            88%, 96% { border-color: var(--success); background: #f0fdf4; opacity: 1; transform: scale(1.04); }
-            100% { border-color: var(--border); background: white; opacity: 0.75; }
-        }
-        .intake-anim { animation: iActive 8s infinite linear; }
-        .agent-anim { animation: bJump 8s infinite linear; }
-        .dest-anim { animation: dSnap 8s infinite linear; }
+        .dest-folder:nth-child(1) { animation: folderHighlight 6s infinite ease-in-out; }
+        .dest-folder:nth-child(2) { animation: folderHighlight 6s infinite ease-in-out; animation-delay: 2s; }
+        .dest-folder:nth-child(3) { animation: folderHighlight 6s infinite ease-in-out; animation-delay: 4s; }
+
 
         /* SECTIONS */
         section { padding: 88px 0; position: relative; }
@@ -1569,7 +1557,7 @@
 
 <main id="main-content">
 
-<!-- HERO SECTION -->
+<!-- HERO SECTION (CLEAN, FOCUSED, CALM) -->
 <div class="hero-wrap">
     <div class="container hero" id="hero-section">
         <div class="hero-eyebrow">
@@ -1579,7 +1567,7 @@
         <h1>Stop doing paperwork at <span class="strike">8 PM</span><br><span class="accent">Get your evenings back.</span></h1>
 
         <p class="lede">
-            MagicFolder reads your bills, receipts, contracts, and emails — then files and enters them accurately inside QuickBooks, Xero, Google Drive, or Dropbox. Zero manual typing. No new app for your team to learn.
+            MagicFolder reads your bills, receipts, contracts, and emails — then files and enters them accurately inside QuickBooks, Xero, Google Drive, or Dropbox. Zero manual typing. No new app to learn.
         </p>
 
         <div class="hero-ctas">
@@ -1588,35 +1576,27 @@
         </div>
 
         <div class="hero-trust">
-            <span><i data-lucide="check-circle-2" size="16" aria-hidden="true"></i> Works inside QuickBooks &amp; Xero</span>
-            <span><i data-lucide="check-circle-2" size="16" aria-hidden="true"></i> 100% US-based architecture &amp; support</span>
-            <span><i data-lucide="check-circle-2" size="16" aria-hidden="true"></i> Month-to-month software management</span>
+            <span><i data-lucide="shield-check" size="16" aria-hidden="true"></i> Official Intuit &amp; Xero APIs</span>
+            <span><i data-lucide="check-circle-2" size="16" aria-hidden="true"></i> Month-to-month flexibility</span>
+            <span><i data-lucide="check-circle-2" size="16" aria-hidden="true"></i> 100% US-based architecture</span>
         </div>
 
-        <!-- CLEAN, BALANCED DEMO ANIMATION STAGE (PIXEL-PERFECT ALIGNMENT) -->
-        <div class="demo-stage" role="img" aria-label="Animation: messy documents flow into MagicFolder and get sorted into Invoices, Contracts, and Quotes folders.">
-            <div class="demo-caption" aria-hidden="true">
-                <span><span class="dot-sm"></span> Messy in</span>
-                <span><span class="dot-sm"></span> We sort it</span>
-                <span><span class="dot-sm"></span> Filed in seconds</span>
-            </div>
-
+        <!-- CALM, RHYTHMIC HERO PIPELINE (SINGLE CLEAR STORY, ZERO VISUAL CHAOS) -->
+        <div class="demo-stage" role="img" aria-label="Animation: documents glide into MagicFolder, get processed by AI, and cleanly route into Invoices, Contracts, and Quotes.">
             <div class="demo-flow">
-                <!-- Flying documents scoped strictly to .demo-flow track -->
-                <div class="doc-unit doc-m1" aria-hidden="true"></div>
-                <div class="doc-unit doc-m2" aria-hidden="true"></div>
-                <div class="doc-unit doc-m3" aria-hidden="true"></div>
-                <div class="doc-unit doc-c1" aria-hidden="true"></div>
-                <div class="doc-unit doc-c2" aria-hidden="true"></div>
-                <div class="doc-unit doc-c3" aria-hidden="true"></div>
+                <!-- Calm sequential document tokens -->
+                <div class="doc-unit doc-in" aria-hidden="true"></div>
+                <div class="doc-unit doc-out-1" aria-hidden="true"></div>
+                <div class="doc-unit doc-out-2" aria-hidden="true"></div>
+                <div class="doc-unit doc-out-3" aria-hidden="true"></div>
 
-                <div class="folder-node intake-anim">
-                    <i data-lucide="scan" size="32" aria-hidden="true" style="color:var(--text-main)"></i>
+                <div class="folder-node">
+                    <i data-lucide="scan" size="30" aria-hidden="true" style="color:var(--text-main)"></i>
                     <h4>Intake</h4>
                     <span class="folder-sub">Scans, emails, photos</span>
                 </div>
 
-                <div class="brand-center agent-anim">
+                <div class="brand-center">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.15" stroke="#4f46e5" stroke-width="3.5"/>
                         <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.3"/>
@@ -1633,9 +1613,9 @@
                 </div>
 
                 <div class="dest-stack">
-                    <div class="dest-folder dest-anim"><i data-lucide="file-text" size="14" aria-hidden="true"></i><span>Invoices</span></div>
-                    <div class="dest-folder dest-anim"><i data-lucide="shield-check" size="14" aria-hidden="true"></i><span>Contracts</span></div>
-                    <div class="dest-folder dest-anim"><i data-lucide="trending-up" size="14" aria-hidden="true"></i><span>Quotes</span></div>
+                    <div class="dest-folder"><i data-lucide="file-text" size="14" aria-hidden="true"></i><span>Invoices</span></div>
+                    <div class="dest-folder"><i data-lucide="shield-check" size="14" aria-hidden="true"></i><span>Contracts</span></div>
+                    <div class="dest-folder"><i data-lucide="trending-up" size="14" aria-hidden="true"></i><span>Quotes</span></div>
                 </div>
             </div>
         </div>
