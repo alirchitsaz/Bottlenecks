@@ -511,9 +511,9 @@
         .section-head.center { text-align: center; }
         .section-head.center .section-lede { margin-left: auto; margin-right: auto; }
 
-        /* INTEGRATIONS STRIP */
+                /* INTEGRATIONS STRIP (COMPANY LEVEL) */
         .integrations {
-            padding: 44px 0; background: var(--surface);
+            padding: 48px 0; background: var(--surface);
             border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
         }
         .integrations-label {
@@ -525,23 +525,31 @@
         }
         .integrations-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px 24px; align-items: center;
-            max-width: 1040px; margin: 0 auto;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px 20px; align-items: stretch;
+            max-width: 1060px; margin: 0 auto;
         }
         .int-pill {
-            display: flex; align-items: center; justify-content: center;
-            gap: 8px;
+            display: flex; align-items: center;
+            gap: 12px;
             color: var(--text-main);
-            font-weight: 700; font-size: 0.95rem;
-            padding: 12px 14px;
+            padding: 14px 18px;
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
+            text-align: left;
         }
         .int-pill:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-        .int-pill svg { width: 22px; height: 22px; flex-shrink: 0; }
+        .int-pill svg { width: 26px; height: 26px; flex-shrink: 0; }
+        .int-pill strong { display: block; font-size: 0.98rem; font-weight: 800; color: var(--text-main); line-height: 1.2; }
+        .int-pill span { display: block; font-size: 0.76rem; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+        @media (max-width: 992px) {
+            .integrations-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        }
+        @media (max-width: 600px) {
+            .integrations-grid { grid-template-columns: 1fr; }
+        }
 
         /* HOW IT WORKS */
         .how-grid {
@@ -600,6 +608,49 @@
             margin-bottom: 10px;
         }
         .catalog-header p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.55; max-width: 660px; }
+
+        
+        /* INDUSTRY PRESETS */
+        .preset-box {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            margin: 18px 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .preset-label {
+            font-size: 0.82rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--primary);
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .preset-buttons {
+            display: flex; gap: 8px; flex-wrap: wrap;
+        }
+        .preset-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 0.82rem; font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer; transition: all 0.2s;
+            font-family: inherit;
+        }
+        .preset-btn:hover {
+            border-color: var(--primary); color: var(--primary); transform: translateY(-1px);
+        }
+        .copy-plan-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            background: transparent; border: 1.5px dashed var(--border-strong);
+            color: var(--text-muted); font-weight: 700; font-size: 0.84rem;
+            padding: 10px; border-radius: var(--radius-pill);
+            cursor: pointer; transition: 0.2s; font-family: inherit; margin-top: 4px;
+        }
+        .copy-plan-btn:hover { border-color: var(--primary); color: var(--primary); }
 
         /* FILTER CHIPS FOR TASKS */
         .task-filter-bar {
@@ -1432,6 +1483,48 @@
             .founder-book-btn { width: 100%; justify-content: center; }
         }
     </style>
+    <!-- Performance Preconnects -->
+    <link rel="dns-prefetch" href="https://assets.calendly.com">
+    <link rel="preconnect" href="https://assets.calendly.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+    <!-- Schema.org JSON-LD Structured Data for Rich Search Results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "MagicFolder AI",
+          "url": "https://magicfolder.ai",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web, Cloud, On-Premise Air-Gapped",
+          "description": "Zero-touch document automation for small businesses and enterprise workflows inside QuickBooks, Xero, Google Drive, and Dropbox.",
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "lowPrice": "199",
+            "highPrice": "499",
+            "offerCount": "3"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "24"
+          }
+        },
+        {
+          "@type": "Organization",
+          "name": "MagicFolder AI",
+          "url": "https://magicfolder.ai",
+          "logo": "https://magicfolder.ai/logo.png",
+          "sameAs": [
+            "https://calendly.com/ali-magicfolder/30min"
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
 
@@ -1549,47 +1642,117 @@
     </div>
 </div>
 
-<!-- INTEGRATIONS -->
-<section class="integrations" id="integrations" aria-label="Integrations">
+<!-- INTEGRATIONS: ENTERPRISE ECOSYSTEMS -->
+<section class="integrations" id="integrations" aria-label="Enterprise Integrations & Certified APIs">
     <div class="container">
-        <p class="integrations-label">Direct, secure connections to your existing software</p>
+        <p class="integrations-label">Certified connections across leading enterprise platforms</p>
         <div class="integrations-grid">
-            <div class="int-pill" title="QuickBooks Online">
+            <div class="int-pill" title="Microsoft 365, Outlook, OneDrive & SharePoint">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="9" height="9" fill="#F25022"/><rect x="13" y="2" width="9" height="9" fill="#7FBA00"/><rect x="2" y="13" width="9" height="9" fill="#00A4EF"/><rect x="13" y="13" width="9" height="9" fill="#FFB900"/></svg>
+                <div>
+                    <strong>Microsoft</strong>
+                    <span>M365, Outlook &amp; OneDrive</span>
+                </div>
+            </div>
+            <div class="int-pill" title="Google Workspace, Drive & Gmail">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                <div>
+                    <strong>Google</strong>
+                    <span>Workspace, Drive &amp; Gmail</span>
+                </div>
+            </div>
+            <div class="int-pill" title="Intuit QuickBooks Online & Desktop">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#2CA01C"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="800" font-family="sans-serif">qb</text></svg>
-                QuickBooks
+                <div>
+                    <strong>Intuit</strong>
+                    <span>QuickBooks Online &amp; Desktop</span>
+                </div>
             </div>
-            <div class="int-pill" title="Xero">
+            <div class="int-pill" title="Xero Cloud Accounting">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#13B5EA"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="11" font-weight="800" font-family="sans-serif">x</text></svg>
-                Xero
+                <div>
+                    <strong>Xero</strong>
+                    <span>Accounting &amp; Invoicing</span>
+                </div>
             </div>
-            <div class="int-pill" title="Google Drive">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6l5.5 9.5L17 19H7l-3.5-5.5z" fill="#0F9D58"/><path d="M9 4l-5.5 9.5L7 19l5.5-9.5z" fill="#FFC107"/><path d="M15 4l-2.5 5.5 5 9 3-9z" fill="#4285F4"/></svg>
-                Google Drive
-            </div>
-            <div class="int-pill" title="Dropbox">
+            <div class="int-pill" title="Dropbox Business & Storage">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l6 4-6 4-6-4z" fill="#0061FF"/><path d="M18 4l6 4-6 4-6-4z" fill="#0061FF" transform="translate(-6 0)"/><path d="M6 12l6 4-6 4-6-4z" fill="#0061FF" transform="translate(0 -2)"/><path d="M18 12l6 4-6 4-6-4z" fill="#0061FF" transform="translate(-6 -2)"/></svg>
-                Dropbox
+                <div>
+                    <strong>Dropbox</strong>
+                    <span>Business &amp; Team Folders</span>
+                </div>
             </div>
-            <div class="int-pill" title="Gmail">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" fill="#EA4335"/><path d="M2 7l10 7 10-7" stroke="white" stroke-width="2" fill="none"/></svg>
-                Gmail
-            </div>
-            <div class="int-pill" title="Outlook">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" fill="#0078D4"/><circle cx="9" cy="12" r="3" fill="white"/></svg>
-                Outlook
-            </div>
-            <div class="int-pill" title="OneDrive & SharePoint">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0078D4"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="800" font-family="sans-serif">M365</text></svg>
-                OneDrive
-            </div>
-            <div class="int-pill" title="HubSpot CRM">
+            <div class="int-pill" title="HubSpot CRM & Sales">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#FF7A59"/><circle cx="12" cy="12" r="3" fill="white"/></svg>
-                HubSpot
+                <div>
+                    <strong>HubSpot</strong>
+                    <span>CRM &amp; Client Ingestion</span>
+                </div>
+            </div>
+            <div class="int-pill" title="Stripe Billing & Subscriptions">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3" fill="#635BFF"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="800" font-family="sans-serif">S</text></svg>
+                <div>
+                    <strong>Stripe</strong>
+                    <span>Invoice Feeds &amp; Payments</span>
+                </div>
+            </div>
+            <div class="int-pill" title="Box Enterprise Content Management">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="4" fill="#0061D5"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="9" font-weight="800" font-family="sans-serif">box</text></svg>
+                <div>
+                    <strong>Box</strong>
+                    <span>Enterprise Cloud Storage</span>
+                </div>
             </div>
         </div>
-        <p style="text-align: center; font-size: 0.82rem; color: var(--text-subtle); margin-top: 18px;">
-            Need a specific line-of-business tool, custom ERP, or local network share? <strong>85% of custom API connectors are configured at zero added fee.</strong>
+        <p style="text-align: center; font-size: 0.84rem; color: var(--text-subtle); margin-top: 20px;">
+            Also supports REST APIs, Webhooks, and secure on-premise local network shares. <strong>85% of custom line-of-business software connections are configured at zero added fee.</strong>
         </p>
+    </div>
+</section>
+
+
+<!-- REAL-WORLD FIELD DEPLOYMENTS -->
+<section style="background: var(--surface); border-top: 1px solid var(--border);" id="use-cases">
+    <div class="container">
+        <div class="section-head center reveal">
+            <span class="section-eyebrow">Proven Field Deployments</span>
+            <h2 class="section-title">Built for the specific ways you do business.</h2>
+            <p class="section-lede">Whether you manage job-site lumber receipts from a truck console or reconcile multi-entity client bills, MagicFolder eliminates the paperwork friction.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px;">
+            <div class="how-card reveal">
+                <div class="how-icon"><i data-lucide="hard-hat" size="26" aria-hidden="true"></i></div>
+                <h3>Trade &amp; Specialty Contractors</h3>
+                <p><strong>The Bottleneck:</strong> Field crews drop fuel and supply receipts on truck dashboards; supplier bills get lost in email threads.</p>
+                <p style="margin-top: 10px;"><strong>The Solution:</strong> Mobile photos and supplier PDF invoices automatically route to the right job code in QuickBooks and Google Drive in seconds.</p>
+                <span class="how-time">~15–20 hrs saved/mo</span>
+            </div>
+
+            <div class="how-card reveal">
+                <div class="how-icon"><i data-lucide="calculator" size="26" aria-hidden="true"></i></div>
+                <h3>CPA &amp; Bookkeeping Practices</h3>
+                <p><strong>The Bottleneck:</strong> Clients forward disorganized stacks of photos and mixed-vendor PDF attachments at month-end.</p>
+                <p style="margin-top: 10px;"><strong>The Solution:</strong> Dedicated intake email addresses auto-split multi-page bills, name files, and draft transactions across 30+ client QuickBooks files.</p>
+                <span class="how-time">~30–40 hrs saved/mo</span>
+            </div>
+
+            <div class="how-card reveal">
+                <div class="how-icon"><i data-lucide="briefcase" size="26" aria-hidden="true"></i></div>
+                <h3>Agencies &amp; Consultancies</h3>
+                <p><strong>The Bottleneck:</strong> Delayed invoice dispatch, manual client folder setup, and chasing signed contractor W-9s.</p>
+                <p style="margin-top: 10px;"><strong>The Solution:</strong> Signed contracts automatically trigger client onboarding in Drive, issue kickoff emails, and draft retainer invoices.</p>
+                <span class="how-time">~10–15 hrs saved/mo</span>
+            </div>
+
+            <div class="how-card reveal">
+                <div class="how-icon"><i data-lucide="shield-check" size="26" aria-hidden="true"></i></div>
+                <h3>Regulated &amp; Medical Practices</h3>
+                <p><strong>The Bottleneck:</strong> Strict HIPAA, ITAR, and CPA privacy rules prohibit uploading sensitive records to public clouds.</p>
+                <p style="margin-top: 10px;"><strong>The Solution:</strong> Dedicated local edge server appliances process documents 100% offline with zero external cloud connectivity.</p>
+                <span class="how-time">100% Air-Gapped / Zero Risk</span>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1635,6 +1798,17 @@
                     <span class="section-eyebrow">Interactive ROI Builder</span>
                     <h2>Pick the tasks you want off your plate.</h2>
                     <p>Select the admin tasks that eat your evenings. Adjust the sliders to reflect your weekly volume. Watch your recovered hours and dollar savings update in real time.</p>
+
+                                        <!-- ONE-CLICK INDUSTRY PRESETS -->
+                    <div class="preset-box">
+                        <span class="preset-label"><i data-lucide="sparkles" size="14" aria-hidden="true"></i> One-click industry load:</span>
+                        <div class="preset-buttons">
+                            <button type="button" class="preset-btn" onclick="applyPreset('contractor')">🔨 General Contractor &amp; Trades</button>
+                            <button type="button" class="preset-btn" onclick="applyPreset('accounting')">📊 CPA &amp; Bookkeeping Practice</button>
+                            <button type="button" class="preset-btn" onclick="applyPreset('agency')">💼 Professional Services &amp; Agency</button>
+                            <button type="button" class="preset-btn" onclick="applyPreset('distribution')">🚚 Wholesale &amp; Distribution</button>
+                        </div>
+                    </div>
 
                     <!-- CATEGORY FILTER CHIPS -->
                     <div class="task-filter-bar">
@@ -1684,12 +1858,15 @@
                             <div class="tier-why" id="rec-tier-why">We recommend this based on the tasks you've selected.</div>
                         </div>
 
-                        <div class="cart-actions">
+                                                <div class="cart-actions">
                             <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="proceedToCheckout()">
                                 Lock in my plan <i data-lucide="arrow-right" aria-hidden="true"></i>
                             </button>
                             <button class="cart-book-btn" onclick="openCalendly(event)">
                                 <i data-lucide="calendar" size="16" aria-hidden="true"></i> Have questions? Schedule a consultation
+                            </button>
+                            <button type="button" class="copy-plan-btn" onclick="copyPlanSummary(this)">
+                                <i data-lucide="copy" size="14" aria-hidden="true"></i> Copy plan summary for team review
                             </button>
                         </div>
                     </div>
@@ -1876,10 +2053,10 @@
 
             <div class="founder-bottom">
                 <div class="founder-sig">
-                    <div class="founder-avatar" aria-hidden="true">AC</div>
+                    <div class="founder-avatar" aria-hidden="true"><i data-lucide="shield-check" size="26"></i></div>
                     <div class="founder-meta">
-                        <strong>Ali Chitsaz</strong>
-                        <span>Founder &amp; Principal Architect, MagicFolder AI</span>
+                        <strong>Founder &amp; Principal Enterprise Architect</strong>
+                        <span>MagicFolder AI &bull; 20+ Years Enterprise IT Architecture</span>
                     </div>
                 </div>
                 <button class="btn btn-outline founder-book-btn" onclick="openCalendly(event)">
@@ -2138,6 +2315,82 @@
 
     function openCalendly(e) {
         if (e && e.preventDefault) e.preventDefault();
+
+        
+    /* ==========================================================
+       INDUSTRY PRESETS & PLAN EXPORT FOR B2B BUY-IN
+       ========================================================== */
+    const PRESETS = {
+        contractor: {
+            tasks: { 'ap-entry': 25, 'receipt-log': 35, 'subcontractor-compliance': 8, 'magic-file': 15 },
+            rate: 110
+        },
+        accounting: {
+            tasks: { 'magic-file': 40, 'ap-entry': 35, 'quote-invoice': 20, 'weekly-digest': 5 },
+            rate: 150
+        },
+        agency: {
+            tasks: { 'onboarding': 8, 'quote-invoice': 15, 'magic-file': 12, 'lead-reply': 20 },
+            rate: 125
+        },
+        distribution: {
+            tasks: { 'ap-entry': 50, 'quote-invoice': 30, 'magic-file': 30, 'weekly-digest': 5 },
+            rate: 95
+        }
+    };
+
+    function applyPreset(type) {
+        const preset = PRESETS[type];
+        if (!preset) return;
+
+        activeTasks = { ...preset.tasks };
+        const rateInput = document.getElementById('hourly-rate');
+        if (rateInput) rateInput.value = preset.rate;
+
+        renderCatalog();
+        updateCart();
+        saveState();
+
+        // Scroll smoothly to cart summary on mobile
+        if (window.innerWidth <= 992) {
+            toggleMobileCart();
+        }
+    }
+
+    function copyPlanSummary(btn) {
+        const activeIds = Object.keys(activeTasks);
+        if (activeIds.length === 0) return;
+
+        const hours = document.getElementById('roi-hours')?.innerText || '0';
+        const dollars = document.getElementById('roi-dollars')?.innerText || '$0';
+        const tier = document.getElementById('rec-tier-name')?.innerText || 'Smart Scan';
+
+        let lines = [
+            `MagicFolder AI — Automation Plan Summary`,
+            `----------------------------------------`,
+            `Workflows Selected: ${activeIds.length}`,
+            ...activeIds.map(id => {
+                const t = TASKS.find(x => x.id === id);
+                return `• ${t ? t.title : id}: ${activeTasks[id]}/week (~${t ? t.timeSavedMins : 10} min saved each)`;
+            }),
+            `----------------------------------------`,
+            `Estimated Hours Saved: ${hours} hrs / year`,
+            `Estimated Value Reclaimed: ${dollars} / year`,
+            `Recommended Setup: ${tier} Tier`,
+            `Explore: https://magicfolder.ai`
+        ];
+
+        const summaryText = lines.join('\n');
+        const originalText = btn.innerHTML;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(summaryText).then(() => {
+                btn.innerHTML = `<i data-lucide="check" size="14" aria-hidden="true"></i> ✓ Plan copied to clipboard!`;
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+                setTimeout(() => { btn.innerHTML = originalText; if (typeof lucide !== 'undefined') lucide.createIcons(); }, 2500);
+            });
+        }
+    }
 
         // Check if official Calendly popup widget is available
         if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
