@@ -170,12 +170,13 @@
             margin-left: 2px;
         }
 
-        .nav-links { display: flex; align-items: center; gap: 6px; }
+                .nav-links { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
         .nav-links a {
             color: var(--text-muted); text-decoration: none;
             font-weight: 600; font-size: 0.92rem;
             padding: 8px 12px; border-radius: 8px;
             transition: color 0.2s, background 0.2s;
+            white-space: nowrap;
         }
         .nav-links a:hover { color: var(--text-main); background: var(--primary-soft); }
         .nav-links a.nav-highlight {
@@ -184,25 +185,15 @@
             font-weight: 700;
         }
 
-        .nav-actions { display: flex; align-items: center; gap: 8px; }
-        .nav-book-btn {
-            display: inline-flex; align-items: center; gap: 7px;
-            background: transparent; border: 1.5px solid var(--border-strong);
-            color: var(--text-main); font-weight: 700; font-size: 0.9rem;
-            padding: 8px 16px; border-radius: var(--radius-pill);
-            cursor: pointer; transition: 0.2s; text-decoration: none; font-family: inherit;
-        }
-        .nav-book-btn:hover {
-            border-color: var(--primary); color: var(--primary);
-            background: var(--primary-soft); transform: translateY(-1px);
-        }
+        .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .nav-cta {
             background: var(--primary); color: white;
-            padding: 9px 20px; border-radius: var(--radius-pill);
-            font-weight: 800; font-size: 0.9rem;
+            padding: 10px 22px; border-radius: var(--radius-pill);
+            font-weight: 800; font-size: 0.92rem;
             text-decoration: none; transition: 0.2s;
-            display: inline-flex; align-items: center; gap: 6px;
+            display: inline-flex; align-items: center; gap: 7px;
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+            white-space: nowrap; cursor: pointer; border: none; font-family: inherit;
         }
         .nav-cta:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35); }
 
@@ -1258,7 +1249,7 @@
         .footer-bottom a { color: #94a3b8; text-decoration: none; }
         .footer-bottom a:hover { color: white; }
 
-        /* FLOATING QUICK ACTION BUTTON */
+                /* FLOATING QUICK ACTION BUTTON (Only appears after scrolling past hero) */
         .floating-calendly-btn {
             position: fixed;
             bottom: 24px;
@@ -1276,12 +1267,20 @@
             gap: 8px;
             cursor: pointer;
             border: none;
-            transition: all 0.25s ease;
+            transition: opacity 0.35s ease, transform 0.35s ease, background-color 0.2s;
             font-family: inherit;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(16px);
+        }
+        .floating-calendly-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
         }
         .floating-calendly-btn:hover {
             background: var(--primary);
-            transform: translateY(-3px) scale(1.02);
+            transform: translateY(-2px) scale(1.02);
             box-shadow: 0 14px 35px rgba(79, 70, 229, 0.4);
         }
         .floating-calendly-btn .badge-live {
@@ -1518,11 +1517,10 @@
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- TOP GUARANTEE ANNOUNCEMENT -->
+<!-- TOP ANNOUNCEMENT BANNER -->
 <div class="top-banner">
-    <span class="badge">Zero Risk Deployment</span>
-    <span>Tested on your actual documents with 99%+ accuracy before handoff &bull; Month-to-month flexibility.</span>
-    <a href="https://calendly.com/ali-magicfolder/30min" onclick="openCalendly(event)">Schedule a Discovery Call &rarr;</a>
+    <span class="badge">Zero-Risk Deployment</span>
+    <span>Tested on your actual documents with 99%+ accuracy before go-live &bull; Month-to-month flexibility.</span>
 </div>
 
 <!-- SITE HEADER -->
@@ -1538,19 +1536,18 @@
             MagicFolder
             <span class="logo-tagline">AI</span>
         </a>
-        <nav class="nav-links" aria-label="Primary">
+                <nav class="nav-links" aria-label="Primary">
             <a href="#how-it-works">How it works</a>
             <a href="#builder">ROI Calculator</a>
             <a href="#pricing">Pricing</a>
-            <a href="#enterprise" class="nav-highlight">Enterprise AI &amp; Training</a>
+            <a href="#enterprise" class="nav-highlight">Enterprise AI</a>
             <a href="#security">Security</a>
             <a href="#faq">FAQ</a>
         </nav>
         <div class="nav-actions">
-            <button class="nav-book-btn" onclick="openCalendly(event)">
+            <button class="nav-cta" onclick="openCalendly(event)">
                 <i data-lucide="calendar" size="16" aria-hidden="true"></i> Schedule Call
             </button>
-            <a href="#builder" class="nav-cta">Build your plan <i data-lucide="arrow-right" size="16" aria-hidden="true"></i></a>
         </div>
     </div>
 </header>
@@ -1570,9 +1567,9 @@
             MagicFolder reads your bills, receipts, contracts, and emails — then files and enters them accurately inside QuickBooks, Xero, Google Drive, or Dropbox. Zero manual typing. No new app to learn.
         </p>
 
-        <div class="hero-ctas">
+                <div class="hero-ctas">
             <a href="#builder" class="btn btn-primary btn-large">Build my savings plan <i data-lucide="calculator" size="18" aria-hidden="true"></i></a>
-            <a href="https://calendly.com/ali-magicfolder/30min" class="btn btn-outline btn-large" onclick="openCalendly(event)"><i data-lucide="calendar" size="18" aria-hidden="true"></i> Schedule a Discovery Call</a>
+            <a href="#how-it-works" class="btn btn-outline btn-large">See how it works <i data-lucide="arrow-down" size="18" aria-hidden="true"></i></a>
         </div>
 
         <div class="hero-trust">
@@ -2801,6 +2798,19 @@
         const style = document.createElement('style');
         style.innerHTML = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
         document.head.appendChild(style);
+
+        
+        // Show floating button only after scrolling past the hero section
+        window.addEventListener('scroll', () => {
+            const floatBtn = document.querySelector('.floating-calendly-btn');
+            if (floatBtn) {
+                if (window.scrollY > 600) {
+                    floatBtn.classList.add('visible');
+                } else {
+                    floatBtn.classList.remove('visible');
+                }
+            }
+        }, { passive: true });
 
         if (typeof lucide !== 'undefined') lucide.createIcons();
     });
