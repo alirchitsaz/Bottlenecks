@@ -42,7 +42,6 @@
             --primary-light: #6366f1;
             --primary-soft: rgba(79, 70, 229, 0.08);
             --primary-soft-2: rgba(79, 70, 229, 0.16);
-            --primary-glow: rgba(79, 70, 229, 0.28);
             --accent: #818cf8;
 
             --bg: #f8fafc;
@@ -50,7 +49,6 @@
             --bg-darker: #020617;
             --surface: #ffffff;
             --surface-2: #f1f5f9;
-            --surface-card: #ffffff;
 
             --text-main: #0f172a;
             --text-muted: #475569;
@@ -59,10 +57,8 @@
 
             --border: #e2e8f0;
             --border-strong: #cbd5e1;
-            --border-dark: rgba(255, 255, 255, 0.12);
 
             --success: #10b981;
-            --success-soft: rgba(16, 185, 129, 0.12);
             --warning: #f59e0b;
             --danger: #ef4444;
 
@@ -70,7 +66,6 @@
             --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 12px 24px -8px rgba(15, 23, 42, 0.08);
             --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.10);
             --shadow-xl: 0 30px 60px -15px rgba(15, 23, 42, 0.18);
-            --shadow-glow: 0 0 30px rgba(79, 70, 229, 0.25);
 
             --radius-sm: 10px;
             --radius-md: 16px;
@@ -113,15 +108,15 @@
         .container { max-width: 1260px; margin: 0 auto; padding: 0 24px; }
         .container-narrow { max-width: 920px; margin: 0 auto; padding: 0 24px; }
 
-        /* TOP ANNOUNCEMENT BAR */
+        /* TOP ANNOUNCEMENT BANNER */
         .top-banner {
-            background: linear-gradient(90deg, #312e81, #4338ca, #3730a3);
+            background: linear-gradient(90deg, #1e1b4b, #312e81, #4338ca);
             color: #ffffff;
             font-size: 0.85rem;
             font-weight: 600;
             padding: 9px 16px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -143,9 +138,7 @@
             text-underline-offset: 3px;
             font-weight: 700;
             cursor: pointer;
-            transition: opacity 0.2s;
         }
-        .top-banner a:hover { opacity: 0.9; }
 
         /* NAV */
         header.site-nav {
@@ -185,13 +178,18 @@
             transition: color 0.2s, background 0.2s;
         }
         .nav-links a:hover { color: var(--text-main); background: var(--primary-soft); }
+        .nav-links a.nav-highlight {
+            color: var(--primary);
+            background: var(--primary-soft);
+            font-weight: 700;
+        }
 
         .nav-actions { display: flex; align-items: center; gap: 8px; }
         .nav-book-btn {
             display: inline-flex; align-items: center; gap: 7px;
             background: transparent; border: 1.5px solid var(--border-strong);
             color: var(--text-main); font-weight: 700; font-size: 0.9rem;
-            padding: 9px 16px; border-radius: var(--radius-pill);
+            padding: 8px 16px; border-radius: var(--radius-pill);
             cursor: pointer; transition: 0.2s; text-decoration: none; font-family: inherit;
         }
         .nav-book-btn:hover {
@@ -235,7 +233,7 @@
             background:
                 radial-gradient(ellipse 80% 60% at 50% -10%, rgba(79, 70, 229, 0.15), transparent 70%),
                 radial-gradient(ellipse 60% 50% at 90% 25%, rgba(129, 140, 248, 0.10), transparent 60%);
-            padding-bottom: 30px;
+            padding-bottom: 20px;
             overflow: hidden;
         }
         .hero-wrap::before {
@@ -322,14 +320,18 @@
         .hero-trust span { display: inline-flex; align-items: center; gap: 6px; }
         .hero-trust span i { color: var(--success); }
 
-        /* DEMO ANIMATION & INTERACTIVE SIMULATOR */
+        /* ============================================================
+           PIXEL-PERFECT DEMO STAGE ANIMATION
+           Scoped strictly to .demo-flow container to guarantee 100% 
+           vertical and horizontal alignment matching original design
+           ============================================================ */
         .demo-stage {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            max-width: 1040px;
+            max-width: 980px;
             margin: 44px auto 0;
-            padding: 46px 30px 40px;
+            padding: 56px 30px 48px;
             position: relative;
             overflow: visible;
             box-shadow: var(--shadow-lg);
@@ -339,14 +341,14 @@
             position: absolute; inset: -1px;
             border-radius: inherit;
             padding: 1px;
-            background: linear-gradient(180deg, rgba(79, 70, 229, 0.4), transparent 60%);
+            background: linear-gradient(180deg, rgba(79, 70, 229, 0.35), transparent 55%);
             -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
         }
         .demo-caption {
-            position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+            position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 24px; font-size: 0.78rem; font-weight: 800;
             color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.08em;
             white-space: nowrap;
@@ -355,12 +357,15 @@
         .demo-caption .dot-sm { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
 
         .demo-flow {
-            display: flex; justify-content: center; align-items: center;
-            gap: 50px; position: relative; z-index: 2;
+            display: flex; justify-content: space-between; align-items: center;
+            position: relative; z-index: 2;
+            min-height: 180px;
+            max-width: 860px;
+            margin: 0 auto;
         }
 
         .folder-node {
-            width: 160px; height: 115px;
+            width: 150px; height: 110px;
             background: white;
             border: 1.5px solid var(--border);
             position: relative;
@@ -373,7 +378,7 @@
         .folder-node::before {
             content: ""; position: absolute;
             top: -12px; left: -1.5px;
-            width: 54px; height: 12px;
+            width: 52px; height: 12px;
             background: inherit; border: inherit;
             border-bottom: none;
             border-radius: 8px 8px 0 0;
@@ -384,15 +389,15 @@
         .brand-center {
             text-align: center;
             display: flex; flex-direction: column; align-items: center;
-            width: 230px; position: relative; z-index: 10;
+            width: 220px; position: relative; z-index: 10;
         }
         .brand-center svg { width: 140px; height: 140px; margin-bottom: 4px; overflow: visible; }
         .brand-center h4 { font-weight: 800; font-size: 1.65rem; letter-spacing: -0.03em; color: var(--text-main); }
-        .brand-center .brand-sub { font-size: 0.75rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 3px; }
+        .brand-center .brand-sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
 
-        .dest-stack { display: flex; flex-direction: column; gap: 14px; width: 180px; }
+        .dest-stack { display: flex; flex-direction: column; gap: 14px; width: 170px; }
         .dest-folder {
-            height: 52px; background: white;
+            height: 50px; background: white;
             border: 1.5px solid var(--border);
             position: relative; border-radius: 0 12px 12px 12px;
             display: flex; align-items: center; padding-left: 38px;
@@ -402,26 +407,28 @@
         .dest-folder::before {
             content: ""; position: absolute;
             top: -8px; left: -1.5px;
-            width: 30px; height: 8px;
+            width: 28px; height: 8px;
             background: inherit; border: inherit;
             border-bottom: none; border-radius: 5px 5px 0 0;
         }
         .dest-folder span { font-weight: 800; font-size: 0.85rem; color: var(--text-muted); }
-        .dest-folder i { position: absolute; left: 12px; color: var(--primary); }
+        .dest-folder i { position: absolute; left: 12px; color: #94a3b8; }
 
         .magic-wand { transform-origin: 68px 22px; }
-        @keyframes wandWave { 0%, 45%, 55%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-30deg); } }
-        @keyframes sparkPulse { 0%, 45%, 55%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 10px var(--primary)); } }
+        @keyframes wandWave { 0%, 42%, 58%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-32deg); } }
+        @keyframes sparkPulse { 0%, 42%, 58%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 10px var(--primary)); } }
         .agent-anim .magic-wand { animation: wandWave 8s infinite linear; }
         .agent-anim .spark-burst { animation: sparkPulse 8s infinite linear; transform-origin: 68px 22px; }
 
+        /* The flying document unit */
         .doc-unit {
             position: absolute; background: white;
             border: 1.5px solid #cbd5e1;
-            border-radius: 4px; z-index: 1;
+            border-radius: 4px; z-index: 5;
             opacity: 0; pointer-events: none;
-            width: 38px; height: 48px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+            width: 36px; height: 46px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            top: 50%;
         }
         .doc-unit::before {
             content: ''; position: absolute;
@@ -431,40 +438,41 @@
             border-radius: 2px;
         }
 
+        /* Coordinated keyframe trajectories scoped to .demo-flow (top: 50% = center line) */
         @keyframes groupIn {
-            0% { left: 5%; opacity: 0; transform: translateY(-50%) rotate(-10deg); }
+            0% { left: 8%; opacity: 0; transform: translateY(-50%) rotate(-10deg) scale(0.9); }
             10% { opacity: 1; }
-            42% { left: 40%; opacity: 1; transform: translateY(-50%) rotate(0deg); }
-            48% { opacity: 0; left: 50%; }
+            42% { left: 45%; opacity: 1; transform: translateY(-50%) rotate(0deg) scale(1); }
+            48% { opacity: 0; left: 50%; transform: translateY(-50%) scale(0.6); }
             100% { opacity: 0; }
         }
         @keyframes split1 {
-            0%, 55% { left: 50%; opacity: 0; top: 50%; }
-            60% { opacity: 1; border-color: var(--primary); }
-            90% { left: 86%; top: 25%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
-            100% { opacity: 0; }
+            0%, 52% { left: 50%; opacity: 0; top: 50%; transform: translateY(-50%) scale(0.6); }
+            58% { opacity: 1; border-color: var(--primary); }
+            88% { left: 88%; top: 18%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); }
+            95%, 100% { opacity: 0; left: 88%; top: 18%; transform: translate(-50%, -50%) scale(0.7); }
         }
         @keyframes split2 {
-            0%, 55% { left: 50%; opacity: 0; top: 50%; }
-            60% { opacity: 1; border-color: var(--primary); }
-            90% { left: 86%; top: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
-            100% { opacity: 0; }
+            0%, 52% { left: 50%; opacity: 0; top: 50%; transform: translateY(-50%) scale(0.6); }
+            58% { opacity: 1; border-color: var(--primary); }
+            88% { left: 88%; top: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); }
+            95%, 100% { opacity: 0; left: 88%; top: 50%; transform: translate(-50%, -50%) scale(0.7); }
         }
         @keyframes split3 {
-            0%, 55% { left: 50%; opacity: 0; top: 50%; }
-            60% { opacity: 1; border-color: var(--primary); }
-            90% { left: 86%; top: 73%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
-            100% { opacity: 0; }
+            0%, 52% { left: 50%; opacity: 0; top: 50%; transform: translateY(-50%) scale(0.6); }
+            58% { opacity: 1; border-color: var(--primary); }
+            88% { left: 88%; top: 82%; opacity: 1; transform: translate(-50%, -50%) scale(0.7); }
+            95%, 100% { opacity: 0; left: 88%; top: 82%; transform: translate(-50%, -50%) scale(0.7); }
         }
-        .doc-m1 { animation: groupIn 8s infinite linear; top: 50%; }
-        .doc-m2 { animation: groupIn 8s infinite linear; top: 50%; animation-delay: 0.5s; }
-        .doc-m3 { animation: groupIn 8s infinite linear; top: 50%; animation-delay: 1.0s; }
+        .doc-m1 { animation: groupIn 8s infinite linear; }
+        .doc-m2 { animation: groupIn 8s infinite linear; animation-delay: 0.5s; }
+        .doc-m3 { animation: groupIn 8s infinite linear; animation-delay: 1.0s; }
         .doc-c1 { animation: split1 8s infinite linear; }
         .doc-c2 { animation: split2 8s infinite linear; animation-delay: 0.5s; }
         .doc-c3 { animation: split3 8s infinite linear; animation-delay: 1.0s; }
 
         @keyframes iActive {
-            0%, 42% { transform: scale(1.05); border-color: var(--primary); opacity: 1; background: #f8faff; }
+            0%, 42% { transform: scale(1.04); border-color: var(--primary); opacity: 1; background: #f8faff; }
             47%, 100% { transform: scale(1); opacity: 0.75; }
         }
         @keyframes bJump {
@@ -472,117 +480,13 @@
             50% { transform: scale(1.12); filter: drop-shadow(0 15px 35px var(--primary-soft)); }
         }
         @keyframes dSnap {
-            0%, 85% { border-color: var(--border); background: white; opacity: 0.75; }
-            90%, 100% { border-color: var(--success); background: #f0fdf4; opacity: 1; transform: scale(1.04); }
+            0%, 82% { border-color: var(--border); background: white; opacity: 0.75; }
+            88%, 96% { border-color: var(--success); background: #f0fdf4; opacity: 1; transform: scale(1.04); }
+            100% { border-color: var(--border); background: white; opacity: 0.75; }
         }
         .intake-anim { animation: iActive 8s infinite linear; }
         .agent-anim { animation: bJump 8s infinite linear; }
         .dest-anim { animation: dSnap 8s infinite linear; }
-
-        /* INTERACTIVE SIMULATOR CARD IN DEMO STAGE */
-        .simulator-bar {
-            margin-top: 36px;
-            padding-top: 24px;
-            border-top: 1px dashed var(--border);
-            text-align: left;
-        }
-        .sim-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        .sim-title {
-            font-size: 0.85rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-muted);
-            display: flex; align-items: center; gap: 8px;
-        }
-        .sim-tabs {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .sim-btn {
-            background: var(--surface-2);
-            border: 1px solid var(--border);
-            padding: 6px 14px;
-            border-radius: var(--radius-pill);
-            font-size: 0.82rem;
-            font-weight: 700;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: all 0.2s;
-            display: inline-flex; align-items: center; gap: 6px;
-            font-family: inherit;
-        }
-        .sim-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .sim-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
-        }
-        .sim-result {
-            background: #0f172a;
-            color: #e2e8f0;
-            border-radius: var(--radius-md);
-            padding: 18px 22px;
-            font-size: 0.88rem;
-            display: grid;
-            grid-template-columns: 1.2fr 1.8fr;
-            gap: 20px;
-            align-items: center;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .sim-meta-left {
-            border-right: 1px solid rgba(255,255,255,0.1);
-            padding-right: 18px;
-        }
-        .sim-meta-left .tag {
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-        .sim-meta-left .filename {
-            font-family: monospace;
-            font-weight: 700;
-            color: #ffffff;
-            font-size: 0.92rem;
-            margin-bottom: 6px;
-        }
-        .sim-meta-left .stats {
-            font-size: 0.78rem;
-            color: #94a3b8;
-        }
-        .sim-meta-right {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .sim-action-line {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-        }
-        .sim-action-line i { color: var(--success); flex-shrink: 0; }
-        .sim-badge-ok {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            font-weight: 800;
-            font-size: 0.72rem;
-            padding: 2px 8px;
-            border-radius: var(--radius-pill);
-            display: inline-flex; align-items: center; gap: 4px;
-        }
 
         /* SECTIONS */
         section { padding: 88px 0; position: relative; }
@@ -609,7 +513,7 @@
 
         /* INTEGRATIONS STRIP */
         .integrations {
-            padding: 48px 0; background: var(--surface);
+            padding: 44px 0; background: var(--surface);
             border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
         }
         .integrations-label {
@@ -926,8 +830,93 @@
 
         .mobile-pill { display: none; }
 
+        /* ============================================================
+           ENTERPRISE AI SOLUTIONS & ENABLEMENT (STRATEGIC SECTION)
+           Showcases executive AI training, multi-platform enablement,
+           and bespoke autonomous workflow implementation
+           ============================================================ */
+        .enterprise-section {
+            background: #090d16;
+            color: white;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .enterprise-section .section-eyebrow { color: var(--accent); }
+        .enterprise-section .section-title { color: white; }
+        .enterprise-section .section-lede { color: #94a3b8; }
+
+        .ent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+        .ent-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: var(--radius-lg);
+            padding: 34px 28px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .ent-card:hover {
+            border-color: var(--primary-light);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .ent-icon {
+            width: 54px; height: 54px;
+            border-radius: 14px;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px;
+        }
+        .ent-card h3 {
+            font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; color: white; letter-spacing: -0.01em;
+        }
+        .ent-card p {
+            font-size: 0.95rem; color: #94a3b8; line-height: 1.6; margin-bottom: 20px;
+        }
+        .ent-features {
+            list-style: none;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .ent-features li {
+            font-size: 0.88rem; color: #cbd5e1; display: flex; align-items: center; gap: 8px; font-weight: 600;
+        }
+        .ent-features li i { color: var(--accent); flex-shrink: 0; }
+
+        .ent-banner {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(99, 102, 241, 0.08));
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: var(--radius-lg);
+            padding: 32px 36px;
+            margin-top: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .ent-banner-text h4 {
+            font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 6px;
+        }
+        .ent-banner-text p {
+            color: #cbd5e1; font-size: 0.95rem; max-width: 650px; line-height: 1.55;
+        }
+
         /* PRICING TABLE */
-        .pricing-section { background: var(--surface); border-top: 1px solid var(--border); }
+        .pricing-section { background: var(--surface); }
         .pricing-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 24px; align-items: stretch;
@@ -1343,17 +1332,14 @@
             .app-layout { grid-template-columns: 1fr; margin-top: 12px; }
             .workflow-grid { grid-template-columns: 1fr; }
 
-            .demo-flow { gap: 24px; flex-direction: column; }
+            .demo-flow { gap: 24px; flex-direction: column; min-height: 380px; }
             .dest-stack { flex-direction: row; width: 100%; gap: 10px; justify-content: center; }
-            .dest-folder { flex: 1; justify-content: center; padding: 0; height: 56px; }
+            .dest-folder { flex: 1; justify-content: center; padding: 0; height: 52px; }
             .dest-folder span { font-size: 0.75rem; }
             .dest-folder i { display: none; }
             .brand-center svg { width: 120px; height: 120px; }
             .brand-center h4 { font-size: 1.4rem; }
             .doc-unit { transform: translate(-50%, -50%) !important; }
-
-            .sim-result { grid-template-columns: 1fr; }
-            .sim-meta-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-right: 0; padding-bottom: 12px; }
 
             @keyframes mobileIn {
                 0% { top: 5%; left: 50%; opacity: 0; transform: translate(-50%, -50%) rotate(-10deg); }
@@ -1365,20 +1351,20 @@
             @keyframes mobileOut1 {
                 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); }
                 60% { opacity: 1; border-color: var(--primary); }
-                90% { top: 82%; left: 16%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); }
-                100% { opacity: 0; top: 82%; left: 16%; transform: translate(-50%, -50%) scale(0.55); }
+                90% { top: 86%; left: 18%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
+                100% { opacity: 0; top: 86%; left: 18%; transform: translate(-50%, -50%) scale(0.65); }
             }
             @keyframes mobileOut2 {
                 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); }
                 60% { opacity: 1; border-color: var(--primary); }
-                90% { top: 82%; left: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); }
-                100% { opacity: 0; top: 82%; left: 50%; transform: translate(-50%, -50%) scale(0.55); }
+                90% { top: 86%; left: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
+                100% { opacity: 0; top: 86%; left: 50%; transform: translate(-50%, -50%) scale(0.65); }
             }
             @keyframes mobileOut3 {
                 0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); }
                 60% { opacity: 1; border-color: var(--primary); }
-                90% { top: 82%; left: 84%; opacity: 1; transform: translate(-50%, -50%) scale(0.55); }
-                100% { opacity: 0; top: 82%; left: 84%; transform: translate(-50%, -50%) scale(0.55); }
+                90% { top: 86%; left: 82%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
+                100% { opacity: 0; top: 86%; left: 82%; transform: translate(-50%, -50%) scale(0.65); }
             }
             .doc-m1 { animation-name: mobileIn; }
             .doc-m2 { animation-name: mobileIn; animation-delay: 0.5s; }
@@ -1425,7 +1411,7 @@
             .builder-section { padding-bottom: 100px; }
             .checkout-box { padding: 32px 22px; }
 
-            .how-grid, .pricing-grid, .security-grid, .footer-top { grid-template-columns: 1fr; }
+            .how-grid, .pricing-grid, .security-grid, .ent-grid, .footer-top { grid-template-columns: 1fr; }
             .price-card.featured { transform: none; margin-top: 24px; margin-bottom: 12px; }
 
             .footer-top { gap: 28px; }
@@ -1441,7 +1427,7 @@
             .integrations-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .int-pill { font-size: 0.88rem; padding: 10px 8px; }
             .int-pill svg { width: 18px; height: 18px; }
-            .pricing-banner { flex-direction: column; text-align: center; }
+            .pricing-banner, .ent-banner { flex-direction: column; text-align: center; }
             .founder-bottom { flex-direction: column; align-items: flex-start; }
             .founder-book-btn { width: 100%; justify-content: center; }
         }
@@ -1455,7 +1441,7 @@
 <div class="top-banner">
     <span class="badge">60-Day Guarantee</span>
     <span>If MagicFolder doesn't save you 15+ hours/month, 100% of your setup fee is refunded.</span>
-    <a href="https://calendly.com/ali-magicfolder/30min" onclick="openCalendly(event)">Book 30-min call with Ali &rarr;</a>
+    <a href="https://calendly.com/ali-magicfolder/30min" onclick="openCalendly(event)">Schedule a Discovery Call &rarr;</a>
 </div>
 
 <!-- SITE HEADER -->
@@ -1473,15 +1459,15 @@
         </a>
         <nav class="nav-links" aria-label="Primary">
             <a href="#how-it-works">How it works</a>
-            <a href="#builder">Interactive ROI Builder</a>
-            <a href="#integrations">Integrations</a>
+            <a href="#builder">ROI Calculator</a>
             <a href="#pricing">Pricing</a>
+            <a href="#enterprise" class="nav-highlight">Enterprise AI &amp; Training</a>
             <a href="#security">Security</a>
             <a href="#faq">FAQ</a>
         </nav>
         <div class="nav-actions">
             <button class="nav-book-btn" onclick="openCalendly(event)">
-                <i data-lucide="calendar" size="16" aria-hidden="true"></i> Book a Call
+                <i data-lucide="calendar" size="16" aria-hidden="true"></i> Schedule Call
             </button>
             <a href="#builder" class="nav-cta">Build your plan <i data-lucide="arrow-right" size="16" aria-hidden="true"></i></a>
         </div>
@@ -1505,7 +1491,7 @@
 
         <div class="hero-ctas">
             <a href="#builder" class="btn btn-primary btn-large">Build my savings plan <i data-lucide="calculator" size="18" aria-hidden="true"></i></a>
-            <a href="https://calendly.com/ali-magicfolder/30min" class="btn btn-outline btn-large" onclick="openCalendly(event)"><i data-lucide="calendar" size="18" aria-hidden="true"></i> Book 30-min call with Ali</a>
+            <a href="https://calendly.com/ali-magicfolder/30min" class="btn btn-outline btn-large" onclick="openCalendly(event)"><i data-lucide="calendar" size="18" aria-hidden="true"></i> Schedule a Discovery Call</a>
         </div>
 
         <div class="hero-trust">
@@ -1514,24 +1500,25 @@
             <span><i data-lucide="check-circle-2" size="16" aria-hidden="true"></i> 60-day money-back guarantee</span>
         </div>
 
-        <!-- DEMO VISUALIZATION & INTERACTIVE INSPECTOR -->
-        <div class="demo-stage" role="region" aria-label="Visual demonstration of document intake, processing, and multi-app filing">
+        <!-- CLEAN, BALANCED DEMO ANIMATION STAGE (PIXEL-PERFECT ALIGNMENT) -->
+        <div class="demo-stage" role="img" aria-label="Animation: messy documents flow into MagicFolder and get sorted into Invoices, Contracts, and Quotes folders.">
             <div class="demo-caption" aria-hidden="true">
-                <span><span class="dot-sm"></span> 1. Forward, scan or upload</span>
-                <span><span class="dot-sm"></span> 2. MagicFolder AI parses &amp; matches</span>
-                <span><span class="dot-sm"></span> 3. Auto-filed in QuickBooks &amp; Drive</span>
+                <span><span class="dot-sm"></span> Messy in</span>
+                <span><span class="dot-sm"></span> We sort it</span>
+                <span><span class="dot-sm"></span> Filed in seconds</span>
             </div>
 
-            <div class="doc-unit doc-m1" aria-hidden="true"></div>
-            <div class="doc-unit doc-m2" aria-hidden="true"></div>
-            <div class="doc-unit doc-m3" aria-hidden="true"></div>
-            <div class="doc-unit doc-c1" aria-hidden="true"></div>
-            <div class="doc-unit doc-c2" aria-hidden="true"></div>
-            <div class="doc-unit doc-c3" aria-hidden="true"></div>
-
             <div class="demo-flow">
+                <!-- Flying documents scoped strictly to .demo-flow track -->
+                <div class="doc-unit doc-m1" aria-hidden="true"></div>
+                <div class="doc-unit doc-m2" aria-hidden="true"></div>
+                <div class="doc-unit doc-m3" aria-hidden="true"></div>
+                <div class="doc-unit doc-c1" aria-hidden="true"></div>
+                <div class="doc-unit doc-c2" aria-hidden="true"></div>
+                <div class="doc-unit doc-c3" aria-hidden="true"></div>
+
                 <div class="folder-node intake-anim">
-                    <i data-lucide="scan" size="32" aria-hidden="true" style="color:var(--primary)"></i>
+                    <i data-lucide="scan" size="32" aria-hidden="true" style="color:var(--text-main)"></i>
                     <h4>Intake</h4>
                     <span class="folder-sub">Scans, emails, photos</span>
                 </div>
@@ -1549,37 +1536,13 @@
                         </g>
                     </svg>
                     <h4>MagicFolder</h4>
-                    <span class="brand-sub">Read &middot; Name &middot; Reconcile</span>
+                    <span class="brand-sub">Read &middot; Name &middot; File</span>
                 </div>
 
                 <div class="dest-stack">
-                    <div class="dest-folder dest-anim"><i data-lucide="calculator" size="14" aria-hidden="true"></i><span>QuickBooks Bills</span></div>
-                    <div class="dest-folder dest-anim"><i data-lucide="folder-check" size="14" aria-hidden="true"></i><span>Google Drive / Dropbox</span></div>
-                    <div class="dest-folder dest-anim"><i data-lucide="trending-up" size="14" aria-hidden="true"></i><span>Quotes &amp; Invoices</span></div>
-                </div>
-            </div>
-
-            <!-- INTERACTIVE DOCUMENT INSPECTOR -->
-            <div class="simulator-bar">
-                <div class="sim-header">
-                    <div class="sim-title"><i data-lucide="eye" size="16" aria-hidden="true"></i> Live Pipeline Simulator (click to test):</div>
-                    <div class="sim-tabs" role="tablist">
-                        <button class="sim-btn active" onclick="switchSimDoc(0)" id="sim-tab-0" role="tab" aria-selected="true"><i data-lucide="file-text" size="14"></i> Utility Bill (PDF)</button>
-                        <button class="sim-btn" onclick="switchSimDoc(1)" id="sim-tab-1" role="tab" aria-selected="false"><i data-lucide="receipt" size="14"></i> Crew Fuel Receipt (Photo)</button>
-                        <button class="sim-btn" onclick="switchSimDoc(2)" id="sim-tab-2" role="tab" aria-selected="false"><i data-lucide="file-check-2" size="14"></i> Subcontractor W-9 / COI</button>
-                    </div>
-                </div>
-                <div class="sim-result" id="sim-display">
-                    <div class="sim-meta-left">
-                        <div class="tag" id="sim-tag">Document Type: AP Utility Invoice</div>
-                        <div class="filename" id="sim-file">PGE_Electric_Service_Aug2026.pdf</div>
-                        <div class="stats" id="sim-stats">Extracted: Vendor "Pacific Gas & Electric" • $1,482.50 • Due: 09/25/2026</div>
-                    </div>
-                    <div class="sim-meta-right">
-                        <div class="sim-action-line"><i data-lucide="check" size="16"></i> <span id="sim-act-1">Created QuickBooks Bill #9482 under "Utilities: Electric"</span></div>
-                        <div class="sim-action-line"><i data-lucide="check" size="16"></i> <span id="sim-act-2">Filed to Google Drive: <code>/Accounts Payable/2026/PGE_2026-08_9482.pdf</code></span></div>
-                        <div style="margin-top: 4px;"><span class="sim-badge-ok"><i data-lucide="shield-check" size="12"></i> 99.8% Match Confidence • Zero Human Touch Needed</span></div>
-                    </div>
+                    <div class="dest-folder dest-anim"><i data-lucide="file-text" size="14" aria-hidden="true"></i><span>Invoices</span></div>
+                    <div class="dest-folder dest-anim"><i data-lucide="shield-check" size="14" aria-hidden="true"></i><span>Contracts</span></div>
+                    <div class="dest-folder dest-anim"><i data-lucide="trending-up" size="14" aria-hidden="true"></i><span>Quotes</span></div>
                 </div>
             </div>
         </div>
@@ -1625,7 +1588,7 @@
             </div>
         </div>
         <p style="text-align: center; font-size: 0.82rem; color: var(--text-subtle); margin-top: 18px;">
-            Need a specific line-of-business tool, custom ERP, or local network share? <strong>85% of custom API connectors are built with zero added setup fees.</strong>
+            Need a specific line-of-business tool, custom ERP, or local network share? <strong>85% of custom API connectors are configured at zero added fee.</strong>
         </p>
     </div>
 </section>
@@ -1643,13 +1606,13 @@
             <div class="how-card reveal">
                 <div class="how-icon"><i data-lucide="phone-call" size="26" aria-hidden="true"></i></div>
                 <h3>1. 30-Min Workflow Audit</h3>
-                <p>Book a 30-minute call with our Principal Architect. Show us your messy email folders, paper stacks, and weekly bottlenecks. We pinpoint the exact tasks that will save you the most hours.</p>
+                <p>Schedule a 30-minute discovery call with our architecture team. Show us your current folders, email intake, and weekly bottlenecks. We pinpoint the exact tasks that will save you the most hours.</p>
                 <span class="how-time">~30 min kickoff call</span>
             </div>
             <div class="how-card reveal">
                 <div class="how-icon"><i data-lucide="cpu" size="26" aria-hidden="true"></i></div>
                 <h3>2. We Build &amp; Train on Your Data</h3>
-                <p>We configure the automation pipeline using official encrypted connections. We fine-tune the extraction on 25–50 of your actual past documents to ensure 99%+ accuracy before going live.</p>
+                <p>We configure your automation pipeline using official encrypted connections. We fine-tune field extraction on 25–50 of your actual past documents to ensure 99%+ accuracy before going live.</p>
                 <span class="how-time">Live in 5–7 business days</span>
             </div>
             <div class="how-card reveal">
@@ -1711,7 +1674,7 @@
                             <div class="roi-value" id="roi-dollars">$0</div>
                             <div class="roi-hours">Recovering <span id="roi-hours" style="color:white; font-weight:800;">0</span> hours / year</div>
                             <span class="roi-equiv" id="roi-equiv">~0 full working weeks reclaimed</span>
-                            <span class="roi-caveat">Estimated savings based on typical small business client benchmarks.</span>
+                            <span class="roi-caveat">Estimated savings based on typical client volume benchmarks.</span>
                         </div>
 
                         <div class="tier-recommendation">
@@ -1726,7 +1689,7 @@
                                 Lock in my plan <i data-lucide="arrow-right" aria-hidden="true"></i>
                             </button>
                             <button class="cart-book-btn" onclick="openCalendly(event)">
-                                <i data-lucide="calendar" size="16" aria-hidden="true"></i> Have questions? Book 30-min with Ali
+                                <i data-lucide="calendar" size="16" aria-hidden="true"></i> Have questions? Schedule a consultation
                             </button>
                         </div>
                     </div>
@@ -1743,6 +1706,67 @@
                 </span>
             </button>
 
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+   ENTERPRISE AI SOLUTIONS & ENABLEMENT (NEW HIGH-AUTHORITY SECTION)
+   ============================================================ -->
+<section class="enterprise-section" id="enterprise">
+    <div class="container">
+        <div class="section-head center reveal">
+            <span class="section-eyebrow">Enterprise Solutions &amp; Advisory</span>
+            <h2 class="section-title">Beyond Documents: Enterprise AI Enablement, Training &amp; Custom Workflows</h2>
+            <p class="section-lede">We bridge the gap between frontier AI technology and daily enterprise operations. From team-wide training across Claude, ChatGPT, Copilot, and Gemini, to bespoke autonomous pipelines and air-gapped security architectures.</p>
+        </div>
+
+        <div class="ent-grid">
+            <div class="ent-card reveal">
+                <div class="ent-icon"><i data-lucide="graduation-cap" size="26" aria-hidden="true"></i></div>
+                <h3>Enterprise AI Training &amp; Fluency</h3>
+                <p>Practical, gamified workshops tailored to your active stack: <strong>Claude, Microsoft 365 Copilot, ChatGPT Enterprise, or Gemini</strong>. We train teams on the 5-part prompt engineering framework to produce executive-ready deliverables on the first swing.</p>
+                <ul class="ent-features">
+                    <li><i data-lucide="check" size="16"></i> Multi-platform fluency workshops</li>
+                    <li><i data-lucide="check" size="16"></i> 5-Part Pre-Shot prompt routine</li>
+                    <li><i data-lucide="check" size="16"></i> Departmental AI playbooks (Sales, HR, Ops)</li>
+                    <li><i data-lucide="check" size="16"></i> Chat-to-system maturity scaling</li>
+                </ul>
+            </div>
+
+            <div class="ent-card reveal">
+                <div class="ent-icon"><i data-lucide="git-merge" size="26" aria-hidden="true"></i></div>
+                <h3>Custom Workflow Implementation</h3>
+                <p>Move beyond disposable 1-on-1 chats. We architect persistent project hubs, custom agent skills, and background automation pipelines that integrate your LLMs directly with internal ERPs, CRMs, and proprietary databases.</p>
+                <ul class="ent-features">
+                    <li><i data-lucide="check" size="16"></i> Autonomous multi-agent pipelines</li>
+                    <li><i data-lucide="check" size="16"></i> Custom line-of-business API connectors</li>
+                    <li><i data-lucide="check" size="16"></i> Human-in-the-loop exception queues</li>
+                    <li><i data-lucide="check" size="16"></i> Automated data extraction &amp; reconciliation</li>
+                </ul>
+            </div>
+
+            <div class="ent-card reveal">
+                <div class="ent-icon"><i data-lucide="shield-check" size="26" aria-hidden="true"></i></div>
+                <h3>Governance &amp; Air-Gapped Moats</h3>
+                <p>Enterprise AI adoption requires rock-solid data sovereignty. We establish tenant isolation, Single Sign-On (SSO), and Zero Data Retention agreements — including dedicated <strong>100% offline edge servers</strong> for HIPAA, ITAR, and legal compliance.</p>
+                <ul class="ent-features">
+                    <li><i data-lucide="check" size="16"></i> Zero-Data-Retention (ZDR) validation</li>
+                    <li><i data-lucide="check" size="16"></i> 100% Offline / Air-Gapped appliances</li>
+                    <li><i data-lucide="check" size="16"></i> Corporate AI acceptable-use policies</li>
+                    <li><i data-lucide="check" size="16"></i> 20+ Years Principal IT Architect oversight</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="ent-banner reveal">
+            <div class="ent-banner-text">
+                <h4>Looking for custom AI training, executive briefings, or multi-agent builds?</h4>
+                <p>We work directly with executive leadership, IT directors, and departmental heads to design high-impact AI programs tailored to your organization's exact needs and compliance requirements.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openCalendly(event)">
+                <i data-lucide="calendar" size="18" aria-hidden="true"></i> Schedule an Executive Briefing
+            </button>
         </div>
     </div>
 </section>
@@ -1776,7 +1800,7 @@
                     <li><i data-lucide="check" size="18" aria-hidden="true"></i> 60-day 100% money-back guarantee</li>
                 </ul>
                 <button type="button" class="btn btn-outline price-cta" data-tier="1" onclick="checkoutTier(1)">Choose Smart Scan <i data-lucide="arrow-right" size="18" aria-hidden="true"></i></button>
-                <div class="price-secondary-link">or <a onclick="openCalendly(event)">book a 15-min question call with Ali</a></div>
+                <div class="price-secondary-link">or <a onclick="openCalendly(event)">schedule an introductory call</a></div>
             </div>
 
             <!-- TIER 2 -->
@@ -1796,11 +1820,11 @@
                     <li><i data-lucide="check" size="18" aria-hidden="true"></i> Auto-create Bills, Draft Quotes &amp; Invoices</li>
                     <li><i data-lucide="check" size="18" aria-hidden="true"></i> Job-site receipts mapped and attached to specific jobs</li>
                     <li><i data-lucide="check" size="18" aria-hidden="true"></i> Human-in-the-loop review queue for edge cases</li>
-                    <li><i data-lucide="check" size="18" aria-hidden="true"></i> Priority direct Slack/email support with Ali &amp; team</li>
+                    <li><i data-lucide="check" size="18" aria-hidden="true"></i> Priority direct Slack &amp; email engineering support</li>
                     <li><i data-lucide="check" size="18" aria-hidden="true"></i> 60-day 100% money-back guarantee</li>
                 </ul>
                 <button type="button" class="btn btn-primary price-cta" data-tier="2" onclick="checkoutTier(2)">Choose Data Sync <i data-lucide="arrow-right" size="18" aria-hidden="true"></i></button>
-                <div class="price-secondary-link">or <a onclick="openCalendly(event)">book a 15-min question call with Ali</a></div>
+                <div class="price-secondary-link">or <a onclick="openCalendly(event)">schedule an introductory call</a></div>
             </div>
 
             <!-- TIER 3 -->
@@ -1821,7 +1845,7 @@
                     <li><i data-lucide="check" size="18" aria-hidden="true"></i> Custom SLA &amp; quarterly executive workflow reviews</li>
                 </ul>
                 <button type="button" class="btn btn-outline price-cta" data-tier="3" onclick="openCalendly(event)">Book a discovery call <i data-lucide="calendar" size="18" aria-hidden="true"></i></button>
-                <div class="price-secondary-link"><a onclick="openCalendly(event)">Directly schedule 30 mins on Ali's calendar</a></div>
+                <div class="price-secondary-link"><a onclick="openCalendly(event)">Schedule a 30-minute discovery consultation</a></div>
             </div>
         </div>
 
@@ -1832,7 +1856,7 @@
                 <p>We'll map your exact accounting stack and tell you upfront if MagicFolder is a fit. No hard sales pitch.</p>
             </div>
             <button class="btn btn-primary" onclick="openCalendly(event)">
-                <i data-lucide="calendar" size="18" aria-hidden="true"></i> Book 30-Min Call with Ali
+                <i data-lucide="calendar" size="18" aria-hidden="true"></i> Schedule an Architecture Consultation
             </button>
         </div>
     </div>
@@ -1859,7 +1883,7 @@
                     </div>
                 </div>
                 <button class="btn btn-outline founder-book-btn" onclick="openCalendly(event)">
-                    <i data-lucide="calendar" size="16" aria-hidden="true"></i> Schedule 1-on-1 with Ali (30 Mins)
+                    <i data-lucide="calendar" size="16" aria-hidden="true"></i> Schedule an Architecture Review (30 Mins)
                 </button>
             </div>
         </div>
@@ -1906,7 +1930,7 @@
         <div class="section-head center reveal">
             <span class="section-eyebrow">FAQ</span>
             <h2 class="section-title">Common Questions &amp; Answers</h2>
-            <p class="section-lede">Got a specific question about your software setup? Book time with Ali or check out the answers below.</p>
+            <p class="section-lede">Got a specific question about your software setup? Schedule a call with our team or check out the answers below.</p>
         </div>
 
         <div class="faq-list">
@@ -1920,7 +1944,7 @@
             <details class="faq-item reveal">
                 <summary>Can I speak with someone to confirm this works with my setup? <span class="faq-toggle"><i data-lucide="plus" size="16" aria-hidden="true"></i></span></summary>
                 <div class="faq-body">
-                    <p>Yes, absolutely! You can <a onclick="openCalendly(event)">book a direct 30-minute video call on Calendly with our founder, Ali Chitsaz</a>. We'll examine your current documents and tools and tell you honestly whether MagicFolder can automate them.</p>
+                    <p>Yes, absolutely! You can <a onclick="openCalendly(event)">schedule a direct 30-minute video discovery call with our team on Calendly</a>. We'll examine your current documents and tools and tell you honestly whether MagicFolder can automate them.</p>
                 </div>
             </details>
 
@@ -1948,7 +1972,7 @@
             <details class="faq-item reveal">
                 <summary>What does the monthly software management fee cover? <span class="faq-toggle"><i data-lucide="plus" size="16" aria-hidden="true"></i></span></summary>
                 <div class="faq-body">
-                    <p>The monthly fee covers three critical pillars: (1) enterprise automation hosting and document processing infrastructure, (2) ongoing rule updates when your vendors or chart of accounts change, and (3) real human support from an architect you can email or call. We do not charge punitive per-document fees — file as much as you need.</p>
+                    <p>The monthly fee covers three critical pillars: (1) enterprise automation hosting and document processing infrastructure, (2) ongoing rule updates when your vendors or chart of accounts change, and (3) real human engineering support. We do not charge punitive per-document fees — file as much as you need.</p>
                 </div>
             </details>
 
@@ -1976,7 +2000,7 @@
         <p>Pick the tasks you want off your plate. We'll show you exactly how many hours you'll get back — and handle the entire setup for you.</p>
         <div class="final-cta-btns">
             <a href="#builder" class="btn btn-large btn-white">Build my savings plan <i data-lucide="calculator" aria-hidden="true"></i></a>
-            <a href="https://calendly.com/ali-magicfolder/30min" class="btn btn-large btn-ghost-white" onclick="openCalendly(event)"><i data-lucide="calendar" aria-hidden="true"></i> Book 30-min call with Ali</a>
+            <a href="https://calendly.com/ali-magicfolder/30min" class="btn btn-large btn-ghost-white" onclick="openCalendly(event)"><i data-lucide="calendar" aria-hidden="true"></i> Schedule a Discovery Call</a>
         </div>
     </div>
 </section>
@@ -2008,7 +2032,7 @@
             </li>
             <li>
                 <div class="step-icon"><i data-lucide="calendar-days" aria-hidden="true"></i></div>
-                <div><strong>2. Book your 30-min kickoff.</strong> Instantly schedule your onboarding call on Calendly with Ali Chitsaz.</div>
+                <div><strong>2. Book your 30-min kickoff.</strong> Instantly schedule your kickoff call on Calendly with your dedicated automation architect.</div>
             </li>
             <li>
                 <div class="step-icon"><i data-lucide="rocket" aria-hidden="true"></i></div>
@@ -2021,7 +2045,7 @@
                 Proceed to secure checkout <i data-lucide="lock" aria-hidden="true"></i>
             </a>
             <button class="btn btn-outline" style="width: 100%; justify-content: center;" onclick="openCalendly(event)">
-                <i data-lucide="calendar" size="18" aria-hidden="true"></i> Prefer to talk first? Book 30-min kickoff with Ali
+                <i data-lucide="calendar" size="18" aria-hidden="true"></i> Prefer to talk first? Schedule a 30-min discovery call
             </button>
         </div>
     </div>
@@ -2045,10 +2069,10 @@
 </main>
 
 <!-- FLOATING QUICK-BOOK BUTTON -->
-<button class="floating-calendly-btn" onclick="openCalendly(event)" aria-label="Book 30-min call with Ali Chitsaz">
+<button class="floating-calendly-btn" onclick="openCalendly(event)" aria-label="Schedule a consultation">
     <span class="badge-live" aria-hidden="true"></span>
     <i data-lucide="calendar" size="16" aria-hidden="true"></i>
-    <span>Book with Ali</span>
+    <span>Schedule Call</span>
 </button>
 
 <!-- SITE FOOTER -->
@@ -2065,7 +2089,7 @@
                     </svg>
                     MagicFolder AI
                 </a>
-                <p>Enterprise-grade document automation for small businesses, contractors, and growing teams. Built directly inside QuickBooks, Xero, Drive, and Dropbox.</p>
+                <p>Enterprise-grade document automation and AI advisory for small businesses, contractors, and growing teams. Built directly inside QuickBooks, Xero, Drive, and Dropbox.</p>
             </div>
             <div class="footer-col">
                 <h4>Product</h4>
@@ -2078,20 +2102,20 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Company</h4>
+                <h4>Solutions</h4>
                 <ul>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="https://calendly.com/ali-magicfolder/30min" onclick="openCalendly(event)">Book a Call</a></li>
-                    <li><a href="mailto:hello@magicfolder.ai">Contact Support</a></li>
-                    <li><a href="mailto:ali@magicfolder.ai">Contact Founder</a></li>
+                    <li><a href="#enterprise">Enterprise Enablement</a></li>
+                    <li><a href="#enterprise">Multi-Stack AI Training</a></li>
+                    <li><a href="#enterprise">Custom Workflows</a></li>
+                    <li><a href="#enterprise">Air-Gapped Appliances</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Book &amp; Connect</h4>
+                <h4>Connect</h4>
                 <ul>
-                    <li><a href="https://calendly.com/ali-magicfolder/30min" target="_blank" rel="noopener" onclick="openCalendly(event)">Schedule 30-Min Demo &rarr;</a></li>
-                    <li><a href="#builder">Build Custom Plan</a></li>
+                    <li><a href="https://calendly.com/ali-magicfolder/30min" target="_blank" rel="noopener" onclick="openCalendly(event)">Schedule Discovery Call &rarr;</a></li>
                     <li><a href="mailto:hello@magicfolder.ai">hello@magicfolder.ai</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                 </ul>
             </div>
         </div>
@@ -2108,6 +2132,7 @@
 <script>
     /* ==========================================================
        CALENDLY OFFICIAL MODAL INTEGRATION & BOOKING HANDLER
+       Agile, team-agnostic endpoint configurable in one place
        ========================================================== */
     const CALENDLY_URL = 'https://calendly.com/ali-magicfolder/30min';
 
@@ -2127,7 +2152,7 @@
     }
 
     /* ==========================================================
-       WORKFLOW CATALOG DATA (Expanded to 8 high-ROI workflows)
+       WORKFLOW CATALOG DATA (8 high-ROI workflows)
        ========================================================== */
     const TASKS = [
         {
@@ -2230,49 +2255,6 @@
             url: "https://calendly.com/ali-magicfolder/30min"
         }
     ];
-
-    /* ==========================================================
-       INTERACTIVE SIMULATOR EXAMPLES
-       ========================================================== */
-    const SIM_DOCS = [
-        {
-            tag: "Document Type: AP Utility Invoice (PDF)",
-            file: "PGE_Electric_Service_Aug2026.pdf",
-            stats: 'Extracted: Vendor "Pacific Gas & Electric" • Amount: $1,482.50 • Due: 09/25/2026',
-            act1: 'Created QuickBooks Bill #9482 under "Utilities: Electric" (Unpaid)',
-            act2: 'Filed to Google Drive: /Accounts Payable/2026/PGE_2026-08_9482.pdf',
-            badge: '99.8% Match Confidence • Zero Human Touch Needed'
-        },
-        {
-            tag: "Document Type: Field Fuel / Supply Receipt (Photo)",
-            file: "IMG_3921_HomeDepot_Lumber.jpg",
-            stats: 'Extracted: Vendor "The Home Depot" • Amount: $387.19 • Tax: $31.84 • Job: #104 Mesa Oaks',
-            act1: 'Attached receipt image to QuickBooks Job #104 as Billable Material Expense',
-            act2: 'Renamed & saved to Dropbox: /Projects/Job_104/Receipts/HomeDepot_387_19.jpg',
-            badge: 'Auto-categorized & matched to active project job-code'
-        },
-        {
-            tag: "Document Type: Subcontractor Compliance (W-9 / COI)",
-            file: "Apex_Plumbing_Sub_COI_2026.pdf",
-            stats: 'Extracted: Insured "Apex Plumbing LLC" • Policy Exp: 12/31/2026 • General Liability $2M',
-            act1: 'Updated Subcontractor Compliance Status to "Verified Active" in tracking sheet',
-            act2: 'Filed to Google Drive: /Subcontractors/Apex_Plumbing/Compliance/COI_2026.pdf',
-            badge: 'Automated expiration tracking with 30-day renewal alert scheduled'
-        }
-    ];
-
-    function switchSimDoc(index) {
-        document.querySelectorAll('.sim-btn').forEach((btn, idx) => {
-            btn.classList.toggle('active', idx === index);
-            btn.setAttribute('aria-selected', idx === index ? 'true' : 'false');
-        });
-        const d = SIM_DOCS[index];
-        document.getElementById('sim-tag').innerText = d.tag;
-        document.getElementById('sim-file').innerText = d.file;
-        document.getElementById('sim-stats').innerText = d.stats;
-        document.getElementById('sim-act-1').innerText = d.act1;
-        document.getElementById('sim-act-2').innerText = d.act2;
-    }
 
     /* ==========================================================
        BUILDER STATE MANAGEMENT & ROI LOGIC
@@ -2518,7 +2500,7 @@
 
     function showWaitingState() {
         document.getElementById('waiting-title').innerText = "Checkout in progress";
-        document.getElementById('waiting-desc').innerText = "A secure Stripe payment window has been opened in a new tab. After completing setup, you will immediately be redirected to book your kickoff call on Calendly.";
+        document.getElementById('waiting-desc').innerText = "A secure Stripe payment window has been opened in a new tab. After completing setup, you will immediately be redirected to schedule your kickoff call on Calendly.";
 
         document.querySelector('#checkout-view > .checkout-box').classList.add('hidden');
         document.querySelector('#checkout-view > .btn-ghost').classList.add('hidden');
