@@ -32,7 +32,165 @@
         <style>
             .reveal { opacity: 1 !important; transform: none !important; }
             .mobile-pill { display: none !important; }
-        </style>
+        
+        /* ============================================================
+           MOBILE-OPTIMIZED SMART INGESTION FEED (< 768px)
+           World-class responsive standard: compact, informative, robust
+           ============================================================ */
+        .desktop-pipeline { display: flex; }
+        .mobile-pipeline { display: none; }
+
+        @media (max-width: 768px) {
+            .desktop-pipeline { display: none !important; }
+            .mobile-pipeline {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                width: 100%;
+            }
+
+            .demo-stage {
+                padding: 20px 16px 18px !important;
+                margin-top: 24px !important;
+                border-radius: var(--radius-md) !important;
+            }
+
+            .mob-nodes-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                width: 100%;
+            }
+            .mob-node {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 10px 12px;
+                flex: 1;
+                font-size: 0.76rem;
+                font-weight: 800;
+                color: var(--text-main);
+                box-shadow: var(--shadow-sm);
+            }
+            .mob-node.mob-brand {
+                border-color: var(--primary-light);
+                background: #f8faff;
+            }
+            .mob-node.mob-brand span { color: var(--primary); }
+
+            .mob-beam {
+                position: relative;
+                width: 24px;
+                height: 2px;
+                background: var(--border-strong);
+                flex-shrink: 0;
+            }
+            .mob-beam .beam-dot {
+                position: absolute;
+                top: -3px;
+                left: 0;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--primary);
+                animation: beamTravel 2s infinite ease-in-out;
+            }
+            @keyframes beamTravel {
+                0% { left: 0%; opacity: 0; }
+                20% { opacity: 1; }
+                80% { opacity: 1; }
+                100% { left: 100%; opacity: 0; }
+            }
+
+            .mob-live-card {
+                background: #0f172a;
+                color: #e2e8f0;
+                border-radius: 12px;
+                padding: 14px 16px;
+                box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+                text-align: left;
+            }
+            .mob-live-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .mob-live-badge {
+                font-size: 0.72rem;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--accent);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .mob-live-badge .pulse-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--success);
+                box-shadow: 0 0 6px var(--success);
+            }
+            .mob-time-badge {
+                font-size: 0.72rem;
+                color: #94a3b8;
+                font-weight: 600;
+            }
+
+            .mob-doc-ticker {
+                min-height: 72px;
+            }
+            .mob-ticker-item {
+                display: none;
+                flex-direction: column;
+                gap: 5px;
+                animation: tickerFade 0.35s ease forwards;
+            }
+            .mob-ticker-item.active {
+                display: flex;
+            }
+            @keyframes tickerFade {
+                from { opacity: 0; transform: translateY(4px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .mob-doc-title {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                font-size: 0.86rem;
+                color: #ffffff;
+                font-family: monospace;
+                margin-bottom: 2px;
+            }
+            .mob-doc-title i { color: var(--accent); }
+            .mob-route-line {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.78rem;
+                color: #cbd5e1;
+            }
+            .mob-tag-ok {
+                background: rgba(16, 185, 129, 0.2);
+                color: #34d399;
+                font-size: 0.7rem;
+                font-weight: 800;
+                padding: 1px 6px;
+                border-radius: 4px;
+                flex-shrink: 0;
+            }
+        }
+
+    </style>
     </noscript>
 
     <style>
@@ -1349,48 +1507,7 @@
             .app-layout { grid-template-columns: 1fr; margin-top: 12px; }
             .workflow-grid { grid-template-columns: 1fr; }
 
-            .demo-flow { gap: 24px; flex-direction: column; min-height: 380px; }
-            .dest-stack { flex-direction: row; width: 100%; gap: 10px; justify-content: center; }
-            .dest-folder { flex: 1; justify-content: center; padding: 0; height: 52px; }
-            .dest-folder span { font-size: 0.75rem; }
-            .dest-folder i { display: none; }
-            .brand-center svg { width: 120px; height: 120px; }
-            .brand-center h4 { font-size: 1.4rem; }
-            .doc-unit { transform: translate(-50%, -50%) !important; }
 
-            @keyframes mobileIn {
-                0% { top: 5%; left: 50%; opacity: 0; transform: translate(-50%, -50%) rotate(-10deg); }
-                10% { opacity: 1; }
-                42% { top: 40%; left: 50%; opacity: 1; transform: translate(-50%, -50%) rotate(0deg); }
-                48% { opacity: 0; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-                100% { opacity: 0; }
-            }
-            @keyframes mobileOut1 {
-                0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); }
-                60% { opacity: 1; border-color: var(--primary); }
-                90% { top: 86%; left: 18%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
-                100% { opacity: 0; top: 86%; left: 18%; transform: translate(-50%, -50%) scale(0.65); }
-            }
-            @keyframes mobileOut2 {
-                0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); }
-                60% { opacity: 1; border-color: var(--primary); }
-                90% { top: 86%; left: 50%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
-                100% { opacity: 0; top: 86%; left: 50%; transform: translate(-50%, -50%) scale(0.65); }
-            }
-            @keyframes mobileOut3 {
-                0%, 55% { top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%); }
-                60% { opacity: 1; border-color: var(--primary); }
-                90% { top: 86%; left: 82%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
-                100% { opacity: 0; top: 86%; left: 82%; transform: translate(-50%, -50%) scale(0.65); }
-            }
-            .doc-m1 { animation-name: mobileIn; }
-            .doc-m2 { animation-name: mobileIn; animation-delay: 0.5s; }
-            .doc-m3 { animation-name: mobileIn; animation-delay: 1.0s; }
-            .doc-c1 { animation-name: mobileOut1; }
-            .doc-c2 { animation-name: mobileOut2; animation-delay: 0.5s; }
-            .doc-c3 { animation-name: mobileOut3; animation-delay: 1.0s; }
-
-            .demo-caption { display: none; }
 
             .cart-sticky {
                 position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -1448,6 +1565,164 @@
             .founder-bottom { flex-direction: column; align-items: flex-start; }
             .founder-book-btn { width: 100%; justify-content: center; }
         }
+    
+        /* ============================================================
+           MOBILE-OPTIMIZED SMART INGESTION FEED (< 768px)
+           World-class responsive standard: compact, informative, robust
+           ============================================================ */
+        .desktop-pipeline { display: flex; }
+        .mobile-pipeline { display: none; }
+
+        @media (max-width: 768px) {
+            .desktop-pipeline { display: none !important; }
+            .mobile-pipeline {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                width: 100%;
+            }
+
+            .demo-stage {
+                padding: 20px 16px 18px !important;
+                margin-top: 24px !important;
+                border-radius: var(--radius-md) !important;
+            }
+
+            .mob-nodes-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                width: 100%;
+            }
+            .mob-node {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 10px 12px;
+                flex: 1;
+                font-size: 0.76rem;
+                font-weight: 800;
+                color: var(--text-main);
+                box-shadow: var(--shadow-sm);
+            }
+            .mob-node.mob-brand {
+                border-color: var(--primary-light);
+                background: #f8faff;
+            }
+            .mob-node.mob-brand span { color: var(--primary); }
+
+            .mob-beam {
+                position: relative;
+                width: 24px;
+                height: 2px;
+                background: var(--border-strong);
+                flex-shrink: 0;
+            }
+            .mob-beam .beam-dot {
+                position: absolute;
+                top: -3px;
+                left: 0;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--primary);
+                animation: beamTravel 2s infinite ease-in-out;
+            }
+            @keyframes beamTravel {
+                0% { left: 0%; opacity: 0; }
+                20% { opacity: 1; }
+                80% { opacity: 1; }
+                100% { left: 100%; opacity: 0; }
+            }
+
+            .mob-live-card {
+                background: #0f172a;
+                color: #e2e8f0;
+                border-radius: 12px;
+                padding: 14px 16px;
+                box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+                text-align: left;
+            }
+            .mob-live-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .mob-live-badge {
+                font-size: 0.72rem;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--accent);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .mob-live-badge .pulse-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--success);
+                box-shadow: 0 0 6px var(--success);
+            }
+            .mob-time-badge {
+                font-size: 0.72rem;
+                color: #94a3b8;
+                font-weight: 600;
+            }
+
+            .mob-doc-ticker {
+                min-height: 72px;
+            }
+            .mob-ticker-item {
+                display: none;
+                flex-direction: column;
+                gap: 5px;
+                animation: tickerFade 0.35s ease forwards;
+            }
+            .mob-ticker-item.active {
+                display: flex;
+            }
+            @keyframes tickerFade {
+                from { opacity: 0; transform: translateY(4px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .mob-doc-title {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                font-size: 0.86rem;
+                color: #ffffff;
+                font-family: monospace;
+                margin-bottom: 2px;
+            }
+            .mob-doc-title i { color: var(--accent); }
+            .mob-route-line {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.78rem;
+                color: #cbd5e1;
+            }
+            .mob-tag-ok {
+                background: rgba(16, 185, 129, 0.2);
+                color: #34d399;
+                font-size: 0.7rem;
+                font-weight: 800;
+                padding: 1px 6px;
+                border-radius: 4px;
+                flex-shrink: 0;
+            }
+        }
+
     </style>
     <!-- Performance Preconnects -->
     <link rel="dns-prefetch" href="https://assets.calendly.com">
@@ -1560,10 +1835,11 @@
             <span><i data-lucide="check-circle-2" size="16" aria-hidden="true"></i> 100% US-based architecture</span>
         </div>
 
-        <!-- CALM, RHYTHMIC HERO PIPELINE (SINGLE CLEAR STORY, ZERO VISUAL CHAOS) -->
-        <div class="demo-stage" role="img" aria-label="Animation: documents glide into MagicFolder, get processed by AI, and cleanly route into Invoices, Contracts, and Quotes.">
-            <div class="demo-flow">
-                <!-- Calm sequential document tokens -->
+                <!-- RESPONSIVE HERO PIPELINE (DUAL-MODE: DESKTOP EXPANSIVE + MOBILE SMART FEED) -->
+        <div class="demo-stage" role="region" aria-label="Visual demonstration of document intake, processing, and multi-app filing">
+            
+            <!-- DESKTOP PIPELINE (Visible on desktop & tablets >= 768px) -->
+            <div class="demo-flow desktop-pipeline">
                 <div class="doc-unit doc-in" aria-hidden="true"></div>
                 <div class="doc-unit doc-out-1" aria-hidden="true"></div>
                 <div class="doc-unit doc-out-2" aria-hidden="true"></div>
@@ -1597,7 +1873,92 @@
                     <div class="dest-folder"><i data-lucide="trending-up" size="14" aria-hidden="true"></i><span>Quotes</span></div>
                 </div>
             </div>
+
+            <!-- MOBILE SMART INGESTION FEED (Visible on mobile < 768px: compact, clean, zero clipping) -->
+            <div class="mobile-pipeline">
+                <div class="mob-nodes-row">
+                    <div class="mob-node">
+                        <i data-lucide="scan" size="17" aria-hidden="true"></i>
+                        <span>Intake</span>
+                    </div>
+                    <div class="mob-beam">
+                        <span class="beam-line"></span>
+                        <span class="beam-dot"></span>
+                    </div>
+                    <div class="mob-node mob-brand">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true">
+                            <path d="M15,35 L40,35 Q44,35 46,39 L50,45 Q52,50 58,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.2" stroke="#4f46e5" stroke-width="4"/>
+                            <path d="M15,50 L85,50 L85,85 L15,85 Z" fill="#4f46e5" opacity="0.4"/>
+                            <line x1="68" y1="22" x2="88" y2="42" stroke="#0f172a" stroke-width="7" stroke-linecap="round"/>
+                            <circle cx="68" cy="22" r="4" fill="#4f46e5"/>
+                        </svg>
+                        <span>MagicFolder</span>
+                    </div>
+                    <div class="mob-beam">
+                        <span class="beam-line"></span>
+                        <span class="beam-dot"></span>
+                    </div>
+                    <div class="mob-node">
+                        <i data-lucide="check-circle-2" size="17" aria-hidden="true" style="color:var(--success)"></i>
+                        <span>Auto-Filed</span>
+                    </div>
+                </div>
+
+                <div class="mob-live-card">
+                    <div class="mob-live-header">
+                        <span class="mob-live-badge"><span class="pulse-dot"></span> Live Pipeline Feed</span>
+                        <span class="mob-time-badge">0s manual typing</span>
+                    </div>
+                    <div class="mob-doc-ticker">
+                        <div class="mob-ticker-item active" id="mob-tick-0">
+                            <div class="mob-doc-title">
+                                <i data-lucide="file-text" size="15" aria-hidden="true"></i>
+                                <strong>PG&amp;E_Electric_Bill.pdf</strong>
+                            </div>
+                            <div class="mob-route-line">
+                                <span class="mob-tag-ok">✓ QuickBooks</span>
+                                <span>Created Bill #9482 ($1,482.50)</span>
+                            </div>
+                            <div class="mob-route-line">
+                                <span class="mob-tag-ok">✓ Google Drive</span>
+                                <span>Filed to /Accounts Payable/Utilities</span>
+                            </div>
+                        </div>
+                        <div class="mob-ticker-item" id="mob-tick-1">
+                            <div class="mob-doc-title">
+                                <i data-lucide="receipt" size="15" aria-hidden="true"></i>
+                                <strong>HomeDepot_Receipt_Lumber.jpg</strong>
+                            </div>
+                            <div class="mob-route-line">
+                                <span class="mob-tag-ok">✓ QuickBooks</span>
+                                <span>Attached to Job #104 ($387.19)</span>
+                            </div>
+                            <div class="mob-route-line">
+                                <span class="mob-tag-ok">✓ Dropbox</span>
+                                <span>Archived in /Projects/Job_104/Receipts</span>
+                            </div>
+                        </div>
+                        <div class="mob-ticker-item" id="mob-tick-2">
+                            <div class="mob-doc-title">
+                                <i data-lucide="shield-check" size="15" aria-hidden="true"></i>
+                                <strong>Apex_Plumbing_W9_COI.pdf</strong>
+                            </div>
+                            <div class="mob-route-line">
+                                <span class="mob-tag-ok">✓ Verified</span>
+                                <span>Active Policy &bull; Exp: 12/31/2026</span>
+                            </div>
+                            <div class="mob-route-line">
+                                <span class="mob-tag-ok">✓ Google Drive</span>
+                                <span>Filed in /Subcontractors/Compliance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div>
+</div>
     </div>
 </div>
 
@@ -2778,6 +3139,18 @@
 
         
         
+
+        
+        // Mobile Pipeline Auto-Ticker Rotation (Runs smoothly on mobile)
+        const mobItems = document.querySelectorAll('.mob-ticker-item');
+        if (mobItems.length > 0) {
+            let currentTick = 0;
+            setInterval(() => {
+                mobItems[currentTick].classList.remove('active');
+                currentTick = (currentTick + 1) % mobItems.length;
+                mobItems[currentTick].classList.add('active');
+            }, 3600);
+        }
 
         if (typeof lucide !== 'undefined') lucide.createIcons();
     });
