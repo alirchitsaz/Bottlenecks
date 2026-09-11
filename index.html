@@ -1425,6 +1425,74 @@
         
         
 
+        
+        /* COHORT CAPACITY BANNER & CHECKOUT TERMS */
+        .cohort-status-banner {
+            background: rgba(79, 70, 229, 0.08);
+            border: 1px solid rgba(79, 70, 229, 0.25);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.88rem;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+        .cohort-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+        .cohort-status-banner strong {
+            display: block;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.8rem;
+        }
+        .cohort-status-banner span {
+            color: var(--text-muted);
+            font-size: 0.86rem;
+        }
+
+        .checkout-terms-covenant {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-top: 12px;
+        }
+        .terms-checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .terms-checkbox-label input[type="checkbox"] {
+            margin-top: 3px;
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .terms-checkbox-label a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
         /* CHECKOUT MODAL VIEW */
         #checkout-view { max-width: 820px; margin: 0 auto; padding: 40px 24px; }
         .checkout-box {
@@ -2655,23 +2723,45 @@
             </div>
         </div>
 
-        <h3 style="margin-bottom: 18px; font-size: 1.3rem; letter-spacing: -0.02em;">How deployment works:</h3>
+                <div class="cohort-status-banner">
+            <span class="cohort-dot"></span>
+            <div>
+                <strong>Active Deployment Cohort: September 2026</strong>
+                <span>Intake is capped at 6 client pipelines per month to maintain dedicated engineering and &gt;98% model accuracy. Kickoffs are scheduled immediately upon checkout.</span>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 16px; font-size: 1.25rem; letter-spacing: -0.02em;">How deployment &amp; scale work:</h3>
         <ul class="onboard-steps">
             <li>
                 <div class="step-icon"><i data-lucide="credit-card" aria-hidden="true"></i></div>
-                <div><strong>1. Secure your setup.</strong> One-time setup fee is processed securely through Stripe with month-to-month management.</div>
+                <div><strong>1. Reserve your deployment slot.</strong> Setup fee is processed securely through Stripe, reserving your engineering bandwidth in the current onboarding cohort.</div>
             </li>
             <li>
                 <div class="step-icon"><i data-lucide="calendar-days" aria-hidden="true"></i></div>
-                <div><strong>2. Book your 30-min kickoff.</strong> Instantly schedule your kickoff call on Calendly with your dedicated automation architect.</div>
+                <div><strong>2. 30-Min Technical Kickoff.</strong> Instantly schedule your kickoff call on Calendly to map your folder structures and accounting chart of accounts.</div>
+            </li>
+            <li>
+                <div class="step-icon"><i data-lucide="file-check" aria-hidden="true"></i></div>
+                <div><strong>3. Sample Training &amp; Verification.</strong> You provide 25–50 historical document samples via secure upload. We fine-tune extraction to &gt;98% accuracy and test live draft creation.</div>
             </li>
             <li>
                 <div class="step-icon"><i data-lucide="rocket" aria-hidden="true"></i></div>
-                <div><strong>3. We build &amp; test.</strong> We configure your pipeline, test your documents, and take paperwork off your plate.</div>
+                <div><strong>4. Go-Live &amp; Production Autopilot.</strong> Once sample accuracy is verified, your pipeline switches to live production, and month-to-month management begins.</div>
             </li>
         </ul>
 
-        <div style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- CLICKWRAP LEGAL TERMS BINDING -->
+        <div class="checkout-terms-covenant">
+            <label class="terms-checkbox-label">
+                <input type="checkbox" id="terms-agreement-checkbox" checked>
+                <span>
+                    I confirm I have read and agree to the <a onclick="openTermsModal()">Master Commercial Terms of Service</a>, including single legal entity (EIN) licensing, monthly page quotas (1k/3.5k pages), overage terms, non-fiduciary/non-CPA status, and the 3-month liability cap.
+                </span>
+            </label>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 18px;">
             <a id="checkout-btn" href="#" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 1.2rem; padding: 20px;" onclick="handleCheckoutClick(event)">
                 Proceed to secure checkout <i data-lucide="lock" aria-hidden="true"></i>
             </a>
@@ -3190,12 +3280,19 @@
         if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
-    function handleCheckoutClick(e) {
+        function handleCheckoutClick(e) {
+        const checkbox = document.getElementById('terms-agreement-checkbox');
+        if (checkbox && !checkbox.checked) {
+            if (e && e.preventDefault) e.preventDefault();
+            alert('Please review and check the agreement to the Master Commercial Terms of Service to proceed to checkout.');
+            return false;
+        }
+
         const tier = window.currentTierRecommendation;
         if (tier && tier.id === 3) {
             if (e && e.preventDefault) e.preventDefault();
             openCalendly();
-            return;
+            return false;
         }
         showWaitingState();
     }
@@ -3360,7 +3457,16 @@
             <div>
                 <strong style="color: var(--text-main); font-size: 0.95rem;">8. Cancellation &amp; Permanent Asset Retention</strong>
                 <p>Monthly software management operates month-to-month and may be cancelled by either party upon thirty (30) days' written notice. Upon cancellation, all custom folder taxonomies, file naming structures, and accounting integrations configured during onboarding remain permanently within Customer's accounts.</p>
+                        <div>
+                <strong style="color: var(--text-main); font-size: 0.95rem;">9. Deployment Queue, Prerequisites &amp; Timeline Standards</strong>
+                <p>To preserve technical delivery standards and &gt;98% model accuracy, client onboarding is executed in sequential monthly cohorts. The targeted 5–7 business day deployment turnaround commences only upon Customer fulfilling all Onboarding Prerequisites: (a) authorizing developer API access for required endpoints (QuickBooks, Xero, Google, Microsoft), and (b) providing at least twenty-five (25) historical sample documents for each licensed document type. Delays by Customer in providing credentials or samples shall extend deployment timeframes accordingly.</p>
             </div>
+
+            <div>
+                <strong style="color: var(--text-main); font-size: 0.95rem;">10. Non-Refundable Engineering Services &amp; Dispute Arbitration</strong>
+                <p>Due to the immediate provisioning of dedicated cloud container capacity, technical architecture mapping, and machine learning schema training, one-time setup fees are non-refundable once engineering or schema mapping has commenced. In the event of any commercial dispute arising out of this agreement, the parties agree to resolve the dispute through confidential, binding commercial arbitration conducted in the State of California under the American Arbitration Association rules.</p>
+            </div>
+        </div>
         </div>
 
         <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end;">
